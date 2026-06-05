@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="IBXXXX" TargetType="Module" ContainsContext="true" ExportDate="Fri Jun 05 12:15:21 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="SZG_FAT34">
+<Modules Use="Context">
+<Module Use="Target" Name="IBXXXX" CatalogNumber="IB-E03B/A" Vendor="533" ProductType="43" ProductCode="1713" Major="1" Minor="1" ParentModule="Local" ParentModPortId="2" Inhibited="false"
+ MajorFault="false">
+<EKey State="CompatibleModule"/>
+<Ports>
+<Port Id="1" Address="192.168.1.100" Type="Ethernet" Upstream="true"/>
+</Ports>
+<Communications>
+<ConfigTag ConfigSize="128" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[132,102,1,0,1,0,2,0,0,0,1,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,10,10,10,10,16,16,10,9,10,9,0,5054,3791
+		,2527,1263,5054,3791,2527,1263,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="ID:IBE03B:C:0">
+<DataValueMember Name="ThermalErrorClear" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MotorLockErrorClear" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MotorDisconnectedErrorClear" DataType="BOOL" Value="0"/>
+<DataValueMember Name="SensorSettingSa" DataType="BOOL" Value="0"/>
+<DataValueMember Name="SensorAlarmSa" DataType="BOOL" Value="0"/>
+<DataValueMember Name="SensorSettingSb" DataType="BOOL" Value="0"/>
+<DataValueMember Name="SensorAlarmSb" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MotorType_Motor_A" DataType="SINT" Radix="Decimal" Value="1"/>
+<DataValueMember Name="Direction_Motor_A" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Complementary_Motor_A" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Gearing_MotorA" DataType="SINT" Radix="Decimal" Value="2"/>
+<DataValueMember Name="Mechanical_Brake_Motor_A" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Brake_Motor_A" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Motor_Port_Setting_Motor_A" DataType="BOOL" Value="0"/>
+<DataValueMember Name="MotorType_Motor_B" DataType="SINT" Radix="Decimal" Value="1"/>
+<DataValueMember Name="Direction_Motor_B" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Complementary_Motor_B" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Gearing_MotorB" DataType="SINT" Radix="Decimal" Value="2"/>
+<DataValueMember Name="Mechanical_Brake_Motor_B" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Brake_Motor_B" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Motor_Port_Setting_Motor_B" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Accel_Time_CW_Roller_A_Speed1" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Accel_Time_CW_Roller_A_Speed2" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Accel_Time_CW_Roller_A_Speed3" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Accel_Time_CW_Roller_A_Speed4" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Accel_Time_CCW_Roller_A_Speed1" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Accel_Time_CCW_Roller_A_Speed2" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Accel_Time_CCW_Roller_A_Speed3" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Accel_Time_CCW_Roller_A_Speed4" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Decel_Time_CW_Roller_A_Speed1" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Decel_Time_CW_Roller_A_Speed2" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Decel_Time_CW_Roller_A_Speed3" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Decel_Time_CW_Roller_A_Speed4" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Decel_Time_CCW_Roller_A_Speed1" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Decel_Time_CCW_Roller_A_Speed2" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Decel_Time_CCW_Roller_A_Speed3" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Decel_Time_CCW_Roller_A_Speed4" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Accel_Time_CW_Roller_B_Speed1" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Accel_Time_CW_Roller_B_Speed2" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Accel_Time_CW_Roller_B_Speed3" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Accel_Time_CW_Roller_B_Speed4" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Accel_Time_CCW_Roller_B_Speed1" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Accel_Time_CCW_Roller_B_Speed2" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Accel_Time_CCW_Roller_B_Speed3" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Accel_Time_CCW_Roller_B_Speed4" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Decel_Time_CW_Roller_B_Speed1" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Decel_Time_CW_Roller_B_Speed2" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Decel_Time_CW_Roller_B_Speed3" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Decel_Time_CW_Roller_B_Speed4" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Decel_Time_CCW_Roller_B_Speed1" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Decel_Time_CCW_Roller_B_Speed2" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Decel_Time_CCW_Roller_B_Speed3" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Decel_Time_CCW_Roller_B_Speed4" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Motor_Lock_Timeout_Motor_A" DataType="SINT" Radix="Decimal" Value="1"/>
+<DataValueMember Name="Motor_Lock_Timeout_Motor_B" DataType="SINT" Radix="Decimal" Value="1"/>
+<DataValueMember Name="Servo_Brake_Current_Limit_Motor_A" DataType="SINT" Radix="Decimal" Value="10"/>
+<DataValueMember Name="Servo_Brake_Current_Default_Motor_A" DataType="SINT" Radix="Decimal" Value="10"/>
+<DataValueMember Name="Servo_Brake_Current_Limit_Motor_B" DataType="SINT" Radix="Decimal" Value="10"/>
+<DataValueMember Name="Servo_Brake_Current_Default_Motor_B" DataType="SINT" Radix="Decimal" Value="10"/>
+<DataValueMember Name="Motor_Current_Limit_Motor_A" DataType="SINT" Radix="Decimal" Value="16"/>
+<DataValueMember Name="Motor_Current_Limit_Motor_B" DataType="SINT" Radix="Decimal" Value="16"/>
+<DataValueMember Name="PCB_Thermal_Alarm_Set_MotorA" DataType="SINT" Radix="Decimal" Value="10"/>
+<DataValueMember Name="PCB_Thermal_Alarm_Clear_MotorA" DataType="SINT" Radix="Decimal" Value="9"/>
+<DataValueMember Name="PCB_Thermal_Alarm_Set_MotorB" DataType="SINT" Radix="Decimal" Value="10"/>
+<DataValueMember Name="PCB_Thermal_Alarm_Clear_MotorB" DataType="SINT" Radix="Decimal" Value="9"/>
+<DataValueMember Name="Roller_Speed1_MotorA" DataType="INT" Radix="Decimal" Value="5054"/>
+<DataValueMember Name="Roller_Speed2_MotorA" DataType="INT" Radix="Decimal" Value="3791"/>
+<DataValueMember Name="Roller_Speed3_MotorA" DataType="INT" Radix="Decimal" Value="2527"/>
+<DataValueMember Name="Roller_Speed4_MotorA" DataType="INT" Radix="Decimal" Value="1263"/>
+<DataValueMember Name="Roller_Speed1_MotorB" DataType="INT" Radix="Decimal" Value="5054"/>
+<DataValueMember Name="Roller_Speed2_MotorB" DataType="INT" Radix="Decimal" Value="3791"/>
+<DataValueMember Name="Roller_Speed3_MotorB" DataType="INT" Radix="Decimal" Value="2527"/>
+<DataValueMember Name="Roller_Speed4_MotorB" DataType="INT" Radix="Decimal" Value="1263"/>
+</Structure>
+</Data>
+</ConfigTag>
+<Connections>
+<Connection Name="Output" RPI="50000" Type="Output" EventID="0" ProgrammaticallySendEventTrigger="false" Unicast="true">
+<InputTag ExternalAccess="Read/Write">
+<Data Format="Decorated">
+<Structure DataType="ID:IBE03B:I:1">
+<DataValueMember Name="ConnectionFaulted" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Sensor_A" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Sensor_B" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Sensor_Alarm_A" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Sensor_Alarm_B" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Motor_A" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Motor_B" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ErrorA_Low_Voltage" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ErrorA_Back_EMF" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ErrorA_Motor_Thermal" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ErrorA_Driver_Thermal" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ErrorA_Stalled" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ErrorA_Disconnected" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ErrorA_JAM" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ErrorA_Sensor_TMR_JAM" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ErrorB_Low_Voltage" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ErrorB_Back_EMF" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ErrorB_Motor_Thermal" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ErrorB_Driver_Thermal" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ErrorB_Stalled" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ErrorB_Disconnected" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ErrorB_JAM" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ErrorB_Sensor_TMR_JAM" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Remote_IN1" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Remote_IN2" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Remote_IN3" DataType="BOOL" Value="0"/>
+<ArrayMember Name="D_InData" DataType="SINT" Dimensions="16" Radix="Binary">
+<Element Index="[0]" Value="2#0000_0000"/>
+<Element Index="[1]" Value="2#0000_0000"/>
+<Element Index="[2]" Value="2#0000_0000"/>
+<Element Index="[3]" Value="2#0000_0000"/>
+<Element Index="[4]" Value="2#0000_0000"/>
+<Element Index="[5]" Value="2#0000_0000"/>
+<Element Index="[6]" Value="2#0000_0000"/>
+<Element Index="[7]" Value="2#0000_0000"/>
+<Element Index="[8]" Value="2#0000_0000"/>
+<Element Index="[9]" Value="2#0000_0000"/>
+<Element Index="[10]" Value="2#0000_0000"/>
+<Element Index="[11]" Value="2#0000_0000"/>
+<Element Index="[12]" Value="2#0000_0000"/>
+<Element Index="[13]" Value="2#0000_0000"/>
+<Element Index="[14]" Value="2#0000_0000"/>
+<Element Index="[15]" Value="2#0000_0000"/>
+</ArrayMember>
+<DataValueMember Name="Lifetime_MotorA" DataType="DINT" Radix="Binary" Value="2#0000_0000_0000_0000_0000_0000_0000_0000"/>
+<DataValueMember Name="Lifetime_MotorB" DataType="DINT" Radix="Binary" Value="2#0000_0000_0000_0000_0000_0000_0000_0000"/>
+<DataValueMember Name="HBM_Error" DataType="SINT" Radix="Binary" Value="2#0000_0000"/>
+<DataValueMember Name="HBM_Low_Voltage_Error" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HBM_Motor_Disconnected_Error" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HBM_Lock_Error" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HBM_PCB_Thermal_Error" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HBM_Motor_Thermal_Error" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HBM_Back_EMF_Error" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HBM_Jam_Error" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Current_Motor_A" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Current_Motor_B" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Voltage_Motor_A" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Voltage_Motor_B" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="RPM_Motor_A" DataType="INT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="RPM_Motor_B" DataType="INT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</InputTag>
+<OutputTag ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0,0,0,0,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],0,0,0,0,[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="ID:IBE03B:O:0">
+<DataValueMember Name="Motor_A_Run" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Motor_B_Run" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DiscreteOutputA_U" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DiscreteOutputA_V" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DiscreteOutputA_W" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DiscreteOutputB_U" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DiscreteOutputB_V" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DiscreteOutputB_W" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Motor_A_Speed1" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Motor_A_Speed2" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Motor_A_Speed3" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Motor_A_Speed4" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Motor_B_Speed1" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Motor_B_Speed2" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Motor_B_Speed3" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Motor_B_Speed4" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Disable_Accel_Motor_A" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Disable_Accel_Motor_B" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Disable_Decel_Motor_A" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Disable_Decel_Motor_B" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Motor_Direction_A" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Motor_Direction_B" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Error_Release_A" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Error_Release_B" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Remote_OUT1" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Remote_OUT2" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Remote_OUT3" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Remote_OUT4" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Remote_OUT5" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Disable_Outputs" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HBM_Error_Function" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Motor_A_Jam_Error_LED" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Motor_B_Jam_Error_LED" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Sensor_A_Timer_Jam_Error_LED" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Sensor_B_Timer_Jam_Error_LED" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</OutputTag>
+</Connection>
+</Connections>
+</Communications>
+<ExtendedProperties>
+<public><Vendor>Itoh Denki Co., Ltd.</Vendor><CatNum>IB-E03B</CatNum><SpeedUnitsStoreA>0</SpeedUnitsStoreA><SpeedUnitsStoreB>0</SpeedUnitsStoreB><AccelTimeCWStoreA>0</AccelTimeCWStoreA><DecelTimeCWStoreA>0</DecelTimeCWStoreA><ModeCWStoreA>0</ModeCWStoreA><AccelTimeCCWStoreA>0</AccelTimeCCWStoreA><DecelTimeCCWStoreA>0</DecelTimeCCWStoreA><ModeCCWStoreA>0</ModeCCWStoreA><AccelTimeCWStoreB>0</AccelTimeCWStoreB><DecelTimeCWStoreB>0</DecelTimeCWStoreB><ModeCWStoreB>0</ModeCWStoreB><AccelTimeCCWStoreB>0</AccelTimeCCWStoreB><DecelTimeCCWStoreB>0</DecelTimeCCWStoreB><ModeCCWStoreB>0</ModeCCWStoreB><ConfigID>200</ConfigID></public>
+</ExtendedProperties>
+</Module>
+</Modules>
+</Controller>
+</RSLogix5000Content>
