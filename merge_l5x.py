@@ -24,15 +24,9 @@ from pathlib import Path
 
 from lxml import etree
 
-# --- configuration ---------------------------------------------------------
-
-# Folder containing the per-station Sta####_*.L5X files
-INPUT_DIR = Path(
-    r"G:\Shared drives\Customers\SubZero - Cove - Wolf\Wolf"
-    r"\1394 Wall Oven Expansion\Programs\GeneratedRoutines- Hybrid Main Line"
-)
-
-# Where to write the combined Program_<timestamp>.L5X
+# --- paths -----------------------------------------------------------------
+PROJECT_ROOT = Path(r"G:\Shared drives\Customers\SubZero - Cove - Wolf\Wolf\1394 Wall Oven Expansion\Programs")
+INPUT_DIR = Path(r"C:\Users\justi\Documents\VSCode\L5X Bulk Generator\Output")
 OUTPUT_DIR = INPUT_DIR  # same folder; change if you want it elsewhere
 
 # Optional: explicit base file. If None, uses the alphabetically-first L5X
@@ -47,8 +41,8 @@ INPUT_GLOB = "Sta*.L5X"
 # falls in [STATION_MIN, STATION_MAX] (inclusive) are merged. Use this to
 # import a single section into a controller that already has the others.
 # Set both to None to disable filtering.
-STATION_MIN: int | None = 7000
-STATION_MAX: int | None = 7999
+STATION_MIN: int | None = None
+STATION_MAX: int | None = None
 
 # Tag for output filename when filter is active (purely cosmetic)
 OUTPUT_TAG: str = "7000s"  # set to "" to omit
@@ -135,6 +129,59 @@ def _reorder_controller_children(base_root: etree._Element) -> None:
         ctrl.append(child)
 
 
+def _element_text(element: etree._Element) -> str:
+    """Return all text content under an XML element."""
+    return "".join(element.itertext()).strip()
+
+
+def _ensure_tag_comments(tag: etree._Element) -> etree._Element:
+    """Find or create the direct <Comments> child for a <Tag>."""
+    comments = tag.find("Comments")
+    if comments is not None:
+        return comments
+    comments = etree.Element("Comments")
+    for index, child in enumerate(tag):
+        if child.tag == "Data":
+            tag.insert(index, comments)
+            return comments
+    tag.append(comments)
+    return comments
+
+
+def _merge_missing_tag_comments(existing_tag: etree._Element,
+                                incoming_tag: etree._Element) -> dict[str, int]:
+    """Copy missing direct tag comments by Operand without changing tag data."""
+    result = {"added": 0, "skipped": 0, "conflicted": 0}
+    incoming_comments = incoming_tag.find("Comments")
+    if incoming_comments is None:
+        return result
+
+    existing_comments = existing_tag.find("Comments")
+    existing_by_operand: dict[str, etree._Element] = {}
+    if existing_comments is not None:
+        existing_by_operand = {
+            comment.get("Operand"): comment
+            for comment in existing_comments.findall("Comment")
+            if comment.get("Operand") is not None
+        }
+
+    for comment in incoming_comments.findall("Comment"):
+        operand = comment.get("Operand")
+        if operand is None:
+            continue
+        existing_comment = existing_by_operand.get(operand)
+        if existing_comment is None:
+            _ensure_tag_comments(existing_tag).append(comment)
+            existing_by_operand[operand] = comment
+            result["added"] += 1
+            continue
+        if _element_text(existing_comment) == _element_text(comment):
+            result["skipped"] += 1
+            continue
+        result["conflicted"] += 1
+    return result
+
+
 def merge(base_path: Path, sources: list[Path], output_path: Path) -> dict:
     """Merge `sources` into a copy of `base_path`, write to `output_path`.
 
@@ -153,10 +200,14 @@ def merge(base_path: Path, sources: list[Path], output_path: Path) -> dict:
     # Index existing names per controller-level container so we don't
     # double-add what's already in the base file.
     existing: dict[str, set[str]] = {}
+    existing_elements: dict[str, dict[str, etree._Element]] = {}
     for parent_xp, child_tag in CONTAINERS:
         parent_el = _ensure_parent(base_root, parent_xp)
         existing[child_tag] = {
             c.get("Name") for c in parent_el.findall(child_tag) if c.get("Name")
+        }
+        existing_elements[child_tag] = {
+            c.get("Name"): c for c in parent_el.findall(child_tag) if c.get("Name")
         }
 
     # Programs are merged as siblings (one per source file), not flattened.
@@ -168,6 +219,7 @@ def merge(base_path: Path, sources: list[Path], output_path: Path) -> dict:
 
     stats: dict[str, dict[str, int]] = {ct: {"added": 0, "skipped": 0} for _, ct in CONTAINERS}
     stats["Program"] = {"added": 0, "skipped": 0, "renamed": 0}
+    stats["TagComment"] = {"added": 0, "skipped": 0, "conflicted": 0}
 
     # Rename the base file's own Program(s) to match the base file's stem so
     # all programs follow the per-station naming convention. Without this the
@@ -204,11 +256,18 @@ def merge(base_path: Path, sources: list[Path], output_path: Path) -> dict:
                     stats[child_tag]["added"] += 1
                     continue
                 if name in existing[child_tag]:
+                    if child_tag == "Tag":
+                        comment_stats = _merge_missing_tag_comments(
+                            existing_elements[child_tag][name], child
+                        )
+                        for key, value in comment_stats.items():
+                            stats["TagComment"][key] += value
                     stats[child_tag]["skipped"] += 1
                     continue
                 # lxml note: appending a node from another tree moves it.
                 parent_el.append(child)
                 existing[child_tag].add(name)
+                existing_elements[child_tag][name] = child
                 stats[child_tag]["added"] += 1
 
         # 2) Programs - rename source Program to file-stem and append as
@@ -317,6 +376,9 @@ def main() -> int:
     for _, ct in CONTAINERS:
         s = stats[ct]
         print(f"  {ct:30s}  added={s['added']:>6}   skipped={s['skipped']:>6}")
+    tc = stats["TagComment"]
+    print(f"  {'TagComment':30s}  added={tc['added']:>6}   skipped={tc['skipped']:>6}"
+          f"   conflicts={tc['conflicted']:>6}")
     sp = stats["Program"]
     print(f"  {'Program':30s}  added={sp['added']:>6}   skipped={sp['skipped']:>6}"
           f"   (base renamed: {sp['renamed']})")
