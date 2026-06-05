@@ -27,14 +27,9 @@ from pathlib import Path
 from typing import Optional
 
 # --- paths -----------------------------------------------------------------
-TEMPLATE_DIR = Path(
-    r"G:\Shared drives\Customers\SubZero - Cove - Wolf\Wolf"
-    r"\1394 Wall Oven Expansion\Programs\1394 Standard Programs"
-)
-OUTPUT_DIR = Path(
-    r"G:\Shared drives\Customers\SubZero - Cove - Wolf\Wolf"
-    r"\1394 Wall Oven Expansion\Programs\GeneratedRoutines- Hybrid Main Line"
-)
+PROJECT_ROOT = Path(r"G:\Shared drives\Customers\SubZero - Cove - Wolf\Wolf\1394 Wall Oven Expansion\Programs")
+TEMPLATE_DIR = PROJECT_ROOT / "SZG Programing Resources" / "Standard Programs Templates"
+OUTPUT_DIR = PROJECT_ROOT / "FAT Programs"
 
 TEMPLATES = {
     "Workstation": "Lift_Standard_Code_Program.L5X",
