@@ -1,4 +1,4 @@
-"""Generate an IB-E03B module L5X from a TOML station list.
+"""Generate a Module-targeted L5X from a strict TOML station list.
 
 Outputs a Module-targeted L5X (TargetType="Module") rooted at the DLR
 parent bridge. Studio 5000 imports it via right-click on the DLR in the
@@ -16,47 +16,39 @@ from pathlib import Path
 from lxml import etree
 
 # --- paths (edit per panel run) --------------------------------------------
-TOML_FILE     = Path("input/panel2.toml")
-IB_TEMPLATE   = Path("input/IBXXXX_Module.L5X")
-DLR_TEMPLATE  = Path("input/DLR4000_Module.L5X")
-OUTPUT_DIR    = Path("Output")
+DEFAULT_TOML_FILE = Path("input/HM_Network1.toml")
 
 
 # ---------------------------------------------------------------------------
 
 def load_toml(path: Path) -> dict:
     with open(path, "rb") as f:
-        return tomllib.load(f)
+        raw = f.read()
+    if raw.startswith(b"\xef\xbb\xbf"):
+        raw = raw[3:]
+    return tomllib.loads(raw.decode("utf-8"))
 
 
-def assign_ips(stations: list[dict], ip_prefix: str, ip_start: int) -> list[str]:
-    """Sequential IPs from ip_start.
-
-    When a station has gap=true, the current address is rounded up to the
-    next multiple of 10 before assigning (e.g. 125 → 130). Gap is ignored
-    on the first station.
-    """
-    ips: list[str] = []
-    current = ip_start
-    for s in stations:
-        if s.get("gap", False) and ips:
-            current = ((current + 9) // 10) * 10
-        ips.append(f"{ip_prefix}.{current}")
-        current += 1
-    return ips
+def load_target_module(template_path: Path) -> etree._Element:
+    root = etree.parse(template_path).getroot()
+    module = root.find(".//Module[@Use='Target']")
+    if module is None:
+        raise RuntimeError(f"{template_path} has no <Module Use='Target'> element.")
+    return module
 
 
-def make_ib_module(
-    ib_template: etree._Element,
+def make_device_module(
+    device_template: etree._Element,
     name: str,
     ip: str,
     parent_module: str,
+    parent_mod_port: int,
 ) -> etree._Element:
-    """Clone IB template, set name/IP/parent. Strips Use attr (context child)."""
-    el = deepcopy(ib_template)
+    """Clone a device template and apply station name, IP, and parent binding."""
+    el = deepcopy(device_template)
     el.set("Name", name)
     el.set("ParentModule", parent_module)
-    el.set("AutoDiagsEnabled", "true")
+    el.set("ParentModPortId", str(parent_mod_port))
     el.attrib.pop("Use", None)
     for port in el.findall(".//Port[@Type='Ethernet']"):
         port.set("Address", ip)
@@ -66,12 +58,16 @@ def make_ib_module(
 def make_dlr_module(
     dlr_template: etree._Element,
     name: str,
-    icp_slot: str,
+    parent_module: str,
+    parent_mod_port: int,
+    icp_slot: int,
     ethernet_ip: str,
 ) -> etree._Element:
-    """Clone DLR template and apply name/slot/IP. Sets Use='Target'."""
+    """Clone parent template and apply name, parent binding, slot, and IP."""
     el = deepcopy(dlr_template)
     el.set("Name", name)
+    el.set("ParentModule", parent_module)
+    el.set("ParentModPortId", str(parent_mod_port))
     el.set("Use", "Target")
     for port in el.findall(".//Port[@Type='ICP']"):
         port.set("Address", str(icp_slot))
@@ -83,10 +79,10 @@ def make_dlr_module(
 def build_module_export(
     dlr_root: etree._Element,
     dlr_module: etree._Element,
-    ib_modules: list[etree._Element],
+    device_modules: list[etree._Element],
     controller_name: str,
 ) -> etree._Element:
-    """Produce TargetType=Module L5X with DLR as target and IBs as context siblings."""
+    """Produce TargetType=Module L5X with one parent and many child modules."""
     root = deepcopy(dlr_root)
     root.set("TargetName", dlr_module.get("Name"))
     root.set("TargetType", "Module")
@@ -105,50 +101,72 @@ def build_module_export(
         mods_el.remove(child)
 
     mods_el.append(dlr_module)
-    for m in ib_modules:
+    for m in device_modules:
         mods_el.append(m)
 
     return root
 
 
 def main() -> None:
-    data = load_toml(TOML_FILE)
-    cfg      = data["config"]
-    dlr_cfg  = data["dlr"]
-    stations = data["station"]
+    data = load_toml(DEFAULT_TOML_FILE)
+    cfg = data["config"]
+    templates_cfg = data["templates"]
+    root_cfg = data["root_module"]
+    stations = data["stations"]["data"]
 
     controller_name = cfg["controller_name"]
-    ip_prefix       = cfg["ip_prefix"]
-    ip_start        = int(cfg["ip_start"])
-    output_name     = cfg.get("output_file", "IB_Modules.L5X")
+    output_name = cfg["output_file"]
 
-    dlr_name     = dlr_cfg["name"]
-    dlr_icp_slot = str(dlr_cfg["icp_slot"])
-    dlr_eth_ip   = dlr_cfg["ethernet_ip"]
+    output_dir = Path(cfg.get("output_dir", "output"))
 
-    ips = assign_ips(stations, ip_prefix, ip_start)
+    parent_template_path = Path(templates_cfg["parent_template"])
+    device_templates: dict[str, str] = templates_cfg["device_templates"]
 
-    ib_root     = etree.parse(IB_TEMPLATE).getroot()
-    ib_template = ib_root.find(".//Module[@Use='Target']")
-    if ib_template is None:
-        raise RuntimeError(f"{IB_TEMPLATE} has no <Module Use='Target'> element.")
+    dlr_name = root_cfg["name"]
+    dlr_parent_module = root_cfg["parent_module"]
+    dlr_parent_mod_port = int(root_cfg["parent_mod_port"])
+    dlr_icp_slot = int(root_cfg["icp_slot"])
+    dlr_eth_ip = root_cfg["ethernet_ip"]
 
-    dlr_root     = etree.parse(DLR_TEMPLATE).getroot()
+    dlr_root = etree.parse(parent_template_path).getroot()
     dlr_template = dlr_root.find(".//Module[@Use='Target']")
     if dlr_template is None:
-        raise RuntimeError(f"{DLR_TEMPLATE} has no <Module Use='Target'> element.")
+        raise RuntimeError(f"{parent_template_path} has no <Module Use='Target'> element.")
 
-    dlr_module = make_dlr_module(dlr_template, dlr_name, dlr_icp_slot, dlr_eth_ip)
+    dlr_module = make_dlr_module(
+        dlr_template,
+        dlr_name,
+        dlr_parent_module,
+        dlr_parent_mod_port,
+        dlr_icp_slot,
+        dlr_eth_ip,
+    )
 
-    ib_modules = [
-        make_ib_module(ib_template, f"IB{s['number']}", ip, dlr_name)
-        for s, ip in zip(stations, ips)
-    ]
+    cached_templates: dict[str, etree._Element] = {}
+    device_modules: list[etree._Element] = []
+    for s in stations:
+        device_type = s["device_type"]
+        template_rel = device_templates[device_type]
+        if device_type not in cached_templates:
+            cached_templates[device_type] = load_target_module(Path(template_rel))
 
-    combined = build_module_export(dlr_root, dlr_module, ib_modules, controller_name)
+        station_name = s["module_name"]
+        station_ip = s["ip"]
 
-    OUTPUT_DIR.mkdir(exist_ok=True)
-    out_path = OUTPUT_DIR / output_name
+        device_modules.append(
+            make_device_module(
+                cached_templates[device_type],
+                station_name,
+                station_ip,
+                dlr_name,
+                2,
+            )
+        )
+
+    combined = build_module_export(dlr_root, dlr_module, device_modules, controller_name)
+
+    output_dir.mkdir(exist_ok=True)
+    out_path = output_dir / output_name
     etree.ElementTree(combined).write(
         str(out_path),
         xml_declaration=True,
@@ -157,13 +175,9 @@ def main() -> None:
         pretty_print=True,
     )
 
-    print(f"Wrote {len(ib_modules)} modules → {out_path}\n")
-    chain = 1
-    for s, ip in zip(stations, ips):
-        if s.get("gap", False):
-            chain += 1
-            print(f"  --- chain {chain} ---")
-        print(f"  IB{s['number']}  {ip}  ({s.get('device_id', '')})")
+    print(f"Wrote {len(device_modules)} modules -> {out_path}\n")
+    for s in stations:
+        print(f"  {s['module_name']}  {s['ip']}  ({s['device_type']})")
 
 
 if __name__ == "__main__":
