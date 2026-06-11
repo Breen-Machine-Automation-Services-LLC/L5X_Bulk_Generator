@@ -51,6 +51,10 @@ def make_module(
     el = deepcopy(root_template)
     el.set("Name", name)
     el.set("ParentModule", parent_module)
+    if parent_module == "Local":
+        el.set("Use", "Target")
+    else:
+        el.attrib.pop("Use", None)
     if parent_mod_port is not None:
         el.set("ParentModPortId", str(parent_mod_port))
 
