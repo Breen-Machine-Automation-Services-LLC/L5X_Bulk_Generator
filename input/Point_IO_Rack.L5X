@@ -1,0 +1,599 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Point_IO" TargetType="Module" ContainsContext="true" ExportDate="Wed Jun 10 15:40:39 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="Wolf_HybridMainLine">
+<Modules Use="Context">
+<Module Use="Target" Name="Point_IO" CatalogNumber="1734-AENTR/B" Vendor="1" ProductType="12" ProductCode="196" Major="4" Minor="1" ParentModule="Local" ParentModPortId="2" Inhibited="false"
+ MajorFault="false">
+<EKey State="CompatibleModule"/>
+<Ports>
+<Port Id="1" Address="0" Type="PointIO" Upstream="false">
+<Bus Size="10"/>
+</Port>
+<Port Id="2" Address="192.168.1.3" Type="Ethernet" Upstream="true"/>
+</Ports>
+<Communications CommMethod="805306369">
+<Connections>
+<Connection Name="Output" RPI="20000" Type="Output" EventID="0" ProgrammaticallySendEventTrigger="false" Unicast="true">
+<InputTag ExternalAccess="Read/Write">
+<Data Format="Decorated">
+<Structure DataType="AB:1734_10SLOT:I:0">
+<DataValueMember Name="SlotStatusBits0_31" DataType="DINT" Radix="Binary" Value="2#0000_0000_0000_0000_0000_0000_0000_0000"/>
+<DataValueMember Name="SlotStatusBits32_63" DataType="DINT" Radix="Binary" Value="2#0000_0000_0000_0000_0000_0000_0000_0000"/>
+<ArrayMember Name="Data" DataType="SINT" Dimensions="10" Radix="Binary">
+<Element Index="[0]" Value="2#0000_0000"/>
+<Element Index="[1]" Value="2#0000_0000"/>
+<Element Index="[2]" Value="2#0000_0000"/>
+<Element Index="[3]" Value="2#0000_0000"/>
+<Element Index="[4]" Value="2#0000_0000"/>
+<Element Index="[5]" Value="2#0000_0000"/>
+<Element Index="[6]" Value="2#0000_0000"/>
+<Element Index="[7]" Value="2#0000_0000"/>
+<Element Index="[8]" Value="2#0000_0000"/>
+<Element Index="[9]" Value="2#0000_0000"/>
+</ArrayMember>
+</Structure>
+</Data>
+</InputTag>
+<OutputTag ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0,0,[0,0,0,0,0,0,0,0,0,0]]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="AB:1734_10SLOT:O:0">
+<ArrayMember Name="Data" DataType="SINT" Dimensions="10" Radix="Binary">
+<Element Index="[0]" Value="2#0000_0000"/>
+<Element Index="[1]" Value="2#0000_0000"/>
+<Element Index="[2]" Value="2#0000_0000"/>
+<Element Index="[3]" Value="2#0000_0000"/>
+<Element Index="[4]" Value="2#0000_0000"/>
+<Element Index="[5]" Value="2#0000_0000"/>
+<Element Index="[6]" Value="2#0000_0000"/>
+<Element Index="[7]" Value="2#0000_0000"/>
+<Element Index="[8]" Value="2#0000_0000"/>
+<Element Index="[9]" Value="2#0000_0000"/>
+</ArrayMember>
+</Structure>
+</Data>
+</OutputTag>
+</Connection>
+</Connections>
+</Communications>
+<ExtendedProperties>
+<public><ConfigID>262145</ConfigID><CatNum>1734-AENTR</CatNum></public>
+</ExtendedProperties>
+</Module>
+<Module Name="Point_IO_9100IM" CatalogNumber="1734-IB8S/B" Vendor="1" ProductType="35" ProductCode="15" Major="2" Minor="1" ParentModule="Point_IO" ParentModPortId="1" Inhibited="false" MajorFault="false"
+ SafetyNetwork="16#0000_4da7_04c9_274f">
+<EKey State="CompatibleModule"/>
+<Ports>
+<Port Id="1" Address="1" Type="PointIO" Upstream="true"/>
+</Ports>
+<Communications>
+<ConfigData ConfigSize="82">
+<Data Format="L5K">
+<![CDATA[[86,864,-1305618411,80291659,19879,514,1000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]]>
+</Data>
+</ConfigData>
+<Connections>
+<Connection Name="Input" RPI="10000" Type="SafetyInput" EventID="0" ProgrammaticallySendEventTrigger="false" TimeoutMultiplier="2" NetworkDelayMultiplier="200" ReactionTimeLimit="40.064" MaxObservedNetworkDelay="0" Unicast="true">
+<InputTag ExternalAccess="Read/Write">
+<Data Format="Decorated">
+<Structure DataType="AB:1734_IB8S_Safety2:I:0">
+<DataValueMember Name="RunMode" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ConnectionFaulted" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt00Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt01Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt02Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt03Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt04Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt05Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt06Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt07Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt00Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt01Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt02Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt03Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt04Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt05Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt06Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt07Status" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</InputTag>
+</Connection>
+<Connection Name="Output" RPI="20000" Type="SafetyOutput" EventID="0" ProgrammaticallySendEventTrigger="false" TimeoutMultiplier="2" NetworkDelayMultiplier="200" ReactionTimeLimit="60" MaxObservedNetworkDelay="0" Unicast="true">
+<OutputTag ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="AB:1734_IB8S:O:0">
+<DataValueMember Name="Test00Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test01Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test02Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test03Data" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</OutputTag>
+</Connection>
+</Connections>
+</Communications>
+<ExtendedProperties>
+<public><ConfigID>102</ConfigID><CatNum>1734-IB8S</CatNum></public>
+</ExtendedProperties>
+</Module>
+<Module Name="Point_IO_9200IM" CatalogNumber="1734-IB8S/B" Vendor="1" ProductType="35" ProductCode="15" Major="2" Minor="1" ParentModule="Point_IO" ParentModPortId="1" Inhibited="false" MajorFault="false"
+ SafetyNetwork="16#0000_4da7_04c9_274f">
+<EKey State="CompatibleModule"/>
+<Ports>
+<Port Id="1" Address="2" Type="PointIO" Upstream="true"/>
+</Ports>
+<Communications>
+<ConfigData ConfigSize="82">
+<Data Format="L5K">
+<![CDATA[[86,864,-1305618411,80291659,19879,514,1000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]]>
+</Data>
+</ConfigData>
+<Connections>
+<Connection Name="Input" RPI="10000" Type="SafetyInput" EventID="0" ProgrammaticallySendEventTrigger="false" TimeoutMultiplier="2" NetworkDelayMultiplier="200" ReactionTimeLimit="40.064" MaxObservedNetworkDelay="0" Unicast="true">
+<InputTag ExternalAccess="Read/Write">
+<Data Format="Decorated">
+<Structure DataType="AB:1734_IB8S_Safety2:I:0">
+<DataValueMember Name="RunMode" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ConnectionFaulted" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt00Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt01Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt02Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt03Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt04Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt05Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt06Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt07Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt00Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt01Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt02Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt03Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt04Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt05Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt06Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt07Status" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</InputTag>
+</Connection>
+<Connection Name="Output" RPI="20000" Type="SafetyOutput" EventID="0" ProgrammaticallySendEventTrigger="false" TimeoutMultiplier="2" NetworkDelayMultiplier="200" ReactionTimeLimit="60" MaxObservedNetworkDelay="0" Unicast="true">
+<OutputTag ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="AB:1734_IB8S:O:0">
+<DataValueMember Name="Test00Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test01Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test02Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test03Data" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</OutputTag>
+</Connection>
+</Connections>
+</Communications>
+<ExtendedProperties>
+<public><ConfigID>102</ConfigID><CatNum>1734-IB8S</CatNum></public>
+</ExtendedProperties>
+</Module>
+<Module Name="Point_IO_9300IM" CatalogNumber="1734-IB8S/B" Vendor="1" ProductType="35" ProductCode="15" Major="2" Minor="1" ParentModule="Point_IO" ParentModPortId="1" Inhibited="false" MajorFault="false"
+ SafetyNetwork="16#0000_4da7_04c9_274f">
+<EKey State="CompatibleModule"/>
+<Ports>
+<Port Id="1" Address="3" Type="PointIO" Upstream="true"/>
+</Ports>
+<Communications>
+<ConfigData ConfigSize="82">
+<Data Format="L5K">
+<![CDATA[[86,864,-1305618411,80291659,19879,514,1000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]]>
+</Data>
+</ConfigData>
+<Connections>
+<Connection Name="Input" RPI="10000" Type="SafetyInput" EventID="0" ProgrammaticallySendEventTrigger="false" TimeoutMultiplier="2" NetworkDelayMultiplier="200" ReactionTimeLimit="40.064" MaxObservedNetworkDelay="0" Unicast="true">
+<InputTag ExternalAccess="Read/Write">
+<Data Format="Decorated">
+<Structure DataType="AB:1734_IB8S_Safety2:I:0">
+<DataValueMember Name="RunMode" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ConnectionFaulted" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt00Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt01Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt02Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt03Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt04Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt05Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt06Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt07Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt00Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt01Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt02Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt03Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt04Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt05Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt06Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt07Status" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</InputTag>
+</Connection>
+<Connection Name="Output" RPI="20000" Type="SafetyOutput" EventID="0" ProgrammaticallySendEventTrigger="false" TimeoutMultiplier="2" NetworkDelayMultiplier="200" ReactionTimeLimit="60" MaxObservedNetworkDelay="0" Unicast="true">
+<OutputTag ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="AB:1734_IB8S:O:0">
+<DataValueMember Name="Test00Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test01Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test02Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test03Data" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</OutputTag>
+</Connection>
+</Connections>
+</Communications>
+<ExtendedProperties>
+<public><ConfigID>102</ConfigID><CatNum>1734-IB8S</CatNum></public>
+</ExtendedProperties>
+</Module>
+<Module Name="Point_IO_9400IM" CatalogNumber="1734-IB8S/B" Vendor="1" ProductType="35" ProductCode="15" Major="2" Minor="1" ParentModule="Point_IO" ParentModPortId="1" Inhibited="false" MajorFault="false"
+ SafetyNetwork="16#0000_4da7_04c9_274f">
+<EKey State="CompatibleModule"/>
+<Ports>
+<Port Id="1" Address="4" Type="PointIO" Upstream="true"/>
+</Ports>
+<Communications>
+<ConfigData ConfigSize="82">
+<Data Format="L5K">
+<![CDATA[[86,864,-1305618411,80291659,19879,514,1000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]]>
+</Data>
+</ConfigData>
+<Connections>
+<Connection Name="Input" RPI="10000" Type="SafetyInput" EventID="0" ProgrammaticallySendEventTrigger="false" TimeoutMultiplier="2" NetworkDelayMultiplier="200" ReactionTimeLimit="40.064" MaxObservedNetworkDelay="0" Unicast="true">
+<InputTag ExternalAccess="Read/Write">
+<Data Format="Decorated">
+<Structure DataType="AB:1734_IB8S_Safety2:I:0">
+<DataValueMember Name="RunMode" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ConnectionFaulted" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt00Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt01Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt02Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt03Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt04Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt05Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt06Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt07Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt00Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt01Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt02Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt03Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt04Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt05Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt06Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt07Status" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</InputTag>
+</Connection>
+<Connection Name="Output" RPI="20000" Type="SafetyOutput" EventID="0" ProgrammaticallySendEventTrigger="false" TimeoutMultiplier="2" NetworkDelayMultiplier="200" ReactionTimeLimit="60" MaxObservedNetworkDelay="0" Unicast="true">
+<OutputTag ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="AB:1734_IB8S:O:0">
+<DataValueMember Name="Test00Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test01Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test02Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test03Data" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</OutputTag>
+</Connection>
+</Connections>
+</Communications>
+<ExtendedProperties>
+<public><ConfigID>102</ConfigID><CatNum>1734-IB8S</CatNum></public>
+</ExtendedProperties>
+</Module>
+<Module Name="Point_IO_9500IM" CatalogNumber="1734-IB8S/B" Vendor="1" ProductType="35" ProductCode="15" Major="2" Minor="1" ParentModule="Point_IO" ParentModPortId="1" Inhibited="false" MajorFault="false"
+ SafetyNetwork="16#0000_4da7_04c9_274f">
+<EKey State="CompatibleModule"/>
+<Ports>
+<Port Id="1" Address="5" Type="PointIO" Upstream="true"/>
+</Ports>
+<Communications>
+<ConfigData ConfigSize="82">
+<Data Format="L5K">
+<![CDATA[[86,864,-1305618411,80291659,19879,514,1000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]]>
+</Data>
+</ConfigData>
+<Connections>
+<Connection Name="Input" RPI="10000" Type="SafetyInput" EventID="0" ProgrammaticallySendEventTrigger="false" TimeoutMultiplier="2" NetworkDelayMultiplier="200" ReactionTimeLimit="40.064" MaxObservedNetworkDelay="0" Unicast="true">
+<InputTag ExternalAccess="Read/Write">
+<Data Format="Decorated">
+<Structure DataType="AB:1734_IB8S_Safety2:I:0">
+<DataValueMember Name="RunMode" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ConnectionFaulted" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt00Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt01Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt02Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt03Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt04Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt05Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt06Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt07Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt00Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt01Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt02Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt03Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt04Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt05Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt06Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt07Status" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</InputTag>
+</Connection>
+<Connection Name="Output" RPI="20000" Type="SafetyOutput" EventID="0" ProgrammaticallySendEventTrigger="false" TimeoutMultiplier="2" NetworkDelayMultiplier="200" ReactionTimeLimit="60" MaxObservedNetworkDelay="0" Unicast="true">
+<OutputTag ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="AB:1734_IB8S:O:0">
+<DataValueMember Name="Test00Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test01Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test02Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test03Data" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</OutputTag>
+</Connection>
+</Connections>
+</Communications>
+<ExtendedProperties>
+<public><ConfigID>102</ConfigID><CatNum>1734-IB8S</CatNum></public>
+</ExtendedProperties>
+</Module>
+<Module Name="Point_IO_9600IM" CatalogNumber="1734-IB8S/B" Vendor="1" ProductType="35" ProductCode="15" Major="2" Minor="1" ParentModule="Point_IO" ParentModPortId="1" Inhibited="false" MajorFault="false"
+ SafetyNetwork="16#0000_4da7_04c9_274f">
+<EKey State="CompatibleModule"/>
+<Ports>
+<Port Id="1" Address="6" Type="PointIO" Upstream="true"/>
+</Ports>
+<Communications>
+<ConfigData ConfigSize="82">
+<Data Format="L5K">
+<![CDATA[[86,864,-1305618411,80291659,19879,514,1000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]]>
+</Data>
+</ConfigData>
+<Connections>
+<Connection Name="Input" RPI="10000" Type="SafetyInput" EventID="0" ProgrammaticallySendEventTrigger="false" TimeoutMultiplier="2" NetworkDelayMultiplier="200" ReactionTimeLimit="40.064" MaxObservedNetworkDelay="0" Unicast="true">
+<InputTag ExternalAccess="Read/Write">
+<Data Format="Decorated">
+<Structure DataType="AB:1734_IB8S_Safety2:I:0">
+<DataValueMember Name="RunMode" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ConnectionFaulted" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt00Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt01Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt02Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt03Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt04Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt05Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt06Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt07Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt00Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt01Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt02Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt03Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt04Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt05Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt06Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt07Status" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</InputTag>
+</Connection>
+<Connection Name="Output" RPI="20000" Type="SafetyOutput" EventID="0" ProgrammaticallySendEventTrigger="false" TimeoutMultiplier="2" NetworkDelayMultiplier="200" ReactionTimeLimit="60" MaxObservedNetworkDelay="0" Unicast="true">
+<OutputTag ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="AB:1734_IB8S:O:0">
+<DataValueMember Name="Test00Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test01Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test02Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test03Data" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</OutputTag>
+</Connection>
+</Connections>
+</Communications>
+<ExtendedProperties>
+<public><ConfigID>102</ConfigID><CatNum>1734-IB8S</CatNum></public>
+</ExtendedProperties>
+</Module>
+<Module Name="Point_IO_9700IM" CatalogNumber="1734-IB8S/B" Vendor="1" ProductType="35" ProductCode="15" Major="2" Minor="1" ParentModule="Point_IO" ParentModPortId="1" Inhibited="false" MajorFault="false"
+ SafetyNetwork="16#0000_4da7_04c9_274f">
+<EKey State="CompatibleModule"/>
+<Ports>
+<Port Id="1" Address="7" Type="PointIO" Upstream="true"/>
+</Ports>
+<Communications>
+<ConfigData ConfigSize="82">
+<Data Format="L5K">
+<![CDATA[[86,864,-1305618411,80291659,19879,514,1000,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]]>
+</Data>
+</ConfigData>
+<Connections>
+<Connection Name="Input" RPI="10000" Type="SafetyInput" EventID="0" ProgrammaticallySendEventTrigger="false" TimeoutMultiplier="2" NetworkDelayMultiplier="200" ReactionTimeLimit="40.064" MaxObservedNetworkDelay="0" Unicast="true">
+<InputTag ExternalAccess="Read/Write">
+<Data Format="Decorated">
+<Structure DataType="AB:1734_IB8S_Safety2:I:0">
+<DataValueMember Name="RunMode" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ConnectionFaulted" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt00Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt01Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt02Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt03Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt04Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt05Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt06Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt07Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt00Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt01Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt02Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt03Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt04Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt05Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt06Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt07Status" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</InputTag>
+</Connection>
+<Connection Name="Output" RPI="20000" Type="SafetyOutput" EventID="0" ProgrammaticallySendEventTrigger="false" TimeoutMultiplier="2" NetworkDelayMultiplier="200" ReactionTimeLimit="60" MaxObservedNetworkDelay="0" Unicast="true">
+<OutputTag ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="AB:1734_IB8S:O:0">
+<DataValueMember Name="Test00Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test01Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test02Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Test03Data" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</OutputTag>
+</Connection>
+</Connections>
+</Communications>
+<ExtendedProperties>
+<public><ConfigID>102</ConfigID><CatNum>1734-IB8S</CatNum></public>
+</ExtendedProperties>
+</Module>
+<Module Name="Point_IO_9800OM" CatalogNumber="1734-OB8S/B" Vendor="1" ProductType="35" ProductCode="16" Major="2" Minor="1" ParentModule="Point_IO" ParentModPortId="1" Inhibited="false" MajorFault="false"
+ SafetyNetwork="16#0000_4da7_04c9_274f">
+<EKey State="CompatibleModule"/>
+<Ports>
+<Port Id="1" Address="8" Type="PointIO" Upstream="true"/>
+</Ports>
+<Communications>
+<ConfigData ConfigSize="26">
+<Data Format="L5K">
+<![CDATA[[30,864,2015074446,80349381,19879,1000,0,16842752,257]]]>
+</Data>
+</ConfigData>
+<Connections>
+<Connection Name="Input" RPI="10000" Type="SafetyInput" EventID="0" ProgrammaticallySendEventTrigger="false" TimeoutMultiplier="2" NetworkDelayMultiplier="200" ReactionTimeLimit="40.064" MaxObservedNetworkDelay="0" Unicast="true">
+<InputTag ExternalAccess="Read/Write">
+<Data Format="Decorated">
+<Structure DataType="AB:1734_OB8S_Safety1:I:0">
+<DataValueMember Name="RunMode" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ConnectionFaulted" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt00OutputStatus" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt01OutputStatus" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt02OutputStatus" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt03OutputStatus" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt04OutputStatus" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt05OutputStatus" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt06OutputStatus" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt07OutputStatus" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</InputTag>
+</Connection>
+<Connection Name="Output" RPI="20000" Type="SafetyOutput" EventID="0" ProgrammaticallySendEventTrigger="false" TimeoutMultiplier="2" NetworkDelayMultiplier="200" ReactionTimeLimit="60" MaxObservedNetworkDelay="0" Unicast="true">
+<OutputTag ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="AB:1734_OB8S:O:0">
+<DataValueMember Name="Pt00Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt01Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt02Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt03Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt04Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt05Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt06Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt07Data" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</OutputTag>
+</Connection>
+</Connections>
+</Communications>
+<ExtendedProperties>
+<public><ConfigID>205</ConfigID><CatNum>1734-OB8S</CatNum></public>
+</ExtendedProperties>
+</Module>
+<Module Name="Point_IO_9900OM" CatalogNumber="1734-OB8S/B" Vendor="1" ProductType="35" ProductCode="16" Major="2" Minor="1" ParentModule="Point_IO" ParentModPortId="1" Inhibited="false" MajorFault="false"
+ SafetyNetwork="16#0000_4da7_04c9_274f">
+<EKey State="CompatibleModule"/>
+<Ports>
+<Port Id="1" Address="9" Type="PointIO" Upstream="true"/>
+</Ports>
+<Communications>
+<ConfigData ConfigSize="26">
+<Data Format="L5K">
+<![CDATA[[30,864,2015074446,80349381,19879,1000,0,16842752,257]]]>
+</Data>
+</ConfigData>
+<Connections>
+<Connection Name="Input" RPI="10000" Type="SafetyInput" EventID="0" ProgrammaticallySendEventTrigger="false" TimeoutMultiplier="2" NetworkDelayMultiplier="200" ReactionTimeLimit="40.064" MaxObservedNetworkDelay="0" Unicast="true">
+<InputTag ExternalAccess="Read/Write">
+<Data Format="Decorated">
+<Structure DataType="AB:1734_OB8S_Safety1:I:0">
+<DataValueMember Name="RunMode" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ConnectionFaulted" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt00OutputStatus" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt01OutputStatus" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt02OutputStatus" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt03OutputStatus" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt04OutputStatus" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt05OutputStatus" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt06OutputStatus" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt07OutputStatus" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</InputTag>
+</Connection>
+<Connection Name="Output" RPI="20000" Type="SafetyOutput" EventID="0" ProgrammaticallySendEventTrigger="false" TimeoutMultiplier="2" NetworkDelayMultiplier="200" ReactionTimeLimit="60" MaxObservedNetworkDelay="0" Unicast="true">
+<OutputTag ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="AB:1734_OB8S:O:0">
+<DataValueMember Name="Pt00Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt01Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt02Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt03Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt04Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt05Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt06Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Pt07Data" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</OutputTag>
+</Connection>
+</Connections>
+</Communications>
+<ExtendedProperties>
+<public><ConfigID>205</ConfigID><CatNum>1734-OB8S</CatNum></public>
+</ExtendedProperties>
+</Module>
+</Modules>
+</Controller>
+</RSLogix5000Content>

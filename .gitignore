@@ -50,8 +50,8 @@ htmlcov/
 
 # Ignore all generated files in the output data folder,
 # but DO NOT ignore the .gitkeep file, so the folder still exists.
-data/output/*
-!data/output/.gitkeep
+output/*
+!/output/.gitkeep
 
 # Ignore all experimental files in the sandbox directory,
 # but keep the directory itself.

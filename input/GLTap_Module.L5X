@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Tap4220" TargetType="Module" ContainsContext="true" ExportDate="Wed Jun 10 14:38:34 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="Wolf_HybridMainLine">
+<Modules Use="Context">
+<Module Name="Tap4220" CatalogNumber="440S-MF5D/A" Vendor="1" ProductType="166" ProductCode="1" Major="1" Minor="1" ParentModule="SIO_6500GL" ParentModPortId="3" Inhibited="false"
+ MajorFault="false" SafetyEnabled="false" AutoDiagsEnabled="true">
+<EKey State="CompatibleModule"/>
+<Ports>
+<Port Id="1" Address="0" Type="GuardLink" Upstream="true"/>
+</Ports>
+<Communications>
+<ConfigData ConfigSize="0">
+<Data Format="L5K">
+<![CDATA[[4,191]]]>
+</Data>
+</ConfigData>
+<Connections>
+<Connection Name="Data" RPI="100000" Type="StandardDataDriven" OutputSize="4" InputSize="16" EventID="0" ProgrammaticallySendEventTrigger="false" Priority="Scheduled" InputConnectionType="Unicast" InputProductionTrigger="Cyclic" ConnectionPath="20 04 24 bf 2d 00 24 80 2d 00 30 04"
+ InputTagSuffix="I" OutputTagSuffix="O">
+<InputTag ExternalAccess="Read/Write">
+<Data Format="Decorated">
+<Structure DataType="AB:5000_GLTap:I:0">
+<DataValueMember Name="RunMode" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ConnectionFaulted" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DiagnosticActive" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DiagnosticSequenceCount" DataType="SINT" Radix="Decimal" Value="0"/>
+<StructureMember Name="Pt" DataType="CHANNEL_DI:I:0">
+<DataValueMember Name="Data" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Fault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Uncertain" DataType="BOOL" Value="0"/>
+</StructureMember>
+<DataValueMember Name="DataAux" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DataA" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DataB" DataType="BOOL" Value="0"/>
+<DataValueMember Name="InternalFault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ShortCircuit" DataType="BOOL" Value="0"/>
+<DataValueMember Name="GuardLinkSignalFault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="LSystemPowerWarning" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HSystemPowerWarning" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DiscrepancyFault" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</InputTag>
+<OutputTag ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="AB:5000_GLClient_Node:O:0">
+<DataValueMember Name="Lock" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Unlock" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ResetDevice" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</OutputTag>
+</Connection>
+</Connections>
+</Communications>
+<ExtendedProperties>
+<public><Vendor>Rockwell Automation/Allen-Bradley</Vendor><CatNum>440S-MF5D</CatNum><ConfigID>100</ConfigID><ADDAVersion>1</ADDAVersion></public>
+</ExtendedProperties>
+</Module>
+</Modules>
+</Controller>
+</RSLogix5000Content>

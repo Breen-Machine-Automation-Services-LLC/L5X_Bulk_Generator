@@ -1,10 +1,7 @@
-"""Generate a Module-targeted L5X from a strict TOML station list.
+"""Generate a Module-targeted L5X from a flat TOML modules list.
 
-Outputs a Module-targeted L5X (TargetType="Module") rooted at the DLR
-parent bridge. Studio 5000 imports it via right-click on the DLR in the
-I/O tree, which adds all IB child modules in one shot.
-
-Change TOML_FILE at the top for each new panel.
+The TOML defines one flat list of modules with explicit parent references,
+port binding, and addressing so the same schema can generate mixed hierarchies.
 """
 from __future__ import annotations
 
@@ -16,8 +13,8 @@ from pathlib import Path
 from lxml import etree
 
 # --- paths (edit per panel run) --------------------------------------------
-DEFAULT_TOML_FILE = Path("input/HM_Network1.toml")
-
+DEFAULT_TOML_FILE = Path("input/Network.toml")
+# DEFAULT_TOML_FILE = Path("sandbox/network_proposed.toml")
 
 # ---------------------------------------------------------------------------
 
@@ -29,62 +26,63 @@ def load_toml(path: Path) -> dict:
     return tomllib.loads(raw.decode("utf-8"))
 
 
-def load_target_module(template_path: Path) -> etree._Element:
+def load_template_modules(template_path: Path) -> list[etree._Element]:
     root = etree.parse(template_path).getroot()
-    module = root.find(".//Module[@Use='Target']")
-    if module is None:
-        raise RuntimeError(f"{template_path} has no <Module Use='Target'> element.")
-    return module
+    modules = root.findall(".//Module")
+    if not modules:
+        raise RuntimeError(f"{template_path} has no <Module> element.")
+    return modules
 
 
-def make_device_module(
-    device_template: etree._Element,
-    name: str,
-    ip: str,
-    parent_module: str,
-    parent_mod_port: int,
-) -> etree._Element:
-    """Clone a device template and apply station name, IP, and parent binding."""
-    el = deepcopy(device_template)
-    el.set("Name", name)
-    el.set("ParentModule", parent_module)
-    el.set("ParentModPortId", str(parent_mod_port))
-    el.attrib.pop("Use", None)
-    for port in el.findall(".//Port[@Type='Ethernet']"):
-        port.set("Address", ip)
-    return el
-
-
-def make_dlr_module(
-    dlr_template: etree._Element,
+def make_module(
+    module_templates: list[etree._Element],
+    *,
     name: str,
     parent_module: str,
-    parent_mod_port: int,
-    icp_slot: int,
-    ethernet_ip: str,
-) -> etree._Element:
-    """Clone parent template and apply name, parent binding, slot, and IP."""
-    el = deepcopy(dlr_template)
+    parent_mod_port: int | None,
+    address: str | int,
+) -> list[etree._Element]:
+    """Clone a template set and apply parent binding plus upstream address.
+    Child modules (index > 0) have their ParentModule reference updated to match
+    the new root module name."""
+    root_template = module_templates[0]
+    template_root_name = root_template.get("Name", "")
+
+    el = deepcopy(root_template)
     el.set("Name", name)
     el.set("ParentModule", parent_module)
-    el.set("ParentModPortId", str(parent_mod_port))
-    el.set("Use", "Target")
-    for port in el.findall(".//Port[@Type='ICP']"):
-        port.set("Address", str(icp_slot))
-    for port in el.findall(".//Port[@Type='Ethernet']"):
-        port.set("Address", ethernet_ip)
-    return el
+    if parent_mod_port is not None:
+        el.set("ParentModPortId", str(parent_mod_port))
+
+    upstream_ports = [
+        p for p in el.findall(".//Port")
+        if p.get("Upstream", "").lower() == "true"
+    ]
+    if len(upstream_ports) != 1:
+        raise RuntimeError(
+            f"Module '{name}' must have exactly one Upstream='true' port; found {len(upstream_ports)}."
+        )
+    upstream_ports[0].set("Address", str(address))
+
+    result = [el]
+    for child_template in module_templates[1:]:
+        child = deepcopy(child_template)
+        if child.get("ParentModule") == template_root_name:
+            child.set("ParentModule", name)
+        result.append(child)
+
+    return result
 
 
 def build_module_export(
-    dlr_root: etree._Element,
-    dlr_module: etree._Element,
-    device_modules: list[etree._Element],
+    target_root: etree._Element,
+    modules: list[etree._Element],
     controller_name: str,
+    target_name: str,
 ) -> etree._Element:
-    """Produce TargetType=Module L5X with one parent and many child modules."""
-    root = deepcopy(dlr_root)
-    root.set("TargetName", dlr_module.get("Name"))
+    """Produce TargetType=Module L5X from a flat module list."""
+    root = deepcopy(target_root)
+    root.set("TargetName", target_name)
     root.set("TargetType", "Module")
     root.set("ContainsContext", "true")
     root.set("ExportDate", datetime.now().strftime("%a %b %d %H:%M:%S %Y"))
@@ -100,9 +98,8 @@ def build_module_export(
     for child in list(mods_el):
         mods_el.remove(child)
 
-    mods_el.append(dlr_module)
-    for m in device_modules:
-        mods_el.append(m)
+    for module_el in modules:
+        mods_el.append(module_el)
 
     return root
 
@@ -110,60 +107,58 @@ def build_module_export(
 def main() -> None:
     data = load_toml(DEFAULT_TOML_FILE)
     cfg = data["config"]
-    templates_cfg = data["templates"]
-    root_cfg = data["root_module"]
-    stations = data["stations"]["data"]
+    templates_cfg: dict[str, str] = data["templates"]
+    modules_cfg: list[dict] = data["modules"]["data"]
 
     controller_name = cfg["controller_name"]
+    target_name = cfg["target"]
     output_name = cfg["output_file"]
-
     output_dir = Path(cfg.get("output_dir", "output"))
 
-    parent_template_path = Path(templates_cfg["parent_template"])
-    device_templates: dict[str, str] = templates_cfg["device_templates"]
+    names = [m["name"] for m in modules_cfg]
+    if len(names) != len(set(names)):
+        raise RuntimeError("Duplicate module names found in [modules].data.")
+    if target_name not in set(names):
+        raise RuntimeError(f"config.target '{target_name}' is not present in [modules].data.")
 
-    dlr_name = root_cfg["name"]
-    dlr_parent_module = root_cfg["parent_module"]
-    dlr_parent_mod_port = int(root_cfg["parent_mod_port"])
-    dlr_icp_slot = int(root_cfg["icp_slot"])
-    dlr_eth_ip = root_cfg["ethernet_ip"]
+    target_cfg = next(m for m in modules_cfg if m["name"] == target_name)
+    target_type = target_cfg["type"]
+    target_template_path = Path(templates_cfg[target_type])
+    target_root = etree.parse(target_template_path).getroot()
 
-    dlr_root = etree.parse(parent_template_path).getroot()
-    dlr_template = dlr_root.find(".//Module[@Use='Target']")
-    if dlr_template is None:
-        raise RuntimeError(f"{parent_template_path} has no <Module Use='Target'> element.")
+    cached_templates: dict[str, list[etree._Element]] = {}
 
-    dlr_module = make_dlr_module(
-        dlr_template,
-        dlr_name,
-        dlr_parent_module,
-        dlr_parent_mod_port,
-        dlr_icp_slot,
-        dlr_eth_ip,
-    )
+    def get_template_for_type(module_type: str) -> etree._Element:
+        if module_type not in templates_cfg:
+            raise RuntimeError(f"Missing template mapping for type '{module_type}'.")
+        if module_type not in cached_templates:
+            cached_templates[module_type] = load_template_modules(Path(templates_cfg[module_type]))
+        return cached_templates[module_type]
 
-    cached_templates: dict[str, etree._Element] = {}
-    device_modules: list[etree._Element] = []
-    for s in stations:
-        device_type = s["device_type"]
-        template_rel = device_templates[device_type]
-        if device_type not in cached_templates:
-            cached_templates[device_type] = load_target_module(Path(template_rel))
+    modules_out: list[etree._Element] = []
+    for m in modules_cfg:
+        module_type = m["type"]
+        module_template = get_template_for_type(module_type)
 
-        station_name = s["module_name"]
-        station_ip = s["ip"]
+        parent_name = m["ParentModule"]
+        parent_mod_port_raw = m.get("ParentModPortId", None)
+        if parent_mod_port_raw is not None and str(parent_mod_port_raw).strip() != "":
+            parent_mod_port = int(parent_mod_port_raw)
+        else:
+            # Missing/blank ParentModPortId means keep the template's default value.
+            parent_mod_port = None
 
-        device_modules.append(
-            make_device_module(
-                cached_templates[device_type],
-                station_name,
-                station_ip,
-                dlr_name,
-                2,
+        modules_out.extend(
+            make_module(
+                module_template,
+                name=m["name"],
+                parent_module=parent_name,
+                parent_mod_port=parent_mod_port,
+                address=m["Address"],
             )
         )
 
-    combined = build_module_export(dlr_root, dlr_module, device_modules, controller_name)
+    combined = build_module_export(target_root, modules_out, controller_name, target_name)
 
     output_dir.mkdir(exist_ok=True)
     out_path = output_dir / output_name
@@ -175,9 +170,9 @@ def main() -> None:
         pretty_print=True,
     )
 
-    print(f"Wrote {len(device_modules)} modules -> {out_path}\n")
-    for s in stations:
-        print(f"  {s['module_name']}  {s['ip']}  ({s['device_type']})")
+    print(f"Wrote {len(modules_out)} modules -> {out_path}\\n")
+    for m in modules_cfg:
+        print(f"  {m['name']}  {m.get('Address', '')}  ({m['type']})")
 
 
 if __name__ == "__main__":

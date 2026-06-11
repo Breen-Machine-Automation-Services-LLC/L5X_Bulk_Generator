@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="SIO_7000GL" TargetType="Module" ContainsContext="true" ExportDate="Wed Jun 10 14:39:19 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="Wolf_HybridMainLine">
+<Modules Use="Context">
+<Module Use="Target" Name="SIO_7000GL" CatalogNumber="432ES-IG3/A" Vendor="1" ProductType="165" ProductCode="1" Major="1" Minor="1" ParentModule="Local" ParentModPortId="2" Inhibited="false"
+ MajorFault="false" SafetyNetwork="16#0000_4da7_033f_4304" SafetyEnabled="true" AutoDiagsEnabled="true">
+<EKey State="CompatibleModule"/>
+<Ports>
+<Port Id="2" Address="192.168.1.8" Type="Ethernet" Upstream="true"/>
+<Port Id="3" Type="GuardLink" Upstream="false">
+<Bus/>
+</Port>
+<Port Id="4" Type="GuardLink" Upstream="false">
+<Bus/>
+</Port>
+<Port Id="5" Type="GuardLink" Upstream="false">
+<Bus/>
+</Port>
+</Ports>
+<Communications>
+<SafetyScript Size="69">
+<Data Format="L5K">
+<![CDATA[[65,0,0,0,5,0,0,0,0,0,0,0,0,0,0,0,49,0,0,0,0,0,0,0,0,3,0,0,0,35,0,0,0,0,0,0,28,0,0,0,73,4,0,0,-112,57,42,-124,2,-71,-38,4,-89,77,0,0,0,0,0,0,0
+		,0,0,0,0,0,0,0,0]]]>
+</Data>
+</SafetyScript>
+<Connections>
+<Connection Name="SafetyInput" RPI="10000" Type="SafetyInputDataDriven" InputSize="120" EventID="0" ProgrammaticallySendEventTrigger="false" TimeoutMultiplier="2" NetworkDelayMultiplier="200" ReactionTimeLimit="40.064" MaxObservedNetworkDelay="0" Priority="High"
+ InputConnectionType="Unicast" InputProductionTrigger="Application" ConnectionPath="20 04 25 00 49 04 20 04 24 c7 20 04 25 00 2f 04" InputTagSuffix="I">
+<InputTag ExternalAccess="Read/Write">
+<Data Format="Decorated">
+<Structure DataType="AB:5000_GL3:I:0">
+<DataValueMember Name="RunMode" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ConnectionFaulted" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DiagnosticActive" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CIPSyncValid" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CIPSyncTimeout" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DiagnosticSequenceCount" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="LSystemPowerWarning" DataType="BOOL" Value="0"/>
+<DataValueMember Name="HSystemPowerWarning" DataType="BOOL" Value="0"/>
+<DataValueMember Name="InternalFault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DLREnabled" DataType="BOOL" Value="0"/>
+<StructureMember Name="Ch0" DataType="CHANNEL_GL:I:0">
+<DataValueMember Name="Tripped" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Fault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Uncertain" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TerminatorFault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TooManyDevices" DataType="BOOL" Value="0"/>
+<DataValueMember Name="UnverifiedDevice" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DeviceCount" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DeviceTripAddress" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="TripTimestamp" DataType="LINT" Radix="Decimal" Value="0"/>
+</StructureMember>
+<StructureMember Name="Ch1" DataType="CHANNEL_GL:I:0">
+<DataValueMember Name="Tripped" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Fault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Uncertain" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TerminatorFault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TooManyDevices" DataType="BOOL" Value="0"/>
+<DataValueMember Name="UnverifiedDevice" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DeviceCount" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DeviceTripAddress" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="TripTimestamp" DataType="LINT" Radix="Decimal" Value="0"/>
+</StructureMember>
+<StructureMember Name="Ch2" DataType="CHANNEL_GL:I:0">
+<DataValueMember Name="Tripped" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Fault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Uncertain" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Status" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TerminatorFault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TooManyDevices" DataType="BOOL" Value="0"/>
+<DataValueMember Name="UnverifiedDevice" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DeviceCount" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DeviceTripAddress" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="TripTimestamp" DataType="LINT" Radix="Decimal" Value="0"/>
+</StructureMember>
+<StructureMember Name="Port1" DataType="AB:Ethernet_Port_Channel:S:1">
+<DataValueMember Name="Fault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Uncertain" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Connected" DataType="BOOL" Value="0"/>
+<DataValueMember Name="FullDuplex" DataType="BOOL" Value="0"/>
+<DataValueMember Name="AutonegotiationStatus" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Speed" DataType="INT" Radix="Decimal" Value="0"/>
+</StructureMember>
+<StructureMember Name="Port2" DataType="AB:Ethernet_Port_Channel:S:1">
+<DataValueMember Name="Fault" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Uncertain" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Connected" DataType="BOOL" Value="0"/>
+<DataValueMember Name="FullDuplex" DataType="BOOL" Value="0"/>
+<DataValueMember Name="AutonegotiationStatus" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Speed" DataType="INT" Radix="Decimal" Value="0"/>
+</StructureMember>
+<DataValueMember Name="TCPConnections" DataType="INT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="CIPConnections" DataType="INT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="CIPLostPackets" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="CIPTimeouts" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="HMIPacketRate" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="IOPacketRate" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EthernetErrors" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="CPUUtilization" DataType="INT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DLRNetworkState" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DLRSupervisorState" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="LocalClockOffset" DataType="LINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="LocalClockOffsetTimestamp" DataType="LINT" Radix="Decimal" Value="0"/>
+<ArrayMember Name="GrandMasterClockID" DataType="SINT" Dimensions="8" Radix="Decimal">
+<Element Index="[0]" Value="0"/>
+<Element Index="[1]" Value="0"/>
+<Element Index="[2]" Value="0"/>
+<Element Index="[3]" Value="0"/>
+<Element Index="[4]" Value="0"/>
+<Element Index="[5]" Value="0"/>
+<Element Index="[6]" Value="0"/>
+<Element Index="[7]" Value="0"/>
+</ArrayMember>
+</Structure>
+</Data>
+</InputTag>
+</Connection>
+</Connections>
+</Communications>
+<ExtendedProperties>
+<public><Vendor>Rockwell Automation/Allen-Bradley</Vendor><CatNum>432ES-IG3</CatNum><ConfigID>16777316</ConfigID><ADDAVersion>1</ADDAVersion></public>
+</ExtendedProperties>
+</Module>
+</Modules>
+</Controller>
+</RSLogix5000Content>
