@@ -3,20 +3,22 @@
 The TOML defines one flat list of modules with explicit parent references,
 port binding, and addressing so the same schema can generate mixed hierarchies.
 """
-from __future__ import annotations
 
+# Standard library imports
+from __future__ import annotations
 import tomllib
 from copy import deepcopy
 from datetime import datetime
 from pathlib import Path
 
-from lxml import etree
+# Third-party imports
+import lxml.etree as etree
+# Local application imports
 
 # --- paths (edit per panel run) --------------------------------------------
 DEFAULT_TOML_FILE = Path("input/Network.toml")
 # DEFAULT_TOML_FILE = Path("sandbox/network_proposed.toml")
 
-# ---------------------------------------------------------------------------
 
 def load_toml(path: Path) -> dict:
     with open(path, "rb") as f:
@@ -59,8 +61,7 @@ def make_module(
         el.set("ParentModPortId", str(parent_mod_port))
 
     upstream_ports = [
-        p for p in el.findall(".//Port")
-        if p.get("Upstream", "").lower() == "true"
+        p for p in el.findall(".//Port") if p.get("Upstream", "").lower() == "true"
     ]
     if len(upstream_ports) != 1:
         raise RuntimeError(
@@ -123,7 +124,9 @@ def main() -> None:
     if len(names) != len(set(names)):
         raise RuntimeError("Duplicate module names found in [modules].data.")
     if target_name not in set(names):
-        raise RuntimeError(f"config.target '{target_name}' is not present in [modules].data.")
+        raise RuntimeError(
+            f"config.target '{target_name}' is not present in [modules].data."
+        )
 
     target_cfg = next(m for m in modules_cfg if m["name"] == target_name)
     target_type = target_cfg["type"]
@@ -136,7 +139,9 @@ def main() -> None:
         if module_type not in templates_cfg:
             raise RuntimeError(f"Missing template mapping for type '{module_type}'.")
         if module_type not in cached_templates:
-            cached_templates[module_type] = load_template_modules(Path(templates_cfg[module_type]))
+            cached_templates[module_type] = load_template_modules(
+                Path(templates_cfg[module_type])
+            )
         return cached_templates[module_type]
 
     modules_out: list[etree._Element] = []
@@ -162,10 +167,15 @@ def main() -> None:
             )
         )
 
-    combined = build_module_export(target_root, modules_out, controller_name, target_name)
+    combined = build_module_export(
+        target_root, modules_out, controller_name, target_name
+    )
 
     output_dir.mkdir(exist_ok=True)
-    out_path = output_dir / output_name
+    timestamp = datetime.now().isoformat(timespec="seconds").replace(":", "-")
+    output_file = Path(output_name)
+    out_name = f"{output_file.stem}_{timestamp}{output_file.suffix}"
+    out_path = output_dir / out_name
     etree.ElementTree(combined).write(
         str(out_path),
         xml_declaration=True,

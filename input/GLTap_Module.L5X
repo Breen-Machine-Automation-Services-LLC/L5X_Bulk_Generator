@@ -2,7 +2,7 @@
 <RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Tap4220" TargetType="Module" ContainsContext="true" ExportDate="Wed Jun 10 14:38:34 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Wolf_HybridMainLine">
 <Modules Use="Context">
-<Module Name="Tap4220" CatalogNumber="440S-MF5D/A" Vendor="1" ProductType="166" ProductCode="1" Major="1" Minor="1" ParentModule="SIO_6500GL" ParentModPortId="3" Inhibited="false"
+<Module Use="Target" Name="Tap4220" CatalogNumber="440S-MF5D/A" Vendor="1" ProductType="166" ProductCode="1" Major="1" Minor="1" ParentModule="SIO_6500GL" ParentModPortId="3" Inhibited="false"
  MajorFault="false" SafetyEnabled="false" AutoDiagsEnabled="true">
 <EKey State="CompatibleModule"/>
 <Ports>

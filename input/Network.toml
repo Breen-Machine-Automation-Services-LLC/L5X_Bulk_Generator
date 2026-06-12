@@ -1,0 +1,68 @@
+# module creation list
+# Workflow:
+# 1) Edit this TOML to match your IO tree
+# 2) Generate L5X, then import in Studio 5000.
+# Dependencies and Limitations:
+# - All values are required for each module.
+# - ParentModule names must be "Local", or match another module in this file.
+# - "Backplane" and "Ethernet" can't be imported at the same time.
+# - Parents must be defined before any child that references them.
+# - Address maps to the module's single Upstream="true" port.
+# - Use="Target" is for top-level modules whose parent is "Local".
+
+[config]
+controller_name = "Wolf_HybridMainLine"
+target          = "Switch_MCP"
+output_file     = "Network.L5X" # "LocNetwork.L5X" caused an error for some reason
+output_dir      = "output"
+
+[templates]
+EN2TR     = "input/EN2TR_Module.L5X"
+IB-E03B_A = "input/IBXXXX_Module.L5X"
+BNI006A   = "input/IOL_Master_Module.L5X"
+GLMaster = "input/GLMaster_Module.L5X"
+GLTap = "input/GLTap_Module.L5X"
+ELR = "input/ELRGateway_Module.L5X"
+PIO = "input/PointIO_Rack.L5X"
+Switch = "input/Stratix_Module.L5X"
+
+[modules]
+data = [
+	{ name="Switch_MCP",	type="Switch",	ParentModule="Local",	Address="192.168.1.10" },
+	{ name="SIO_MCP",	type="PIO",	ParentModule="Local",	Address="192.168.1.20" },
+	{ name="SIO_Master6500",	type="GLMaster",	ParentModule="Local",	Address="192.168.1.21" },
+	{ name="SIO_Master7000",	type="GLMaster",	ParentModule="Local",	Address="192.168.1.22" },
+	{ name="ELR4024",	type="ELR",	ParentModule="Local",	Address="192.168.1.92" },
+	{ name="ELR4028",	type="ELR",	ParentModule="Local",	Address="192.168.1.93" },
+	{ name="IOL_Master10000",	type="BNI006A",	ParentModule="Local",	Address="192.168.1.100" },
+	{ name="IOL_Master10500",	type="BNI006A",	ParentModule="Local",	Address="192.168.1.101" },
+	{ name="IOL_Master11000",	type="BNI006A",	ParentModule="Local",	Address="192.168.1.102" },
+	{ name="IOL_Master11500",	type="BNI006A",	ParentModule="Local",	Address="192.168.1.103" },
+	{ name="IOL_Master12000",	type="BNI006A",	ParentModule="Local",	Address="192.168.1.104" },
+	{ name="IOL_Master12500",	type="BNI006A",	ParentModule="Local",	Address="192.168.1.105" },
+	{ name="IOL_Master13000",	type="BNI006A",	ParentModule="Local",	Address="192.168.1.106" },
+	{ name="IOL_Master14000",	type="BNI006A",	ParentModule="Local",	Address="192.168.1.107" },
+	{ name="IOL_Master14500",	type="BNI006A",	ParentModule="Local",	Address="192.168.1.108" },
+	{ name="SI_4220",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="3",	Address="0" },
+	{ name="SI_4190",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="3",	Address="1" },
+	{ name="SI_4170",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="3",	Address="2" },
+	{ name="SI_4150",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="3",	Address="3" },
+	{ name="SI_4120",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="3",	Address="4" },
+	{ name="SI_4000",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="3",	Address="5" },
+	{ name="SI_4281",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="4",	Address="0" },
+	{ name="SI_4301",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="4",	Address="1" },
+	{ name="SI_4231",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="4",	Address="2" },
+	{ name="SI_4350",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="4",	Address="3" },
+	{ name="SI_4380",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="4",	Address="4" },
+	{ name="SI_4410",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="4",	Address="5" },
+	{ name="SI_4460",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="4",	Address="6" },
+	{ name="SI_4510",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="4",	Address="7" },
+	{ name="SI_4561",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="4",	Address="8" },
+	{ name="SI_4581",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="4",	Address="9" },
+	{ name="SI_4601",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="4",	Address="10" },
+	{ name="SI_7159",	type="GLTap",	ParentModule="SIO_Master7000",	ParentModPortId="3",	Address="0" },
+	{ name="SI_7166",	type="GLTap",	ParentModule="SIO_Master7000",	ParentModPortId="3",	Address="1" },
+	{ name="SI_71XX",	type="GLTap",	ParentModule="SIO_Master7000",	ParentModPortId="3",	Address="2" },
+	{ name="SI_7189",	type="GLTap",	ParentModule="SIO_Master7000",	ParentModPortId="3",	Address="3" },
+	{ name="SI_7190",	type="GLTap",	ParentModule="SIO_Master7000",	ParentModPortId="3",	Address="4" },
+]
