@@ -1,0 +1,156 @@
+[config]
+default_safety_zone = 8
+
+[external_type_hints]
+4282 = "Filler"
+4302 = "Filler"
+4322 = "Filler"
+4561 = "Gravity"
+4581 = "Gravity"
+4601 = "Gravity"
+4300 = "Transfer"
+4700 = "Transfer"
+5520 = "Queue"
+7155 = "Filler"
+7181 = "Filler"
+7200 = "Transfer"
+7164 = "Transfer"
+7180 = "Transfer"
+7186 = "Filler"
+7189 = "Gravity"
+7190 = "Gravity"
+7205 = "Filler"
+7220 = "Transfer"
+7165 = "Filler"
+7167 = "Filler"
+7169 = "Filler"
+7171 = "Filler"
+7173 = "Filler"
+7175 = "Filler"
+7177 = "Filler"
+7179 = "Filler"
+7301 = "TestStation"
+7302 = "TestStation"
+7303 = "TestStation"
+7304 = "TestStation"
+7305 = "TestStation"
+7306 = "TestStation"
+7307 = "TestStation"
+7308 = "TestStation"
+
+[stations]
+data = [
+    # --- 4000 series ---
+    { number = 4000, type = "Queue",    prev = 0,    next = 4010, isWorkstation = true },
+    { number = 4010, type = "Queue",    prev = 4000, next = 4020 },
+    { number = 4020, type = "Transfer", conv_upstream = 0,    conv_downstream = 4030, chain_upstream = 4010, chain_downstream = 0 },
+    { number = 4030, type = "Transfer", conv_upstream = 4020, conv_downstream = 0,    chain_upstream = 0, chain_downstream = 4040 },
+    { number = 4040, type = "Queue",    prev = 4030, next = 4050 },
+    { number = 4050, type = "Queue",    prev = 4040, next = 4060 },
+    { number = 4060, type = "Queue",    prev = 4050, next = 4070 },
+    { number = 4070, type = "Queue",    prev = 4060, next = 4080 },
+    { number = 4080, type = "Queue",    prev = 4070, next = 4090 },
+    { number = 4090, type = "Queue",    prev = 4080, next = 4100 },
+    { number = 4100, type = "Queue",    prev = 4090, next = 4110 },
+    { number = 4110, type = "Queue",    prev = 4100, next = 4120 },
+    { number = 4120, type = "Lift",     prev = 4110, next = 4130, isWorkstation = true },
+    { number = 4130, type = "Queue",    prev = 4120, next = 4140 },
+    { number = 4140, type = "Queue",    prev = 4130, next = 4150 },
+    { number = 4150, type = "Lift",     prev = 4140, next = 4160, isWorkstation = true },
+    { number = 4160, type = "Queue",    prev = 4150, next = 4170 },
+    { number = 4170, type = "Lift",     prev = 4160, next = 4180, isWorkstation = true },
+    { number = 4180, type = "Queue",    prev = 4170, next = 4190 },
+    { number = 4190, type = "Lift",     prev = 4180, next = 4200, isWorkstation = true },
+    { number = 4200, type = "Queue",    prev = 4190, next = 4210 },
+    { number = 4210, type = "Queue",    prev = 4200, next = 4220 },
+    { number = 4220, type = "Lift",     prev = 4210, next = 4230, isWorkstation = true },
+    { number = 4230, type = "Queue",    prev = 4220, next = 4240 },
+    { number = 4240, type = "Queue",    prev = 4230, next = 4250 },
+    { number = 4250, type = "Queue",    prev = 4240, next = 4260 },
+    { number = 4260, type = "Transfer", conv_upstream = 0,    conv_downstream = 4270, chain_upstream = 4250, chain_downstream = 0 },
+    { number = 4270, type = "Queue",    prev = 4260, next = 4280 },
+    { number = 4280, type = "Transfer", conv_upstream = 4270, conv_downstream = 4290, chain_upstream = 4600, chain_downstream = 4281 },
+    { number = 4281, type = "Queue",    prev = 4280, next = 0, isWorkstation = true },
+    { number = 4290, type = "Queue",    prev = 4280, next = 4300 },
+    { number = 4300, type = "Transfer", conv_upstream = 4290, conv_downstream = 4310, chain_upstream = 4580, chain_downstream = 4301 },
+    { number = 4301, type = "Queue",    prev = 4300, next = 0, isWorkstation = true },
+    { number = 4310, type = "Queue",    prev = 4300, next = 4320 },
+    { number = 4320, type = "Transfer", conv_upstream = 4310, conv_downstream = 4330, chain_upstream = 4560, chain_downstream = 4321 },
+    { number = 4321, type = "Queue",    prev = 4320, next = 0, isWorkstation = true },
+    { number = 4330, type = "Queue",    prev = 4320, next = 4340 },
+    { number = 4340, type = "Queue",    prev = 4330, next = 4350 },
+    { number = 4350, type = "Lift",     prev = 4340, next = 4360, isWorkstation = true },
+    { number = 4360, type = "Queue",    prev = 4350, next = 4370 },
+    { number = 4370, type = "Queue",    prev = 4360, next = 4380 },
+    { number = 4380, type = "Lift",     prev = 4370, next = 4390, isWorkstation = true },
+    { number = 4390, type = "Queue",    prev = 4380, next = 4400 },
+    { number = 4400, type = "Queue",    prev = 4390, next = 4410 },
+    { number = 4410, type = "Lift",     prev = 4400, next = 4420, isWorkstation = true },
+    { number = 4420, type = "Transfer", conv_upstream = 4410, conv_downstream = 0,    chain_upstream = 0,    chain_downstream = 4440 },
+    { number = 4440, type = "Queue",    prev = 4420, next = 4450 },
+    { number = 4450, type = "Transfer", conv_upstream = 0,    conv_downstream = 4460, chain_upstream = 4440, chain_downstream = 0 },
+    { number = 4460, type = "Lift",     prev = 4450, next = 4470, isWorkstation = true },
+    { number = 4470, type = "Queue",    prev = 4460, next = 4480 },
+    { number = 4480, type = "Queue",    prev = 4470, next = 4490 },
+    { number = 4490, type = "Queue",    prev = 4480, next = 4500 },
+    { number = 4500, type = "Queue",    prev = 4490, next = 4510 },
+    { number = 4510, type = "Queue",    prev = 4500, next = 4520 },
+    { number = 4520, type = "Transfer", conv_upstream = 4510, conv_downstream = 0,    chain_upstream = 0,    chain_downstream = 4530 },
+    { number = 4530, type = "Transfer", conv_upstream = 0,    conv_downstream = 4540, chain_upstream = 4520, chain_downstream = 0 },
+    { number = 4540, type = "Queue",    prev = 4530, next = 4550 },
+    { number = 4550, type = "Queue",    prev = 4540, next = 4560 },
+    { number = 4560, type = "Transfer", conv_upstream = 4550, conv_downstream = 4570, chain_upstream = 4561, chain_downstream = 4320 },
+    { number = 4570, type = "Queue",    prev = 4560, next = 4580 },
+    { number = 4580, type = "Transfer", conv_upstream = 4570, conv_downstream = 4590, chain_upstream = 4581, chain_downstream = 4300 },
+    { number = 4590, type = "Queue",    prev = 4580, next = 4600 },
+    { number = 4600, type = "Transfer", conv_upstream = 4590, conv_downstream = 4610, chain_upstream = 4601, chain_downstream = 4280 },
+    { number = 4610, type = "Queue",    prev = 4600, next = 4620 },
+    { number = 4620, type = "Transfer", conv_upstream = 4610, conv_downstream = 0,    chain_upstream = 0,    chain_downstream = 4630 },
+    { number = 4630, type = "Queue",    prev = 4620, next = 4640 },
+    { number = 4640, type = "Queue",    prev = 4630, next = 4650 },
+    { number = 4650, type = "Queue",    prev = 4640, next = 4660 },
+    { number = 4660, type = "Queue",    prev = 4650, next = 4670 },
+    { number = 4670, type = "Queue",    prev = 4660, next = 4680 },
+    { number = 4680, type = "Transfer", conv_upstream = 0,    conv_downstream = 4690, chain_upstream = 4670, chain_downstream = 0 },
+    { number = 4690, type = "Queue",    prev = 4680, next = 5520 },
+
+    # --- 7000 series ---
+    { number = 7150, type = "Queue",    prev = 7200, next = 7151, safety_zone = 10 },
+    { number = 7151, type = "Queue",    prev = 7150, next = 7152, safety_zone = 10 },
+    { number = 7152, type = "Queue",    prev = 7151, next = 7153, safety_zone = 10 },
+    { number = 7153, type = "Queue",    prev = 7152, next = 7154, safety_zone = 10 },
+    { number = 7154, type = "Transfer", conv_upstream = 7153, conv_downstream = 0,    chain_upstream = 0,    chain_downstream = 7156, safety_zone = 10 },
+    { number = 7156, type = "Transfer", conv_upstream = 7180, conv_downstream = 7182, chain_upstream = 7154, chain_downstream = 7157, safety_zone = 10 },
+    { number = 7157, type = "Queue",    prev = 7156, next = 7158, safety_zone = 10 },
+    { number = 7158, type = "Queue",    prev = 7157, next = 7159, safety_zone = 10 },
+    { number = 7159, type = "Queue",    prev = 7158, next = 7160, safety_zone = 10 },
+    { number = 7160, type = "Queue",    prev = 7159, next = 7161, safety_zone = 10 },
+    { number = 7161, type = "Queue",    prev = 7160, next = 7162, safety_zone = 10 },
+    { number = 7162, type = "Queue",    prev = 7161, next = 7163, safety_zone = 10 },
+    { number = 7163, type = "Queue",    prev = 7162, next = 7164, safety_zone = 10 },
+    { number = 7164, type = "Transfer", conv_upstream = 0,    conv_downstream = 7166, chain_upstream = 7163, chain_downstream = 0,    safety_zone = 10 },
+    { number = 7166, type = "Transfer", conv_upstream = 7164, conv_downstream = 7301, chain_upstream = 0,    chain_downstream = 7168, safety_zone = 10 },
+    { number = 7168, type = "Transfer", conv_upstream = 0,    conv_downstream = 7302, chain_upstream = 7166, chain_downstream = 7170, safety_zone = 10 },
+    { number = 7170, type = "Transfer", conv_upstream = 0,    conv_downstream = 7303, chain_upstream = 7168, chain_downstream = 7172, safety_zone = 10 },
+    { number = 7172, type = "Transfer", conv_upstream = 0,    conv_downstream = 7304, chain_upstream = 7170, chain_downstream = 7174, safety_zone = 10 },
+    { number = 7174, type = "Transfer", conv_upstream = 0,    conv_downstream = 7305, chain_upstream = 7172, chain_downstream = 7176, safety_zone = 10 },
+    { number = 7176, type = "Transfer", conv_upstream = 0,    conv_downstream = 7306, chain_upstream = 7174, chain_downstream = 7178, safety_zone = 10 },
+    { number = 7178, type = "Transfer", conv_upstream = 0,    conv_downstream = 7307, chain_upstream = 7176, chain_downstream = 7180, safety_zone = 10 },
+    { number = 7180, type = "Transfer", conv_upstream = 7156, conv_downstream = 7308, chain_upstream = 7178, chain_downstream = 7187, safety_zone = 10 },
+    { number = 7187, type = "Transfer", conv_upstream = 0,    conv_downstream = 7189, chain_upstream = 7180, chain_downstream = 7188, safety_zone = 10 },
+    { number = 7188, type = "Transfer", conv_upstream = 0,    conv_downstream = 7190, chain_upstream = 7187, chain_downstream = 0,    safety_zone = 10 },
+    { number = 7301, type = "Queue",    prev = 7166, next = 0, isTestStation = true, safety_zone = 10 },
+    { number = 7302, type = "Queue",    prev = 7168, next = 0, isTestStation = true, safety_zone = 10 },
+    { number = 7303, type = "Queue",    prev = 7170, next = 0, isTestStation = true, safety_zone = 10 },
+    { number = 7304, type = "Queue",    prev = 7172, next = 0, isTestStation = true, safety_zone = 10 },
+    { number = 7305, type = "Queue",    prev = 7174, next = 0, isTestStation = true, safety_zone = 10 },
+    { number = 7306, type = "Queue",    prev = 7176, next = 0, isTestStation = true, safety_zone = 10 },
+    { number = 7307, type = "Queue",    prev = 7178, next = 0, isTestStation = true, safety_zone = 10 },
+    { number = 7308, type = "Queue",    prev = 7180, next = 0, isTestStation = true, safety_zone = 10 },
+    { number = 7182, type = "Queue",    prev = 7156, next = 7183, safety_zone = 10 },
+    { number = 7183, type = "Queue",    prev = 7182, next = 7184, safety_zone = 10 },
+    { number = 7184, type = "Queue",    prev = 7183, next = 7185, safety_zone = 10 },
+    { number = 7185, type = "Queue",    prev = 7184, next = 7210, safety_zone = 10 },
+    { number = 7210, type = "Transfer", conv_upstream = 7200, conv_downstream = 7220, chain_upstream = 7185, chain_downstream = 0,    safety_zone = 10 },
+]
+

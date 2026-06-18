@@ -57,6 +57,8 @@ output/*
 # but keep the directory itself.
 /sandbox/*
 !/sandbox/.gitkeep
+/reference/*
+!/reference/.gitkeep
 
 # Ignore third-party dependencies in the vendor directory,
 # but keep the directory itself.
