@@ -7,18 +7,23 @@ from __future__ import annotations
 
 # Standard library imports
 from copy import deepcopy
+from datetime import datetime
 from pathlib import Path
 
 # Third-party imports
 import lxml.etree as etree
 
 # Local application imports
-from generate_io_l5x import STATIONS_TOML, load_stations
+from generate_io_l5x import STATIONS_TOML, StationDef, load_stations
 
-MAIN_XML = Path("reference/MAIN.xml")
+TEMPLATE_XML = Path("reference/MAIN.xml")
+OUTPUT_DIR = Path("output")
+OUTPUT_FILE_STEM = "MAIN"
 GO_GROUP_PREFIX = "GO_Conv"
 TEMPLATE_GROUP_NAME = "GO_Conv4000"
 TEMPLATE_STATION = "4000"
+POPUP_STRAIGHT = "300_Pop_StraightTrack"
+POPUP_LIFT = "301_Pop_Lift"
 
 
 def _parse_main_xml(path: Path) -> etree._ElementTree:
@@ -58,15 +63,29 @@ def _replace_station_tokens(
 
 
 def _build_station_group(
-    template: etree._Element, station_number: int
+    template: etree._Element,
+    station_number: int,
+    machine_name: str,
+    popup_name: str,
 ) -> etree._Element:
     group = deepcopy(template)
     _replace_station_tokens(group, TEMPLATE_STATION, str(station_number))
+
+    machine_name_param = group.find("./parameters/parameter[@name='#2']")
+    if machine_name_param is None:
+        raise RuntimeError("Template is missing parameter #2 for machine name.")
+    machine_name_param.set("value", machine_name)
+
+    popup_param = group.find("./parameters/parameter[@name='#4']")
+    if popup_param is None:
+        raise RuntimeError("Template is missing parameter #4 for popup name.")
+    popup_param.set("value", popup_name)
+
     return group
 
 
-def regenerate_main_xml(main_xml_path: Path, station_numbers: list[int]) -> Path:
-    tree = _parse_main_xml(main_xml_path)
+def generate_main_xml(template_path: Path, stations: dict[int, StationDef]) -> Path:
+    tree = _parse_main_xml(template_path)
     root = tree.getroot()
 
     existing_groups = _iter_go_conv_groups(root)
@@ -80,24 +99,36 @@ def regenerate_main_xml(main_xml_path: Path, station_numbers: list[int]) -> Path
     for group in existing_groups:
         root.remove(group)
 
+    station_numbers = sorted(stations, reverse=True)
     for offset, station_number in enumerate(station_numbers):
-        group = _build_station_group(template_group, station_number)
+        station = stations[station_number]
+        machine_name = f"{station.prefix}{station_number}"
+        popup_name = POPUP_LIFT if station.prefix == "Li" else POPUP_STRAIGHT
+        group = _build_station_group(
+            template_group,
+            station_number,
+            machine_name,
+            popup_name,
+        )
         group.tail = template_tail
         root.insert(insertion_index + offset, group)
 
+    OUTPUT_DIR.mkdir(exist_ok=True)
+    timestamp = datetime.now().isoformat(timespec="seconds").replace(":", "-")
+    out_path = OUTPUT_DIR / f"{OUTPUT_FILE_STEM}_{timestamp}.xml"
     tree.write(
-        str(main_xml_path),
+        str(out_path),
         xml_declaration=True,
         encoding="UTF-8",
         pretty_print=False,
     )
-    return main_xml_path
+    return out_path
 
 
 def main() -> None:
     stations = load_stations(STATIONS_TOML)
-    station_numbers = sorted(stations)
-    out_path = regenerate_main_xml(MAIN_XML, station_numbers)
+    station_numbers = sorted(stations, reverse=True)
+    out_path = generate_main_xml(TEMPLATE_XML, stations)
 
     print(f"Stations loaded: {len(station_numbers)}")
     print(f"GO_Conv groups written: {len(station_numbers)}")
