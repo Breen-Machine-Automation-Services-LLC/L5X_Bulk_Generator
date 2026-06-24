@@ -15,6 +15,7 @@ Usage:
   Edit the constants below, then run:
     python merge_l5x.py
 """
+
 from __future__ import annotations
 
 import sys
@@ -25,9 +26,15 @@ from pathlib import Path
 from lxml import etree
 
 # --- paths -----------------------------------------------------------------
-PROJECT_ROOT = Path(r"G:\Shared drives\Customers\SubZero - Cove - Wolf\Wolf\1394 Wall Oven Expansion\Programs")
-INPUT_DIR = Path(r"C:\Users\justi\Documents\VSCode\L5X Bulk Generator\Output")
-OUTPUT_DIR = INPUT_DIR  # same folder; change if you want it elsewhere
+PROJECT_ROOT = Path(
+    r"G:\Shared drives\Customers\SubZero - Cove - Wolf\Wolf\1394 Wall Oven Expansion\Programs"
+)
+# INPUT_DIR = Path(r"C:\Users\justi\Documents\VSCode\L5X Bulk Generator\Output")
+INPUT_DIR = (
+    PROJECT_ROOT / "Hybrid Main Line Programs" / "GeneratedRoutines- Hybrid Main Line"
+)
+# OUTPUT_DIR = INPUT_DIR  # same folder; change if you want it elsewhere
+OUTPUT_DIR = PROJECT_ROOT / "FAT Programs"
 
 # Optional: explicit base file. If None, uses the alphabetically-first L5X
 # in INPUT_DIR as the base. The base provides the Controller header
@@ -72,10 +79,13 @@ def _ensure_parent(base_root: etree._Element, parent_xpath: str) -> etree._Eleme
 # level. Programs are handled separately (see _merge_programs) because we want
 # each station as its own sibling Program, not flattened into one.
 CONTAINERS: list[tuple[str, str]] = [
-    ("/RSLogix5000Content/Controller/DataTypes",                  "DataType"),
-    ("/RSLogix5000Content/Controller/Modules",                    "Module"),
-    ("/RSLogix5000Content/Controller/AddOnInstructionDefinitions","AddOnInstructionDefinition"),
-    ("/RSLogix5000Content/Controller/Tags",                       "Tag"),
+    ("/RSLogix5000Content/Controller/DataTypes", "DataType"),
+    ("/RSLogix5000Content/Controller/Modules", "Module"),
+    (
+        "/RSLogix5000Content/Controller/AddOnInstructionDefinitions",
+        "AddOnInstructionDefinition",
+    ),
+    ("/RSLogix5000Content/Controller/Tags", "Tag"),
 ]
 
 
@@ -148,8 +158,9 @@ def _ensure_tag_comments(tag: etree._Element) -> etree._Element:
     return comments
 
 
-def _merge_missing_tag_comments(existing_tag: etree._Element,
-                                incoming_tag: etree._Element) -> dict[str, int]:
+def _merge_missing_tag_comments(
+    existing_tag: etree._Element, incoming_tag: etree._Element
+) -> dict[str, int]:
     """Copy missing direct tag comments by Operand without changing tag data."""
     result = {"added": 0, "skipped": 0, "conflicted": 0}
     incoming_comments = incoming_tag.find("Comments")
@@ -191,9 +202,7 @@ def merge(base_path: Path, sources: list[Path], output_path: Path) -> dict:
     # Description text in <![CDATA[...]]>; Studio 5000's importer rejects
     # those nodes if the CDATA wrapper is missing on import. lxml's default
     # parser silently strips CDATA markers (keeps text) -> import fails.
-    parser = etree.XMLParser(
-        remove_blank_text=False, huge_tree=True, strip_cdata=False
-    )
+    parser = etree.XMLParser(remove_blank_text=False, huge_tree=True, strip_cdata=False)
     base_tree = etree.parse(str(base_path), parser)
     base_root = base_tree.getroot()
 
@@ -212,12 +221,16 @@ def merge(base_path: Path, sources: list[Path], output_path: Path) -> dict:
 
     # Programs are merged as siblings (one per source file), not flattened.
     # Pre-load existing Program names from the base for dedupe.
-    programs_parent = _ensure_parent(base_root, "/RSLogix5000Content/Controller/Programs")
+    programs_parent = _ensure_parent(
+        base_root, "/RSLogix5000Content/Controller/Programs"
+    )
     existing_programs = {
         p.get("Name") for p in programs_parent.findall("Program") if p.get("Name")
     }
 
-    stats: dict[str, dict[str, int]] = {ct: {"added": 0, "skipped": 0} for _, ct in CONTAINERS}
+    stats: dict[str, dict[str, int]] = {
+        ct: {"added": 0, "skipped": 0} for _, ct in CONTAINERS
+    }
     stats["Program"] = {"added": 0, "skipped": 0, "renamed": 0}
     stats["TagComment"] = {"added": 0, "skipped": 0, "conflicted": 0}
 
@@ -278,8 +291,10 @@ def merge(base_path: Path, sources: list[Path], output_path: Path) -> dict:
             print(f"  [WARN] {src.name}: no <Program> element found")
             continue
         if len(src_programs) > 1:
-            print(f"  [WARN] {src.name}: {len(src_programs)} Programs; "
-                  "merging only the first as '{prog_name}'")
+            print(
+                f"  [WARN] {src.name}: {len(src_programs)} Programs; "
+                "merging only the first as '{prog_name}'"
+            )
         src_prog = src_programs[0]
         if prog_name in existing_programs:
             stats["Program"]["skipped"] += 1
@@ -356,14 +371,17 @@ def main() -> int:
 
     sources = [f for f in files if f.resolve() != base.resolve()]
 
-    timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+    # ISO timestamp with second precision, normalized for Windows-safe filenames.
+    timestamp = datetime.now().isoformat(timespec="seconds").replace(":", "-")
     suffix = f"_{OUTPUT_TAG}" if (filter_active and OUTPUT_TAG) else ""
     out = OUTPUT_DIR / f"Program{suffix}_{timestamp}.L5X"
 
     print(f"Base:    {base.name}")
     if filter_active:
-        print(f"Filter:  station numbers in [{STATION_MIN}..{STATION_MAX}]  "
-              f"({len(files)}/{len(all_matches)} files)")
+        print(
+            f"Filter:  station numbers in [{STATION_MIN}..{STATION_MAX}]  "
+            f"({len(files)}/{len(all_matches)} files)"
+        )
     print(f"Merging: {len(sources)} files from {INPUT_DIR}")
     print(f"Output:  {out}")
     print()
@@ -377,11 +395,15 @@ def main() -> int:
         s = stats[ct]
         print(f"  {ct:30s}  added={s['added']:>6}   skipped={s['skipped']:>6}")
     tc = stats["TagComment"]
-    print(f"  {'TagComment':30s}  added={tc['added']:>6}   skipped={tc['skipped']:>6}"
-          f"   conflicts={tc['conflicted']:>6}")
+    print(
+        f"  {'TagComment':30s}  added={tc['added']:>6}   skipped={tc['skipped']:>6}"
+        f"   conflicts={tc['conflicted']:>6}"
+    )
     sp = stats["Program"]
-    print(f"  {'Program':30s}  added={sp['added']:>6}   skipped={sp['skipped']:>6}"
-          f"   (base renamed: {sp['renamed']})")
+    print(
+        f"  {'Program':30s}  added={sp['added']:>6}   skipped={sp['skipped']:>6}"
+        f"   (base renamed: {sp['renamed']})"
+    )
     print(f"\nDone in {elapsed:.2f}s -> {out}")
     return 0
 
