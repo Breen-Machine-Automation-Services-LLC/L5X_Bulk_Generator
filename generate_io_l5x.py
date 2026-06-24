@@ -14,6 +14,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
+from typing import Literal
 
 # Third-party imports
 import lxml.etree as etree
@@ -47,19 +48,40 @@ class StationDef:
     def is_transfer(self) -> bool:
         return self.station_type == "Transfer"
 
-    @property
-    def conv_run_tag(self) -> str:
-        return f"{self.prefix}{self.number}_Conv_Run"
+Axis = Literal["conv", "chain"]
 
-    @property
-    def conv_dir_tag(self) -> str:
-        return f"{self.prefix}{self.number}_Conv_Dir"
 
-    @property
-    def presence_tag(self) -> str:
-        if self.is_transfer:
-            return f"CT{self.number}_FE_Chain"
-        return f"{self.prefix}{self.number}_PE_FE"
+def _endpoint_axis(station: StationDef, other_station_num: int) -> Axis:
+    if not station.is_transfer:
+        return "conv"
+
+    if other_station_num in {station.conv_upstream, station.conv_downstream}:
+        return "conv"
+    if other_station_num in {station.chain_upstream, station.chain_downstream}:
+        return "chain"
+
+    # Fallback for malformed relationship maps.
+    return "conv"
+
+
+def _run_tag(station: StationDef, axis: Axis) -> str:
+    if station.is_transfer and axis == "chain":
+        return f"CT{station.number}_Chain_Run"
+    return f"{station.prefix}{station.number}_Conv_Run"
+
+
+def _dir_tag(station: StationDef, axis: Axis) -> str:
+    if station.is_transfer and axis == "chain":
+        return f"CT{station.number}_Chain_Dir"
+    return f"{station.prefix}{station.number}_Conv_Dir"
+
+
+def _presence_tag(station: StationDef, axis: Axis) -> str:
+    if not station.is_transfer:
+        return f"{station.prefix}{station.number}_PE_FE"
+    if axis == "chain":
+        return f"CT{station.number}_FE_Chain"
+    return f"CT{station.number}_FE_Conv"
 
 
 def _read_toml(path: Path) -> dict:
@@ -224,6 +246,12 @@ def _make_rung(number: int, text: str) -> etree._Element:
     return rung
 
 
+def _is_forward_edge(src: StationDef, dst_num: int) -> bool:
+    if src.is_transfer:
+        return dst_num in {src.conv_downstream, src.chain_downstream}
+    return dst_num == src.next
+
+
 def _build_program_root() -> tuple[etree._Element, etree._Element, etree._Element]:
     root = etree.Element(
         "RSLogix5000Content",
@@ -268,19 +296,22 @@ def build_simulation_rungs(
     for src_num, dst_num in edges:
         src = stations[src_num]
         dst = stations[dst_num]
+        src_axis = _endpoint_axis(src, dst_num)
+        dst_axis = _endpoint_axis(dst, src_num)
         timer = f"T{src_num}to{dst_num}"
+        dir_instr = "XIO" if _is_forward_edge(src, dst_num) else "XIC"
         timer_names.add(timer)
 
         rung_texts.append(
             (
-                f"XIC({src.conv_run_tag})"
-                f"XIO({src.conv_dir_tag})"
-                f"XIC({dst.conv_run_tag})"
-                f"XIO({dst.conv_dir_tag})"
+                f"XIC({_run_tag(src, src_axis)})"
+                f"{dir_instr}({_dir_tag(src, src_axis)})"
+                f"XIC({_run_tag(dst, dst_axis)})"
+                f"{dir_instr}({_dir_tag(dst, dst_axis)})"
                 f"TON({timer},{preset_ms},0)"
                 f"XIC({timer}.DN)"
-                f"OTU({src.presence_tag})"
-                f"OTL({dst.presence_tag});"
+                f"OTU({_presence_tag(src, src_axis)})"
+                f"OTL({_presence_tag(dst, dst_axis)});"
             )
         )
 

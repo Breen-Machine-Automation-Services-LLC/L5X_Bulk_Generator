@@ -6,17 +6,19 @@ port binding, and addressing so the same schema can generate mixed hierarchies.
 
 # Standard library imports
 from __future__ import annotations
-import tomllib
+
 from copy import deepcopy
 from datetime import datetime
 from pathlib import Path
 
 # Third-party imports
 import lxml.etree as etree
+import tomllib
+
 # Local application imports
 
 # --- paths (edit per panel run) --------------------------------------------
-DEFAULT_TOML_FILE = Path("input/Network.toml")
+DEFAULT_TOML_FILE = Path("input/Backplane.toml")
 # DEFAULT_TOML_FILE = Path("sandbox/network_proposed.toml")
 
 
@@ -65,7 +67,7 @@ def make_module(
     ]
     if len(upstream_ports) != 1:
         raise RuntimeError(
-            f"Module '{name}' must have exactly one Upstream='true' port; found {len(upstream_ports)}."
+            f"Module '{name}' must have exactly one Upstream='true' port."
         )
     upstream_ports[0].set("Address", str(address))
 

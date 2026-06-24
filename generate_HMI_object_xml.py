@@ -24,6 +24,7 @@ TEMPLATE_GROUP_NAME = "GO_Conv4000"
 TEMPLATE_STATION = "4000"
 POPUP_STRAIGHT = "300_Pop_StraightTrack"
 POPUP_LIFT = "301_Pop_Lift"
+POPUP_CHAIN_TRANSFER = "303_Pop_ChainTransfer"
 
 
 def _parse_main_xml(path: Path) -> etree._ElementTree:
@@ -103,7 +104,12 @@ def generate_main_xml(template_path: Path, stations: dict[int, StationDef]) -> P
     for offset, station_number in enumerate(station_numbers):
         station = stations[station_number]
         machine_name = f"{station.prefix}{station_number}"
-        popup_name = POPUP_LIFT if station.prefix == "Li" else POPUP_STRAIGHT
+        if station.prefix == "Li":
+            popup_name = POPUP_LIFT
+        elif station.prefix == "CT":
+            popup_name = POPUP_CHAIN_TRANSFER
+        else:
+            popup_name = POPUP_STRAIGHT
         group = _build_station_group(
             template_group,
             station_number,
