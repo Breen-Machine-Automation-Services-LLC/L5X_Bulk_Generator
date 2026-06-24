@@ -1,0 +1,3650 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Lift_Standard_Code" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Wed Jun 24 14:28:27 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="Standard_Code_Library">
+<DataTypes Use="Context">
+<DataType Name="IO_Link_Port_Data" Family="NoFamily" Class="User">
+<Members>
+<Member Name="Inputs" DataType="SINT" Dimension="48" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Outputs" DataType="SINT" Dimension="48" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write"/>
+</Members>
+</DataType>
+<DataType Name="MES_Brake_Integration" Family="NoFamily" Class="User">
+<Members>
+<Member Name="UnitIdentifier" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Tag shared between MES and PLC]]>
+</Description>
+</Member>
+<Member Name="StationNumber" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Tag shared between MES and PLC]]>
+</Description>
+</Member>
+<Member Name="ZZZZZZZZZZMES_Brake_2" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="OK" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZMES_Brake_2" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA["Unit Ready for Release" UI control]]>
+</Description>
+</Member>
+<Member Name="DN" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZMES_Brake_2" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Brake Release Process Complete]]>
+</Description>
+</Member>
+<Member Name="Data" DataType="MES_Data" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="OEE" DataType="MES_OEE" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Unused]]>
+</Description>
+</Member>
+<Member Name="Shift" DataType="MES_Shift" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Unused]]>
+</Description>
+</Member>
+</Members>
+<Dependencies>
+<Dependency Type="DataType" Name="MES_Data"/>
+<Dependency Type="DataType" Name="MES_OEE"/>
+<Dependency Type="DataType" Name="MES_Shift"/>
+</Dependencies>
+</DataType>
+<DataType Name="MES_Data" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[Data from MES DB]]>
+</Description>
+<Members>
+<Member Name="UnitIdentifier" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Tan/Serial]]>
+</Description>
+</Member>
+<Member Name="ManufacturingOrder" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Work Order]]>
+</Description>
+</Member>
+<Member Name="ItemNumber" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Tag controlled by MES]]>
+</Description>
+</Member>
+<Member Name="Grade" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Tag controlled by MES]]>
+</Description>
+</Member>
+<Member Name="ZZZZZZZZZZMES_Data4" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="UpstreamOK" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZMES_Data4" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Tag controlled by MES]]>
+</Description>
+</Member>
+</Members>
+</DataType>
+<DataType Name="MES_OEE" Family="NoFamily" Class="User">
+<Members>
+<Member Name="ZZZZZZZZZZMES_OEE0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Available" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZMES_OEE0" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Tag controlled by MES]]>
+</Description>
+</Member>
+<Member Name="AvailabilityReasonCode" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Tag controlled by PLC]]>
+</Description>
+</Member>
+</Members>
+</DataType>
+<DataType Name="MES_Shift" Family="NoFamily" Class="User">
+<Members>
+<Member Name="EndTime" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Identification" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write"/>
+</Members>
+</DataType>
+<DataType Name="SZG_MachineStats_V0" Family="NoFamily" Class="User">
+<Members>
+<Member Name="PLC_MachineState" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Bits:
+1: Starved
+2: Load
+3: Machine Running
+4: Operator Running
+5:Blocked
+6: Unload
+28: Manual
+29: Stopped
+30: Faulted
+31: E-Stop]]>
+</Description>
+</Member>
+<Member Name="PLC_Warning" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="PLC_Fault" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="PLC_HMIButtons" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="PLC_PushButtons" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="PLC_Spare" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write"/>
+</Members>
+</DataType>
+<DataType Name="SZG_Station" Family="NoFamily" Class="User">
+<Members>
+<Member Name="State" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[State Control]]>
+</Description>
+</Member>
+<Member Name="Mode" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Stopped/Started/Manual]]>
+</Description>
+</Member>
+<Member Name="Error" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Unexpected condition that requires a stop]]>
+</Description>
+</Member>
+<Member Name="Warning" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Unexpected behavor that requires user notification]]>
+</Description>
+</Member>
+<Member Name="Config" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Optional Features]]>
+</Description>
+</Member>
+<Member Name="ZZZZZZZZZZSZG_Lift_T5" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="Stop_HMI" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZSZG_Lift_T5" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[HMI PB - Change mode to stop]]>
+</Description>
+</Member>
+<Member Name="Start_HMI" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZSZG_Lift_T5" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[HMI PB - Change mode to start]]>
+</Description>
+</Member>
+<Member Name="Manual_HMI" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZSZG_Lift_T5" BitNumber="2" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[HMI PB - Change mode to manual]]>
+</Description>
+</Member>
+<Member Name="SetState_PartPresent_HMI" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZSZG_Lift_T5" BitNumber="3" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[HMI PB - Change State for manually installed part]]>
+</Description>
+</Member>
+<Member Name="SetState_PartClear_HMI" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZSZG_Lift_T5" BitNumber="4" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[HMI PB - Change State for manually removed part]]>
+</Description>
+</Member>
+</Members>
+</DataType>
+</DataTypes>
+<AddOnInstructionDefinitions Use="Context">
+<AddOnInstructionDefinition Name="InRange_Asymmetric" Class="Standard" Revision="1.0" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2023-06-03T19:24:09.000Z" CreatedBy="DESKTOP-S70AEDE\BMAS" EditedDate="2023-06-10T16:28:45.666Z" EditedBy="DESKTOP-S70AEDE\BMAS" SoftwareRevision="v33.01"
+>
+<Description>
+<![CDATA[Monitors a signal to see if it's in a given range.  Tolerance is +/- and symmetrical.]]>
+</Description>
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="Signal" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="LimitHi" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Target" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="LimitLo" TagType="Base" DataType="REAL" Usage="Input" Radix="Float" Required="true" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="InRange" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Hi" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Lo" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+</Parameters>
+<LocalTags/>
+<Routines>
+<Routine Name="Logic" Type="ST">
+<Description>
+<![CDATA[Monitors a signal to see if it's in a given range.  Tolerance is +/- and symmetrical.]]>
+</Description>
+<STContent>
+<Line Number="0">
+<![CDATA[]]>
+</Line>
+<Line Number="1">
+<![CDATA[Hi := Signal >= LimitHi;]]>
+</Line>
+<Line Number="2">
+<![CDATA[Lo := Signal <= LimitLo;]]>
+</Line>
+<Line Number="3">
+<![CDATA[InRange := NOT Hi AND NOT Lo;]]>
+</Line>
+<Line Number="4">
+<![CDATA[]]>
+</Line>
+</STContent>
+</Routine>
+</Routines>
+</AddOnInstructionDefinition>
+<EncodedData EncodedType="AddOnInstructionDefinition" Name="SZG_IOL_Inclinometer" Class="Standard" Revision="3.1" Vendor="Sub-Zero" SignatureID="63620DC4" SignatureTimestamp="2025-04-24T13:06:53.057Z" EditedDate="2025-04-24T13:06:53.057Z" SoftwareRevision="v34.02" EncryptionConfig="9">
+<Description>
+<![CDATA[Turk IOL Inclinometer]]>
+</Description>
+<RevisionNote>
+<![CDATA[v3.1 Added jumper around vendor ID to mitigate Balluff firmware bug. CJB]]>
+</RevisionNote>
+<SignatureHistory>
+<HistoryEntry User="DESKTOP-S70AEDE\BMAS" Timestamp="2023-06-10T16:19:38.920Z" SignatureID="16#9bae_8f31">
+<Description>
+<![CDATA[Swapped CPS for BTD instructions]]>
+</Description>
+</HistoryEntry>
+<HistoryEntry User="SUBZEROCOM\justin.virgilio" Timestamp="2023-10-04T22:00:08.038Z" SignatureID="16#762a_1873">
+<Description>
+<![CDATA[Added Signed/Unsigned]]>
+</Description>
+</HistoryEntry>
+<HistoryEntry User="SUBZEROCOM\cameron.boeder" Timestamp="2023-11-10T20:04:44.571Z" SignatureID="16#6362_0dc4">
+<Description>
+<![CDATA[v3.1 Added jumper around vendor ID to mitigate Balluff firmware bug. CJB]]>
+</Description>
+</HistoryEntry>
+</SignatureHistory>
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="IOL_Inputs" TagType="Base" DataType="SINT" Dimensions="48" Usage="InOut" Radix="Decimal" Required="true" Visible="true" Constant="true">
+<Comments>
+<Comment Operand="[34]">
+<![CDATA[Vendor ID 1]]>
+</Comment>
+<Comment Operand="[35]">
+<![CDATA[Vendor ID 2]]>
+</Comment>
+<Comment Operand="[36]">
+<![CDATA[Device ID 1]]>
+</Comment>
+<Comment Operand="[37]">
+<![CDATA[Device ID 2]]>
+</Comment>
+<Comment Operand="[38]">
+<![CDATA[Device ID 3]]>
+</Comment>
+</Comments>
+</Parameter>
+<Parameter Name="IOL_Outputs" TagType="Base" DataType="SINT" Dimensions="48" Usage="InOut" Radix="Decimal" Required="true" Visible="true" Constant="false">
+<Comments>
+<Comment Operand="[0].2">
+<![CDATA[Trigger center
+point teach
+function]]>
+</Comment>
+</Comments>
+</Parameter>
+<Parameter Name="Center_Point" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Device_ID" TagType="Base" DataType="DINT" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Vendor_ID" TagType="Base" DataType="DINT" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inverse_Process_Data" TagType="Base" DataType="DINT" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Process_Data" TagType="Base" DataType="DINT" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Scale" TagType="Base" DataType="SINT" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="SINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Vendor_Specific" TagType="Base" DataType="SINT" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="None">
+<Description>
+<![CDATA[Signed]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="SINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="DeviceMatch" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Connected" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Signed" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[1]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Data_Valid" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="None">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="ER" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Degrees" TagType="Base" DataType="REAL" Usage="Output" Radix="Float" Required="false" Visible="true" ExternalAccess="Read Only">
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inverse_Degrees" TagType="Base" DataType="REAL" Usage="Output" Radix="Float" Required="false" Visible="false" ExternalAccess="Read Only">
+<DefaultData Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</DefaultData>
+</Parameter>
+</Parameters>
+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</EncodedData>
+</AddOnInstructionDefinitions>
+<Tags Use="Context">
+<Tag Name="CTXXXX_Px_Blade_Down" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Blade Stop in Down 
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CTXXXX_Px_Blade_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Blade Stop in Down 
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="FiSZ_BI_XXXX_MachineStats" Class="Standard" TagType="Base" DataType="SZG_MachineStats_V0" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0,0,0,0,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="SZG_MachineStats_V0">
+<DataValueMember Name="PLC_MachineState" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="PLC_Warning" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="PLC_Fault" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="PLC_HMIButtons" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="PLC_PushButtons" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="PLC_Spare" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="Group_Cycle_Start" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[For small groups of stations to start at once]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="IOL_XXXX_PX" Class="Standard" TagType="Base" DataType="IO_Link_Port_Data" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+		,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="IO_Link_Port_Data">
+<ArrayMember Name="Inputs" DataType="SINT" Dimensions="48" Radix="Decimal">
+<Element Index="[0]" Value="0"/>
+<Element Index="[1]" Value="0"/>
+<Element Index="[2]" Value="0"/>
+<Element Index="[3]" Value="0"/>
+<Element Index="[4]" Value="0"/>
+<Element Index="[5]" Value="0"/>
+<Element Index="[6]" Value="0"/>
+<Element Index="[7]" Value="0"/>
+<Element Index="[8]" Value="0"/>
+<Element Index="[9]" Value="0"/>
+<Element Index="[10]" Value="0"/>
+<Element Index="[11]" Value="0"/>
+<Element Index="[12]" Value="0"/>
+<Element Index="[13]" Value="0"/>
+<Element Index="[14]" Value="0"/>
+<Element Index="[15]" Value="0"/>
+<Element Index="[16]" Value="0"/>
+<Element Index="[17]" Value="0"/>
+<Element Index="[18]" Value="0"/>
+<Element Index="[19]" Value="0"/>
+<Element Index="[20]" Value="0"/>
+<Element Index="[21]" Value="0"/>
+<Element Index="[22]" Value="0"/>
+<Element Index="[23]" Value="0"/>
+<Element Index="[24]" Value="0"/>
+<Element Index="[25]" Value="0"/>
+<Element Index="[26]" Value="0"/>
+<Element Index="[27]" Value="0"/>
+<Element Index="[28]" Value="0"/>
+<Element Index="[29]" Value="0"/>
+<Element Index="[30]" Value="0"/>
+<Element Index="[31]" Value="0"/>
+<Element Index="[32]" Value="0"/>
+<Element Index="[33]" Value="0"/>
+<Element Index="[34]" Value="0"/>
+<Element Index="[35]" Value="0"/>
+<Element Index="[36]" Value="0"/>
+<Element Index="[37]" Value="0"/>
+<Element Index="[38]" Value="0"/>
+<Element Index="[39]" Value="0"/>
+<Element Index="[40]" Value="0"/>
+<Element Index="[41]" Value="0"/>
+<Element Index="[42]" Value="0"/>
+<Element Index="[43]" Value="0"/>
+<Element Index="[44]" Value="0"/>
+<Element Index="[45]" Value="0"/>
+<Element Index="[46]" Value="0"/>
+<Element Index="[47]" Value="0"/>
+</ArrayMember>
+<ArrayMember Name="Outputs" DataType="SINT" Dimensions="48" Radix="Decimal">
+<Element Index="[0]" Value="0"/>
+<Element Index="[1]" Value="0"/>
+<Element Index="[2]" Value="0"/>
+<Element Index="[3]" Value="0"/>
+<Element Index="[4]" Value="0"/>
+<Element Index="[5]" Value="0"/>
+<Element Index="[6]" Value="0"/>
+<Element Index="[7]" Value="0"/>
+<Element Index="[8]" Value="0"/>
+<Element Index="[9]" Value="0"/>
+<Element Index="[10]" Value="0"/>
+<Element Index="[11]" Value="0"/>
+<Element Index="[12]" Value="0"/>
+<Element Index="[13]" Value="0"/>
+<Element Index="[14]" Value="0"/>
+<Element Index="[15]" Value="0"/>
+<Element Index="[16]" Value="0"/>
+<Element Index="[17]" Value="0"/>
+<Element Index="[18]" Value="0"/>
+<Element Index="[19]" Value="0"/>
+<Element Index="[20]" Value="0"/>
+<Element Index="[21]" Value="0"/>
+<Element Index="[22]" Value="0"/>
+<Element Index="[23]" Value="0"/>
+<Element Index="[24]" Value="0"/>
+<Element Index="[25]" Value="0"/>
+<Element Index="[26]" Value="0"/>
+<Element Index="[27]" Value="0"/>
+<Element Index="[28]" Value="0"/>
+<Element Index="[29]" Value="0"/>
+<Element Index="[30]" Value="0"/>
+<Element Index="[31]" Value="0"/>
+<Element Index="[32]" Value="0"/>
+<Element Index="[33]" Value="0"/>
+<Element Index="[34]" Value="0"/>
+<Element Index="[35]" Value="0"/>
+<Element Index="[36]" Value="0"/>
+<Element Index="[37]" Value="0"/>
+<Element Index="[38]" Value="0"/>
+<Element Index="[39]" Value="0"/>
+<Element Index="[40]" Value="0"/>
+<Element Index="[41]" Value="0"/>
+<Element Index="[42]" Value="0"/>
+<Element Index="[43]" Value="0"/>
+<Element Index="[44]" Value="0"/>
+<Element Index="[45]" Value="0"/>
+<Element Index="[46]" Value="0"/>
+<Element Index="[47]" Value="0"/>
+</ArrayMember>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="IOLMaster_Connection_Faulted_Placeholder" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Replace with IOL master connection faulted bit]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX" Class="Standard" TagType="Base" DataType="SZG_Station" Constant="false" ExternalAccess="Read/Write">
+<Comments>
+<Comment Operand=".ERROR.1">
+<![CDATA[Unexpected Part
+Fault]]>
+</Comment>
+<Comment Operand=".ERROR.2">
+<![CDATA[Lost Part
+Fault]]>
+</Comment>
+<Comment Operand=".ERROR.3">
+<![CDATA[Part Load
+Fault]]>
+</Comment>
+<Comment Operand=".ERROR.5">
+<![CDATA[IOL Master
+Connection Lost
+Fault]]>
+</Comment>
+<Comment Operand=".ERROR.10">
+<![CDATA[HPU Motor
+Starter Fault]]>
+</Comment>
+<Comment Operand=".ERROR.11">
+<![CDATA[Lift Inclinometer
+Connection Fault]]>
+</Comment>
+<Comment Operand=".ERROR.12">
+<![CDATA[Lift Overtravel
+Fault]]>
+</Comment>
+<Comment Operand=".ERROR.15">
+<![CDATA[Gap Eye
+Fault]]>
+</Comment>
+<Comment Operand=".WARNING.0">
+<![CDATA[Cycle Started
+While Faulted
+Warning]]>
+</Comment>
+<Comment Operand=".WARNING.1">
+<![CDATA[Occupancy Cleared While Sensor
+ Blocked]]>
+</Comment>
+<Comment Operand=".WARNING.2">
+<![CDATA[Occupancy Set 
+While Sensor 
+Clear]]>
+</Comment>
+<Comment Operand=".WARNING.10">
+<![CDATA[HPU Disconnect
+Off Warning]]>
+</Comment>
+<Comment Operand=".CONFIG.5">
+<![CDATA[Enable Set Occupancy HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.6">
+<![CDATA[Enable Clear Occupancy HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.10">
+<![CDATA[Enable Conv Jog Fwd HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.11">
+<![CDATA[Enable Conv Jog Rev HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.20">
+<![CDATA[Under Travel Eye Visible HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.21">
+<![CDATA[Reverse Eye Visible HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.22">
+<![CDATA[Forward Eye Visible HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.23">
+<![CDATA[Over Travel Eye Visible HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.30">
+<![CDATA[Enable Routing HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.31">
+<![CDATA[Enable Multiple Work Positions]]>
+</Comment>
+</Comments>
+<Data Format="L5K">
+<![CDATA[[0,0,6144,1024,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="SZG_Station">
+<DataValueMember Name="State" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Mode" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Error" DataType="DINT" Radix="Decimal" Value="6144"/>
+<DataValueMember Name="Warning" DataType="DINT" Radix="Decimal" Value="1024"/>
+<DataValueMember Name="Config" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Stop_HMI" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Start_HMI" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Manual_HMI" DataType="BOOL" Value="0"/>
+<DataValueMember Name="SetState_PartPresent_HMI" DataType="BOOL" Value="0"/>
+<DataValueMember Name="SetState_PartClear_HMI" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Accept_Manual_Route_HMI" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Accept_Work_Positions_HMI" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Conv_Dir" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Conveyor Direction]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Conv_Fwd_HMI" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Conv_Rev_HMI" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Conv_Run" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Conveyor Run]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_EyesClear" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Status bit to indicate if all station photoeyes are clear]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Gap_Eye_Flt" Class="Standard" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0,100,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="100"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_HPU_Disc" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Hydraulic Pump
+Disconnect]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_HPU_Error" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+HPU Motor
+Starter Fault]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_HPU_Hold" Class="Standard" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[647178,2500,2500]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="2500"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="2500"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_HPU_Hold_Off" Class="Standard" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[647182,5000,5000]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="5000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="5000"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_HPU_Hold_On" Class="Standard" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0,1800000,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="1800000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_HPU_Reset" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+HPU Motor
+Starter Reset]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_HPU_Run" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Hydraulic Pump
+Run]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Infeeding_TON" Class="Standard" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0,1000,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="1000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_DistanceToTarget" Class="Standard" TagType="Base" DataType="REAL" Radix="Float" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_DN" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Down" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Down_Deadband" Class="Standard" TagType="Base" DataType="REAL" Radix="Float" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Down_HMI" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Down_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Flt" Class="Standard" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[-1609965543,200,200]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="200"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="200"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="1"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="1"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Hi" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_HiHi" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Inclinometer" Class="Standard" TagType="Base" DataType="SZG_IOL_Inclinometer" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[195,0,0,0,0,0,0,0.00000000e+000,0.00000000e+000,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="SZG_IOL_Inclinometer">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Center_Point" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Device_ID" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Vendor_ID" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Inverse_Process_Data" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Process_Data" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Scale" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Vendor_Specific" DataType="SINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DeviceMatch" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Connected" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Signed" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Data_Valid" DataType="BOOL" Value="1"/>
+<DataValueMember Name="ER" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Degrees" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="Inverse_Degrees" DataType="REAL" Radix="Float" Value="0.0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Infeed" Class="Standard" TagType="Base" DataType="InRange_Asymmetric" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[27,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="InRange_Asymmetric">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Signal" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="LimitHi" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="Target" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="LimitLo" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="InRange" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Hi" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Lo" DataType="BOOL" Value="1"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Infeed_MinMoveCalc_ONS" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Infeed_Temp" Class="Standard" TagType="Base" DataType="InRange_Asymmetric" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[7,0.00000000e+000,1.00000000e+000,0.00000000e+000,-1.00000000e+000]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="InRange_Asymmetric">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Signal" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="LimitHi" DataType="REAL" Radix="Float" Value="1.0"/>
+<DataValueMember Name="Target" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="LimitLo" DataType="REAL" Radix="Float" Value="-1.0"/>
+<DataValueMember Name="InRange" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Hi" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Lo" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Infeed_TempTarget" Class="Standard" TagType="Base" DataType="REAL" Radix="Float" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_InfeedTarget_Diff" Class="Standard" TagType="Base" DataType="REAL" Radix="Float" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Lo" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_LoLo" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Midpoint" Class="Standard" TagType="Base" DataType="REAL" Radix="Float" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_MinMove_Neg" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[-3]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="-3"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_MinMove_Pos" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[3]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="3"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Outfeed" Class="Standard" TagType="Base" DataType="InRange_Asymmetric" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[27,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="InRange_Asymmetric">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Signal" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="LimitHi" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="Target" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="LimitLo" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="InRange" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Hi" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Lo" DataType="BOOL" Value="1"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Outfeed_MinMoveCalc_ONS" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Outfeed_Temp" Class="Standard" TagType="Base" DataType="InRange_Asymmetric" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[7,0.00000000e+000,1.00000000e+000,0.00000000e+000,-1.00000000e+000]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="InRange_Asymmetric">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Signal" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="LimitHi" DataType="REAL" Radix="Float" Value="1.0"/>
+<DataValueMember Name="Target" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="LimitLo" DataType="REAL" Radix="Float" Value="-1.0"/>
+<DataValueMember Name="InRange" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Hi" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Lo" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Outfeed_TempTarget" Class="Standard" TagType="Base" DataType="REAL" Radix="Float" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_OutfeedTarget_Diff" Class="Standard" TagType="Base" DataType="REAL" Radix="Float" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Run" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Run_HMI" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Target" Class="Standard" TagType="Base" DataType="REAL" Radix="Float" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_TargetOffest" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[6]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="6"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Up_Deadband" Class="Standard" TagType="Base" DataType="REAL" Radix="Float" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Up_HMI" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Up_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Work" Class="Standard" TagType="Base" DataType="InRange_Asymmetric" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[7,0.00000000e+000,1.00000000e+000,0.00000000e+000,-1.00000000e+000]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="InRange_Asymmetric">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Signal" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="LimitHi" DataType="REAL" Radix="Float" Value="1.0"/>
+<DataValueMember Name="Target" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="LimitLo" DataType="REAL" Radix="Float" Value="-1.0"/>
+<DataValueMember Name="InRange" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Hi" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Lo" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Work_HMI" Class="Standard" TagType="Base" DataType="REAL" Radix="Float" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Work_MinMoveCalc_ONS" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Work_Positions" Class="Standard" TagType="Base" DataType="REAL" Dimensions="5" Radix="Float" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000]]]>
+</Data>
+<Data Format="Decorated">
+<Array DataType="REAL" Dimensions="5" Radix="Float">
+<Element Index="[0]" Value="0.0"/>
+<Element Index="[1]" Value="0.0"/>
+<Element Index="[2]" Value="0.0"/>
+<Element Index="[3]" Value="0.0"/>
+<Element Index="[4]" Value="0.0"/>
+</Array>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Work_Temp" Class="Standard" TagType="Base" DataType="InRange_Asymmetric" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[7,0.00000000e+000,1.00000000e+000,0.00000000e+000,-1.00000000e+000]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="InRange_Asymmetric">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Signal" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="LimitHi" DataType="REAL" Radix="Float" Value="1.0"/>
+<DataValueMember Name="Target" DataType="REAL" Radix="Float" Value="0.0"/>
+<DataValueMember Name="LimitLo" DataType="REAL" Radix="Float" Value="-1.0"/>
+<DataValueMember Name="InRange" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Hi" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Lo" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_Work_TempTarget" Class="Standard" TagType="Base" DataType="REAL" Radix="Float" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Lift_WorkTarget_Diff" Class="Standard" TagType="Base" DataType="REAL" Radix="Float" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0.00000000e+000]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="REAL" Radix="Float" Value="0.0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_LiftClear" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Status bit to indicate if all overtravel/undertravel/gap photoeyes are clear]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Manual_Route_HMI" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Outfeeding_TON" Class="Standard" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0,1000,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="1000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Part_Found_Flt" Class="Standard" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0,5000,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="5000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Part_Load_Flt" Class="Standard" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0,60000,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="60000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Part_Lost_Flt" Class="Standard" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0,5000,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="5000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_PB_JogDown" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Workstation
+Jog Down Pushbutton]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_PB_JogUp" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Workstation
+Jog Up Pushbutton]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_PB_Release" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Workstation
+Release Pushbutton]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_PE_FE" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Part Forward
+Stop Photoeye]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_PE_OT" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Part Over
+Travel Photoeye]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_PE_RE" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Part Reverse
+Stop Photoeye]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_PE_SE" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Status Bit for Level 2 HMI Station Status]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_PE_UT" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Part Under
+Travel Photoeye]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Release_Lt" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####) Release PB Light]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Release_TON" Class="Standard" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0,1000,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="1000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Route" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_State_Desc_HMI" Class="Standard" TagType="Base" DataType="STRING" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[16,'Waiting For Part$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		]]]>
+</Data>
+<Data Format="String" Length="16">
+<![CDATA['Waiting For Part']]>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_State_Desc_Idx" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_SV1" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Lift Up]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_SV2" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Lift Down]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_SV3" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Lift Down]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_SW_Active" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Workstation
+Active Switch]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Work_Positions_CTU" Class="Standard" TagType="Base" DataType="COUNTER" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="COUNTER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="CU" DataType="BOOL" Value="0"/>
+<DataValueMember Name="CD" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="OV" DataType="BOOL" Value="0"/>
+<DataValueMember Name="UN" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Work_Positions_HMI" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="LiXXXX_Work_Positions_Index" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="MES_FFFFF_XXXX" Class="Standard" TagType="Base" DataType="MES_Brake_Integration" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],0,[[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],0],[0,[18,'Unplanned_Downtime$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		]],[[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],0]]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="MES_Brake_Integration">
+<StructureMember Name="UnitIdentifier" DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="StationNumber" DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</StructureMember>
+<DataValueMember Name="OK" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+<StructureMember Name="Data" DataType="MES_Data">
+<StructureMember Name="UnitIdentifier" DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="ManufacturingOrder" DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="ItemNumber" DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="Grade" DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</StructureMember>
+<DataValueMember Name="UpstreamOK" DataType="BOOL" Value="0"/>
+</StructureMember>
+<StructureMember Name="OEE" DataType="MES_OEE">
+<DataValueMember Name="Available" DataType="BOOL" Value="0"/>
+<StructureMember Name="AvailabilityReasonCode" DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="18"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Unplanned_Downtime']]>
+</DataValueMember>
+</StructureMember>
+</StructureMember>
+<StructureMember Name="Shift" DataType="MES_Shift">
+<StructureMember Name="EndTime" DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</StructureMember>
+<DataValueMember Name="Identification" DataType="DINT" Radix="Decimal" Value="0"/>
+</StructureMember>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="Outfeed_Complete_Placeholder" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Use next station state or PE to ensure outfeed was successful]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Outfeed_InPosition_Placeholder" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Use when transfer has more than one axis of movement - ex: downstream lift in position]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Safety_PowerOn_Placeholder" Class="Standard" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Replace with safety zone power on delay timer]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[[-1609965577,10000,10000]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="10000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="10000"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="1"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="1"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="State_Desc_HMI" Class="Standard" TagType="Base" DataType="STRING" Dimensions="100" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[[16,'Waiting For Part$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[14,'Part Infeeding$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[22,'Waiting For Downstream$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[15,'Part Outfeeding$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[20,'Waiting For Operator$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[11,'Remove Part$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[8,'Add Part$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[15,'Working On Part$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[25,'Moving To Infeed Position$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[23,'Moving To Work Position$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[26,'Moving To Outfeed Position$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[23,'Moving To Tilt Position$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[31,'Rotating Cross To Work Position$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[34,'Rotating Cross To Outfeed Position$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[25,'Moving To Infeed Position$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[23,'Moving To Work Position$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[26,'Moving To Outfeed Position$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[23,'Moving To Idle Position$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[31,'Part Infeeding Conveyor Forward$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[31,'Part Infeeding Conveyor Reverse$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[31,'Part Infeeding Transfer Forward$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[31,'Part Infeeding Transfer Reverse$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[32,'Part Outfeeding Conveyor Forward$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[32,'Part Outfeeding Conveyor Reverse$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[32,'Part Outfeeding Transfer Forward$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[32,'Part Outfeeding Transfer Reverse$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[23,'Running Part To Endstop$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[21,'Scanning Part Barcode$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[17,'Waiting For Robot$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[11,'Robot Error$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],[12,'Unkown State$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		]]]]>
+</Data>
+<Data Format="Decorated">
+<Array DataType="STRING" Dimensions="100">
+<Element Index="[0]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="16"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Waiting For Part']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[1]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="14"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Part Infeeding']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[2]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="22"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Waiting For Downstream']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[3]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="15"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Part Outfeeding']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[4]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[5]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[6]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[7]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[8]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[9]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[10]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="20"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Waiting For Operator']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[11]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="11"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Remove Part']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[12]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="8"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Add Part']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[13]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="15"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Working On Part']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[14]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[15]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[16]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[17]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[18]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[19]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[20]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="25"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Moving To Infeed Position']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[21]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="23"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Moving To Work Position']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[22]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="26"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Moving To Outfeed Position']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[23]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="23"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Moving To Tilt Position']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[24]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[25]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[26]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[27]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[28]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[29]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[30]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="31"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Rotating Cross To Work Position']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[31]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="34"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Rotating Cross To Outfeed Position']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[32]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[33]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[34]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[35]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[36]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[37]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[38]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[39]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[40]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="25"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Moving To Infeed Position']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[41]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="23"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Moving To Work Position']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[42]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="26"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Moving To Outfeed Position']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[43]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="23"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Moving To Idle Position']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[44]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[45]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[46]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[47]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[48]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[49]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[50]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="31"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Part Infeeding Conveyor Forward']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[51]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="31"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Part Infeeding Conveyor Reverse']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[52]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="31"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Part Infeeding Transfer Forward']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[53]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="31"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Part Infeeding Transfer Reverse']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[54]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="32"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Part Outfeeding Conveyor Forward']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[55]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="32"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Part Outfeeding Conveyor Reverse']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[56]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="32"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Part Outfeeding Transfer Forward']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[57]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="32"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Part Outfeeding Transfer Reverse']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[58]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[59]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[60]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[61]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[62]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[63]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[64]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[65]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[66]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[67]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[68]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[69]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[70]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[71]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[72]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[73]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[74]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[75]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[76]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[77]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[78]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[79]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[80]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="23"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Running Part To Endstop']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[81]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[82]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[83]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[84]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[85]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="21"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Scanning Part Barcode']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[86]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[87]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[88]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[89]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[90]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="17"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Waiting For Robot']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[91]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="11"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Robot Error']]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[92]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[93]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[94]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[95]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[96]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[97]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[98]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA[]]>
+</DataValueMember>
+</Structure>
+</Element>
+<Element Index="[99]">
+<Structure DataType="STRING">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="12"/>
+<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
+<![CDATA['Unkown State']]>
+</DataValueMember>
+</Structure>
+</Element>
+</Array>
+</Data>
+</Tag>
+<Tag Name="State_Infeeding" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[20]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="20"/>
+</Data>
+</Tag>
+<Tag Name="State_MovingMinInfeed" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[95]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="95"/>
+</Data>
+</Tag>
+<Tag Name="State_MovingMinOutfeed" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[42]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="42"/>
+</Data>
+</Tag>
+<Tag Name="State_MovingMinWork" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[25]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="25"/>
+</Data>
+</Tag>
+<Tag Name="State_MovingToInfeed" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[100]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="100"/>
+</Data>
+</Tag>
+<Tag Name="State_MovingToOutfeed" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[48]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="48"/>
+</Data>
+</Tag>
+<Tag Name="State_MovingToWork" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[30]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="30"/>
+</Data>
+</Tag>
+<Tag Name="State_Outfeeding" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[80]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="80"/>
+</Data>
+</Tag>
+<Tag Name="State_WaitingForDownstream" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[50]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="50"/>
+</Data>
+</Tag>
+<Tag Name="State_WaitingForOperator" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[40]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="40"/>
+</Data>
+</Tag>
+<Tag Name="State_WaitingForPart" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="STYYYY" Class="Standard" TagType="Base" DataType="SZG_Station" Constant="false" ExternalAccess="Read/Write">
+<Comments>
+<Comment Operand=".CONFIG.5">
+<![CDATA[Enable Set Occupancy HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.6">
+<![CDATA[Enable Clear Occupancy HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.10">
+<![CDATA[Enable Conv Jog Fwd HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.11">
+<![CDATA[Enable Conv Jog Rev HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.20">
+<![CDATA[Under Travel Eye Visible HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.21">
+<![CDATA[Reverse Eye Visible HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.22">
+<![CDATA[Forward Eye Visible HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.23">
+<![CDATA[Over Travel Eye Visible HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.30">
+<![CDATA[Enable Routing HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.31">
+<![CDATA[Enable Multiple Work Positions]]>
+</Comment>
+</Comments>
+<Data Format="L5K">
+<![CDATA[[0,0,0,0,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="SZG_Station">
+<DataValueMember Name="State" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Mode" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Error" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Warning" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Config" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Stop_HMI" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Start_HMI" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Manual_HMI" DataType="BOOL" Value="0"/>
+<DataValueMember Name="SetState_PartPresent_HMI" DataType="BOOL" Value="0"/>
+<DataValueMember Name="SetState_PartClear_HMI" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="STZZZZ" Class="Standard" TagType="Base" DataType="SZG_Station" Constant="false" ExternalAccess="Read/Write">
+<Comments>
+<Comment Operand=".CONFIG.5">
+<![CDATA[Enable Set Occupancy HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.6">
+<![CDATA[Enable Clear Occupancy HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.10">
+<![CDATA[Enable Conv Jog Fwd HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.11">
+<![CDATA[Enable Conv Jog Rev HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.20">
+<![CDATA[Under Travel Eye Visible HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.21">
+<![CDATA[Reverse Eye Visible HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.22">
+<![CDATA[Forward Eye Visible HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.23">
+<![CDATA[Over Travel Eye Visible HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.30">
+<![CDATA[Enable Routing HMI]]>
+</Comment>
+<Comment Operand=".CONFIG.31">
+<![CDATA[Enable Multiple Work Positions]]>
+</Comment>
+</Comments>
+<Data Format="L5K">
+<![CDATA[[0,0,0,0,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="SZG_Station">
+<DataValueMember Name="State" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Mode" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Error" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Warning" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Config" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Stop_HMI" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Start_HMI" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Manual_HMI" DataType="BOOL" Value="0"/>
+<DataValueMember Name="SetState_PartPresent_HMI" DataType="BOOL" Value="0"/>
+<DataValueMember Name="SetState_PartClear_HMI" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="STZZZZ_Conv_Run" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Conveyor Run]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Sys_Alm_Reset_HMI" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Sys_Mode_CycleStarted" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="Sys_Mode_CycleStopped" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Sys_Mode_Manual" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[2]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="2"/>
+</Data>
+</Tag>
+<Tag Name="Sys_Slow_Blink" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+</Tags>
+<Programs Use="Context">
+<Program Use="Target" Name="Lift_Standard_Code" TestEdits="false" MainRoutineName="MainRoutine" Disabled="false" Class="Standard" UseAsFolder="false">
+<Tags/>
+<Routines>
+<Routine Name="MainRoutine" Type="RLL">
+<RLLContent>
+<Rung Number="0" Type="N">
+<Text>
+<![CDATA[[JSR(_XXXX_Data,0) ,JSR(_XXXX_Outputs,0) ,JSR(_XXXX_States,0) ,JSR(_XXXX_Status,0) ];]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="_XXXX_Data" Type="RLL">
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Lift Standard Code v2.1 
+-------------------------------------------------------
+Station XXXX Data
+-------------------------------------------------------
+MES and Data Collection]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[Machine Stats for HMI, Andon]]>
+</Comment>
+<Text>
+<![CDATA[[EQU(State_WaitingForPart,LiXXXX.State) MOV(1,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,EQU(State_Infeeding,LiXXXX.State) MOV(2,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,[EQU(State_MovingMinWork,LiXXXX.State) EQU(0,LiXXXX_Work_Positions_Index) ,EQU(State_MovingToWork,LiXXXX.State) EQU(0,LiXXXX_Work_Positions_Index) ,EQU(State_MovingMinInfeed,LiXXXX.State) ,EQU(State_MovingToInfeed,LiXXXX.State) ,EQU(State_MovingMinOutfeed,LiXXXX.State) ,EQU(State_MovingToOutfeed,LiXXXX.State) ] MOV(3,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,EQU(State_WaitingForOperator,LiXXXX.State) MOV(4,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,EQU(State_WaitingForDownstream,LiXXXX.State) MOV(5,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,EQU(State_Outfeeding,LiXXXX.State) MOV(6,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,EQU(Sys_Mode_Manual,LiXXXX.Mode) MOV(28,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,EQU(Sys_Mode_CycleStopped,LiXXXX.Mode) MOV(29,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,NEQ(0,LiXXXX.Error) MOV(30,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,XIO(Safety_PowerOn_Placeholder.DN) MOV(31,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,MOV(LiXXXX.Warning,FiSZ_BI_XXXX_MachineStats.PLC_Warning) MOV(LiXXXX.Error,FiSZ_BI_XXXX_MachineStats.PLC_Fault) ];]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="_XXXX_Outputs" Type="RLL">
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Lift Standard Code v2.1 
+-------------------------------------------------------
+Station XXXX Outputs
+-------------------------------------------------------
+This routine contains logic to control the outputs of Station XXXX.]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[Output:
+Run conveyor
+Output Triggers:
+1. Infeeding state
+2. Outfeeding state
+3. Manual mode
+Output Permissives:
+1a. Lift height is in range for infeed
+1b. Stop photoeye is clear
+2a. Lift height is in range for outfeed
+2b. Downstream station conevyor is running
+3. HMI conveyor jog forward or reverse pushbutton]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Safety_PowerOn_Placeholder.DN)[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode) [EQU(State_Infeeding,LiXXXX.State) XIC(LiXXXX_Lift_Infeed.InRange) XIO(LiXXXX_PE_FE) ,EQU(State_Outfeeding,LiXXXX.State) XIC(LiXXXX_Lift_Outfeed.InRange) XIC(STZZZZ_Conv_Run) XIC(Outfeed_InPosition_Placeholder) ] ,EQU(Sys_Mode_Manual,LiXXXX.Mode) [XIC(LiXXXX_Conv_Fwd_HMI) ,XIC(LiXXXX_Conv_Rev_HMI) XIC(LiXXXX_Conv_Dir) ] ]OTE(LiXXXX_Conv_Run);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[Output:
+Conveyor Direction
+Output Triggers:
+1. Manual mode
+Output Permissives:
+1. HMI coneyor jog reverse pushbutton]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Safety_PowerOn_Placeholder.DN)EQU(Sys_Mode_Manual,LiXXXX.Mode)XIC(LiXXXX_Conv_Rev_HMI)OTE(LiXXXX_Conv_Dir);]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Comment>
+<![CDATA[Output:
+Actuate lift raise solenoids
+Output Triggers:
+1. Lift raise command
+2. Waiting for operator state
+3. Manual mode
+Output Permissives:
+1a. Lift height is less than Hi limit
+1b. Actuate lift lower solenoids output not on
+1c. HPU steady state timer not timer
+2a. Lift jog up pushbutton
+2b. Lift height is less than Hi limit
+2c. Actuate lift lower solenoids output not on
+2d. HPU steady state timer not timer
+3a. HMI raise lift pushbutton
+3b. Lift jog up pushbutton
+3c. HMI move lift to target pushbutton
+]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Safety_PowerOn_Placeholder.DN)[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode) [XIC(LiXXXX_Lift_Up) ,EQU(State_WaitingForOperator,LiXXXX.State) XIC(LiXXXX_PB_JogUp) ] ,EQU(Sys_Mode_Manual,LiXXXX.Mode) [XIC(LiXXXX_Lift_Up_HMI) ,XIC(LiXXXX_PB_JogUp) ,XIC(LiXXXX_Lift_Run_HMI) XIC(LiXXXX_Lift_Up) ] ]LES(LiXXXX_Lift_Inclinometer.Degrees,LiXXXX_Lift_Hi)XIO(LiXXXX_Lift_Down_Valves)XIO(LiXXXX_HPU_Hold.TT)OTE(LiXXXX_Lift_Up_Valves);]]>
+</Text>
+</Rung>
+<Rung Number="4" Type="N">
+<Comment>
+<![CDATA[Output:
+Actuate lift lower solenoids
+Output Triggers:
+1. Lift lower command
+2. Waiting for operator state
+3. Manual mode
+Output Permissives:
+1a. Lift height is greater than Lo limit
+1b. Actuate lift raise solenoids output not on
+1c. HPU steady state timer not timing
+2a. Lift jog down pushbutton
+2b. Lift height is greater than Lo limit
+2c. Actuate lift raise solenoids output not on
+2d. HPU steady state timer not timer
+3a. HMI lower lift pushbutton
+3b. Lift jog down pushbutton
+3c. HMI move lift to target pushbutton
+]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Safety_PowerOn_Placeholder.DN)[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode) [XIC(LiXXXX_Lift_Down) ,EQU(State_WaitingForOperator,LiXXXX.State) XIC(LiXXXX_PB_JogDown) ] ,EQU(Sys_Mode_Manual,LiXXXX.Mode) [XIC(LiXXXX_Lift_Down_HMI) ,XIC(LiXXXX_PB_JogDown) ,XIC(LiXXXX_Lift_Run_HMI) XIC(LiXXXX_Lift_Down) ] ]GRT(LiXXXX_Lift_Inclinometer.Degrees,LiXXXX_Lift_Lo)XIO(LiXXXX_Lift_Up_Valves)XIO(LiXXXX_HPU_Hold.TT)OTE(LiXXXX_Lift_Down_Valves);]]>
+</Text>
+</Rung>
+<Rung Number="5" Type="N">
+<Comment>
+<![CDATA[HPU steady state timer
+Allows the lift to settle at steady state before moving or checking heights]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Safety_PowerOn_Placeholder.DN)[XIC(LiXXXX_Lift_Up_Valves) ,XIC(LiXXXX_Lift_Down_Valves) ]TOF(LiXXXX_HPU_Hold,?,?);]]>
+</Text>
+</Rung>
+<Rung Number="6" Type="N">
+<Comment>
+<![CDATA[Output:
+Lift Solenoids
+Output Permissives:
+1a. Hydraulic pump running
+1b. Station gap photoeyes are clear
+1c. Actuate lift raise solenoids
+2a. Statoin gap photoeyes are clear
+2b. Actuate lift lower solenoids
+]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Safety_PowerOn_Placeholder.DN)[XIC(LiXXXX_HPU_Run) XIC(LiXXXX_LiftClear) XIC(LiXXXX_Lift_Up_Valves) OTE(LiXXXX_SV1) ,XIC(LiXXXX_LiftClear) XIC(LiXXXX_Lift_Down_Valves) OTE(LiXXXX_SV2) OTE(LiXXXX_SV3) ];]]>
+</Text>
+</Rung>
+<Rung Number="7" Type="N">
+<Comment>
+<![CDATA[Output:
+Run hydraulic pump
+Output Permissives:
+1a. Actuate lift raise solenoids
+1b. HPU hold on timer timing
+2. Hydraulic pump disconnect on
+3. HPU hold off timer not timing
+4. Station gap photoeyes are clear
+HPU hold on/off timers are used to help the contiunous rated hydraulic pump motor operate in a non-continuous function.
+]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Safety_PowerOn_Placeholder.DN)[XIC(LiXXXX_Lift_Up_Valves) RES(LiXXXX_HPU_Hold_On) ,XIC(LiXXXX_HPU_Hold_On.TT) ]XIC(LiXXXX_HPU_Disc)XIO(LiXXXX_HPU_Hold_Off.TT)XIC(LiXXXX_LiftClear)[OTE(LiXXXX_HPU_Run) ,TON(LiXXXX_HPU_Hold_On,?,?) ,TOF(LiXXXX_HPU_Hold_Off,?,?) ];]]>
+</Text>
+</Rung>
+<Rung Number="8" Type="N">
+<Comment>
+<![CDATA[Output:
+Reset hydraulic pump motor starter
+Output Permissives:
+1. An active error on the hydraulic pump motor starter
+2. HMI fault reset pushbutton
+]]>
+</Comment>
+<Text>
+<![CDATA[XIC(LiXXXX_HPU_Error)XIC(Sys_Alm_Reset_HMI)OTE(LiXXXX_HPU_Reset);]]>
+</Text>
+</Rung>
+<Rung Number="9" Type="N">
+<Comment>
+<![CDATA[Output:
+Release Push Button Light
+Output Triggers:
+1. Blink when waiting for operator press
+2. Solid when waiting to outfeed or when outfeeding]]>
+</Comment>
+<Text>
+<![CDATA[[EQU(State_WaitingForOperator,LiXXXX.State) XIC(MES_FFFFF_XXXX.Data.UpstreamOK) XIC(Sys_Slow_Blink) ,[EQU(State_WaitingForDownstream,LiXXXX.State) ,EQU(State_Outfeeding,LiXXXX.State) ] ]OTE(LiXXXX_Release_Lt);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="_XXXX_States" Type="RLL">
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Lift Standard Code v2.1
+-------------------------------------------------------
+Station XXXX States
+-------------------------------------------------------
+This routine contains logic to control the state of station XXXX. The general function of this station is:
+1. Infeed part from YYYY
+2. Move lift to work height
+3. Operator works on part
+4. Move lift to unload height
+5. Outfeed part to ZZZZ
+6. Move lift to load height
+]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[State: 
+Waiting to infeed part from upstream station
+Next State Conditions: 
+1. Stop photoeye is clear
+2a. Lift height is in range for infeed
+2b. Lift height is not in range for infeed
+Next State:
+a. Infeeding part from upstream station
+b. Checking if a minimum move is needed to get to the infeed height 
+]]>
+</Comment>
+<Text>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_WaitingForPart,LiXXXX.State)EQU(State_WaitingForDownstream,STYYYY.State)XIO(LiXXXX_PE_FE)[XIC(LiXXXX_Lift_Infeed.InRange) MOV(State_Infeeding,LiXXXX.State) ,XIO(LiXXXX_Lift_Infeed.InRange) MOV(State_MovingMinInfeed,LiXXXX.State) ];]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[State: 
+Infeeding part from upstream station
+Next State Conditions: 
+1. Stop photoeye is blocked
+2. Infeeding steady state timer is done
+3a. Station is an active workstation
+3b. Station is not an active workstation
+Next State:
+a. Checking if a minimum move is needed to get to the work height 
+b. Checking if a minimum move is needed to get to the outfeed height 
+]]>
+</Comment>
+<Text>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_Infeeding,LiXXXX.State)XIC(LiXXXX_PE_FE)TON(LiXXXX_Infeeding_TON,?,?)XIC(LiXXXX_Infeeding_TON.DN)[XIC(LiXXXX_SW_Active) MOV(State_MovingMinWork,LiXXXX.State) ,XIO(LiXXXX_SW_Active) MOV(State_MovingMinOutfeed,LiXXXX.State) ];]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Comment>
+<![CDATA[State: 
+Checking if a minimum move is needed to get to the work height 
+Next State Conditions: 
+1. HPU steady state time is done
+2a. Lift height is in range for temp work
+2b. Lift height is in range for work
+Next State: 
+Moving lift to work height
+]]>
+</Comment>
+<Text>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_MovingMinWork,LiXXXX.State)XIO(LiXXXX_HPU_Hold.DN)[XIC(LiXXXX_Lift_Work_Temp.InRange) ,XIC(LiXXXX_Lift_Work.InRange) ]MOV(State_MovingToWork,LiXXXX.State);]]>
+</Text>
+</Rung>
+<Rung Number="4" Type="N">
+<Comment>
+<![CDATA[State: 
+Moving lift to work height
+Next State Conditions: 
+1. HPU steady state timer is done
+2. Lift height is in range for work
+Next State:
+Operator working on part
+]]>
+</Comment>
+<Text>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_MovingToWork,LiXXXX.State)XIO(LiXXXX_HPU_Hold.DN)XIC(LiXXXX_Lift_Work.InRange)MOV(State_WaitingForOperator,LiXXXX.State);]]>
+</Text>
+</Rung>
+<Rung Number="5" Type="N">
+<Comment>
+<![CDATA[State: 
+Operator working on part
+Next State Conditions: 
+1. Release steady state timer is done
+2. MES is ok to release
+3a. Station is an active workstation and the release pushbutton is pressed
+3b. Station is not an active workstation
+Next State:
+Checking if a minimum move is needed to get to the outfeed height, 
+send feedback to MES that part is releasing
+]]>
+</Comment>
+<Text>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_WaitingForOperator,LiXXXX.State)TON(LiXXXX_Release_TON,?,?)XIC(LiXXXX_Release_TON.DN)[XIC(MES_FFFFF_XXXX.Data.UpstreamOK) OTE(MES_FFFFF_XXXX.OK) ,[XIC(LiXXXX_SW_Active) XIC(LiXXXX_PB_Release) ,XIO(LiXXXX_SW_Active) ] [XIC(LiXXXX_Work_Positions_CTU.DN) XIC(MES_FFFFF_XXXX.Data.UpstreamOK) MOV(State_MovingMinOutfeed,LiXXXX.State) ,XIO(LiXXXX_Work_Positions_CTU.DN) [MOV(State_MovingMinWork,LiXXXX.State) ,CTU(LiXXXX_Work_Positions_CTU,?,?) ] ] ];]]>
+</Text>
+</Rung>
+<Rung Number="6" Type="N">
+<Comment>
+<![CDATA[State: 
+Checking if a minimum move is needed to get to the outfeed height
+Next State Conditions: 
+1. HPU steady state time is done
+2a. Lift height is in range for temp outfeed
+2b. Lift height is in range for outfeed
+Next State:
+Moving lift to outfeed height
+]]>
+</Comment>
+<Text>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_MovingMinOutfeed,LiXXXX.State)XIO(LiXXXX_HPU_Hold.DN)[XIC(LiXXXX_Lift_Outfeed_Temp.InRange) ,XIC(LiXXXX_Lift_Outfeed.InRange) ]MOV(State_MovingToOutfeed,LiXXXX.State);]]>
+</Text>
+</Rung>
+<Rung Number="7" Type="N">
+<Comment>
+<![CDATA[State: 
+Moving lift to outfeed height
+Next State Conditions: 
+1. HPU steady state timer is done
+2. Lift height is in range for outfeed
+Next State:
+Waiting to outfeed part to downstream station]]>
+</Comment>
+<Text>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_MovingToOutfeed,LiXXXX.State)XIO(LiXXXX_HPU_Hold.DN)XIC(LiXXXX_Lift_Outfeed.InRange)MOV(State_WaitingForDownstream,LiXXXX.State);]]>
+</Text>
+</Rung>
+<Rung Number="8" Type="N">
+<Comment>
+<![CDATA[State: 
+Waiting to outfeed part to downstream station
+Next State Conditions: 
+1. Stop photoeye is blocked
+2. Downstream station is in the infeeding state
+3a. Lift height is in range for outfeed
+3b. Lift height is not in range for outfeed
+Next State:
+a. Outfeeding part to downstream station, 
+send feedback to MES that part is released
+b. Checking if a minimum move is needed to get to the outfeed height]]>
+</Comment>
+<Text>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_WaitingForDownstream,LiXXXX.State)XIC(LiXXXX_PE_FE)EQU(State_Infeeding,STZZZZ.State)[XIC(LiXXXX_Lift_Outfeed.InRange) [MOV(State_Outfeeding,LiXXXX.State) ,OTL(MES_FFFFF_XXXX.DN) ] ,XIO(LiXXXX_Lift_Outfeed.InRange) MOV(State_MovingMinOutfeed,LiXXXX.State) ];]]>
+</Text>
+</Rung>
+<Rung Number="9" Type="N">
+<Comment>
+<![CDATA[State: 
+Outfeeding part to downstream station
+Next State Conditions: 
+1. Stop photoeye is clear
+2. Outfeeding steady state timer is done
+Next State:
+Checking if a minimum move is needed to get to the infeed height]]>
+</Comment>
+<Text>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_Outfeeding,LiXXXX.State)XIO(LiXXXX_PE_FE)XIC(Outfeed_Complete_Placeholder)TON(LiXXXX_Outfeeding_TON,?,?)XIC(LiXXXX_Outfeeding_TON.DN)MOV(State_MovingMinInfeed,LiXXXX.State);]]>
+</Text>
+</Rung>
+<Rung Number="10" Type="N">
+<Comment>
+<![CDATA[State: 
+Checking if a minimum move is needed to get to the infeed height
+Next State Conditions: 
+1. HPU steady state time is done
+2a. Lift height is in range for temp infeed
+2b. Lift height is in range for infeed
+Next State:
+Moving lift to infeed height]]>
+</Comment>
+<Text>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_MovingMinInfeed,LiXXXX.State)XIO(LiXXXX_HPU_Hold.DN)[XIC(LiXXXX_Lift_Infeed_Temp.InRange) ,XIC(LiXXXX_Lift_Infeed.InRange) ]MOV(State_MovingToInfeed,LiXXXX.State);]]>
+</Text>
+</Rung>
+<Rung Number="11" Type="N">
+<Comment>
+<![CDATA[State: 
+Moving lift to infeed height
+Next State Conditions: 
+1. HPU steady state timer is done
+2. Lift height is in range for infeed
+Next State:
+Waiting to infeed part from upstream station]]>
+</Comment>
+<Text>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_MovingToInfeed,LiXXXX.State)XIO(LiXXXX_HPU_Hold.DN)XIC(LiXXXX_Lift_Infeed.InRange)[MOV(State_WaitingForPart,LiXXXX.State) ,RES(LiXXXX_Work_Positions_CTU) ];]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="_XXXX_Status" Type="RLL">
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Lift Standard Code v2.1
+-------------------------------------------------------
+Station XXXX Status
+-------------------------------------------------------
+Inputs and Configuration]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[Configuration bits for lift stations
+Turn on if functionality exists
+If configuration bit is not listed, it is marked as spare and available for use]]>
+</Comment>
+<Text>
+<![CDATA[XIC(LiXXXX.Config.5)XIC(LiXXXX.Config.6)XIC(LiXXXX.Config.10)XIC(LiXXXX.Config.11)XIC(LiXXXX.Config.20)XIC(LiXXXX.Config.21)XIC(LiXXXX.Config.22)XIC(LiXXXX.Config.23)XIC(LiXXXX.Config.30)NOP();]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[HMI Destination/Route Interface]]>
+</Comment>
+<Text>
+<![CDATA[EQU(Sys_Mode_Manual,LiXXXX.Mode)XIC(LiXXXX_Accept_Manual_Route_HMI)MOV(LiXXXX_Manual_Route_HMI,LiXXXX_Route);]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Comment>
+<![CDATA[Needed for standard HMI level 2 display parameter passing]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(LiXXXX_PE_FE) ,XIC(LiXXXX_PE_RE) ]OTE(LiXXXX_PE_SE);]]>
+</Text>
+</Rung>
+<Rung Number="4" Type="N">
+<Comment>
+<![CDATA[Status bit to indicate if all station photoeyes are clear]]>
+</Comment>
+<Text>
+<![CDATA[XIO(LiXXXX_PE_FE)XIO(LiXXXX_PE_RE)XIC(LiXXXX_PE_UT)XIC(LiXXXX_PE_OT)OTE(LiXXXX_EyesClear);]]>
+</Text>
+</Rung>
+<Rung Number="5" Type="N">
+<Comment>
+<![CDATA[Status bit to indicate if all overtravel/undertravel/gap photoeyes are clear
+OT/UT is determined based on station FE/RE position]]>
+</Comment>
+<Text>
+<![CDATA[XIC(LiXXXX_PE_UT)XIC(LiXXXX_PE_OT)XIO(CTXXXX_Px_Blade_Down)XIC(CTXXXX_Px_Blade_Up)OTE(LiXXXX_LiftClear);]]>
+</Text>
+</Rung>
+<Rung Number="6" Type="N">
+<Comment>
+<![CDATA[HMI state descriptions]]>
+</Comment>
+<Text>
+<![CDATA[[MOV(99,LiXXXX_State_Desc_Idx) ,EQU(State_WaitingForPart,LiXXXX.State) MOV(0,LiXXXX_State_Desc_Idx) ,EQU(State_Infeeding,LiXXXX.State) MOV(1,LiXXXX_State_Desc_Idx) ,[EQU(State_MovingMinWork,LiXXXX.State) ,EQU(State_MovingToWork,LiXXXX.State) ] MOV(21,LiXXXX_State_Desc_Idx) ,EQU(State_WaitingForOperator,LiXXXX.State) MOV(10,LiXXXX_State_Desc_Idx) ,[EQU(State_MovingMinOutfeed,LiXXXX.State) ,EQU(State_MovingToOutfeed,LiXXXX.State) ] MOV(22,LiXXXX_State_Desc_Idx) ,EQU(State_WaitingForDownstream,LiXXXX.State) MOV(2,LiXXXX_State_Desc_Idx) ,EQU(State_Outfeeding,LiXXXX.State) MOV(3,LiXXXX_State_Desc_Idx) ,[EQU(State_MovingMinInfeed,LiXXXX.State) ,EQU(State_MovingToInfeed,LiXXXX.State) ] MOV(20,LiXXXX_State_Desc_Idx) ,NEQ(State_Desc_HMI[LiXXXX_State_Desc_Idx],LiXXXX_State_Desc_HMI) MOV(State_Desc_HMI[LiXXXX_State_Desc_Idx],LiXXXX_State_Desc_HMI) ];]]>
+</Text>
+</Rung>
+<Rung Number="7" Type="N">
+<Comment>
+<![CDATA[Cycle stop logic
+Cycle start logic (station must have no active errors)
+Manual mode logic]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(LiXXXX.Stop_HMI) MOV(Sys_Mode_CycleStopped,LiXXXX.Mode) ,[XIC(LiXXXX.Start_HMI) ,XIC(Group_Cycle_Start) NEQ(Sys_Mode_Manual,LiXXXX.Mode) ] EQU(LiXXXX.Error,0) MOV(Sys_Mode_CycleStarted,LiXXXX.Mode) ,XIC(LiXXXX.Manual_HMI) MOV(Sys_Mode_Manual,LiXXXX.Mode) ];]]>
+</Text>
+</Rung>
+<Rung Number="8" Type="N">
+<Comment>
+<![CDATA[ HMI set state to checking if a minimum move is need to get to the infeed height 
+1. HMI force empty pushbutton
+2. Stop photoeye is clear
+ HMI set state to checking if a minimum move is need to get to the work height 
+1. HMI force occupied pushbutton
+2. Stop photoeye is blocked
+3. Station is an active workstation
+ HMI set state to checking if a minimum move is need to get to the outfeed height 
+1. HMI force occupied pushbutton
+2. Stop photoeye is blocked
+3. Station is not an active workstation]]>
+</Comment>
+<Text>
+<![CDATA[EQU(Sys_Mode_Manual,LiXXXX.Mode)[XIC(LiXXXX.SetState_PartClear_HMI) XIO(LiXXXX_PE_FE) [MOV(State_MovingMinInfeed,LiXXXX.State) ,RES(LiXXXX_Work_Positions_CTU) ] ,XIC(LiXXXX.SetState_PartPresent_HMI) XIC(LiXXXX_PE_FE) [XIC(LiXXXX_SW_Active) MOV(State_MovingMinWork,LiXXXX.State) ,XIO(LiXXXX_SW_Active) MOV(State_MovingMinOutfeed,LiXXXX.State) ,RES(LiXXXX_Work_Positions_CTU) ] ];]]>
+</Text>
+</Rung>
+<Rung Number="9" Type="N">
+<Comment>
+<![CDATA[Lift inclinometer senor
+Used to read current height of lift]]>
+</Comment>
+<Text>
+<![CDATA[SZG_IOL_Inclinometer(LiXXXX_Lift_Inclinometer,IOL_XXXX_PX.Inputs,IOL_XXXX_PX.Outputs);]]>
+</Text>
+</Rung>
+<Rung Number="10" Type="N">
+<Comment>
+<![CDATA[Lift infeed height
+Set Lo/Hi infeed height limits
+Set target infeed height]]>
+</Comment>
+<Text>
+<![CDATA[InRange_Asymmetric(LiXXXX_Lift_Infeed,LiXXXX_Lift_Inclinometer.Degrees,0,0,0);]]>
+</Text>
+</Rung>
+<Rung Number="11" Type="N">
+<Comment>
+<![CDATA[Check if the distance needed to move to infeed height is less than the minimum required move distance
+If yes:
+1.. Check if the infeed target is greater or less than the midpoint to determine which way to move
+2. Update the temp infeed target to be the acutal infeed targert +/- the constant offset
+If no:
+1. Update the temp infeed target to be the current lift height]]>
+</Comment>
+<Text>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_MovingMinInfeed,LiXXXX.State)ONS(LiXXXX_Lift_Infeed_MinMoveCalc_ONS)[SUB(LiXXXX_Lift_Inclinometer.Degrees,LiXXXX_Lift_Infeed.Target,LiXXXX_Lift_InfeedTarget_Diff) ,LIM(LiXXXX_Lift_MinMove_Neg,LiXXXX_Lift_InfeedTarget_Diff,LiXXXX_Lift_MinMove_Pos) [GRT(LiXXXX_Lift_Infeed.Target,LiXXXX_Lift_Midpoint) SUB(LiXXXX_Lift_Infeed.Target,LiXXXX_Lift_TargetOffest,LiXXXX_Lift_Infeed_TempTarget) ,LEQ(LiXXXX_Lift_Infeed.Target,LiXXXX_Lift_Midpoint) ADD(LiXXXX_Lift_Infeed.Target,LiXXXX_Lift_TargetOffest,LiXXXX_Lift_Infeed_TempTarget) ] ,LIM(LiXXXX_Lift_MinMove_Pos,LiXXXX_Lift_InfeedTarget_Diff,LiXXXX_Lift_MinMove_Neg) MOV(LiXXXX_Lift_Inclinometer.Degrees,LiXXXX_Lift_Infeed_TempTarget) ];]]>
+</Text>
+</Rung>
+<Rung Number="12" Type="N">
+<Text>
+<![CDATA[ADD(LiXXXX_Lift_Infeed_TempTarget,1,LiXXXX_Lift_Infeed_Temp.LimitHi)SUB(LiXXXX_Lift_Infeed_TempTarget,1,LiXXXX_Lift_Infeed_Temp.LimitLo)InRange_Asymmetric(LiXXXX_Lift_Infeed_Temp,LiXXXX_Lift_Inclinometer.Degrees,LiXXXX_Lift_Infeed_Temp.LimitHi,LiXXXX_Lift_Infeed_TempTarget,LiXXXX_Lift_Infeed_Temp.LimitLo);]]>
+</Text>
+</Rung>
+<Rung Number="13" Type="N">
+<Comment>
+<![CDATA[Lift work height
+Set Lo/Hi work height limits
+Set target work height
+Update work height target if manually changed by operator]]>
+</Comment>
+<Text>
+<![CDATA[EQU(Sys_Mode_Manual,LiXXXX.Mode)LIM(1,LiXXXX_Work_Positions_HMI,5)XIC(LiXXXX_Accept_Work_Positions_HMI)SUB(LiXXXX_Work_Positions_HMI,1,LiXXXX_Work_Positions_CTU.PRE);]]>
+</Text>
+</Rung>
+<Rung Number="14" Type="N">
+<Text>
+<![CDATA[NEQ(Sys_Mode_Manual,LiXXXX.Mode)ADD(LiXXXX_Work_Positions_CTU.PRE,1,LiXXXX_Work_Positions_HMI);]]>
+</Text>
+</Rung>
+<Rung Number="15" Type="N">
+<Text>
+<![CDATA[[GEQ(LiXXXX_Work_Positions_CTU.PRE,4) MOV(4,LiXXXX_Work_Positions_CTU.PRE) ,LEQ(LiXXXX_Work_Positions_CTU.PRE,0) MOV(0,LiXXXX_Work_Positions_CTU.PRE) ,LIM(0,LiXXXX_Work_Positions_CTU.PRE,4) MOV(LiXXXX_Work_Positions_CTU.ACC,LiXXXX_Work_Positions_Index) ];]]>
+</Text>
+</Rung>
+<Rung Number="16" Type="N">
+<Text>
+<![CDATA[[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode) EQU(State_WaitingForOperator,LiXXXX.State) XIO(LiXXXX_Lift_Work.InRange) MOV(LiXXXX_Lift_Inclinometer.Degrees,LiXXXX_Lift_Work_Positions[LiXXXX_Work_Positions_Index]) ,ADD(LiXXXX_Lift_Work_Positions[LiXXXX_Work_Positions_Index],1,LiXXXX_Lift_Work.LimitHi) SUB(LiXXXX_Lift_Work_Positions[LiXXXX_Work_Positions_Index],1,LiXXXX_Lift_Work.LimitLo) InRange_Asymmetric(LiXXXX_Lift_Work,LiXXXX_Lift_Inclinometer.Degrees,LiXXXX_Lift_Work.LimitHi,LiXXXX_Lift_Work_Positions[LiXXXX_Work_Positions_Index],LiXXXX_Lift_Work.LimitLo) ,NEQ(LiXXXX_Lift_Work_HMI,LiXXXX_Lift_Work_Positions[LiXXXX_Work_Positions_Index]) XIC(LiXXXX_Accept_Work_Positions_HMI) MOV(LiXXXX_Lift_Work_HMI,LiXXXX_Lift_Work_Positions[LiXXXX_Work_Positions_Index]) ];]]>
+</Text>
+</Rung>
+<Rung Number="17" Type="N">
+<Comment>
+<![CDATA[Check if the distance needed to move to work height is less than the minimum required move distance
+If yes:
+1.. Check if the work target is greater or less than the midpoint to determine which way to move
+2. Update the temp work target to be the acutal work targert +/- the constant offset
+If no:
+1. Update the temp work target to be the current lift height]]>
+</Comment>
+<Text>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_MovingMinWork,LiXXXX.State)ONS(LiXXXX_Lift_Work_MinMoveCalc_ONS)[SUB(LiXXXX_Lift_Inclinometer.Degrees,LiXXXX_Lift_Work.Target,LiXXXX_Lift_WorkTarget_Diff) ,LIM(LiXXXX_Lift_MinMove_Neg,LiXXXX_Lift_WorkTarget_Diff,LiXXXX_Lift_MinMove_Pos) [GRT(LiXXXX_Lift_Work.Target,LiXXXX_Lift_Midpoint) SUB(LiXXXX_Lift_Work.Target,LiXXXX_Lift_TargetOffest,LiXXXX_Lift_Work_TempTarget) ,LEQ(LiXXXX_Lift_Work.Target,LiXXXX_Lift_Midpoint) ADD(LiXXXX_Lift_Work.Target,LiXXXX_Lift_TargetOffest,LiXXXX_Lift_Work_TempTarget) ] ,LIM(LiXXXX_Lift_MinMove_Pos,LiXXXX_Lift_WorkTarget_Diff,LiXXXX_Lift_MinMove_Neg) MOV(LiXXXX_Lift_Inclinometer.Degrees,LiXXXX_Lift_Work_TempTarget) ];]]>
+</Text>
+</Rung>
+<Rung Number="18" Type="N">
+<Text>
+<![CDATA[ADD(LiXXXX_Lift_Work_TempTarget,1,LiXXXX_Lift_Work_Temp.LimitHi)SUB(LiXXXX_Lift_Work_TempTarget,1,LiXXXX_Lift_Work_Temp.LimitLo)InRange_Asymmetric(LiXXXX_Lift_Work_Temp,LiXXXX_Lift_Inclinometer.Degrees,LiXXXX_Lift_Work_Temp.LimitHi,LiXXXX_Lift_Work_TempTarget,LiXXXX_Lift_Work_Temp.LimitLo);]]>
+</Text>
+</Rung>
+<Rung Number="19" Type="N">
+<Comment>
+<![CDATA[Lift outfeed height
+Set Lo/Hi outfeed height limits
+Set target outfeed height]]>
+</Comment>
+<Text>
+<![CDATA[InRange_Asymmetric(LiXXXX_Lift_Outfeed,LiXXXX_Lift_Inclinometer.Degrees,0,0,0);]]>
+</Text>
+</Rung>
+<Rung Number="20" Type="N">
+<Comment>
+<![CDATA[Check if the distance needed to move to outfeed height is less than the minimum required move distance
+If yes:
+1.. Check if the outfeed target is greater or less than the midpoint to determine which way to move
+2. Update the temp outfeed target to be the acutal outfeed targert +/- the constant offset
+If no:
+1. Update the temp outfeed target to be the current lift height]]>
+</Comment>
+<Text>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_MovingMinOutfeed,LiXXXX.State)ONS(LiXXXX_Lift_Outfeed_MinMoveCalc_ONS)[SUB(LiXXXX_Lift_Inclinometer.Degrees,LiXXXX_Lift_Outfeed.Target,LiXXXX_Lift_OutfeedTarget_Diff) ,LIM(LiXXXX_Lift_MinMove_Neg,LiXXXX_Lift_OutfeedTarget_Diff,LiXXXX_Lift_MinMove_Pos) [GRT(LiXXXX_Lift_Outfeed.Target,LiXXXX_Lift_Midpoint) SUB(LiXXXX_Lift_Outfeed.Target,LiXXXX_Lift_TargetOffest,LiXXXX_Lift_Outfeed_TempTarget) ,LEQ(LiXXXX_Lift_Outfeed.Target,LiXXXX_Lift_Midpoint) ADD(LiXXXX_Lift_Outfeed.Target,LiXXXX_Lift_TargetOffest,LiXXXX_Lift_Outfeed_TempTarget) ] ,LIM(LiXXXX_Lift_MinMove_Pos,LiXXXX_Lift_OutfeedTarget_Diff,LiXXXX_Lift_MinMove_Neg) MOV(LiXXXX_Lift_Inclinometer.Degrees,LiXXXX_Lift_Outfeed_TempTarget) ];]]>
+</Text>
+</Rung>
+<Rung Number="21" Type="N">
+<Text>
+<![CDATA[ADD(LiXXXX_Lift_Outfeed_TempTarget,1,LiXXXX_Lift_Outfeed_Temp.LimitHi)SUB(LiXXXX_Lift_Outfeed_TempTarget,1,LiXXXX_Lift_Outfeed_Temp.LimitLo)InRange_Asymmetric(LiXXXX_Lift_Outfeed_Temp,LiXXXX_Lift_Inclinometer.Degrees,LiXXXX_Lift_Outfeed_Temp.LimitHi,LiXXXX_Lift_Outfeed_TempTarget,LiXXXX_Lift_Outfeed_Temp.LimitLo);]]>
+</Text>
+</Rung>
+<Rung Number="22" Type="N">
+<Comment>
+<![CDATA[Move the infeed/work/outfeed temp targets and targets to the lift target depending on current state
+Turn on the lift run command]]>
+</Comment>
+<Text>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)[EQU(State_MovingMinInfeed,LiXXXX.State) MOV(LiXXXX_Lift_Infeed_TempTarget,LiXXXX_Lift_Target) ,EQU(State_MovingToInfeed,LiXXXX.State) MOV(LiXXXX_Lift_Infeed.Target,LiXXXX_Lift_Target) ,EQU(State_MovingMinWork,LiXXXX.State) MOV(LiXXXX_Lift_Work_TempTarget,LiXXXX_Lift_Target) ,EQU(State_MovingToWork,LiXXXX.State) MOV(LiXXXX_Lift_Work.Target,LiXXXX_Lift_Target) ,EQU(State_MovingMinOutfeed,LiXXXX.State) MOV(LiXXXX_Lift_Outfeed_TempTarget,LiXXXX_Lift_Target) ,EQU(State_MovingToOutfeed,LiXXXX.State) MOV(LiXXXX_Lift_Outfeed.Target,LiXXXX_Lift_Target) ]XIO(LiXXXX_Lift_DN)OTE(LiXXXX_Lift_Run);]]>
+</Text>
+</Rung>
+<Rung Number="23" Type="N">
+<Comment>
+<![CDATA[Find the distance required to get to the current lift target]]>
+</Comment>
+<Text>
+<![CDATA[SUB(LiXXXX_Lift_Target,LiXXXX_Lift_Inclinometer.Degrees,LiXXXX_Lift_DistanceToTarget);]]>
+</Text>
+</Rung>
+<Rung Number="24" Type="N">
+<Comment>
+<![CDATA[If the lift moved down and the distance required to get to the target is greater than or equal to the down deadband the lift is done 
+If the lift moved up and the distance required to get to the target is less than or equal to the up deadband the lift is done moving
+If the lift hasn't moved and the distance required to get to the target is between both deadband limits the lift is done moving
+If the distance required to get to the target is less than 0 command the lift to move down
+If the distance required to get to the target is greater than 0 command the lift to move up]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(LiXXXX_Lift_Run) ,EQU(Sys_Mode_Manual,LiXXXX.Mode) XIC(LiXXXX_Lift_Run_HMI) ][[XIC(LiXXXX_Lift_Down) GEQ(LiXXXX_Lift_DistanceToTarget,LiXXXX_Lift_Down_Deadband) ,XIC(LiXXXX_Lift_Up) LEQ(LiXXXX_Lift_DistanceToTarget,LiXXXX_Lift_Up_Deadband) ,XIO(LiXXXX_Lift_Down) XIO(LiXXXX_Lift_Up) LIM(LiXXXX_Lift_Down_Deadband,LiXXXX_Lift_DistanceToTarget,LiXXXX_Lift_Up_Deadband) ,XIC(LiXXXX_Lift_DN) ] OTE(LiXXXX_Lift_DN) ,XIO(LiXXXX_Lift_DN) LES(LiXXXX_Lift_DistanceToTarget,0) OTE(LiXXXX_Lift_Down) ,XIO(LiXXXX_Lift_DN) GRT(LiXXXX_Lift_DistanceToTarget,0) OTE(LiXXXX_Lift_Up) ];]]>
+</Text>
+</Rung>
+<Rung Number="25" Type="N">
+<Comment>
+<![CDATA[Clear station faults and warnings with the HMI fault reset pushbutton]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Sys_Alm_Reset_HMI)[CLR(LiXXXX.Error) ,CLR(LiXXXX.Warning) ];]]>
+</Text>
+</Rung>
+<Rung Number="26" Type="N">
+<Comment>
+<![CDATA[If there is an active fault cycle stop the station]]>
+</Comment>
+<Text>
+<![CDATA[NEQ(LiXXXX.Error,0)EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)MOV(Sys_Mode_CycleStopped,LiXXXX.Mode);]]>
+</Text>
+</Rung>
+<Rung Number="27" Type="N">
+<Comment>
+<![CDATA[Station faults]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="28" Type="N">
+<Text>
+<![CDATA[XIO(Safety_PowerOn_Placeholder.DN)OTL(LiXXXX.Error.0);]]>
+</Text>
+</Rung>
+<Rung Number="29" Type="N">
+<Text>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_WaitingForPart,LiXXXX.State)XIC(LiXXXX_PE_FE)TON(LiXXXX_Part_Found_Flt,?,?)XIC(LiXXXX_Part_Found_Flt.DN)OTL(LiXXXX.Error.1);]]>
+</Text>
+</Rung>
+<Rung Number="30" Type="N">
+<Text>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)LIM(State_MovingMinWork,LiXXXX.State,State_WaitingForDownstream)XIO(LiXXXX_PE_FE)TON(LiXXXX_Part_Lost_Flt,?,?)XIC(LiXXXX_Part_Lost_Flt.DN)OTL(LiXXXX.Error.2);]]>
+</Text>
+</Rung>
+<Rung Number="31" Type="N">
+<Text>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_Infeeding,LiXXXX.State)XIC(LiXXXX_Conv_Run)TON(LiXXXX_Part_Load_Flt,?,?)XIC(LiXXXX_Part_Load_Flt.DN)OTL(LiXXXX.Error.3);]]>
+</Text>
+</Rung>
+<Rung Number="32" Type="N">
+<Text>
+<![CDATA[XIC(IOLMaster_Connection_Faulted_Placeholder)OTL(LiXXXX.Error.5);]]>
+</Text>
+</Rung>
+<Rung Number="33" Type="N">
+<Text>
+<![CDATA[XIC(LiXXXX_HPU_Error)OTL(LiXXXX.Error.10);]]>
+</Text>
+</Rung>
+<Rung Number="34" Type="N">
+<Text>
+<![CDATA[XIC(LiXXXX_Lift_Inclinometer.ER)OTL(LiXXXX.Error.11);]]>
+</Text>
+</Rung>
+<Rung Number="35" Type="N">
+<Text>
+<![CDATA[LIM(LiXXXX_Lift_HiHi,LiXXXX_Lift_Inclinometer.Degrees,LiXXXX_Lift_LoLo)TON(LiXXXX_Lift_Flt,?,?)XIC(LiXXXX_Lift_Flt.DN)OTL(LiXXXX.Error.12);]]>
+</Text>
+</Rung>
+<Rung Number="36" Type="N">
+<Text>
+<![CDATA[[EQU(State_Infeeding,LiXXXX.State) XIO(LiXXXX_PE_OT) ,EQU(State_Outfeeding,LiXXXX.State) XIO(LiXXXX_PE_UT) ,NEQ(State_Infeeding,LiXXXX.State) NEQ(State_Outfeeding,LiXXXX.State) XIO(LiXXXX_LiftClear) ]TON(LiXXXX_Gap_Eye_Flt,?,?)XIC(LiXXXX_Gap_Eye_Flt.DN)OTL(LiXXXX.Error.15);]]>
+</Text>
+</Rung>
+<Rung Number="37" Type="N">
+<Comment>
+<![CDATA[Station warnings]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="38" Type="N">
+<Text>
+<![CDATA[XIC(LiXXXX.Start_HMI)NEQ(LiXXXX.Error,0)OTL(LiXXXX.Warning.0);]]>
+</Text>
+</Rung>
+<Rung Number="39" Type="N">
+<Text>
+<![CDATA[EQU(Sys_Mode_Manual,LiXXXX.Mode)XIC(LiXXXX.SetState_PartClear_HMI)XIC(LiXXXX_PE_FE)OTL(LiXXXX.Warning.1);]]>
+</Text>
+</Rung>
+<Rung Number="40" Type="N">
+<Text>
+<![CDATA[EQU(Sys_Mode_Manual,LiXXXX.Mode)XIC(LiXXXX.SetState_PartPresent_HMI)XIO(LiXXXX_PE_FE)OTL(LiXXXX.Warning.2);]]>
+</Text>
+</Rung>
+<Rung Number="41" Type="N">
+<Text>
+<![CDATA[XIO(LiXXXX_HPU_Disc)OTL(LiXXXX.Warning.10);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+</Routines>
+</Program>
+</Programs>
+</Controller>
+</RSLogix5000Content>
