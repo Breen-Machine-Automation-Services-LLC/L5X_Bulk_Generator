@@ -2001,8 +2001,7 @@ destination]]>
 <Tag Name="STVVVV_Conv_Run" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
 <Description>
 <![CDATA[(####)
-Conveyor Run
-]]>
+Conveyor Run]]>
 </Description>
 <Data Format="L5K">
 <![CDATA[0]]>
@@ -2065,7 +2064,8 @@ Conveyor Run
 <Tag Name="STWWWW_Conv_Run" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
 <Description>
 <![CDATA[(####)
-Conveyor Run]]>
+Conveyor Run
+]]>
 </Description>
 <Data Format="L5K">
 <![CDATA[0]]>
@@ -2416,7 +2416,7 @@ Output Permissives:
 3. The transfer lift is up]]>
 </Comment>
 <Text>
-<![CDATA[XIC(Safety_PowerOn_Placeholder.DN)[EQU(Sys_Mode_CycleStarted,CTXXXX.Mode) [EQU(State_InfeedingChainForward,CTXXXX.State) XIO(CTXXXX_FE_Chain) ,EQU(State_InfeedingChainReverse,CTXXXX.State) XIO(CTXXXX_RE_Chain) ,EQU(State_OutfeedingChainForward,CTXXXX.State) XIC(STVVVV_Conv_Run) ,EQU(State_OutfeedingChainReverse,CTXXXX.State) XIC(STWWWW_Conv_Run) ] ,EQU(Sys_Mode_Manual,CTXXXX.Mode) [XIC(CTXXXX_Chain_Fwd_HMI) ,XIC(CTXXXX_Chain_Rev_HMI) ] ]XIO(CTXXXX_Px_Transfer_Down)XIC(CTXXXX_Px_Transfer_Up)OTE(CTXXXX_Chain_Run);]]>
+<![CDATA[XIC(Safety_PowerOn_Placeholder.DN)[EQU(Sys_Mode_CycleStarted,CTXXXX.Mode) [EQU(State_InfeedingChainForward,CTXXXX.State) XIO(CTXXXX_FE_Chain) ,EQU(State_InfeedingChainReverse,CTXXXX.State) XIO(CTXXXX_RE_Chain) ,EQU(State_OutfeedingChainForward,CTXXXX.State) XIC(STWWWW_Conv_Run) ,EQU(State_OutfeedingChainReverse,CTXXXX.State) XIC(STVVVV_Conv_Run) ] ,EQU(Sys_Mode_Manual,CTXXXX.Mode) [XIC(CTXXXX_Chain_Fwd_HMI) ,XIC(CTXXXX_Chain_Rev_HMI) ] ]XIO(CTXXXX_Px_Transfer_Down)XIC(CTXXXX_Px_Transfer_Up)OTE(CTXXXX_Chain_Run);]]>
 </Text>
 </Rung>
 <Rung Number="4" Type="N">
@@ -2434,7 +2434,7 @@ Output Permissives:
 3. The transfer lift is up]]>
 </Comment>
 <Text>
-<![CDATA[XIC(Safety_PowerOn_Placeholder.DN)[EQU(Sys_Mode_CycleStarted,CTXXXX.Mode) [EQU(State_InfeedingChainReverse,CTXXXX.State) XIO(CTXXXX_RE_Chain) ,EQU(State_OutfeedingChainReverse,CTXXXX.State) XIC(STWWWW_Conv_Run) ] ,EQU(Sys_Mode_Manual,CTXXXX.Mode) XIC(CTXXXX_Chain_Rev_HMI) ]XIO(CTXXXX_Px_Transfer_Down)XIC(CTXXXX_Px_Transfer_Up)OTE(CTXXXX_Chain_Dir);]]>
+<![CDATA[XIC(Safety_PowerOn_Placeholder.DN)[EQU(Sys_Mode_CycleStarted,CTXXXX.Mode) [EQU(State_InfeedingChainReverse,CTXXXX.State) XIO(CTXXXX_RE_Chain) ,EQU(State_OutfeedingChainReverse,CTXXXX.State) XIC(STVVVV_Conv_Run) ] ,EQU(Sys_Mode_Manual,CTXXXX.Mode) XIC(CTXXXX_Chain_Rev_HMI) ]XIO(CTXXXX_Px_Transfer_Down)XIC(CTXXXX_Px_Transfer_Up)OTE(CTXXXX_Chain_Dir);]]>
 </Text>
 </Rung>
 <Rung Number="5" Type="N">
@@ -2508,7 +2508,7 @@ d. Infeeding part from chain reverse station
 ]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,CTXXXX.Mode)EQU(State_WaitingForPart,CTXXXX.State)[EQU(State_WaitingForDownstream,STYYYY.State) EQU(Sys_Infeed_Conv_Fwd_ID,CTXXXX_Infeed_Loc) XIO(CTXXXX_FE_Conv) MOV(State_InfeedingConveyorForward,CTXXXX.State) ,EQU(State_WaitingForDownstream,STZZZZ.State) EQU(Sys_Infeed_Conv_Rev_ID,CTXXXX_Infeed_Loc) XIO(CTXXXX_RE_Conv) MOV(State_InfeedingConveyorReverse,CTXXXX.State) ,EQU(State_WaitingForDownstream,STWWWW.State) EQU(Sys_Infeed_Chain_Fwd_ID,CTXXXX_Infeed_Loc) XIO(CTXXXX_FE_Chain) MOV(State_InfeedingChainForward,CTXXXX.State) ,EQU(State_WaitingForDownstream,STVVVV.State) EQU(Sys_Infeed_Chain_Rev_ID,CTXXXX_Infeed_Loc) XIO(CTXXXX_RE_Chain) MOV(State_InfeedingChainReverse,CTXXXX.State) ];]]>
+<![CDATA[EQU(Sys_Mode_CycleStarted,CTXXXX.Mode)EQU(State_WaitingForPart,CTXXXX.State)[EQU(State_WaitingForDownstream,STYYYY.State) EQU(Sys_Infeed_Conv_Fwd_ID,CTXXXX_Infeed_Loc) XIO(CTXXXX_FE_Conv) MOV(State_InfeedingConveyorForward,CTXXXX.State) ,EQU(State_WaitingForDownstream,STZZZZ.State) EQU(Sys_Infeed_Conv_Rev_ID,CTXXXX_Infeed_Loc) XIO(CTXXXX_RE_Conv) MOV(State_InfeedingConveyorReverse,CTXXXX.State) ,EQU(State_WaitingForDownstream,STVVVV.State) EQU(Sys_Infeed_Chain_Fwd_ID,CTXXXX_Infeed_Loc) XIO(CTXXXX_FE_Chain) MOV(State_InfeedingChainForward,CTXXXX.State) ,EQU(State_WaitingForDownstream,STWWWW.State) EQU(Sys_Infeed_Chain_Rev_ID,CTXXXX_Infeed_Loc) XIO(CTXXXX_RE_Chain) MOV(State_InfeedingChainReverse,CTXXXX.State) ];]]>
 </Text>
 </Rung>
 <Rung Number="2" Type="N">
@@ -2576,7 +2576,7 @@ Next State:
 ]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,CTXXXX.Mode)EQU(State_WaitingForDownstream,CTXXXX.State)[EQU(Sys_Infeed_Conv_Fwd_ID,CTXXXX_Infeed_Loc) XIC(CTXXXX_FE_Conv) ,EQU(Sys_Infeed_Conv_Rev_ID,CTXXXX_Infeed_Loc) XIC(CTXXXX_RE_Conv) ,EQU(Sys_Infeed_Chain_Fwd_ID,CTXXXX_Infeed_Loc) XIC(CTXXXX_FE_Chain) ,EQU(Sys_Infeed_Chain_Rev_ID,CTXXXX_Infeed_Loc) XIC(CTXXXX_RE_Chain) ][EQU(Sys_Outfeed_Conv_Fwd_ID,CTXXXX_Outfeed_Dest) EQU(State_Infeeding,STZZZZ.State) MOV(State_OutfeedingConveyorForward,CTXXXX.State) ,EQU(Sys_Outfeed_Conv_Rev_ID,CTXXXX_Outfeed_Dest) EQU(State_Infeeding,STYYYY.State) MOV(State_OutfeedingConveyorReverse,CTXXXX.State) ,EQU(Sys_Outfeed_Chain_Fwd_ID,CTXXXX_Outfeed_Dest) EQU(State_Infeeding,STVVVV.State) MOV(State_OutfeedingChainForward,CTXXXX.State) ,EQU(Sys_Outfeed_Chain_Rev_ID,CTXXXX_Outfeed_Dest) EQU(State_Infeeding,STWWWW.State) MOV(State_OutfeedingChainReverse,CTXXXX.State) ]OTL(MES_FFFFF_XXXX.DN);]]>
+<![CDATA[EQU(Sys_Mode_CycleStarted,CTXXXX.Mode)EQU(State_WaitingForDownstream,CTXXXX.State)[EQU(Sys_Infeed_Conv_Fwd_ID,CTXXXX_Infeed_Loc) XIC(CTXXXX_FE_Conv) ,EQU(Sys_Infeed_Conv_Rev_ID,CTXXXX_Infeed_Loc) XIC(CTXXXX_RE_Conv) ,EQU(Sys_Infeed_Chain_Fwd_ID,CTXXXX_Infeed_Loc) XIC(CTXXXX_FE_Chain) ,EQU(Sys_Infeed_Chain_Rev_ID,CTXXXX_Infeed_Loc) XIC(CTXXXX_RE_Chain) ][EQU(Sys_Outfeed_Conv_Fwd_ID,CTXXXX_Outfeed_Dest) EQU(State_Infeeding,STZZZZ.State) MOV(State_OutfeedingConveyorForward,CTXXXX.State) ,EQU(Sys_Outfeed_Conv_Rev_ID,CTXXXX_Outfeed_Dest) EQU(State_Infeeding,STYYYY.State) MOV(State_OutfeedingConveyorReverse,CTXXXX.State) ,EQU(Sys_Outfeed_Chain_Fwd_ID,CTXXXX_Outfeed_Dest) EQU(State_Infeeding,STWWWW.State) MOV(State_OutfeedingChainForward,CTXXXX.State) ,EQU(Sys_Outfeed_Chain_Rev_ID,CTXXXX_Outfeed_Dest) EQU(State_Infeeding,STVVVV.State) MOV(State_OutfeedingChainReverse,CTXXXX.State) ]OTL(MES_FFFFF_XXXX.DN);]]>
 </Text>
 </Rung>
 <Rung Number="5" Type="N">
