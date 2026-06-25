@@ -26,15 +26,14 @@ from pathlib import Path
 from lxml import etree
 
 # --- paths -----------------------------------------------------------------
-PROJECT_ROOT = Path(
-    r"G:\Shared drives\Customers\SubZero - Cove - Wolf\Wolf\1394 Wall Oven Expansion\Programs"
-)
+PROJECT_ROOT = Path(r"G:\Shared drives\Customers\SubZero - Cove - Wolf\Wolf\1394 Wall Oven Expansion\Programs")
 # INPUT_DIR = Path(r"C:\Users\justi\Documents\VSCode\L5X Bulk Generator\Output")
 INPUT_DIR = (
-    PROJECT_ROOT / "Hybrid Main Line Programs" / "GeneratedRoutines- Hybrid Main Line"
+    # PROJECT_ROOT / "Hybrid Main Line Programs" / "GeneratedRoutines- Hybrid Main Line"
+    Path("./output/stationPrograms")
 )
 # OUTPUT_DIR = INPUT_DIR  # same folder; change if you want it elsewhere
-OUTPUT_DIR = PROJECT_ROOT / "FAT Programs"
+OUTPUT_DIR = Path("./output")  # PROJECT_ROOT / "FAT Programs"
 
 # Optional: explicit base file. If None, uses the alphabetically-first L5X
 # in INPUT_DIR as the base. The base provides the Controller header
@@ -63,9 +62,7 @@ def _ensure_parent(base_root: etree._Element, parent_xpath: str) -> etree._Eleme
     # walk the path, creating any missing ancestors
     parts = [p for p in parent_xpath.split("/") if p]
     if base_root.tag != parts[0]:
-        raise ValueError(
-            f"Base root <{base_root.tag}> does not match expected <{parts[0]}>."
-        )
+        raise ValueError(f"Base root <{base_root.tag}> does not match expected <{parts[0]}>.")
     cur = base_root
     for tag in parts[1:]:
         nxt = cur.find(tag)
@@ -158,9 +155,7 @@ def _ensure_tag_comments(tag: etree._Element) -> etree._Element:
     return comments
 
 
-def _merge_missing_tag_comments(
-    existing_tag: etree._Element, incoming_tag: etree._Element
-) -> dict[str, int]:
+def _merge_missing_tag_comments(existing_tag: etree._Element, incoming_tag: etree._Element) -> dict[str, int]:
     """Copy missing direct tag comments by Operand without changing tag data."""
     result = {"added": 0, "skipped": 0, "conflicted": 0}
     incoming_comments = incoming_tag.find("Comments")
@@ -212,25 +207,15 @@ def merge(base_path: Path, sources: list[Path], output_path: Path) -> dict:
     existing_elements: dict[str, dict[str, etree._Element]] = {}
     for parent_xp, child_tag in CONTAINERS:
         parent_el = _ensure_parent(base_root, parent_xp)
-        existing[child_tag] = {
-            c.get("Name") for c in parent_el.findall(child_tag) if c.get("Name")
-        }
-        existing_elements[child_tag] = {
-            c.get("Name"): c for c in parent_el.findall(child_tag) if c.get("Name")
-        }
+        existing[child_tag] = {c.get("Name") for c in parent_el.findall(child_tag) if c.get("Name")}
+        existing_elements[child_tag] = {c.get("Name"): c for c in parent_el.findall(child_tag) if c.get("Name")}
 
     # Programs are merged as siblings (one per source file), not flattened.
     # Pre-load existing Program names from the base for dedupe.
-    programs_parent = _ensure_parent(
-        base_root, "/RSLogix5000Content/Controller/Programs"
-    )
-    existing_programs = {
-        p.get("Name") for p in programs_parent.findall("Program") if p.get("Name")
-    }
+    programs_parent = _ensure_parent(base_root, "/RSLogix5000Content/Controller/Programs")
+    existing_programs = {p.get("Name") for p in programs_parent.findall("Program") if p.get("Name")}
 
-    stats: dict[str, dict[str, int]] = {
-        ct: {"added": 0, "skipped": 0} for _, ct in CONTAINERS
-    }
+    stats: dict[str, dict[str, int]] = {ct: {"added": 0, "skipped": 0} for _, ct in CONTAINERS}
     stats["Program"] = {"added": 0, "skipped": 0, "renamed": 0}
     stats["TagComment"] = {"added": 0, "skipped": 0, "conflicted": 0}
 
@@ -270,9 +255,7 @@ def merge(base_path: Path, sources: list[Path], output_path: Path) -> dict:
                     continue
                 if name in existing[child_tag]:
                     if child_tag == "Tag":
-                        comment_stats = _merge_missing_tag_comments(
-                            existing_elements[child_tag][name], child
-                        )
+                        comment_stats = _merge_missing_tag_comments(existing_elements[child_tag][name], child)
                         for key, value in comment_stats.items():
                             stats["TagComment"][key] += value
                     stats[child_tag]["skipped"] += 1
@@ -291,10 +274,7 @@ def merge(base_path: Path, sources: list[Path], output_path: Path) -> dict:
             print(f"  [WARN] {src.name}: no <Program> element found")
             continue
         if len(src_programs) > 1:
-            print(
-                f"  [WARN] {src.name}: {len(src_programs)} Programs; "
-                "merging only the first as '{prog_name}'"
-            )
+            print(f"  [WARN] {src.name}: {len(src_programs)} Programs; merging only the first as '{{prog_name}}'")
         src_prog = src_programs[0]
         if prog_name in existing_programs:
             stats["Program"]["skipped"] += 1
@@ -378,10 +358,7 @@ def main() -> int:
 
     print(f"Base:    {base.name}")
     if filter_active:
-        print(
-            f"Filter:  station numbers in [{STATION_MIN}..{STATION_MAX}]  "
-            f"({len(files)}/{len(all_matches)} files)"
-        )
+        print(f"Filter:  station numbers in [{STATION_MIN}..{STATION_MAX}]  ({len(files)}/{len(all_matches)} files)")
     print(f"Merging: {len(sources)} files from {INPUT_DIR}")
     print(f"Output:  {out}")
     print()
@@ -396,14 +373,10 @@ def main() -> int:
         print(f"  {ct:30s}  added={s['added']:>6}   skipped={s['skipped']:>6}")
     tc = stats["TagComment"]
     print(
-        f"  {'TagComment':30s}  added={tc['added']:>6}   skipped={tc['skipped']:>6}"
-        f"   conflicts={tc['conflicted']:>6}"
+        f"  {'TagComment':30s}  added={tc['added']:>6}   skipped={tc['skipped']:>6}   conflicts={tc['conflicted']:>6}"
     )
     sp = stats["Program"]
-    print(
-        f"  {'Program':30s}  added={sp['added']:>6}   skipped={sp['skipped']:>6}"
-        f"   (base renamed: {sp['renamed']})"
-    )
+    print(f"  {'Program':30s}  added={sp['added']:>6}   skipped={sp['skipped']:>6}   (base renamed: {sp['renamed']})")
     print(f"\nDone in {elapsed:.2f}s -> {out}")
     return 0
 

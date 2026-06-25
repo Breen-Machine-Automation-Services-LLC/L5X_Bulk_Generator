@@ -1,6 +1,12 @@
 [config]
 default_safety_zone = 8
 
+[templates]
+workstation = "input/Lift_Standard_Code_Program.L5X"
+queue = "input/Staight_Track_Standard_Code_Program.L5X"
+transfer = "input/Chain_Transfer_Standard_Code_Program.L5X"
+teststation = "input/Bi_Directional_Track_Standard_Code_Program.L5X"
+
 [external_type_hints]
 4282 = "Filler"
 4302 = "Filler"
