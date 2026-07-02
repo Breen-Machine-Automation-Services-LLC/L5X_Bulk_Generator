@@ -23,7 +23,6 @@ is LEFT AS-IS so it can be filled in later in Studio 5000.
 # Standard library imports
 from __future__ import annotations
 
-import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Optional
@@ -268,9 +267,226 @@ def build_substitutions(s: Station, station_lookup: dict[int, str]) -> dict[str,
     return subs
 
 
+def _resolve_transfer_infeed_state(
+    current_station: Station,
+    neighbor_station: Station,
+) -> Optional[tuple[str, str]]:
+    """Return the CT run tag suffix and infeed state for a CT neighbor link."""
+    if neighbor_station.type != "Transfer":
+        return None
+
+    current_number = current_station.number
+    if neighbor_station.conv_rev == current_number:
+        return ("Conv_Run", "State_InfeedingConveyorForward")
+    if neighbor_station.conv_fwd == current_number:
+        return ("Conv_Run", "State_InfeedingConveyorReverse")
+    if neighbor_station.chain_fwd == current_number:
+        return ("Chain_Run", "State_InfeedingChainForward")
+    if neighbor_station.chain_rev == current_number:
+        return ("Chain_Run", "State_InfeedingChainReverse")
+    return None
+
+
+def _rewrite_ct_neighbor_outfeed_checks(
+    text: str,
+    current_station: Station,
+    stations_by_number: dict[int, Station],
+) -> str:
+    """Patch outfeed checks when the adjacent station is a CT neighbor."""
+    if current_station.type == "Transfer":
+        neighbor_numbers = (
+            current_station.conv_rev,
+            current_station.conv_fwd,
+            current_station.chain_fwd,
+            current_station.chain_rev,
+        )
+    else:
+        neighbor_numbers = (current_station.prev, current_station.next)
+
+    for neighbor_number in neighbor_numbers:
+        if neighbor_number is None:
+            continue
+        neighbor_station = stations_by_number.get(neighbor_number)
+        if neighbor_station is None or neighbor_station.type != "Transfer":
+            continue
+
+        ct_behavior = _resolve_transfer_infeed_state(current_station, neighbor_station)
+        if ct_behavior is None:
+            continue
+
+        run_suffix, state_name = ct_behavior
+        ct_tag = f"CT{neighbor_station.number}"
+        text = text.replace(f"XIC({ct_tag}_Conv_Run)", f"XIC({ct_tag}_{run_suffix})")
+        text = text.replace(
+            f"EQU(State_Infeeding,{ct_tag}.State)",
+            f"EQU({state_name},{ct_tag}.State)",
+        )
+
+    return text
+
+
+def _self_tag(station: Station) -> str:
+    return f"{TYPE_PREFIX[station.effective_template_type]}{station.number}"
+
+
+def _outfeed_complete_neighbor_number(
+    station: Station,
+    branch_name: str,
+    station_lookup: dict[int, str],
+) -> Optional[int]:
+    if station.type == "Transfer":
+        branch_to_neighbor = {
+            "conveyor_forward": station.conv_fwd,
+            "conveyor_reverse": station.conv_rev,
+            "chain_forward": station.chain_rev,
+            "chain_reverse": station.chain_fwd,
+        }
+    elif station.effective_template_type == "TestStation":
+        branch_to_neighbor = {
+            "conveyor_forward": station.next,
+            "conveyor_reverse": station.prev,
+        }
+    else:
+        branch_to_neighbor = {
+            "conveyor_forward": station.next,
+            "conveyor_reverse": station.prev,
+        }
+
+    neighbor_number = branch_to_neighbor.get(branch_name)
+    if neighbor_number is None:
+        return None
+
+    neighbor_type = station_lookup.get(neighbor_number)
+    if neighbor_type not in {"Queue", "Workstation", "Transfer", "TestStation"}:
+        return None
+
+    return neighbor_number
+
+
+def _resolve_outfeed_complete_infeed_state(
+    current_station: Station,
+    neighbor_number: int,
+    branch_name: str,
+    station_lookup: dict[int, str],
+    stations_by_number: dict[int, Station],
+) -> str:
+    neighbor_type = station_lookup.get(neighbor_number)
+    if neighbor_type == "Transfer":
+        neighbor_station = stations_by_number.get(neighbor_number)
+        if neighbor_station is not None and neighbor_station.type == "Transfer":
+            ct_behavior = _resolve_transfer_infeed_state(current_station, neighbor_station)
+            if ct_behavior is not None:
+                return ct_behavior[1]
+
+        return {
+            "conveyor_forward": "State_InfeedingConveyorForward",
+            "conveyor_reverse": "State_InfeedingConveyorReverse",
+            "chain_forward": "State_InfeedingChainForward",
+            "chain_reverse": "State_InfeedingChainReverse",
+        }.get(branch_name, "State_Infeeding")
+
+    if neighbor_type == "TestStation":
+        neighbor_station = stations_by_number.get(neighbor_number)
+        if neighbor_station is not None and neighbor_station.effective_template_type == "TestStation":
+            if neighbor_station.prev == current_station.number:
+                return "State_Infeeding"
+            if neighbor_station.next == current_station.number:
+                return "State_InfeedingConveyorReverse"
+
+    return "State_Infeeding"
+
+
+def _rewrite_outfeed_complete_checks(
+    text: str,
+    station: Station,
+    station_lookup: dict[int, str],
+    stations_by_number: dict[int, Station],
+) -> str:
+    self_tag = _self_tag(station)
+    replacements: list[tuple[str, str, str]] = []
+
+    if station.type == "Transfer":
+        replacements = [
+            (
+                (
+                    f"EQU(State_OutfeedingConveyorForward,{self_tag}.State) "
+                    f"XIO({self_tag}_FE_Conv) XIC(Outfeed_Complete_Placeholder)"
+                ),
+                "conveyor_forward",
+                f"EQU(State_OutfeedingConveyorForward,{self_tag}.State) XIO({self_tag}_FE_Conv)",
+            ),
+            (
+                (
+                    f"EQU(State_OutfeedingConveyorReverse,{self_tag}.State) "
+                    f"XIO({self_tag}_RE_Conv) XIC(Outfeed_Complete_Placeholder)"
+                ),
+                "conveyor_reverse",
+                f"EQU(State_OutfeedingConveyorReverse,{self_tag}.State) XIO({self_tag}_RE_Conv)",
+            ),
+            (
+                (
+                    f"EQU(State_OutfeedingChainForward,{self_tag}.State) "
+                    f"XIO({self_tag}_FE_Chain) XIC(Outfeed_Complete_Placeholder)"
+                ),
+                "chain_forward",
+                f"EQU(State_OutfeedingChainForward,{self_tag}.State) XIO({self_tag}_FE_Chain)",
+            ),
+            (
+                (
+                    f"EQU(State_OutfeedingChainReverse,{self_tag}.State) "
+                    f"XIO({self_tag}_FE_Chain) XIC(Outfeed_Complete_Placeholder)"
+                ),
+                "chain_reverse",
+                f"EQU(State_OutfeedingChainReverse,{self_tag}.State) XIO({self_tag}_FE_Chain)",
+            ),
+        ]
+    elif station.effective_template_type == "TestStation":
+        replacements = [
+            (
+                f"EQU(State_Outfeeding,{self_tag}.State)XIO({self_tag}_PE_FE)XIC(Outfeed_Complete_Placeholder)",
+                "conveyor_forward",
+                f"EQU(State_Outfeeding,{self_tag}.State)XIO({self_tag}_PE_FE)",
+            ),
+            (
+                f"EQU(State_OutfeedingConveyorReverse,{self_tag}.State)XIO({self_tag}_PE_RE)XIC(Outfeed_Complete_Placeholder)",
+                "conveyor_reverse",
+                f"EQU(State_OutfeedingConveyorReverse,{self_tag}.State)XIO({self_tag}_PE_RE)",
+            ),
+        ]
+    else:
+        stop_eye = f"{self_tag}_PE_FE"
+        replacements = [
+            (
+                f"EQU(State_Outfeeding,{self_tag}.State)XIO({stop_eye})XIC(Outfeed_Complete_Placeholder)",
+                "conveyor_forward",
+                f"EQU(State_Outfeeding,{self_tag}.State)XIO({stop_eye})",
+            )
+        ]
+
+    for old_snippet, branch_name, prefix in replacements:
+        neighbor_number = _outfeed_complete_neighbor_number(station, branch_name, station_lookup)
+        if neighbor_number is None:
+            continue
+        target_tag = _neighbor_tag(neighbor_number, station_lookup)
+        if target_tag is None:
+            continue
+        infeed_state = _resolve_outfeed_complete_infeed_state(
+            station,
+            neighbor_number,
+            branch_name,
+            station_lookup,
+            stations_by_number,
+        )
+        new_snippet = f"{prefix}NEQ({infeed_state},{target_tag}.State)"
+        text = text.replace(old_snippet, new_snippet)
+
+    return text
+
+
 def generate(
     station: Station,
     station_lookup: dict[int, str],
+    stations_by_number: dict[int, Station],
     templates: dict[str, Path],
     dry_run: bool = False,
 ) -> Path:
@@ -286,6 +502,9 @@ def generate(
     for ph in sorted(subs, key=len, reverse=True):
         text = text.replace(ph, subs[ph])
 
+    text = _rewrite_ct_neighbor_outfeed_checks(text, station, stations_by_number)
+    text = _rewrite_outfeed_complete_checks(text, station, station_lookup, stations_by_number)
+
     out_path = OUTPUT_DIR / f"Sta{station.number}_{station.type}.L5X"
     if not dry_run:
         OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -298,13 +517,14 @@ def main(only: Optional[set[int]] = None) -> None:
 
     # Build lookup so neighbor tags can be type-prefixed correctly.
     # Use *effective* template type (so a lift-less workstation uses ST prefix).
+    stations_by_number = {s.number: s for s in all_stations}
     lookup: dict[int, str] = dict(hints)
     lookup.update({s.number: s.effective_template_type for s in all_stations})
     written: list[Path] = []
     for s in all_stations:
         if only is not None and s.number not in only:
             continue
-        out = generate(s, lookup, templates)
+        out = generate(s, lookup, stations_by_number, templates)
         written.append(out)
         print(f"  wrote {out.name}")
     print(f"\nDone. {len(written)} file(s) written to {OUTPUT_DIR}")

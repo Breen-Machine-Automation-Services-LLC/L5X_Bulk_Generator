@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Staight_Track_Standard_Code" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Wed Jun 24 14:28:15 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Staight_Track_Standard_Code" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Thu Jun 25 15:55:14 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Standard_Code_Library">
 <DataTypes Use="Context">
 <DataType Name="MES_Brake_Integration" Family="NoFamily" Class="User">
@@ -1433,11 +1433,11 @@ Conveyor Run]]>
 </Tag>
 <Tag Name="STXXXX_Outfeeding_TON" Class="Standard" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
 <Data Format="L5K">
-<![CDATA[[0,1000,0]]]>
+<![CDATA[[0,0,0]]]>
 </Data>
 <Data Format="Decorated">
 <Structure DataType="TIMER">
-<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="1000"/>
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
 <DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
 <DataValueMember Name="EN" DataType="BOOL" Value="0"/>
 <DataValueMember Name="TT" DataType="BOOL" Value="0"/>

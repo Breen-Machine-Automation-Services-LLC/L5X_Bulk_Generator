@@ -48,20 +48,34 @@ class StationDef:
     def is_transfer(self) -> bool:
         return self.station_type == "Transfer"
 
+
 Axis = Literal["conv", "chain"]
+Relation = Literal["upstream", "downstream"]
+
+
+def _endpoint_relation(station: StationDef, other_station_num: int) -> tuple[Axis, Relation] | None:
+    if not station.is_transfer:
+        if other_station_num == station.prev:
+            return ("conv", "upstream")
+        if other_station_num == station.next:
+            return ("conv", "downstream")
+        return None
+
+    if other_station_num in {station.conv_upstream, station.conv_downstream}:
+        rel: Relation = "upstream" if other_station_num == station.conv_upstream else "downstream"
+        return ("conv", rel)
+    if other_station_num in {station.chain_upstream, station.chain_downstream}:
+        rel = "upstream" if other_station_num == station.chain_upstream else "downstream"
+        return ("chain", rel)
+
+    return None
 
 
 def _endpoint_axis(station: StationDef, other_station_num: int) -> Axis:
-    if not station.is_transfer:
+    relation = _endpoint_relation(station, other_station_num)
+    if relation is None:
         return "conv"
-
-    if other_station_num in {station.conv_upstream, station.conv_downstream}:
-        return "conv"
-    if other_station_num in {station.chain_upstream, station.chain_downstream}:
-        return "chain"
-
-    # Fallback for malformed relationship maps.
-    return "conv"
+    return relation[0]
 
 
 def _run_tag(station: StationDef, axis: Axis) -> str:
@@ -82,6 +96,34 @@ def _presence_tag(station: StationDef, axis: Axis) -> str:
     if axis == "chain":
         return f"CT{station.number}_FE_Chain"
     return f"CT{station.number}_FE_Conv"
+
+
+def _source_presence_tags(station: StationDef) -> list[str]:
+    if station.is_transfer:
+        return [
+            f"CT{station.number}_FE_Conv",
+            f"CT{station.number}_RE_Conv",
+            f"CT{station.number}_FE_Chain",
+            f"CT{station.number}_RE_Chain",
+        ]
+    return [
+        f"{station.prefix}{station.number}_PE_FE",
+        f"{station.prefix}{station.number}_PE_RE",
+    ]
+
+
+def _dir_instr(station: StationDef, other_station_num: int, role: str) -> str:
+    relation = _endpoint_relation(station, other_station_num)
+    if relation is None:
+        return "XIO"
+
+    _, rel = relation
+
+    # For source side (A -> B): downstream is forward, upstream is reverse.
+    # For destination side (B receiving from A): polarity is opposite.
+    if role == "src":
+        return "XIO" if rel == "downstream" else "XIC"
+    return "XIO" if rel == "upstream" else "XIC"
 
 
 def _read_toml(path: Path) -> dict:
@@ -111,9 +153,7 @@ def _station_prefix(row: dict) -> tuple[str, str]:
         return "Transfer", "CT"
     if raw_type == "Lift":
         if not is_workstation:
-            raise RuntimeError(
-                f"Station {row['number']} is Lift but isWorkstation is not true."
-            )
+            raise RuntimeError(f"Station {row['number']} is Lift but isWorkstation is not true.")
         return "Lift", "Li"
     if raw_type == "Queue":
         if is_test_station:
@@ -122,9 +162,7 @@ def _station_prefix(row: dict) -> tuple[str, str]:
             return "Workstation", "ST"
         return "Queue", "ST"
 
-    raise RuntimeError(
-        f"Unsupported station type '{raw_type}' at station {row['number']}"
-    )
+    raise RuntimeError(f"Unsupported station type '{raw_type}' at station {row['number']}")
 
 
 def load_stations(path: Path) -> dict[int, StationDef]:
@@ -227,15 +265,9 @@ def _make_timer_tag(name: str, preset_ms: int) -> etree._Element:
         Radix="Decimal",
         Value="0",
     )
-    etree.SubElement(
-        structure, "DataValueMember", Name="EN", DataType="BOOL", Value="0"
-    )
-    etree.SubElement(
-        structure, "DataValueMember", Name="TT", DataType="BOOL", Value="0"
-    )
-    etree.SubElement(
-        structure, "DataValueMember", Name="DN", DataType="BOOL", Value="0"
-    )
+    etree.SubElement(structure, "DataValueMember", Name="EN", DataType="BOOL", Value="0")
+    etree.SubElement(structure, "DataValueMember", Name="TT", DataType="BOOL", Value="0")
+    etree.SubElement(structure, "DataValueMember", Name="DN", DataType="BOOL", Value="0")
     return tag
 
 
@@ -244,12 +276,6 @@ def _make_rung(number: int, text: str) -> etree._Element:
     text_el = etree.SubElement(rung, "Text")
     text_el.text = etree.CDATA(text)
     return rung
-
-
-def _is_forward_edge(src: StationDef, dst_num: int) -> bool:
-    if src.is_transfer:
-        return dst_num in {src.conv_downstream, src.chain_downstream}
-    return dst_num == src.next
 
 
 def _build_program_root() -> tuple[etree._Element, etree._Element, etree._Element]:
@@ -265,9 +291,7 @@ def _build_program_root() -> tuple[etree._Element, etree._Element, etree._Elemen
         ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans",
     )
 
-    controller = etree.SubElement(
-        root, "Controller", Use="Context", Name=CONTROLLER_NAME
-    )
+    controller = etree.SubElement(root, "Controller", Use="Context", Name=CONTROLLER_NAME)
     programs = etree.SubElement(controller, "Programs", Use="Context")
     program = etree.SubElement(
         programs,
@@ -299,18 +323,20 @@ def build_simulation_rungs(
         src_axis = _endpoint_axis(src, dst_num)
         dst_axis = _endpoint_axis(dst, src_num)
         timer = f"T{src_num}to{dst_num}"
-        dir_instr = "XIO" if _is_forward_edge(src, dst_num) else "XIC"
+        src_dir_instr = _dir_instr(src, dst_num, role="src")
+        dst_dir_instr = _dir_instr(dst, src_num, role="dst")
+        src_otu_text = "".join(f"OTU({tag})" for tag in _source_presence_tags(src))
         timer_names.add(timer)
 
         rung_texts.append(
             (
                 f"XIC({_run_tag(src, src_axis)})"
-                f"{dir_instr}({_dir_tag(src, src_axis)})"
+                f"{src_dir_instr}({_dir_tag(src, src_axis)})"
                 f"XIC({_run_tag(dst, dst_axis)})"
-                f"{dir_instr}({_dir_tag(dst, dst_axis)})"
+                f"{dst_dir_instr}({_dir_tag(dst, dst_axis)})"
                 f"TON({timer},{preset_ms},0)"
                 f"XIC({timer}.DN)"
-                f"OTU({_presence_tag(src, src_axis)})"
+                f"{src_otu_text}"
                 f"OTL({_presence_tag(dst, dst_axis)});"
             )
         )
@@ -373,9 +399,7 @@ def write_program_l5x(
 def main() -> None:
     stations = load_stations(STATIONS_TOML)
     edges = build_directed_edges(stations)
-    timer_names, rung_texts = build_simulation_rungs(
-        stations, edges, DEFAULT_TIMER_PRESET_MS
-    )
+    timer_names, rung_texts = build_simulation_rungs(stations, edges, DEFAULT_TIMER_PRESET_MS)
     out = write_program_l5x(timer_names, rung_texts)
 
     print(f"Stations loaded: {len(stations)}")
