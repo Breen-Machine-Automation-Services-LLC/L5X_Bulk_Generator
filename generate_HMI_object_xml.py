@@ -17,8 +17,8 @@ import tomllib
 
 # Local application imports
 
+# Constants
 STATIONS_TOML = Path("input/stations.toml")
-
 OUTPUT_DIR = Path("output")
 GO_GROUP_PREFIX = "GO_Conv"
 TEMPLATE_GROUP_NAME = "GO_Conv4000"
