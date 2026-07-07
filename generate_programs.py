@@ -107,36 +107,39 @@ def _load_templates_from_toml(toml_data: dict[str, Any]) -> dict[str, Path]:
     if not isinstance(templates, dict):
         raise KeyError(
             f"Missing [templates] table in {STATIONS_TOML}. "
-            "Define template paths for workstation/lift, queue, transfer, teststation, gravity."
+            "Define template paths for lift, queue, transfer, teststation, gravity."
         )
 
-    normalized = {str(key).strip().lower(): value for key, value in templates.items()}
+    normalized: dict[str, Any] = {}
+    for key, value in templates.items():
+        lowered = str(key).strip().lower()
+        if lowered in normalized:
+            raise KeyError(
+                f"Duplicate [templates] key ignoring case in {STATIONS_TOML}: {key}. "
+                "Use each required key only once."
+            )
+        normalized[lowered] = value
 
-    def pick(*aliases: str) -> Optional[str]:
-        for alias in aliases:
-            if alias in normalized:
-                return str(normalized[alias])
-        return None
-
-    resolved = {
-        "Workstation": pick("workstation", "lift"),
-        "Queue": pick("queue"),
-        "Transfer": pick("transfer"),
-        "TestStation": pick("teststation", "test_station"),
-        "Gravity": pick("gravity"),
+    required = {
+        "lift": "Workstation",
+        "queue": "Queue",
+        "transfer": "Transfer",
+        "teststation": "TestStation",
+        "gravity": "Gravity",
     }
 
-    missing_required = [
-        name for name in ("Workstation", "Queue", "Transfer", "TestStation", "Gravity") if resolved[name] is None
-    ]
+    missing_required = [display for key, display in required.items() if key not in normalized]
     if missing_required:
         missing_csv = ", ".join(missing_required)
         raise KeyError(
             f"Missing required [templates] mappings in {STATIONS_TOML}: {missing_csv}. "
-            "Supported keys include workstation/lift, queue, transfer, teststation, gravity."
+            "Expected keys (case-insensitive): Lift, Queue, Transfer, TestStation, Gravity."
         )
 
-    return {name: _resolve_template_path(path_value) for name, path_value in resolved.items() if path_value is not None}
+    return {
+        display: _resolve_template_path(str(normalized[key]))
+        for key, display in required.items()
+    }
 
 
 def _load_external_type_hints(toml_data: dict[str, Any]) -> dict[int, str]:
