@@ -2,10 +2,11 @@
 default_safety_zone = 8
 
 [templates]
-workstation = "input/Lift_Standard_Code_Program.L5X"
-queue = "input/Staight_Track_Standard_Code_Program.L5X"
-transfer = "input/Chain_Transfer_Standard_Code_Program.L5X"
-teststation = "input/Bi_Directional_Track_Standard_Code_Program.L5X"
+Lift = "input/Lift_Standard_Code_Program.L5X"
+Queue = "input/Staight_Track_Standard_Code_Program.L5X"
+Transfer = "input/Chain_Transfer_Standard_Code_Program.L5X"
+Teststation = "input/Staight_Track_Standard_Code_Program.L5X"
+Gravity = "input/Gravity_Standard_Code_Program.L5X"
 
 [external_type_hints]
 4282 = "Filler"
@@ -74,16 +75,16 @@ data = [
     { number = 4240, type = "Queue",    prev = 4230, next = 4250 },
     { number = 4250, type = "Queue",    prev = 4240, next = 4260 },
     { number = 4260, type = "Transfer", conv_upstream = 0,    conv_downstream = 4270, chain_upstream = 4250, chain_downstream = 0 },
-    { number = 4270, type = "Queue",    prev = 4260, next = 4280 },
-    { number = 4280, type = "Transfer", conv_upstream = 4270, conv_downstream = 4290, chain_upstream = 4600, chain_downstream = 4281 },
-    { number = 4281, type = "Queue",    prev = 4280, next = 0, isWorkstation = true },
-    { number = 4290, type = "Queue",    prev = 4280, next = 4300 },
-    { number = 4300, type = "Transfer", conv_upstream = 4290, conv_downstream = 4310, chain_upstream = 4580, chain_downstream = 4301 },
-    { number = 4301, type = "Queue",    prev = 4300, next = 0, isWorkstation = true },
-    { number = 4310, type = "Queue",    prev = 4300, next = 4320 },
-    { number = 4320, type = "Transfer", conv_upstream = 4310, conv_downstream = 4330, chain_upstream = 4560, chain_downstream = 4321 },
-    { number = 4321, type = "Queue",    prev = 4320, next = 0, isWorkstation = true },
-    { number = 4330, type = "Queue",    prev = 4320, next = 4340 },
+    { number = 4270, type = "Queue",    prev = 4260, next = 4280, hasRoute=true },
+    { number = 4280, type = "Transfer", conv_upstream = 4270, conv_downstream = 4290, chain_upstream = 4600, chain_downstream = 4281, hasRoute=true },
+    { number = 4281, type = "Queue",    prev = 4280, next = 0, isWorkstation = true, hasRoute=true },
+    { number = 4290, type = "Queue",    prev = 4280, next = 4300, hasRoute=true },
+    { number = 4300, type = "Transfer", conv_upstream = 4290, conv_downstream = 4310, chain_upstream = 4580, chain_downstream = 4301, hasRoute=true },
+    { number = 4301, type = "Queue",    prev = 4300, next = 0, isWorkstation = true, hasRoute=true },
+    { number = 4310, type = "Queue",    prev = 4300, next = 4320, hasRoute=true },
+    { number = 4320, type = "Transfer", conv_upstream = 4310, conv_downstream = 4330, chain_upstream = 4560, chain_downstream = 4321, hasRoute=true },
+    { number = 4321, type = "Queue",    prev = 4320, next = 0, isWorkstation = true, hasRoute=true },
+    { number = 4330, type = "Queue",    prev = 4320, next = 4340, hasRoute=true },
     { number = 4340, type = "Queue",    prev = 4330, next = 4350 },
     { number = 4350, type = "Lift",     prev = 4340, next = 4360, isWorkstation = true },
     { number = 4360, type = "Queue",    prev = 4350, next = 4370 },
@@ -104,13 +105,16 @@ data = [
     { number = 4520, type = "Transfer", conv_upstream = 4510, conv_downstream = 0,    chain_upstream = 0,    chain_downstream = 4530 },
     { number = 4530, type = "Transfer", conv_upstream = 0,    conv_downstream = 4540, chain_upstream = 4520, chain_downstream = 0 },
     { number = 4540, type = "Queue",    prev = 4530, next = 4550 },
-    { number = 4550, type = "Queue",    prev = 4540, next = 4560 },
-    { number = 4560, type = "Transfer", conv_upstream = 4550, conv_downstream = 4570, chain_upstream = 4561, chain_downstream = 4320 },
-    { number = 4570, type = "Queue",    prev = 4560, next = 4580 },
-    { number = 4580, type = "Transfer", conv_upstream = 4570, conv_downstream = 4590, chain_upstream = 4581, chain_downstream = 4300 },
-    { number = 4590, type = "Queue",    prev = 4580, next = 4600 },
-    { number = 4600, type = "Transfer", conv_upstream = 4590, conv_downstream = 4610, chain_upstream = 4601, chain_downstream = 4280 },
-    { number = 4610, type = "Queue",    prev = 4600, next = 4620 },
+    { number = 4550, type = "Queue",    prev = 4540, next = 4560, hasRoute=true },
+    { number = 4560, type = "Transfer", conv_upstream = 4550, conv_downstream = 4570, chain_upstream = 4561, chain_downstream = 4320, hasRoute=true },
+    { number = 4561, type = "Gravity",    prev = 4560, next = 0, hasRoute=true },
+    { number = 4570, type = "Queue",    prev = 4560, next = 4580, hasRoute=true },
+    { number = 4580, type = "Transfer", conv_upstream = 4570, conv_downstream = 4590, chain_upstream = 4581, chain_downstream = 4300, hasRoute=true },
+    { number = 4581, type = "Gravity",    prev = 4580, next = 0, hasRoute=true },
+    { number = 4590, type = "Queue",    prev = 4580, next = 4600, hasRoute=true },
+    { number = 4600, type = "Transfer", conv_upstream = 4590, conv_downstream = 4610, chain_upstream = 4601, chain_downstream = 4280, hasRoute=true },
+    { number = 4601, type = "Gravity",    prev = 4600, next = 0, hasRoute=true },
+    { number = 4610, type = "Queue",    prev = 4600, next = 4620, hasRoute=true },
     { number = 4620, type = "Transfer", conv_upstream = 4610, conv_downstream = 0,    chain_upstream = 0,    chain_downstream = 4630 },
     { number = 4630, type = "Queue",    prev = 4620, next = 4640 },
     { number = 4640, type = "Queue",    prev = 4630, next = 4650 },

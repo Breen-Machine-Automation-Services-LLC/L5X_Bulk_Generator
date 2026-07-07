@@ -7,18 +7,19 @@ from __future__ import annotations
 
 # Standard library imports
 from copy import deepcopy
+from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 
 # Third-party imports
 import lxml.etree as etree
+import tomllib
 
 # Local application imports
-from generate_io_l5x import STATIONS_TOML, StationDef, load_stations
 
-TEMPLATE_XML = Path("reference/MAIN.xml")
+STATIONS_TOML = Path("input/stations.toml")
+
 OUTPUT_DIR = Path("output")
-OUTPUT_FILE_STEM = "MAIN"
 GO_GROUP_PREFIX = "GO_Conv"
 TEMPLATE_GROUP_NAME = "GO_Conv4000"
 TEMPLATE_STATION = "4000"
@@ -27,17 +28,76 @@ POPUP_LIFT = "301_Pop_Lift"
 POPUP_CHAIN_TRANSFER = "303_Pop_ChainTransfer"
 
 
-def _parse_main_xml(path: Path) -> etree._ElementTree:
+@dataclass(frozen=True)
+class DisplayConfig:
+    template_path: Path
+    output_stem: str
+    set_station_number_param: bool
+    set_popup_param: bool
+
+
+DISPLAY_CONFIGS = [
+    DisplayConfig(
+        template_path=Path("reference/MAIN.xml"),
+        output_stem="Level2",
+        set_station_number_param=False,
+        set_popup_param=True,
+    ),
+    DisplayConfig(
+        template_path=Path("reference/Level1.xml"),
+        output_stem="Level1",
+        set_station_number_param=True,
+        set_popup_param=False,
+    ),
+]
+
+
+@dataclass(frozen=True)
+class StationInfo:
+    number: int
+    prefix: str
+
+
+def _read_toml(path: Path) -> dict:
+    with open(path, "rb") as f:
+        raw = f.read()
+    if raw.startswith(b"\xef\xbb\xbf"):
+        raw = raw[3:]
+    return tomllib.loads(raw.decode("utf-8"))
+
+
+def _station_prefix_from_row(row: dict) -> str:
+    raw_type = str(row.get("type", "")).strip()
+    if raw_type == "Transfer":
+        return "CT"
+    if raw_type == "Lift":
+        return "Li"
+    return "ST"
+
+
+def load_hmi_stations(path: Path) -> dict[int, StationInfo]:
+    data = _read_toml(path)
+    rows = data["stations"]["data"]
+
+    stations: dict[int, StationInfo] = {}
+    for row in rows:
+        number = int(row["number"])
+        if number in stations:
+            raise RuntimeError(f"Duplicate station number in TOML: {number}")
+        stations[number] = StationInfo(
+            number=number,
+            prefix=_station_prefix_from_row(row),
+        )
+    return stations
+
+
+def _parse_display_xml(path: Path) -> etree._ElementTree:
     parser = etree.XMLParser(remove_blank_text=False)
     return etree.parse(str(path), parser)
 
 
 def _iter_go_conv_groups(root: etree._Element) -> list[etree._Element]:
-    return [
-        child
-        for child in root
-        if child.tag == "group" and child.get("name", "").startswith(GO_GROUP_PREFIX)
-    ]
+    return [child for child in root if child.tag == "group" and child.get("name", "").startswith(GO_GROUP_PREFIX)]
 
 
 def _find_template_group(root: etree._Element) -> etree._Element:
@@ -68,6 +128,8 @@ def _build_station_group(
     station_number: int,
     machine_name: str,
     popup_name: str,
+    set_station_number_param: bool,
+    set_popup_param: bool,
 ) -> etree._Element:
     group = deepcopy(template)
     _replace_station_tokens(group, TEMPLATE_STATION, str(station_number))
@@ -77,21 +139,32 @@ def _build_station_group(
         raise RuntimeError("Template is missing parameter #2 for machine name.")
     machine_name_param.set("value", machine_name)
 
-    popup_param = group.find("./parameters/parameter[@name='#4']")
-    if popup_param is None:
-        raise RuntimeError("Template is missing parameter #4 for popup name.")
-    popup_param.set("value", popup_name)
+    if set_station_number_param:
+        station_number_param = group.find("./parameters/parameter[@name='#3']")
+        if station_number_param is None:
+            raise RuntimeError("Template is missing parameter #3 for station number.")
+        station_number_param.set("value", str(station_number))
+
+    if set_popup_param:
+        popup_param = group.find("./parameters/parameter[@name='#4']")
+        if popup_param is None:
+            raise RuntimeError("Template is missing parameter #4 for popup name.")
+        popup_param.set("value", popup_name)
 
     return group
 
 
-def generate_main_xml(template_path: Path, stations: dict[int, StationDef]) -> Path:
-    tree = _parse_main_xml(template_path)
+def generate_display_xml(
+    config: DisplayConfig,
+    stations: dict[int, StationInfo],
+    timestamp: str,
+) -> Path:
+    tree = _parse_display_xml(config.template_path)
     root = tree.getroot()
 
     existing_groups = _iter_go_conv_groups(root)
     if not existing_groups:
-        raise RuntimeError("No GO_Conv groups found in MAIN.xml.")
+        raise RuntimeError(f"No GO_Conv groups found in {config.template_path}.")
 
     template_group = _find_template_group(root)
     insertion_index = root.index(existing_groups[0])
@@ -115,13 +188,14 @@ def generate_main_xml(template_path: Path, stations: dict[int, StationDef]) -> P
             station_number,
             machine_name,
             popup_name,
+            config.set_station_number_param,
+            config.set_popup_param,
         )
         group.tail = template_tail
         root.insert(insertion_index + offset, group)
 
     OUTPUT_DIR.mkdir(exist_ok=True)
-    timestamp = datetime.now().isoformat(timespec="seconds").replace(":", "-")
-    out_path = OUTPUT_DIR / f"{OUTPUT_FILE_STEM}_{timestamp}.xml"
+    out_path = OUTPUT_DIR / f"{config.output_stem}_{timestamp}.xml"
     tree.write(
         str(out_path),
         xml_declaration=True,
@@ -132,13 +206,15 @@ def generate_main_xml(template_path: Path, stations: dict[int, StationDef]) -> P
 
 
 def main() -> None:
-    stations = load_stations(STATIONS_TOML)
+    stations = load_hmi_stations(STATIONS_TOML)
     station_numbers = sorted(stations, reverse=True)
-    out_path = generate_main_xml(TEMPLATE_XML, stations)
+    timestamp = datetime.now().isoformat(timespec="seconds").replace(":", "-")
+    out_paths = [generate_display_xml(config, stations, timestamp) for config in DISPLAY_CONFIGS]
 
     print(f"Stations loaded: {len(station_numbers)}")
     print(f"GO_Conv groups written: {len(station_numbers)}")
-    print(f"Wrote: {out_path}")
+    for out_path in out_paths:
+        print(f"Wrote: {out_path}")
 
 
 if __name__ == "__main__":
