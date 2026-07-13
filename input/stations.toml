@@ -8,6 +8,14 @@ Transfer = "input/Chain_Transfer_Standard_Code_Program.L5X"
 Teststation = "input/Staight_Track_Standard_Code_Program.L5X"
 Gravity = "input/Gravity_Standard_Code_Program.L5X"
 
+[type_prefix]
+Lift = "Li"
+Queue = "ST"
+Transfer = "CT"
+TestStation = "ST"
+Gravity = "ST"
+Filler = "FI"
+
 [external_type_hints]
 4282 = "Filler"
 4302 = "Filler"
@@ -48,7 +56,7 @@ Gravity = "input/Gravity_Standard_Code_Program.L5X"
 [stations]
 data = [
     # --- 4000 series ---
-    { number = 4000, type = "Queue",    prev = 0,    next = 4010, isWorkstation = true, isMES = true },
+    { number = 4000, type = "Queue",    prev = 0,    next = 4010, isWorkstation = true, isMES = 1234 },
     { number = 4010, type = "Queue",    prev = 4000, next = 4020 },
     { number = 4020, type = "Transfer", conv_upstream = 0,    conv_downstream = 4030, chain_upstream = 4010, chain_downstream = 0 },
     { number = 4030, type = "Transfer", conv_upstream = 4020, conv_downstream = 0,    chain_upstream = 0, chain_downstream = 4040 },
@@ -60,43 +68,43 @@ data = [
     { number = 4090, type = "Queue",    prev = 4080, next = 4100 },
     { number = 4100, type = "Queue",    prev = 4090, next = 4110 },
     { number = 4110, type = "Queue",    prev = 4100, next = 4120 },
-    { number = 4120, type = "Lift",     prev = 4110, next = 4130, isWorkstation = true, isMES = true },
+    { number = 4120, type = "Lift",     prev = 4110, next = 4130, isWorkstation = true, isMES = 1234 },
     { number = 4130, type = "Queue",    prev = 4120, next = 4140 },
     { number = 4140, type = "Queue",    prev = 4130, next = 4150 },
-    { number = 4150, type = "Lift",     prev = 4140, next = 4160, isWorkstation = true, isMES = true },
+    { number = 4150, type = "Lift",     prev = 4140, next = 4160, isWorkstation = true, isMES = 1234 },
     { number = 4160, type = "Queue",    prev = 4150, next = 4170 },
-    { number = 4170, type = "Lift",     prev = 4160, next = 4180, isWorkstation = true, isMES = true },
+    { number = 4170, type = "Lift",     prev = 4160, next = 4180, isWorkstation = true, isMES = 1234 },
     { number = 4180, type = "Queue",    prev = 4170, next = 4190 },
-    { number = 4190, type = "Lift",     prev = 4180, next = 4200, isWorkstation = true, isMES = true },
+    { number = 4190, type = "Lift",     prev = 4180, next = 4200, isWorkstation = true, isMES = 1234 },
     { number = 4200, type = "Queue",    prev = 4190, next = 4210 },
     { number = 4210, type = "Queue",    prev = 4200, next = 4220 },
-    { number = 4220, type = "Lift",     prev = 4210, next = 4230, isWorkstation = true, isMES = true },
+    { number = 4220, type = "Lift",     prev = 4210, next = 4230, isWorkstation = true, isMES = 1234 },
     { number = 4230, type = "Queue",    prev = 4220, next = 4240 },
     { number = 4240, type = "Queue",    prev = 4230, next = 4250 },
     { number = 4250, type = "Queue",    prev = 4240, next = 4260 },
     { number = 4260, type = "Transfer", conv_upstream = 0,    conv_downstream = 4270, chain_upstream = 4250, chain_downstream = 0 },
     { number = 4270, type = "Queue",    prev = 4260, next = 4280, hasRoute=true },
     { number = 4280, type = "Transfer", conv_upstream = 4270, conv_downstream = 4290, chain_upstream = 4600, chain_downstream = 4281, hasRoute=true },
-    { number = 4281, type = "Queue",    prev = 4280, next = 0, isWorkstation = true, hasRoute=true },
+    { number = 4281, type = "Teststation",    prev = 4280, next = 0, isWorkstation = true, hasRoute=true },
     { number = 4290, type = "Queue",    prev = 4280, next = 4300, hasRoute=true },
     { number = 4300, type = "Transfer", conv_upstream = 4290, conv_downstream = 4310, chain_upstream = 4580, chain_downstream = 4301, hasRoute=true },
-    { number = 4301, type = "Queue",    prev = 4300, next = 0, isWorkstation = true, hasRoute=true },
+    { number = 4301, type = "Teststation",    prev = 4300, next = 0, isWorkstation = true, hasRoute=true },
     { number = 4310, type = "Queue",    prev = 4300, next = 4320, hasRoute=true },
     { number = 4320, type = "Transfer", conv_upstream = 4310, conv_downstream = 4330, chain_upstream = 4560, chain_downstream = 4321, hasRoute=true },
-    { number = 4321, type = "Queue",    prev = 4320, next = 0, isWorkstation = true, hasRoute=true },
+    { number = 4321, type = "Teststation",    prev = 4320, next = 0, isWorkstation = true, hasRoute=true },
     { number = 4330, type = "Queue",    prev = 4320, next = 4340, hasRoute=true },
     { number = 4340, type = "Queue",    prev = 4330, next = 4350 },
-    { number = 4350, type = "Lift",     prev = 4340, next = 4360, isWorkstation = true },
+    { number = 4350, type = "Lift",     prev = 4340, next = 4360, isWorkstation = true, isMES = 1234 },
     { number = 4360, type = "Queue",    prev = 4350, next = 4370 },
     { number = 4370, type = "Queue",    prev = 4360, next = 4380 },
-    { number = 4380, type = "Lift",     prev = 4370, next = 4390, isWorkstation = true },
+    { number = 4380, type = "Lift",     prev = 4370, next = 4390, isWorkstation = true, isMES = 1234 },
     { number = 4390, type = "Queue",    prev = 4380, next = 4400 },
     { number = 4400, type = "Queue",    prev = 4390, next = 4410 },
-    { number = 4410, type = "Lift",     prev = 4400, next = 4420, isWorkstation = true },
+    { number = 4410, type = "Lift",     prev = 4400, next = 4420, isWorkstation = true, isMES = 1234 },
     { number = 4420, type = "Transfer", conv_upstream = 4410, conv_downstream = 0,    chain_upstream = 0,    chain_downstream = 4440 },
     { number = 4440, type = "Queue",    prev = 4420, next = 4450 },
     { number = 4450, type = "Transfer", conv_upstream = 0,    conv_downstream = 4460, chain_upstream = 4440, chain_downstream = 0 },
-    { number = 4460, type = "Lift",     prev = 4450, next = 4470, isWorkstation = true },
+    { number = 4460, type = "Lift",     prev = 4450, next = 4470, isWorkstation = true, isMES = 1234 },
     { number = 4470, type = "Queue",    prev = 4460, next = 4480 },
     { number = 4480, type = "Queue",    prev = 4470, next = 4490 },
     { number = 4490, type = "Queue",    prev = 4480, next = 4500 },
@@ -165,4 +173,3 @@ data = [
     { number = 7185, type = "Queue",    prev = 7184, next = 7210, safety_zone = 10 },
     { number = 7210, type = "Transfer", conv_upstream = 7200, conv_downstream = 7220, chain_upstream = 7185, chain_downstream = 0,    safety_zone = 10 },
 ]
-

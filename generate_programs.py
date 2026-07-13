@@ -18,11 +18,15 @@ Placeholder conventions (decoded from rung logic):
 
 If a neighbor value is None (e.g. 4000 has no previous), the placeholder
 is LEFT AS-IS so it can be filled in later in Studio 5000.
+
+TODO: Fallback behavior should be driven by template-defined rules rather than
+hardcoded generator defaults.
 """
 
 # Standard library imports
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Optional
@@ -43,7 +47,9 @@ SAFETY_TAG = "Safety_PowerOn_Zone8"  # 4000-series default; overridden per-stati
 @dataclass
 class Station:
     number: int
-    type: str  # "Workstation" | "Queue" | "Transfer" | "TestStation" | "Gravity"
+    type: str  # "Lift" | "Queue" | "Transfer" | "TestStation" | "Gravity"
+    # Filename label override; used for output naming only.
+    output_type: Optional[str] = None
     # Queue/Workstation
     prev: Optional[int] = None  # -> STYYYY
     next: Optional[int] = None  # -> STZZZZ
@@ -52,17 +58,18 @@ class Station:
     conv_fwd: Optional[int] = None  # -> STZZZZ
     chain_fwd: Optional[int] = None  # -> STVVVV
     chain_rev: Optional[int] = None  # -> STWWWW
-    # Override which template (and therefore self-tag prefix) is used.
-    # Example: a workstation that has no lift uses the Queue (straight track)
-    # template. Filename still says "Workstation" but tags become ST####.
-    template_type: Optional[str] = None  # "Workstation" | "Queue" | "Transfer" | "TestStation"
+    # Template selection is controlled only by station type.
+    template_type: str = "Queue"  # "Lift" | "Queue" | "Transfer" | "TestStation" | "Gravity"
     # Per-station safety zone override. None -> use module-level SAFETY_TAG.
     # Pass an int (e.g. 10) to use Safety_PowerOn_Zone10.
     safety_zone: Optional[int] = None
+    # Optional MES code for station-specific MES tag naming.
+    # When None, MES tag and MES-only logic are removed from output.
+    mes_code: Optional[str] = None
 
     @property
     def effective_template_type(self) -> str:
-        return self.template_type or self.type
+        return self.template_type
 
 
 def _st(n: Optional[int]) -> Optional[str]:
@@ -70,23 +77,8 @@ def _st(n: Optional[int]) -> Optional[str]:
     return f"ST{n}" if n is not None else None
 
 
-# Neighbor-tag prefix depends on the *neighbor's* station type, because each
-# template names its own SZG_Station tag with a type-specific prefix:
-#   Workstation -> Li####   (Lift)
-#   Queue       -> ST####   (Straight track)
-#   Transfer    -> CT####   (Chain transfer)
-TYPE_PREFIX = {
-    "Workstation": "Li",
-    "Queue": "ST",
-    "Transfer": "CT",
-    "Filler": "FI",  # not generated, but referenced as neighbor
-    "Gravity": "GR",  # gravity kickout, not generated
-    # TestStation uses the straight-track template, which hardcodes "STXXXX"
-    # for its self-tag. Neighbor refs MUST use "ST" too or they won't resolve
-    # at runtime. The "TestStation" label survives only in the filename and
-    # generated Program name.
-    "TestStation": "ST",
-}
+CANONICAL_TYPES = {"Lift", "Queue", "Transfer", "TestStation", "Gravity"}
+REQUIRED_PREFIX_TYPES = CANONICAL_TYPES | {"Filler"}
 
 EXTERNAL_TYPE_HINTS: dict[int, str] = {}
 
@@ -95,6 +87,20 @@ def _as_optional_int(value: Any) -> Optional[int]:
     if value in (None, 0, "0"):
         return None
     return int(value)
+
+
+def _as_optional_mes_code(value: Any) -> Optional[str]:
+    if value is None:
+        return None
+    if isinstance(value, bool):
+        # Legacy boolean flags are treated as MES disabled.
+        return None
+    if isinstance(value, int):
+        return str(value)
+    if isinstance(value, str):
+        code = value.strip()
+        return code or None
+    raise TypeError(f"Unsupported isMES value type: {type(value).__name__}")
 
 
 def _resolve_template_path(path_value: str) -> Path:
@@ -115,13 +121,12 @@ def _load_templates_from_toml(toml_data: dict[str, Any]) -> dict[str, Path]:
         lowered = str(key).strip().lower()
         if lowered in normalized:
             raise KeyError(
-                f"Duplicate [templates] key ignoring case in {STATIONS_TOML}: {key}. "
-                "Use each required key only once."
+                f"Duplicate [templates] key ignoring case in {STATIONS_TOML}: {key}. Use each required key only once."
             )
         normalized[lowered] = value
 
     required = {
-        "lift": "Workstation",
+        "lift": "Lift",
         "queue": "Queue",
         "transfer": "Transfer",
         "teststation": "TestStation",
@@ -136,10 +141,32 @@ def _load_templates_from_toml(toml_data: dict[str, Any]) -> dict[str, Path]:
             "Expected keys (case-insensitive): Lift, Queue, Transfer, TestStation, Gravity."
         )
 
-    return {
-        display: _resolve_template_path(str(normalized[key]))
-        for key, display in required.items()
-    }
+    return {display: _resolve_template_path(str(normalized[key])) for key, display in required.items()}
+
+
+def _load_type_prefixes_from_toml(toml_data: dict[str, Any]) -> dict[str, str]:
+    prefixes = toml_data.get("type_prefix")
+    if not isinstance(prefixes, dict):
+        raise KeyError(
+            f"Missing [type_prefix] table in {STATIONS_TOML}. "
+            "Define prefixes for Lift, Queue, Transfer, TestStation, Gravity, and Filler."
+        )
+
+    normalized: dict[str, str] = {}
+    for key, value in prefixes.items():
+        key_text = str(key).strip()
+        if key_text in normalized:
+            raise KeyError(
+                f"Duplicate [type_prefix] key in {STATIONS_TOML}: {key_text}. Use each required key only once."
+            )
+        normalized[key_text] = str(value).strip()
+
+    missing = [type_name for type_name in sorted(REQUIRED_PREFIX_TYPES) if type_name not in normalized]
+    if missing:
+        missing_csv = ", ".join(missing)
+        raise KeyError(f"Missing required [type_prefix] mappings in {STATIONS_TOML}: {missing_csv}.")
+
+    return {type_name: normalized[type_name] for type_name in sorted(REQUIRED_PREFIX_TYPES)}
 
 
 def _load_external_type_hints(toml_data: dict[str, Any]) -> dict[int, str]:
@@ -155,31 +182,20 @@ def _load_external_type_hints(toml_data: dict[str, Any]) -> dict[int, str]:
 
 def _station_type_for_row(row: dict[str, Any]) -> str:
     raw_type = str(row["type"]).strip().lower()
-    if bool(row.get("isTestStation", False)):
-        return "TestStation"
-    if bool(row.get("isWorkstation", False)):
-        return "Workstation"
     if raw_type in {"transfer", "chaintransfer"}:
         return "Transfer"
     if raw_type in {"workstation", "lift"}:
-        return "Workstation"
+        return "Lift"
     if raw_type in {"teststation", "test_station"}:
         return "TestStation"
     if raw_type == "gravity":
         return "Gravity"
-    return "Queue"
-
-
-def _station_template_type_for_row(row: dict[str, Any], station_type: str) -> Optional[str]:
-    raw_type = str(row["type"]).strip().lower()
-    if station_type == "TestStation":
-        return "TestStation"
-    if station_type == "Gravity":
-        return "Gravity"
-    if station_type == "Workstation" and raw_type == "queue":
-        # Queue mechanics labeled as workstation should keep ST self-tag behavior.
+    if raw_type == "queue":
         return "Queue"
-    return None
+    raise ValueError(
+        f"Unsupported station type '{row['type']}' at station {row['number']}. "
+        "Supported values: Lift, Queue, Transfer, TestStation, Gravity."
+    )
 
 
 def _load_stations_from_toml(toml_data: dict[str, Any]) -> list[Station]:
@@ -198,13 +214,16 @@ def _load_stations_from_toml(toml_data: dict[str, Any]) -> list[Station]:
             raise TypeError("Each entry in [stations].data must be a TOML inline table")
 
         station_type = _station_type_for_row(row)
-        template_type = _station_template_type_for_row(row, station_type)
+        template_type = station_type
+        output_type = "Workstation" if bool(row.get("isWorkstation", False)) else station_type
 
         base_kwargs: dict[str, Any] = {
             "number": int(row["number"]),
             "type": station_type,
+            "output_type": output_type,
             "template_type": template_type,
             "safety_zone": int(row.get("safety_zone", default_safety_zone)),
+            "mes_code": _as_optional_mes_code(row.get("isMES")),
         }
 
         if station_type == "Transfer":
@@ -231,17 +250,22 @@ def _load_stations_from_toml(toml_data: dict[str, Any]) -> list[Station]:
 
 def load_config(
     stations_toml: Path,
-) -> tuple[dict[str, Path], dict[int, str], list[Station]]:
+) -> tuple[dict[str, Path], dict[str, str], dict[int, str], list[Station]]:
     with stations_toml.open("rb") as file_obj:
         toml_data = tomllib.load(file_obj)
 
     templates = _load_templates_from_toml(toml_data)
+    type_prefix = _load_type_prefixes_from_toml(toml_data)
     hints = _load_external_type_hints(toml_data)
     stations = _load_stations_from_toml(toml_data)
-    return templates, hints, stations
+    return templates, type_prefix, hints, stations
 
 
-def _neighbor_tag(neighbor_num: Optional[int], station_lookup: dict[int, str]) -> Optional[str]:
+def _neighbor_tag(
+    neighbor_num: Optional[int],
+    station_lookup: dict[int, str],
+    type_prefix: dict[str, str],
+) -> Optional[str]:
     """Build the correctly-prefixed neighbor tag (e.g. 'CT4020' or 'ST4010').
 
     Returns None if neighbor_num is None or unknown — caller leaves the
@@ -254,10 +278,14 @@ def _neighbor_tag(neighbor_num: Optional[int], station_lookup: dict[int, str]) -
         # Unknown neighbor (outside the generated set). Default to ST as a
         # visible placeholder; user can find/replace later if needed.
         return f"ST{neighbor_num}"
-    return f"{TYPE_PREFIX[nbr_type]}{neighbor_num}"
+    return f"{type_prefix[nbr_type]}{neighbor_num}"
 
 
-def build_substitutions(s: Station, station_lookup: dict[int, str]) -> dict[str, str]:
+def build_substitutions(
+    s: Station,
+    station_lookup: dict[int, str],
+    type_prefix: dict[str, str],
+) -> dict[str, str]:
     """Return {placeholder: replacement} for non-None values only.
 
     Placeholders left out of the dict are NOT touched in the template.
@@ -271,17 +299,17 @@ def build_substitutions(s: Station, station_lookup: dict[int, str]) -> dict[str,
 
     if s.type == "Transfer":
         for ph, val in [
-            ("STYYYY", _neighbor_tag(s.conv_rev, station_lookup)),
-            ("STZZZZ", _neighbor_tag(s.conv_fwd, station_lookup)),
-            ("STVVVV", _neighbor_tag(s.chain_fwd, station_lookup)),
-            ("STWWWW", _neighbor_tag(s.chain_rev, station_lookup)),
+            ("STYYYY", _neighbor_tag(s.conv_rev, station_lookup, type_prefix)),
+            ("STZZZZ", _neighbor_tag(s.conv_fwd, station_lookup, type_prefix)),
+            ("STVVVV", _neighbor_tag(s.chain_fwd, station_lookup, type_prefix)),
+            ("STWWWW", _neighbor_tag(s.chain_rev, station_lookup, type_prefix)),
         ]:
             if val is not None:
                 subs[ph] = val
     else:
         for ph, val in [
-            ("STYYYY", _neighbor_tag(s.prev, station_lookup)),
-            ("STZZZZ", _neighbor_tag(s.next, station_lookup)),
+            ("STYYYY", _neighbor_tag(s.prev, station_lookup, type_prefix)),
+            ("STZZZZ", _neighbor_tag(s.next, station_lookup, type_prefix)),
         ]:
             if val is not None:
                 subs[ph] = val
@@ -346,8 +374,8 @@ def _rewrite_ct_neighbor_outfeed_checks(
     return text
 
 
-def _self_tag(station: Station) -> str:
-    return f"{TYPE_PREFIX[station.effective_template_type]}{station.number}"
+def _self_tag(station: Station, type_prefix: dict[str, str]) -> str:
+    return f"{type_prefix[station.effective_template_type]}{station.number}"
 
 
 def _outfeed_complete_neighbor_number(
@@ -362,7 +390,7 @@ def _outfeed_complete_neighbor_number(
             "chain_forward": station.chain_rev,
             "chain_reverse": station.chain_fwd,
         }
-    elif station.effective_template_type == "TestStation":
+    elif station.type == "TestStation":
         branch_to_neighbor = {
             "conveyor_forward": station.next,
             "conveyor_reverse": station.prev,
@@ -378,7 +406,7 @@ def _outfeed_complete_neighbor_number(
         return None
 
     neighbor_type = station_lookup.get(neighbor_number)
-    if neighbor_type not in {"Queue", "Workstation", "Transfer", "TestStation"}:
+    if neighbor_type not in {"Queue", "Lift", "Transfer", "TestStation"}:
         return None
 
     return neighbor_number
@@ -408,7 +436,7 @@ def _resolve_outfeed_complete_infeed_state(
 
     if neighbor_type == "TestStation":
         neighbor_station = stations_by_number.get(neighbor_number)
-        if neighbor_station is not None and neighbor_station.effective_template_type == "TestStation":
+        if neighbor_station is not None and neighbor_station.type == "TestStation":
             if neighbor_station.prev == current_station.number:
                 return "State_Infeeding"
             if neighbor_station.next == current_station.number:
@@ -422,8 +450,9 @@ def _rewrite_outfeed_complete_checks(
     station: Station,
     station_lookup: dict[int, str],
     stations_by_number: dict[int, Station],
+    type_prefix: dict[str, str],
 ) -> str:
-    self_tag = _self_tag(station)
+    self_tag = _self_tag(station, type_prefix)
     replacements: list[tuple[str, str, str]] = []
 
     if station.type == "Transfer":
@@ -461,7 +490,7 @@ def _rewrite_outfeed_complete_checks(
                 f"EQU(State_OutfeedingChainReverse,{self_tag}.State) XIO({self_tag}_FE_Chain)",
             ),
         ]
-    elif station.effective_template_type == "TestStation":
+    elif station.type == "TestStation":
         replacements = [
             (
                 f"EQU(State_Outfeeding,{self_tag}.State)XIO({self_tag}_PE_FE)XIC(Outfeed_Complete_Placeholder)",
@@ -488,7 +517,7 @@ def _rewrite_outfeed_complete_checks(
         neighbor_number = _outfeed_complete_neighbor_number(station, branch_name, station_lookup)
         if neighbor_number is None:
             continue
-        target_tag = _neighbor_tag(neighbor_number, station_lookup)
+        target_tag = _neighbor_tag(neighbor_number, station_lookup, type_prefix)
         if target_tag is None:
             continue
         infeed_state = _resolve_outfeed_complete_infeed_state(
@@ -504,11 +533,72 @@ def _rewrite_outfeed_complete_checks(
     return text
 
 
+def _rewrite_mes_logic(text: str, station: Station) -> str:
+    if station.mes_code is not None:
+        mes_tag = f"MES_{station.mes_code}_{station.number}"
+        text = text.replace("MES_FFFFF_XXXX", mes_tag)
+    else:
+        # Remove the MES tag declaration block when MES is not configured.
+        text = re.sub(
+            r"\s*<Tag Name=\"MES_FFFFF_XXXX\"[\s\S]*?</Tag>\s*",
+            "\n",
+            text,
+            count=1,
+        )
+
+        # Drop MES-only instructions while preserving station state logic.
+        replacements = [
+            "XIC(MES_FFFFF_XXXX.Data.UpstreamOK)",
+            "[OTE(MES_FFFFF_XXXX.OK) ,[",
+            "[OTE(MES_FFFFF_XXXX.OK) ,",
+            "OTE(MES_FFFFF_XXXX.OK)",
+            ",OTL(MES_FFFFF_XXXX.DN)",
+            "OTL(MES_FFFFF_XXXX.DN)",
+        ]
+        for snippet in replacements:
+            text = text.replace(snippet, "")
+
+        # Clean up simple branch punctuation artifacts from MES removal.
+        cleanup_patterns = [
+            ("[ ,", "["),
+            (", ]", "]"),
+            (",,", ","),
+            ("[ [", "[["),
+            ("  ", " "),
+        ]
+        for old, new in cleanup_patterns:
+            text = text.replace(old, new)
+
+        # Restore missing branch opener in release rungs after MES branch removal.
+        text = re.sub(
+            r"(XIC\([A-Za-z0-9_]+_Release_TON\.DN\))XIC\(([A-Za-z0-9_]+_S[Ww]_Active)\)",
+            r"\1[XIC(\2)",
+            text,
+        )
+
+        # Remove orphan final branch closer left after MES branch removal.
+        text = re.sub(
+            r"(Release_TON\.DN\)\[[^\]]+\]\s*MOV\(State_WaitingForDownstream,[A-Za-z0-9_]+\.State\)\s*)\];",
+            r"\1;",
+            text,
+        )
+
+        # Unwrap queue outfeed branch artifact created after removing MES OTL.
+        text = re.sub(
+            r"\[\s*MOV\(State_Outfeeding,[A-Za-z0-9_]+\.State\)\s*\];",
+            lambda match: match.group(0).replace("[", "", 1).replace("]", "", 1),
+            text,
+        )
+
+    return text
+
+
 def generate(
     station: Station,
     station_lookup: dict[int, str],
     stations_by_number: dict[int, Station],
     templates: dict[str, Path],
+    type_prefix: dict[str, str],
     dry_run: bool = False,
 ) -> Path:
     """Render a single station's L5X. Returns the output path."""
@@ -517,16 +607,24 @@ def generate(
         raise FileNotFoundError(template_path)
 
     text = template_path.read_text(encoding="utf-8", errors="strict")
-    subs = build_substitutions(station, station_lookup)
+    text = _rewrite_mes_logic(text, station)
+    subs = build_substitutions(station, station_lookup, type_prefix)
 
     # Apply replacements. Order by length desc as a habit (no overlaps today).
     for ph in sorted(subs, key=len, reverse=True):
         text = text.replace(ph, subs[ph])
 
     text = _rewrite_ct_neighbor_outfeed_checks(text, station, stations_by_number)
-    text = _rewrite_outfeed_complete_checks(text, station, station_lookup, stations_by_number)
+    text = _rewrite_outfeed_complete_checks(
+        text,
+        station,
+        station_lookup,
+        stations_by_number,
+        type_prefix,
+    )
 
-    out_path = OUTPUT_DIR / f"Sta{station.number}_{station.type}.L5X"
+    output_type = station.output_type or station.type
+    out_path = OUTPUT_DIR / f"Sta{station.number}_{output_type}.L5X"
     if not dry_run:
         OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
         out_path.write_text(text, encoding="utf-8")
@@ -534,18 +632,17 @@ def generate(
 
 
 def main(only: Optional[set[int]] = None) -> None:
-    templates, hints, all_stations = load_config(STATIONS_TOML)
+    templates, type_prefix, hints, all_stations = load_config(STATIONS_TOML)
 
     # Build lookup so neighbor tags can be type-prefixed correctly.
-    # Use *effective* template type (so a lift-less workstation uses ST prefix).
     stations_by_number = {s.number: s for s in all_stations}
     lookup: dict[int, str] = dict(hints)
-    lookup.update({s.number: s.effective_template_type for s in all_stations})
+    lookup.update({s.number: s.template_type for s in all_stations})
     written: list[Path] = []
     for s in all_stations:
         if only is not None and s.number not in only:
             continue
-        out = generate(s, lookup, stations_by_number, templates)
+        out = generate(s, lookup, stations_by_number, templates, type_prefix)
         written.append(out)
         print(f"  wrote {out.name}")
     print(f"\nDone. {len(written)} file(s) written to {OUTPUT_DIR}")

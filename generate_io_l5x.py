@@ -14,7 +14,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
 
 # Third-party imports
 import lxml.etree as etree
@@ -30,6 +30,8 @@ DEFAULT_TIMER_PRESET_MS = 3000
 ROUTINE_NAME = "IO_Simulate"
 CONTROLLER_NAME = "Wolf_HybridMainLine"
 PROGRAM_NAME = "MainProgram"
+CANONICAL_TYPES = {"Lift", "Queue", "Transfer", "TestStation", "Gravity"}
+REQUIRED_PREFIX_TYPES = CANONICAL_TYPES | {"Filler"}
 
 
 @dataclass(frozen=True)
@@ -144,29 +146,56 @@ def _normalize_int(value: object | None) -> int | None:
     raise RuntimeError(f"Expected int or None for relationship field, got: {value!r}")
 
 
-def _station_prefix(row: dict) -> tuple[str, str]:
-    raw_type = str(row["type"])
-    is_workstation = bool(row.get("isWorkstation", False))
-    is_test_station = bool(row.get("isTestStation", False))
+def _canonical_station_type(raw_type: object, station_number: int) -> str:
+    type_text = str(raw_type).strip().lower()
+    if type_text in {"transfer", "chaintransfer"}:
+        return "Transfer"
+    if type_text in {"lift", "workstation"}:
+        return "Lift"
+    if type_text in {"teststation", "test_station"}:
+        return "TestStation"
+    if type_text == "gravity":
+        return "Gravity"
+    if type_text == "queue":
+        return "Queue"
 
-    if raw_type == "Transfer":
-        return "Transfer", "CT"
-    if raw_type == "Lift":
-        if not is_workstation:
-            raise RuntimeError(f"Station {row['number']} is Lift but isWorkstation is not true.")
-        return "Lift", "Li"
-    if raw_type == "Queue":
-        if is_test_station:
-            return "TestStation", "ST"
-        if is_workstation:
-            return "Workstation", "ST"
-        return "Queue", "ST"
+    raise RuntimeError(
+        f"Unsupported station type '{raw_type}' at station {station_number}. "
+        "Supported values: Lift, Queue, Transfer, TestStation, Gravity."
+    )
 
-    raise RuntimeError(f"Unsupported station type '{raw_type}' at station {row['number']}")
+
+def _load_type_prefixes(data: dict[str, Any], path: Path) -> dict[str, str]:
+    prefixes = data.get("type_prefix")
+    if not isinstance(prefixes, dict):
+        raise RuntimeError(
+            f"Missing [type_prefix] table in {path}. "
+            "Define prefixes for Lift, Queue, Transfer, TestStation, Gravity, and Filler."
+        )
+
+    normalized: dict[str, str] = {}
+    for key, value in prefixes.items():
+        key_text = str(key).strip()
+        if key_text in normalized:
+            raise RuntimeError(f"Duplicate [type_prefix] key in {path}: {key_text}")
+        normalized[key_text] = str(value).strip()
+
+    missing = [type_name for type_name in sorted(REQUIRED_PREFIX_TYPES) if type_name not in normalized]
+    if missing:
+        missing_csv = ", ".join(missing)
+        raise RuntimeError(f"Missing required [type_prefix] mappings in {path}: {missing_csv}")
+
+    return {type_name: normalized[type_name] for type_name in sorted(REQUIRED_PREFIX_TYPES)}
+
+
+def _station_prefix(row: dict, type_prefix: dict[str, str]) -> tuple[str, str]:
+    station_type = _canonical_station_type(row["type"], int(row["number"]))
+    return station_type, type_prefix[station_type]
 
 
 def load_stations(path: Path) -> dict[int, StationDef]:
     data = _read_toml(path)
+    type_prefix = _load_type_prefixes(data, path)
 
     rows: list[dict] = data["stations"]["data"]
     stations: dict[int, StationDef] = {}
@@ -176,7 +205,7 @@ def load_stations(path: Path) -> dict[int, StationDef]:
         if number in stations:
             raise RuntimeError(f"Duplicate station number: {number}")
 
-        station_type, prefix = _station_prefix(row)
+        station_type, prefix = _station_prefix(row, type_prefix)
         stations[number] = StationDef(
             number=number,
             station_type=station_type,
