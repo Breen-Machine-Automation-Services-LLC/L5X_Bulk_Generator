@@ -41,6 +41,8 @@ PROJECT_ROOT = Path(__file__).resolve().parent
 STATIONS_TOML = PROJECT_ROOT / "input" / "stations.toml"
 OUTPUT_DIR = PROJECT_ROOT / "output" / "stationPrograms"
 SAFETY_TAG = "Safety_PowerOn_Zone8"  # 4000-series default; overridden per-station via Station.safety_zone
+ROUTE_CONFIG_BIT = 30
+ROUTE_CONFIG_MASK = 1 << ROUTE_CONFIG_BIT
 
 
 # --- station spec ----------------------------------------------------------
@@ -66,6 +68,8 @@ class Station:
     # Optional MES code for station-specific MES tag naming.
     # When None, MES tag and MES-only logic are removed from output.
     mes_code: Optional[str] = None
+    # Enable routing HMI behavior by setting Config.30.
+    has_route: bool = False
 
     @property
     def effective_template_type(self) -> str:
@@ -224,6 +228,7 @@ def _load_stations_from_toml(toml_data: dict[str, Any]) -> list[Station]:
             "template_type": template_type,
             "safety_zone": int(row.get("safety_zone", default_safety_zone)),
             "mes_code": _as_optional_mes_code(row.get("isMES")),
+            "has_route": bool(row.get("hasRoute", False)),
         }
 
         if station_type == "Transfer":
@@ -593,6 +598,88 @@ def _rewrite_mes_logic(text: str, station: Station) -> str:
     return text
 
 
+def _apply_has_route_config(
+    text: str,
+    station: Station,
+    type_prefix: dict[str, str],
+) -> str:
+    if not station.has_route:
+        return text
+
+    self_tag = _self_tag(station, type_prefix)
+    tag_pattern = re.compile(
+        rf'(<Tag Name="{re.escape(self_tag)}"[^>]*DataType="SZG_Station"[^>]*>)([\s\S]*?)(</Tag>)'
+    )
+
+    match = tag_pattern.search(text)
+    if match is None:
+        return text
+
+    tag_open, tag_body, tag_close = match.groups()
+
+    # Update the 5th element (Config) of the station's L5K tuple.
+    def _rewrite_l5k_tuple(body_text: str) -> str:
+        l5k_data_pattern = re.compile(r'(<Data Format="L5K">\s*<!\[CDATA\[)([\s\S]*?)(\]\]>\s*</Data>)')
+        l5k_match = l5k_data_pattern.search(body_text)
+        if l5k_match is None:
+            return body_text
+
+        cdata_text = l5k_match.group(2)
+
+        tuple_pattern = re.compile(
+            r'\[\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*\]'
+        )
+
+        tuple_match = tuple_pattern.search(cdata_text)
+        if tuple_match is None:
+            return body_text
+
+        values = [int(tuple_match.group(i)) for i in range(1, 7)]
+        values[4] |= ROUTE_CONFIG_MASK
+        replacement = f"[{values[0]},{values[1]},{values[2]},{values[3]},{values[4]},{values[5]}]"
+        updated_cdata = cdata_text[: tuple_match.start()] + replacement + cdata_text[tuple_match.end() :]
+        return (
+            body_text[: l5k_match.start()]
+            + l5k_match.group(1)
+            + updated_cdata
+            + l5k_match.group(3)
+            + body_text[l5k_match.end() :]
+        )
+
+    updated_body = _rewrite_l5k_tuple(tag_body)
+
+    # Ensure Decorated Config member exists and has Config.30 set.
+    config_member_pattern = re.compile(
+        r'(<DataValueMember Name="Config" DataType="DINT" Radix="Decimal" Value=")(-?\d+)("\s*/>)'
+    )
+    config_match = config_member_pattern.search(updated_body)
+    if config_match is not None:
+        config_value = int(config_match.group(2)) | ROUTE_CONFIG_MASK
+        updated_body = (
+            updated_body[: config_match.start()]
+            + config_match.group(1)
+            + str(config_value)
+            + config_match.group(3)
+            + updated_body[config_match.end() :]
+        )
+    else:
+        warning_member_pattern = re.compile(r'(<DataValueMember Name="Warning"[^\n]*/>)')
+        warning_match = warning_member_pattern.search(updated_body)
+        insert_text = (
+            '\n<DataValueMember Name="Config" DataType="DINT" Radix="Decimal" Value="1073741824"/>'
+        )
+        if warning_match is not None:
+            insert_pos = warning_match.end()
+            updated_body = updated_body[:insert_pos] + insert_text + updated_body[insert_pos:]
+        else:
+            structure_close = updated_body.find("</Structure>")
+            if structure_close != -1:
+                updated_body = updated_body[:structure_close] + insert_text + updated_body[structure_close:]
+
+    updated_tag = tag_open + updated_body + tag_close
+    return text[: match.start()] + updated_tag + text[match.end() :]
+
+
 def generate(
     station: Station,
     station_lookup: dict[int, str],
@@ -622,6 +709,7 @@ def generate(
         stations_by_number,
         type_prefix,
     )
+    text = _apply_has_route_config(text, station, type_prefix)
 
     output_type = station.output_type or station.type
     out_path = OUTPUT_DIR / f"Sta{station.number}_{output_type}.L5X"

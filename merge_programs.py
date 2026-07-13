@@ -16,16 +16,21 @@ Usage:
     python merge_l5x.py
 """
 
+# Standard library imports
 from __future__ import annotations
 
+import re
 import sys
 import time
 from datetime import datetime
 from pathlib import Path
 
+# Third-party imports
 from lxml import etree
 
-# --- paths -----------------------------------------------------------------
+# Local application imports
+
+# Constants
 PROJECT_ROOT = Path(r"G:\Shared drives\Customers\SubZero - Cove - Wolf\Wolf\1394 Wall Oven Expansion\Programs")
 # INPUT_DIR = Path(r"C:\Users\justi\Documents\VSCode\L5X Bulk Generator\Output")
 INPUT_DIR = (
@@ -216,6 +221,7 @@ def merge(base_path: Path, sources: list[Path], output_path: Path) -> dict:
     existing_programs = {p.get("Name") for p in programs_parent.findall("Program") if p.get("Name")}
 
     stats: dict[str, dict[str, int]] = {ct: {"added": 0, "skipped": 0} for _, ct in CONTAINERS}
+    stats["Tag"]["replaced"] = 0
     stats["Program"] = {"added": 0, "skipped": 0, "renamed": 0}
     stats["TagComment"] = {"added": 0, "skipped": 0, "conflicted": 0}
 
@@ -236,6 +242,7 @@ def merge(base_path: Path, sources: list[Path], output_path: Path) -> dict:
     all_inputs: list[tuple[Path, str]] = [(s, s.stem) for s in sources]
 
     for src, prog_name in all_inputs:
+        src_station_num = _station_number(Path(f"{prog_name}.L5X"))
         try:
             src_tree = etree.parse(str(src), parser)
         except etree.XMLSyntaxError as exc:
@@ -255,6 +262,19 @@ def merge(base_path: Path, sources: list[Path], output_path: Path) -> dict:
                     continue
                 if name in existing[child_tag]:
                     if child_tag == "Tag":
+                        incoming_station_num = _tag_station_number(name)
+                        if (
+                            src_station_num is not None
+                            and incoming_station_num is not None
+                            and incoming_station_num == src_station_num
+                        ):
+                            existing_tag = existing_elements[child_tag][name]
+                            parent = existing_tag.getparent()
+                            if parent is not None:
+                                parent.replace(existing_tag, child)
+                                existing_elements[child_tag][name] = child
+                                stats[child_tag]["replaced"] += 1
+                                continue
                         comment_stats = _merge_missing_tag_comments(existing_elements[child_tag][name], child)
                         for key, value in comment_stats.items():
                             stats["TagComment"][key] += value
@@ -313,6 +333,16 @@ def _station_number(path: Path) -> int | None:
         return None
     rest = stem[3:].split("_", 1)[0]
     return int(rest) if rest.isdigit() else None
+
+
+def _tag_station_number(tag_name: str | None) -> int | None:
+    """Extract station number from self-tag names like ST4320, Li4120, CT4260."""
+    if not tag_name:
+        return None
+    match = re.fullmatch(r"(?:ST|Li|CT)(\d+)", tag_name)
+    if match is None:
+        return None
+    return int(match.group(1))
 
 
 def _in_filter(path: Path) -> bool:
