@@ -40,7 +40,6 @@ import tomllib
 PROJECT_ROOT = Path(__file__).resolve().parent
 STATIONS_TOML = PROJECT_ROOT / "input" / "stations.toml"
 OUTPUT_DIR = PROJECT_ROOT / "output" / "stationPrograms"
-SAFETY_TAG = "Safety_PowerOn_Zone8"  # 4000-series default; overridden per-station via Station.safety_zone
 ROUTE_CONFIG_BIT = 30
 ROUTE_CONFIG_MASK = 1 << ROUTE_CONFIG_BIT
 
@@ -62,14 +61,17 @@ class Station:
     chain_rev: Optional[int] = None  # -> STWWWW
     # Template selection is controlled only by station type.
     template_type: str = "Queue"  # "Lift" | "Queue" | "Transfer" | "TestStation" | "Gravity"
-    # Per-station safety zone override. None -> use module-level SAFETY_TAG.
-    # Pass an int (e.g. 10) to use Safety_PowerOn_Zone10.
-    safety_zone: Optional[int] = None
+    # Per-station safety signal/tag override, for example Safety_Zone10_OK.DN.
+    # None means leave template safety placeholder(s) unchanged.
+    safety: Optional[str] = None
     # Optional MES code for station-specific MES tag naming.
     # When None, MES tag and MES-only logic are removed from output.
     mes_code: Optional[str] = None
     # Enable routing HMI behavior by setting Config.30.
     has_route: bool = False
+    # Semantic flags derived from TOML row content.
+    is_transfer: bool = False
+    is_tester: bool = False
 
     @property
     def effective_template_type(self) -> str:
@@ -81,10 +83,16 @@ def _st(n: Optional[int]) -> Optional[str]:
     return f"ST{n}" if n is not None else None
 
 
-CANONICAL_TYPES = {"Lift", "Queue", "Transfer", "TestStation", "Gravity"}
-REQUIRED_PREFIX_TYPES = CANONICAL_TYPES | {"Filler"}
+def _is_transfer_type(type_name: str) -> bool:
+    return "transfer" in type_name.strip().lower()
 
-EXTERNAL_TYPE_HINTS: dict[int, str] = {}
+
+def _is_tester_type(type_name: str) -> bool:
+    return "test" in type_name.strip().lower()
+
+
+def _is_gravity_type(type_name: str) -> bool:
+    return "gravity" in type_name.strip().lower()
 
 
 def _as_optional_int(value: Any) -> Optional[int]:
@@ -115,45 +123,28 @@ def _resolve_template_path(path_value: str) -> Path:
 def _load_templates_from_toml(toml_data: dict[str, Any]) -> dict[str, Path]:
     templates = toml_data.get("templates")
     if not isinstance(templates, dict):
-        raise KeyError(
-            f"Missing [templates] table in {STATIONS_TOML}. "
-            "Define template paths for lift, queue, transfer, teststation, gravity."
-        )
+        raise KeyError(f"Missing [templates] table in {STATIONS_TOML}. Define template paths for each station type.")
 
-    normalized: dict[str, Any] = {}
+    normalized: dict[str, Path] = {}
     for key, value in templates.items():
-        lowered = str(key).strip().lower()
-        if lowered in normalized:
-            raise KeyError(
-                f"Duplicate [templates] key ignoring case in {STATIONS_TOML}: {key}. Use each required key only once."
-            )
-        normalized[lowered] = value
+        type_name = str(key).strip()
+        if not type_name:
+            raise KeyError(f"[templates] contains an empty type key in {STATIONS_TOML}.")
+        if type_name in normalized:
+            raise KeyError(f"Duplicate [templates] key in {STATIONS_TOML}: {type_name}. Use each type only once.")
+        normalized[type_name] = _resolve_template_path(str(value))
 
-    required = {
-        "lift": "Lift",
-        "queue": "Queue",
-        "transfer": "Transfer",
-        "teststation": "TestStation",
-        "gravity": "Gravity",
-    }
+    if not normalized:
+        raise KeyError(f"[templates] in {STATIONS_TOML} must define at least one station type.")
 
-    missing_required = [display for key, display in required.items() if key not in normalized]
-    if missing_required:
-        missing_csv = ", ".join(missing_required)
-        raise KeyError(
-            f"Missing required [templates] mappings in {STATIONS_TOML}: {missing_csv}. "
-            "Expected keys (case-insensitive): Lift, Queue, Transfer, TestStation, Gravity."
-        )
-
-    return {display: _resolve_template_path(str(normalized[key])) for key, display in required.items()}
+    return normalized
 
 
-def _load_type_prefixes_from_toml(toml_data: dict[str, Any]) -> dict[str, str]:
+def _load_type_prefixes_from_toml(toml_data: dict[str, Any], station_types: set[str]) -> dict[str, str]:
     prefixes = toml_data.get("type_prefix")
     if not isinstance(prefixes, dict):
         raise KeyError(
-            f"Missing [type_prefix] table in {STATIONS_TOML}. "
-            "Define prefixes for Lift, Queue, Transfer, TestStation, Gravity, and Filler."
+            f"Missing [type_prefix] table in {STATIONS_TOML}. Define prefixes for each station type and Filler."
         )
 
     normalized: dict[str, str] = {}
@@ -165,44 +156,43 @@ def _load_type_prefixes_from_toml(toml_data: dict[str, Any]) -> dict[str, str]:
             )
         normalized[key_text] = str(value).strip()
 
-    missing = [type_name for type_name in sorted(REQUIRED_PREFIX_TYPES) if type_name not in normalized]
+    required_prefix_types = station_types | {"Filler"}
+    missing = [type_name for type_name in sorted(required_prefix_types) if type_name not in normalized]
     if missing:
         missing_csv = ", ".join(missing)
         raise KeyError(f"Missing required [type_prefix] mappings in {STATIONS_TOML}: {missing_csv}.")
 
-    return {type_name: normalized[type_name] for type_name in sorted(REQUIRED_PREFIX_TYPES)}
+    return {type_name: normalized[type_name] for type_name in sorted(required_prefix_types)}
 
 
-def _load_external_type_hints(toml_data: dict[str, Any]) -> dict[int, str]:
+def _load_external_type_hints(toml_data: dict[str, Any], allowed_types: set[str]) -> dict[int, str]:
     hints_section = toml_data.get("external_type_hints", {})
     if not isinstance(hints_section, dict):
         raise TypeError("[external_type_hints] must be a TOML table")
 
     hints: dict[int, str] = {}
     for key, value in hints_section.items():
-        hints[int(key)] = str(value)
+        hint_type = str(value).strip()
+        if hint_type not in allowed_types:
+            raise ValueError(
+                f"Unsupported external_type_hints value '{hint_type}' for station {key}. "
+                f"Allowed values: {', '.join(sorted(allowed_types))}."
+            )
+        hints[int(key)] = hint_type
     return hints
 
 
-def _station_type_for_row(row: dict[str, Any]) -> str:
-    raw_type = str(row["type"]).strip().lower()
-    if raw_type in {"transfer", "chaintransfer"}:
-        return "Transfer"
-    if raw_type in {"workstation", "lift"}:
-        return "Lift"
-    if raw_type in {"teststation", "test_station"}:
-        return "TestStation"
-    if raw_type == "gravity":
-        return "Gravity"
-    if raw_type == "queue":
-        return "Queue"
+def _station_type_for_row(row: dict[str, Any], station_types: set[str]) -> str:
+    raw_type = str(row["type"]).strip()
+    if raw_type in station_types:
+        return raw_type
     raise ValueError(
         f"Unsupported station type '{row['type']}' at station {row['number']}. "
-        "Supported values: Lift, Queue, Transfer, TestStation, Gravity."
+        f"Supported values from [templates]: {', '.join(sorted(station_types))}."
     )
 
 
-def _load_stations_from_toml(toml_data: dict[str, Any]) -> list[Station]:
+def _load_stations_from_toml(toml_data: dict[str, Any], station_types: set[str]) -> list[Station]:
     stations_section = toml_data.get("stations", {})
     if not isinstance(stations_section, dict):
         raise TypeError("[stations] must be a TOML table")
@@ -210,28 +200,41 @@ def _load_stations_from_toml(toml_data: dict[str, Any]) -> list[Station]:
     if not isinstance(station_rows, list):
         raise TypeError("[stations].data must be a TOML array")
 
-    default_safety_zone = int(toml_data.get("config", {}).get("default_safety_zone", 8))
     stations: list[Station] = []
 
     for row in station_rows:
         if not isinstance(row, dict):
             raise TypeError("Each entry in [stations].data must be a TOML inline table")
 
-        station_type = _station_type_for_row(row)
+        station_type = _station_type_for_row(row, station_types)
         template_type = station_type
         output_type = "Workstation" if bool(row.get("isWorkstation", False)) else station_type
+
+        safety_expr: Optional[str] = None
+        if "safety" in row:
+            safety_value = row.get("safety")
+            safety_expr = str(safety_value).strip()
+            if not safety_expr:
+                raise ValueError(f"Empty safety value at station {row['number']}")
+        elif "safety_zone" in row:
+            raise ValueError(
+                f"Unsupported safety_zone at station {row['number']}. "
+                'Use safety = "<tag>" and omit safety to keep template placeholder.'
+            )
 
         base_kwargs: dict[str, Any] = {
             "number": int(row["number"]),
             "type": station_type,
             "output_type": output_type,
             "template_type": template_type,
-            "safety_zone": int(row.get("safety_zone", default_safety_zone)),
+            "safety": safety_expr,
             "mes_code": _as_optional_mes_code(row.get("isMES")),
             "has_route": bool(row.get("hasRoute", False)),
+            "is_transfer": _is_transfer_type(station_type),
+            "is_tester": _is_tester_type(station_type),
         }
 
-        if station_type == "Transfer":
+        if base_kwargs["is_transfer"]:
             stations.append(
                 Station(
                     conv_rev=_as_optional_int(row.get("conv_upstream")),
@@ -260,9 +263,11 @@ def load_config(
         toml_data = tomllib.load(file_obj)
 
     templates = _load_templates_from_toml(toml_data)
-    type_prefix = _load_type_prefixes_from_toml(toml_data)
-    hints = _load_external_type_hints(toml_data)
-    stations = _load_stations_from_toml(toml_data)
+    station_types = set(templates.keys())
+    allowed_types = station_types | {"Filler"}
+    type_prefix = _load_type_prefixes_from_toml(toml_data, station_types)
+    hints = _load_external_type_hints(toml_data, allowed_types)
+    stations = _load_stations_from_toml(toml_data, station_types)
     return templates, type_prefix, hints, stations
 
 
@@ -295,12 +300,12 @@ def build_substitutions(
 
     Placeholders left out of the dict are NOT touched in the template.
     """
-    subs: dict[str, str] = {
-        "XXXX": str(s.number),
-        "Safety_PowerOn_Placeholder": (
-            f"Safety_PowerOn_Zone{s.safety_zone}" if s.safety_zone is not None else SAFETY_TAG
-        ),
-    }
+    subs: dict[str, str] = {"XXXX": str(s.number)}
+
+    if s.safety is not None:
+        # Replace full .DN placeholder first to avoid generating '.DN.DN'.
+        subs["Safety_PowerOn_Placeholder.DN"] = s.safety if s.safety.endswith(".DN") else f"{s.safety}.DN"
+        subs["Safety_PowerOn_Placeholder"] = s.safety[:-3] if s.safety.endswith(".DN") else s.safety
 
     if s.type == "Transfer":
         for ph, val in [
@@ -388,14 +393,14 @@ def _outfeed_complete_neighbor_number(
     branch_name: str,
     station_lookup: dict[int, str],
 ) -> Optional[int]:
-    if station.type == "Transfer":
+    if station.is_transfer:
         branch_to_neighbor = {
             "conveyor_forward": station.conv_fwd,
             "conveyor_reverse": station.conv_rev,
             "chain_forward": station.chain_rev,
             "chain_reverse": station.chain_fwd,
         }
-    elif station.type == "TestStation":
+    elif station.is_tester:
         branch_to_neighbor = {
             "conveyor_forward": station.next,
             "conveyor_reverse": station.prev,
@@ -411,7 +416,11 @@ def _outfeed_complete_neighbor_number(
         return None
 
     neighbor_type = station_lookup.get(neighbor_number)
-    if neighbor_type not in {"Queue", "Lift", "Transfer", "TestStation"}:
+    if neighbor_type is None:
+        return None
+    if _is_gravity_type(neighbor_type):
+        return None
+    if neighbor_type == "Filler":
         return None
 
     return neighbor_number
@@ -425,9 +434,9 @@ def _resolve_outfeed_complete_infeed_state(
     stations_by_number: dict[int, Station],
 ) -> str:
     neighbor_type = station_lookup.get(neighbor_number)
-    if neighbor_type == "Transfer":
+    if neighbor_type is not None and _is_transfer_type(neighbor_type):
         neighbor_station = stations_by_number.get(neighbor_number)
-        if neighbor_station is not None and neighbor_station.type == "Transfer":
+        if neighbor_station is not None and neighbor_station.is_transfer:
             ct_behavior = _resolve_transfer_infeed_state(current_station, neighbor_station)
             if ct_behavior is not None:
                 return ct_behavior[1]
@@ -439,9 +448,9 @@ def _resolve_outfeed_complete_infeed_state(
             "chain_reverse": "State_InfeedingChainReverse",
         }.get(branch_name, "State_Infeeding")
 
-    if neighbor_type == "TestStation":
+    if neighbor_type is not None and _is_tester_type(neighbor_type):
         neighbor_station = stations_by_number.get(neighbor_number)
-        if neighbor_station is not None and neighbor_station.type == "TestStation":
+        if neighbor_station is not None and neighbor_station.is_tester:
             if neighbor_station.prev == current_station.number:
                 return "State_Infeeding"
             if neighbor_station.next == current_station.number:
@@ -460,7 +469,7 @@ def _rewrite_outfeed_complete_checks(
     self_tag = _self_tag(station, type_prefix)
     replacements: list[tuple[str, str, str]] = []
 
-    if station.type == "Transfer":
+    if station.is_transfer:
         replacements = [
             (
                 (
@@ -495,7 +504,7 @@ def _rewrite_outfeed_complete_checks(
                 f"EQU(State_OutfeedingChainReverse,{self_tag}.State) XIO({self_tag}_FE_Chain)",
             ),
         ]
-    elif station.type == "TestStation":
+    elif station.is_tester:
         replacements = [
             (
                 f"EQU(State_Outfeeding,{self_tag}.State)XIO({self_tag}_PE_FE)XIC(Outfeed_Complete_Placeholder)",
@@ -607,9 +616,7 @@ def _apply_has_route_config(
         return text
 
     self_tag = _self_tag(station, type_prefix)
-    tag_pattern = re.compile(
-        rf'(<Tag Name="{re.escape(self_tag)}"[^>]*DataType="SZG_Station"[^>]*>)([\s\S]*?)(</Tag>)'
-    )
+    tag_pattern = re.compile(rf'(<Tag Name="{re.escape(self_tag)}"[^>]*DataType="SZG_Station"[^>]*>)([\s\S]*?)(</Tag>)')
 
     match = tag_pattern.search(text)
     if match is None:
@@ -627,7 +634,7 @@ def _apply_has_route_config(
         cdata_text = l5k_match.group(2)
 
         tuple_pattern = re.compile(
-            r'\[\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*\]'
+            r"\[\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*,\s*(-?\d+)\s*\]"
         )
 
         tuple_match = tuple_pattern.search(cdata_text)
@@ -665,9 +672,7 @@ def _apply_has_route_config(
     else:
         warning_member_pattern = re.compile(r'(<DataValueMember Name="Warning"[^\n]*/>)')
         warning_match = warning_member_pattern.search(updated_body)
-        insert_text = (
-            '\n<DataValueMember Name="Config" DataType="DINT" Radix="Decimal" Value="1073741824"/>'
-        )
+        insert_text = '\n<DataValueMember Name="Config" DataType="DINT" Radix="Decimal" Value="1073741824"/>'
         if warning_match is not None:
             insert_pos = warning_match.end()
             updated_body = updated_body[:insert_pos] + insert_text + updated_body[insert_pos:]
