@@ -11,6 +11,8 @@ It intentionally does NOT generate IO_Map or IOL_Masters.
 # Standard library imports
 from __future__ import annotations
 
+import argparse
+import tomllib
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -18,13 +20,12 @@ from typing import Any, Literal
 
 # Third-party imports
 import lxml.etree as etree
-import tomllib
 
 # Local application imports
 
 # Constants
-STATIONS_TOML = Path("input/stations.toml")
-OUTPUT_DIR = Path("output")
+PROJECT_ROOT = Path(__file__).resolve().parent
+DEFAULT_STATIONS_TOML = PROJECT_ROOT / "input" / "Hybrid Main Line" / "Network.toml"
 OUTPUT_FILE_STEM = "IO_Simulate"
 DEFAULT_TIMER_PRESET_MS = 3000
 ROUTINE_NAME = "IO_Simulate"
@@ -134,6 +135,29 @@ def _read_toml(path: Path) -> dict:
     return tomllib.loads(raw.decode("utf-8"))
 
 
+def _resolve_path(path_value: str, *, base_dir: Path) -> Path:
+    path = Path(path_value)
+    return path if path.is_absolute() else (base_dir / path)
+
+
+def _load_required_paths(data: dict[str, Any], stations_toml: Path) -> tuple[Path, Path]:
+    config = data.get("config")
+    if not isinstance(config, dict):
+        raise RuntimeError(f"Missing [config] table in {stations_toml}.")
+
+    output_dir_raw = config.get("output_dir")
+    if not isinstance(output_dir_raw, str) or not output_dir_raw.strip():
+        raise RuntimeError(f"Missing required config.output_dir in {stations_toml}.")
+
+    template_dir_raw = config.get("template_dir")
+    if not isinstance(template_dir_raw, str) or not template_dir_raw.strip():
+        raise RuntimeError(f"Missing required config.template_dir in {stations_toml}.")
+
+    output_dir = _resolve_path(output_dir_raw.strip(), base_dir=PROJECT_ROOT)
+    template_dir = _resolve_path(template_dir_raw.strip(), base_dir=PROJECT_ROOT)
+    return output_dir, template_dir
+
+
 def _normalize_int(value: object | None) -> int | None:
     if value is None:
         return None
@@ -158,10 +182,7 @@ def _station_type(raw_type: object, station_number: int, station_types: set[str]
 def _load_type_prefixes(data: dict[str, Any], path: Path, station_types: set[str]) -> dict[str, str]:
     prefixes = data.get("type_prefix")
     if not isinstance(prefixes, dict):
-        raise RuntimeError(
-            f"Missing [type_prefix] table in {path}. "
-            "Define prefixes for each station type and Filler."
-        )
+        raise RuntimeError(f"Missing [type_prefix] table in {path}. Define prefixes for each station type and Filler.")
 
     normalized: dict[str, str] = {}
     for key, value in prefixes.items():
@@ -184,8 +205,9 @@ def _station_prefix(row: dict, type_prefix: dict[str, str], station_types: set[s
     return station_type, type_prefix[station_type]
 
 
-def load_stations(path: Path) -> dict[int, StationDef]:
+def load_stations(path: Path) -> tuple[dict[int, StationDef], Path]:
     data = _read_toml(path)
+    output_dir, _template_dir = _load_required_paths(data, path)
     templates = data.get("templates")
     if not isinstance(templates, dict):
         raise RuntimeError(f"Missing [templates] table in {path}.")
@@ -216,7 +238,7 @@ def load_stations(path: Path) -> dict[int, StationDef]:
             chain_downstream=_normalize_int(row.get("chain_downstream")),
         )
 
-    return stations
+    return stations, output_dir
 
 
 def build_directed_edges(stations: dict[int, StationDef]) -> list[tuple[int, int]]:
@@ -396,6 +418,7 @@ def build_simulation_rungs(
 def write_program_l5x(
     timer_names: list[str],
     rung_texts: list[str],
+    output_dir: Path,
 ) -> Path:
     root, tags, routines = _build_program_root()
 
@@ -410,9 +433,9 @@ def write_program_l5x(
     for idx, text in enumerate(rung_texts):
         rll.append(_make_rung(idx, text))
 
-    OUTPUT_DIR.mkdir(exist_ok=True)
+    output_dir.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().isoformat(timespec="seconds").replace(":", "-")
-    out_path = OUTPUT_DIR / f"{OUTPUT_FILE_STEM}_{timestamp}.L5X"
+    out_path = output_dir / f"{OUTPUT_FILE_STEM}_{timestamp}.L5X"
     etree.ElementTree(root).write(
         str(out_path),
         xml_declaration=True,
@@ -423,11 +446,11 @@ def write_program_l5x(
     return out_path
 
 
-def main() -> None:
-    stations = load_stations(STATIONS_TOML)
+def main(stations_toml: Path) -> None:
+    stations, output_dir = load_stations(stations_toml)
     edges = build_directed_edges(stations)
     timer_names, rung_texts = build_simulation_rungs(stations, edges, DEFAULT_TIMER_PRESET_MS)
-    out = write_program_l5x(timer_names, rung_texts)
+    out = write_program_l5x(timer_names, rung_texts, output_dir=output_dir)
 
     print(f"Stations loaded: {len(stations)}")
     print(f"Directed movement edges simulated: {len(edges)}")
@@ -436,5 +459,17 @@ def main() -> None:
     print(f"Wrote: {out}")
 
 
+def _parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Generate IO simulation L5X from a stations TOML.")
+    parser.add_argument(
+        "--stations",
+        type=Path,
+        default=DEFAULT_STATIONS_TOML,
+        help="Path to stations TOML (default: input/Hybrid Main Line/stations.toml).",
+    )
+    return parser.parse_args()
+
+
 if __name__ == "__main__":
-    main()
+    args = _parse_args()
+    main(args.stations)

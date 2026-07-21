@@ -26,20 +26,20 @@ hardcoded generator defaults.
 # Standard library imports
 from __future__ import annotations
 
+import argparse
 import re
+import tomllib
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Optional
 
 # Third-party imports
-import tomllib
 
 # Local application imports
 
 # Constants
 PROJECT_ROOT = Path(__file__).resolve().parent
-STATIONS_TOML = PROJECT_ROOT / "input" / "stations.toml"
-OUTPUT_DIR = PROJECT_ROOT / "output" / "stationPrograms"
+DEFAULT_STATIONS_TOML = PROJECT_ROOT / "input" / "Hybrid Main Line" / "stations.toml"
 ROUTE_CONFIG_BIT = 30
 ROUTE_CONFIG_MASK = 1 << ROUTE_CONFIG_BIT
 
@@ -115,36 +115,64 @@ def _as_optional_mes_code(value: Any) -> Optional[str]:
     raise TypeError(f"Unsupported isMES value type: {type(value).__name__}")
 
 
-def _resolve_template_path(path_value: str) -> Path:
+def _resolve_path(path_value: str, *, base_dir: Path) -> Path:
     path = Path(path_value)
-    return path if path.is_absolute() else (PROJECT_ROOT / path)
+    return path if path.is_absolute() else (base_dir / path)
 
 
-def _load_templates_from_toml(toml_data: dict[str, Any]) -> dict[str, Path]:
+def _load_required_paths(toml_data: dict[str, Any], stations_toml: Path) -> tuple[Path, Path]:
+    config = toml_data.get("config")
+    if not isinstance(config, dict):
+        raise KeyError(f"Missing [config] table in {stations_toml}.")
+
+    output_dir_raw = config.get("output_dir")
+    if not isinstance(output_dir_raw, str) or not output_dir_raw.strip():
+        raise KeyError(f"Missing required config.output_dir in {stations_toml}.")
+
+    template_dir_raw = config.get("template_dir")
+    if not isinstance(template_dir_raw, str) or not template_dir_raw.strip():
+        raise KeyError(f"Missing required config.template_dir in {stations_toml}.")
+
+    output_dir = _resolve_path(output_dir_raw.strip(), base_dir=PROJECT_ROOT)
+    template_dir = _resolve_path(template_dir_raw.strip(), base_dir=PROJECT_ROOT)
+    return output_dir, template_dir
+
+
+def _load_templates_from_toml(
+    toml_data: dict[str, Any],
+    *,
+    stations_toml: Path,
+    template_dir: Path,
+) -> dict[str, Path]:
     templates = toml_data.get("templates")
     if not isinstance(templates, dict):
-        raise KeyError(f"Missing [templates] table in {STATIONS_TOML}. Define template paths for each station type.")
+        raise KeyError(f"Missing [templates] table in {stations_toml}. Define template paths for each station type.")
 
     normalized: dict[str, Path] = {}
     for key, value in templates.items():
         type_name = str(key).strip()
         if not type_name:
-            raise KeyError(f"[templates] contains an empty type key in {STATIONS_TOML}.")
+            raise KeyError(f"[templates] contains an empty type key in {stations_toml}.")
         if type_name in normalized:
-            raise KeyError(f"Duplicate [templates] key in {STATIONS_TOML}: {type_name}. Use each type only once.")
-        normalized[type_name] = _resolve_template_path(str(value))
+            raise KeyError(f"Duplicate [templates] key in {stations_toml}: {type_name}. Use each type only once.")
+        normalized[type_name] = _resolve_path(str(value), base_dir=template_dir)
 
     if not normalized:
-        raise KeyError(f"[templates] in {STATIONS_TOML} must define at least one station type.")
+        raise KeyError(f"[templates] in {stations_toml} must define at least one station type.")
 
     return normalized
 
 
-def _load_type_prefixes_from_toml(toml_data: dict[str, Any], station_types: set[str]) -> dict[str, str]:
+def _load_type_prefixes_from_toml(
+    toml_data: dict[str, Any],
+    station_types: set[str],
+    *,
+    stations_toml: Path,
+) -> dict[str, str]:
     prefixes = toml_data.get("type_prefix")
     if not isinstance(prefixes, dict):
         raise KeyError(
-            f"Missing [type_prefix] table in {STATIONS_TOML}. Define prefixes for each station type and Filler."
+            f"Missing [type_prefix] table in {stations_toml}. Define prefixes for each station type and Filler."
         )
 
     normalized: dict[str, str] = {}
@@ -152,7 +180,7 @@ def _load_type_prefixes_from_toml(toml_data: dict[str, Any], station_types: set[
         key_text = str(key).strip()
         if key_text in normalized:
             raise KeyError(
-                f"Duplicate [type_prefix] key in {STATIONS_TOML}: {key_text}. Use each required key only once."
+                f"Duplicate [type_prefix] key in {stations_toml}: {key_text}. Use each required key only once."
             )
         normalized[key_text] = str(value).strip()
 
@@ -160,12 +188,17 @@ def _load_type_prefixes_from_toml(toml_data: dict[str, Any], station_types: set[
     missing = [type_name for type_name in sorted(required_prefix_types) if type_name not in normalized]
     if missing:
         missing_csv = ", ".join(missing)
-        raise KeyError(f"Missing required [type_prefix] mappings in {STATIONS_TOML}: {missing_csv}.")
+        raise KeyError(f"Missing required [type_prefix] mappings in {stations_toml}: {missing_csv}.")
 
     return {type_name: normalized[type_name] for type_name in sorted(required_prefix_types)}
 
 
-def _load_external_type_hints(toml_data: dict[str, Any], allowed_types: set[str]) -> dict[int, str]:
+def _load_external_type_hints(
+    toml_data: dict[str, Any],
+    allowed_types: set[str],
+    *,
+    stations_toml: Path,
+) -> dict[int, str]:
     hints_section = toml_data.get("external_type_hints", {})
     if not isinstance(hints_section, dict):
         raise TypeError("[external_type_hints] must be a TOML table")
@@ -175,7 +208,7 @@ def _load_external_type_hints(toml_data: dict[str, Any], allowed_types: set[str]
         hint_type = str(value).strip()
         if hint_type not in allowed_types:
             raise ValueError(
-                f"Unsupported external_type_hints value '{hint_type}' for station {key}. "
+                f"Unsupported external_type_hints value '{hint_type}' in {stations_toml} for station {key}. "
                 f"Allowed values: {', '.join(sorted(allowed_types))}."
             )
         hints[int(key)] = hint_type
@@ -258,17 +291,22 @@ def _load_stations_from_toml(toml_data: dict[str, Any], station_types: set[str])
 
 def load_config(
     stations_toml: Path,
-) -> tuple[dict[str, Path], dict[str, str], dict[int, str], list[Station]]:
+) -> tuple[dict[str, Path], dict[str, str], dict[int, str], list[Station], Path]:
     with stations_toml.open("rb") as file_obj:
         toml_data = tomllib.load(file_obj)
 
-    templates = _load_templates_from_toml(toml_data)
+    output_dir, template_dir = _load_required_paths(toml_data, stations_toml)
+    templates = _load_templates_from_toml(
+        toml_data,
+        stations_toml=stations_toml,
+        template_dir=template_dir,
+    )
     station_types = set(templates.keys())
     allowed_types = station_types | {"Filler"}
-    type_prefix = _load_type_prefixes_from_toml(toml_data, station_types)
-    hints = _load_external_type_hints(toml_data, allowed_types)
+    type_prefix = _load_type_prefixes_from_toml(toml_data, station_types, stations_toml=stations_toml)
+    hints = _load_external_type_hints(toml_data, allowed_types, stations_toml=stations_toml)
     stations = _load_stations_from_toml(toml_data, station_types)
-    return templates, type_prefix, hints, stations
+    return templates, type_prefix, hints, stations, output_dir
 
 
 def _neighbor_tag(
@@ -691,6 +729,7 @@ def generate(
     stations_by_number: dict[int, Station],
     templates: dict[str, Path],
     type_prefix: dict[str, str],
+    output_dir: Path,
     dry_run: bool = False,
 ) -> Path:
     """Render a single station's L5X. Returns the output path."""
@@ -717,15 +756,15 @@ def generate(
     text = _apply_has_route_config(text, station, type_prefix)
 
     output_type = station.output_type or station.type
-    out_path = OUTPUT_DIR / f"Sta{station.number}_{output_type}.L5X"
+    out_path = output_dir / "stationPrograms" / f"Sta{station.number}_{output_type}.L5X"
     if not dry_run:
-        OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_text(text, encoding="utf-8")
     return out_path
 
 
-def main(only: Optional[set[int]] = None) -> None:
-    templates, type_prefix, hints, all_stations = load_config(STATIONS_TOML)
+def main(stations_toml: Path, only: Optional[set[int]] = None) -> None:
+    templates, type_prefix, hints, all_stations, output_dir = load_config(stations_toml)
 
     # Build lookup so neighbor tags can be type-prefixed correctly.
     stations_by_number = {s.number: s for s in all_stations}
@@ -735,14 +774,26 @@ def main(only: Optional[set[int]] = None) -> None:
     for s in all_stations:
         if only is not None and s.number not in only:
             continue
-        out = generate(s, lookup, stations_by_number, templates, type_prefix)
+        out = generate(s, lookup, stations_by_number, templates, type_prefix, output_dir=output_dir)
         written.append(out)
         print(f"  wrote {out.name}")
-    print(f"\nDone. {len(written)} file(s) written to {OUTPUT_DIR}")
+    print(f"\nDone. {len(written)} file(s) written to {output_dir / 'stationPrograms'}")
+
+
+def _parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Generate per-station L5X files from a stations TOML.")
+    parser.add_argument(
+        "--stations",
+        type=Path,
+        default=DEFAULT_STATIONS_TOML,
+        help="Path to stations TOML (default: input/Hybrid Main Line/stations.toml).",
+    )
+    return parser.parse_args()
 
 
 if __name__ == "__main__":
     # Generate only the new chunk this run.
     # Remove the `only=` arg to regenerate everything.
     # NEW_THIS_RUN = {7182, 7183, 7184, 7185, 7210}
-    main()  # only=NEW_THIS_RUN)
+    args = _parse_args()
+    main(stations_toml=args.stations)  # only=NEW_THIS_RUN)

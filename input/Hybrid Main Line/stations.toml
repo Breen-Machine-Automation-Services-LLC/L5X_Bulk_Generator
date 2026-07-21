@@ -1,9 +1,13 @@
+[config]
+output_dir = "output/Hybrid Main Line"
+template_dir = "input"
+
 [templates]
-Lift = "input/Lift_Standard_Code_Program.L5X"
-Queue = "input/Staight_Track_Standard_Code_Program.L5X"
-Transfer = "input/Chain_Transfer_Standard_Code_Program.L5X"
-Tester = "input/Staight_Track_Standard_Code_Program.L5X"
-Gravity = "input/Gravity_Standard_Code_Program.L5X"
+Lift = "Lift_Standard_Code_Program.L5X"
+Queue = "Staight_Track_Standard_Code_Program.L5X"
+Transfer = "Chain_Transfer_Standard_Code_Program.L5X"
+Tester = "Staight_Track_Standard_Code_Program.L5X"
+Gravity = "Gravity_Standard_Code_Program.L5X"
 
 [type_prefix]
 Lift = "Li"

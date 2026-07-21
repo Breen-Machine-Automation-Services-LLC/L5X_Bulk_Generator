@@ -6,6 +6,8 @@ Keep the FactoryTalk display aligned with the station source of truth.
 from __future__ import annotations
 
 # Standard library imports
+import argparse
+import tomllib
 from copy import deepcopy
 from dataclasses import dataclass
 from datetime import datetime
@@ -13,13 +15,12 @@ from pathlib import Path
 
 # Third-party imports
 import lxml.etree as etree
-import tomllib
 
 # Local application imports
 
 # Constants
-STATIONS_TOML = Path("input/stations.toml")
-OUTPUT_DIR = Path("output")
+PROJECT_ROOT = Path(__file__).resolve().parent
+DEFAULT_STATIONS_TOML = PROJECT_ROOT / "input" / "Hybrid Main Line" / "stations.toml"
 GO_GROUP_PREFIX = "GO_Conv"
 TEMPLATE_GROUP_NAME = "GO_Conv4000"
 TEMPLATE_STATION = "4000"
@@ -66,6 +67,27 @@ def _read_toml(path: Path) -> dict:
     return tomllib.loads(raw.decode("utf-8"))
 
 
+def _resolve_path(path_value: str, *, base_dir: Path) -> Path:
+    path = Path(path_value)
+    return path if path.is_absolute() else (base_dir / path)
+
+
+def _load_required_paths(data: dict, stations_toml: Path) -> Path:
+    config = data.get("config")
+    if not isinstance(config, dict):
+        raise RuntimeError(f"Missing [config] table in {stations_toml}.")
+
+    output_dir_raw = config.get("output_dir")
+    if not isinstance(output_dir_raw, str) or not output_dir_raw.strip():
+        raise RuntimeError(f"Missing required config.output_dir in {stations_toml}.")
+
+    template_dir_raw = config.get("template_dir")
+    if not isinstance(template_dir_raw, str) or not template_dir_raw.strip():
+        raise RuntimeError(f"Missing required config.template_dir in {stations_toml}.")
+
+    return _resolve_path(output_dir_raw.strip(), base_dir=PROJECT_ROOT)
+
+
 def _station_prefix_from_row(row: dict) -> str:
     raw_type = str(row.get("type", "")).strip()
     if raw_type == "Transfer":
@@ -75,8 +97,9 @@ def _station_prefix_from_row(row: dict) -> str:
     return "ST"
 
 
-def load_hmi_stations(path: Path) -> dict[int, StationInfo]:
+def load_hmi_stations(path: Path) -> tuple[dict[int, StationInfo], Path]:
     data = _read_toml(path)
+    output_dir = _load_required_paths(data, path)
     rows = data["stations"]["data"]
 
     stations: dict[int, StationInfo] = {}
@@ -88,7 +111,7 @@ def load_hmi_stations(path: Path) -> dict[int, StationInfo]:
             number=number,
             prefix=_station_prefix_from_row(row),
         )
-    return stations
+    return stations, output_dir
 
 
 def _parse_display_xml(path: Path) -> etree._ElementTree:
@@ -158,6 +181,7 @@ def generate_display_xml(
     config: DisplayConfig,
     stations: dict[int, StationInfo],
     timestamp: str,
+    output_dir: Path,
 ) -> Path:
     tree = _parse_display_xml(config.template_path)
     root = tree.getroot()
@@ -194,8 +218,8 @@ def generate_display_xml(
         group.tail = template_tail
         root.insert(insertion_index + offset, group)
 
-    OUTPUT_DIR.mkdir(exist_ok=True)
-    out_path = OUTPUT_DIR / f"{config.output_stem}_{timestamp}.xml"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    out_path = output_dir / f"{config.output_stem}_{timestamp}.xml"
     tree.write(
         str(out_path),
         xml_declaration=True,
@@ -205,11 +229,11 @@ def generate_display_xml(
     return out_path
 
 
-def main() -> None:
-    stations = load_hmi_stations(STATIONS_TOML)
+def main(stations_toml: Path) -> None:
+    stations, output_dir = load_hmi_stations(stations_toml)
     station_numbers = sorted(stations, reverse=True)
     timestamp = datetime.now().isoformat(timespec="seconds").replace(":", "-")
-    out_paths = [generate_display_xml(config, stations, timestamp) for config in DISPLAY_CONFIGS]
+    out_paths = [generate_display_xml(config, stations, timestamp, output_dir=output_dir) for config in DISPLAY_CONFIGS]
 
     print(f"Stations loaded: {len(station_numbers)}")
     print(f"GO_Conv groups written: {len(station_numbers)}")
@@ -217,5 +241,17 @@ def main() -> None:
         print(f"Wrote: {out_path}")
 
 
+def _parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Regenerate GO_Conv display XML from a stations TOML.")
+    parser.add_argument(
+        "--stations",
+        type=Path,
+        default=DEFAULT_STATIONS_TOML,
+        help="Path to stations TOML (default: input/Hybrid Main Line/stations.toml).",
+    )
+    return parser.parse_args()
+
+
 if __name__ == "__main__":
-    main()
+    args = _parse_args()
+    main(args.stations)

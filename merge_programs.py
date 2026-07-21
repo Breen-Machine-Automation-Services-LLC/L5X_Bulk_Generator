@@ -19,26 +19,22 @@ Usage:
 # Standard library imports
 from __future__ import annotations
 
+import argparse
 import re
 import sys
 import time
+import tomllib
 from datetime import datetime
 from pathlib import Path
 
 # Third-party imports
-from lxml import etree
+import lxml.etree as etree
 
 # Local application imports
 
 # Constants
-PROJECT_ROOT = Path(r"G:\Shared drives\Customers\SubZero - Cove - Wolf\Wolf\1394 Wall Oven Expansion\Programs")
-# INPUT_DIR = Path(r"C:\Users\justi\Documents\VSCode\L5X Bulk Generator\Output")
-INPUT_DIR = (
-    # PROJECT_ROOT / "Hybrid Main Line Programs" / "GeneratedRoutines- Hybrid Main Line"
-    Path("./output/stationPrograms")
-)
-# OUTPUT_DIR = INPUT_DIR  # same folder; change if you want it elsewhere
-OUTPUT_DIR = Path("./output")  # PROJECT_ROOT / "FAT Programs"
+PROJECT_ROOT = Path(__file__).resolve().parent
+DEFAULT_STATIONS_TOML = PROJECT_ROOT / "input" / "Hybrid Main Line" / "stations.toml"
 
 # Optional: explicit base file. If None, uses the alphabetically-first L5X
 # in INPUT_DIR as the base. The base provides the Controller header
@@ -57,6 +53,33 @@ STATION_MAX: int | None = None
 
 # Tag for output filename when filter is active (purely cosmetic)
 OUTPUT_TAG: str = "7000s"  # set to "" to omit
+
+
+def _read_toml(path: Path) -> dict:
+    with path.open("rb") as file_obj:
+        return tomllib.load(file_obj)
+
+
+def _resolve_path(path_value: str, *, base_dir: Path) -> Path:
+    path = Path(path_value)
+    return path if path.is_absolute() else (base_dir / path)
+
+
+def _load_output_dir_from_toml(stations_toml: Path) -> Path:
+    data = _read_toml(stations_toml)
+    config = data.get("config")
+    if not isinstance(config, dict):
+        raise RuntimeError(f"Missing [config] table in {stations_toml}.")
+
+    output_dir_raw = config.get("output_dir")
+    if not isinstance(output_dir_raw, str) or not output_dir_raw.strip():
+        raise RuntimeError(f"Missing required config.output_dir in {stations_toml}.")
+
+    template_dir_raw = config.get("template_dir")
+    if not isinstance(template_dir_raw, str) or not template_dir_raw.strip():
+        raise RuntimeError(f"Missing required config.template_dir in {stations_toml}.")
+
+    return _resolve_path(output_dir_raw.strip(), base_dir=PROJECT_ROOT)
 
 
 def _ensure_parent(base_root: etree._Element, parent_xpath: str) -> etree._Element:
@@ -356,14 +379,17 @@ def _in_filter(path: Path) -> bool:
     return True
 
 
-def main() -> int:
-    if not INPUT_DIR.is_dir():
-        print(f"ERROR: input dir not found: {INPUT_DIR}", file=sys.stderr)
+def main(stations_toml: Path) -> int:
+    output_dir = _load_output_dir_from_toml(stations_toml)
+    input_dir = output_dir / "stationPrograms"
+
+    if not input_dir.is_dir():
+        print(f"ERROR: input dir not found: {input_dir}", file=sys.stderr)
         return 1
 
-    all_matches = sorted(INPUT_DIR.glob(INPUT_GLOB))
+    all_matches = sorted(input_dir.glob(INPUT_GLOB))
     if not all_matches:
-        print(f"ERROR: no files match {INPUT_GLOB} in {INPUT_DIR}", file=sys.stderr)
+        print(f"ERROR: no files match {INPUT_GLOB} in {input_dir}", file=sys.stderr)
         return 1
 
     # Apply optional station-number filter.
@@ -384,12 +410,12 @@ def main() -> int:
     # ISO timestamp with second precision, normalized for Windows-safe filenames.
     timestamp = datetime.now().isoformat(timespec="seconds").replace(":", "-")
     suffix = f"_{OUTPUT_TAG}" if (filter_active and OUTPUT_TAG) else ""
-    out = OUTPUT_DIR / f"Program{suffix}_{timestamp}.L5X"
+    out = output_dir / f"Program{suffix}_{timestamp}.L5X"
 
     print(f"Base:    {base.name}")
     if filter_active:
         print(f"Filter:  station numbers in [{STATION_MIN}..{STATION_MAX}]  ({len(files)}/{len(all_matches)} files)")
-    print(f"Merging: {len(sources)} files from {INPUT_DIR}")
+    print(f"Merging: {len(sources)} files from {input_dir}")
     print(f"Output:  {out}")
     print()
 
@@ -411,5 +437,17 @@ def main() -> int:
     return 0
 
 
+def _parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Merge station program L5X files using a stations TOML config.")
+    parser.add_argument(
+        "--stations",
+        type=Path,
+        default=DEFAULT_STATIONS_TOML,
+        help="Path to stations TOML (default: input/Hybrid Main Line/stations.toml).",
+    )
+    return parser.parse_args()
+
+
 if __name__ == "__main__":
-    raise SystemExit(main())
+    args = _parse_args()
+    raise SystemExit(main(args.stations))
