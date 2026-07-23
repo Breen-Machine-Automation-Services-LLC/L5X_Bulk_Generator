@@ -1,0 +1,83 @@
+[config]
+output_dir = "output/Steam Cavity Line"
+template_dir = "input/Templates"
+
+[templates]
+Queue = "Staight_Track_Standard_Code_Program.L5X"
+Transfer = "Chain_Transfer_Standard_Code_Program.L5X"
+
+[type_prefix]
+Queue = "ST"
+Transfer = "CT"
+Filler = "FI"
+
+[external_type_hints]
+
+[stations]
+data = [
+    { number = 300, type = "Queue", prev = 0, next = 310 },
+    { number = 310, type = "Queue", prev = 300, next = 320 },
+    { number = 320, type = "Queue", prev = 310, next = 330 },
+    { number = 330, type = "Queue", prev = 320, next = 340 },
+    { number = 340, type = "Queue", prev = 330, next = 350 },
+    { number = 350, type = "Queue", prev = 340, next = 360 },
+    { number = 360, type = "Queue", prev = 350, next = 361 },
+    { number = 361, type = "Queue", prev = 360, next = 370 },
+    { number = 370, type = "Queue", prev = 361, next = 380 },
+    { number = 380, type = "Queue", prev = 370, next = 381 },
+    { number = 381, type = "Queue", prev = 380, next = 390 },
+    { number = 390, type = "Queue", prev = 381, next = 400 },
+    { number = 400, type = "Queue", prev = 390, next = 410 },
+    { number = 410, type = "Queue", prev = 400, next = 411 },
+    { number = 411, type = "Queue", prev = 410, next = 420 },
+    { number = 420, type = "Queue", prev = 411, next = 430 },
+    { number = 430, type = "Queue", prev = 420, next = 431 },
+    { number = 431, type = "Queue", prev = 430, next = 440 },
+    { number = 440, type = "Queue", prev = 431, next = 450 },
+    { number = 450, type = "Queue", prev = 440, next = 459 },
+    { number = 459, type = "Queue", prev = 450, next = 460 },
+    { number = 460, type = "Queue", prev = 459, next = 470 },
+    { number = 470, type = "Queue", prev = 460, next = 471 },
+    { number = 471, type = "Queue", prev = 470, next = 480 },
+    { number = 480, type = "Queue", prev = 471, next = 490 },
+    { number = 490, type = "Queue", prev = 480, next = 491 },
+    { number = 491, type = "Queue", prev = 490, next = 500 },
+    { number = 500, type = "Queue", prev = 491, next = 510 },
+    { number = 510, type = "Queue", prev = 500, next = 530 },
+    { number = 530, type = "Queue", prev = 510, next = 540 },
+    { number = 540, type = "Queue", prev = 530, next = 545 },
+    { number = 545, type = "Queue", prev = 540, next = 550 },
+    { number = 550, type = "Queue", prev = 545, next = 560 },
+    { number = 560, type = "Queue", prev = 550, next = 570 },
+    { number = 570, type = "Queue", prev = 560, next = 580 },
+    { number = 580, type = "Queue", prev = 570, next = 590 },
+    { number = 590, type = "Queue", prev = 580, next = 600 },
+    { number = 600, type = "Queue", prev = 590, next = 610 },
+    { number = 610, type = "Queue", prev = 600, next = 620 },
+    { number = 620, type = "Queue", prev = 610, next = 621 },
+    { number = 621, type = "Queue", prev = 620, next = 630 },
+    { number = 630, type = "Queue", prev = 621, next = 640 },
+    { number = 640, type = "Queue", prev = 630, next = 641 },
+    { number = 641, type = "Queue", prev = 640, next = 650 },
+    { number = 650, type = "Queue", prev = 641, next = 660 },
+    { number = 660, type = "Queue", prev = 650, next = 661 },
+    { number = 661, type = "Queue", prev = 660, next = 670 },
+    { number = 670, type = "Queue", prev = 661, next = 680 },
+    { number = 680, type = "Queue", prev = 670, next = 690 },
+    { number = 690, type = "Queue", prev = 680, next = 700 },
+    { number = 700, type = "Queue", prev = 690, next = 701 },
+    { number = 701, type = "Queue", prev = 700, next = 710 },
+    { number = 710, type = "Queue", prev = 701, next = 720 },
+    { number = 720, type = "Queue", prev = 710, next = 723 },
+    { number = 723, type = "Queue", prev = 720, next = 725 },
+    { number = 725, type = "Queue", prev = 723, next = 726 },
+    { number = 726, type = "Queue", prev = 725, next = 730 },
+    { number = 730, type = "Queue", prev = 726, next = 740 },
+    { number = 740, type = "Queue", prev = 730, next = 750 },
+    { number = 750, type = "Queue", prev = 740, next = 760 },
+    { number = 760, type = "Queue", prev = 750, next = 770 },
+    { number = 770, type = "Queue", prev = 760, next = 780 },
+    { number = 780, type = "Queue", prev = 770, next = 790 },
+    { number = 790, type = "Queue", prev = 780, next = 800 },
+    { number = 800, type = "Queue", prev = 790, next = 0 },
+]

@@ -1,6 +1,6 @@
 [config]
 output_dir = "output/Hybrid Main Line"
-template_dir = "input"
+template_dir = "input/Templates"
 
 [templates]
 Lift = "Lift_Standard_Code_Program.L5X"

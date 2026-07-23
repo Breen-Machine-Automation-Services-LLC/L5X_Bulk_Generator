@@ -14,17 +14,17 @@
 controller_name = "Wolf_HybridMainLine"
 target          = "Switch_MCP"
 output_file     = "Network.L5X" # "LocNetwork.L5X" caused an error for some reason
-output_dir      = "output"
+output_dir      = "output/Hybrid Main Line"
 
 [templates]
-EN2TR     = "input/EN2TR_Module.L5X"
-IB-E03B_A = "input/IBXXXX_Module.L5X"
-BNI006A   = "input/IOL_Master_Module.L5X"
-GLMaster = "input/GLMaster_Module.L5X"
-GLTap = "input/GLTap_Module.L5X"
-ELR = "input/ELRGateway_Module.L5X"
-PIO = "input/PointIO_Rack.L5X"
-Switch = "input/Stratix_Module.L5X"
+EN2TR     = "input/Templates/EN2TR_Module.L5X"
+IB-E03B_A = "input/Templates/IBXXXX_Module.L5X"
+BNI006A   = "input/Templates/IOL_Master_Module.L5X"
+GLMaster = "input/Templates/GLMaster_Module.L5X"
+GLTap = "input/Templates/GLTap_Module.L5X"
+ELR = "input/Templates/ELRGateway_Module.L5X"
+PIO = "input/Templates/PointIO_Rack.L5X"
+Switch = "input/Templates/Stratix_Module.L5X"
 
 [modules]
 data = [

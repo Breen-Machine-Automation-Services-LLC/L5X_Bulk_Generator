@@ -16,9 +16,9 @@ output_file     = "Backplane.L5X"
 output_dir      = "output"
 
 [templates]
-EN2TR     = "input/EN2TR_Module.L5X"
-IB-E03B_A = "input/IBXXXX_Module.L5X"
-BNI006A   = "input/StaXXXX_IOL_Master_Module.L5X"
+EN2TR     = "input/Templates/EN2TR_Module.L5X"
+IB-E03B_A = "input/Templates/IBXXXX_Module.L5X"
+BNI006A   = "input/Templates/StaXXXX_IOL_Master_Module.L5X"
 
 [modules]
 data = [

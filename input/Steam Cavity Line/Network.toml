@@ -1,0 +1,90 @@
+# module creation list
+# Source: Google Sheet 1KSP39BCc8gFVZjXEksdI1uSqvPceI8Tg-CZ2nLyM3tg (IPAddresses tab)
+
+[config]
+controller_name = "Wolf_SteamCavityLine"
+target          = "Switch_MCP"
+output_file     = "Network.L5X"
+output_dir      = "output/Steam Cavity Line"
+
+[templates]
+EN2TR     = "input/Templates/EN2TR_Module.L5X"
+IB-E03B_A = "input/Templates/IBXXXX_Module.L5X"
+BNI006A   = "input/Templates/IOL_Master_Module.L5X"
+GLMaster  = "input/Templates/GLMaster_Module.L5X"
+GLTap     = "input/Templates/GLTap_Module.L5X"
+ELR       = "input/Templates/ELRGateway_Module.L5X"
+PIO       = "input/Templates/PointIO_Rack.L5X"
+Switch    = "input/Templates/Stratix_Module.L5X"
+
+[modules]
+data = [
+    { name="Switch_MCP",      type="Switch",   ParentModule="Local", Address="10.200.202.10" },
+    { name="SIO_MCP",         type="PIO",      ParentModule="Local", Address="10.200.202.20" },
+    { name="SIO_Master6500",  type="GLMaster", ParentModule="Local", Address="10.200.202.90" },
+    { name="ELR4024",         type="ELR",      ParentModule="Local", Address="10.200.202.21" },
+    { name="IOL_Master10000", type="BNI006A",  ParentModule="Local", Address="10.200.202.100" },
+    { name="IOL_Master10500", type="BNI006A",  ParentModule="Local", Address="10.200.202.101" },
+    { name="IOL_Master11000", type="BNI006A",  ParentModule="Local", Address="10.200.202.102" },    
+    { name="Local", type="EN2TR", ParentModule="Local",    Address="12" },
+    { name="IB0300",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.13" },
+    { name="IB0310",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.14" },
+    { name="IB0320",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.15" },
+    { name="IB0330",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.16" },
+    { name="IB0340",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.17" },
+    { name="IB0350",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.18" },
+    { name="IB0360",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.19" },
+    { name="IB0361",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.20" },
+    { name="IB0370",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.21" },
+    { name="IB0380",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.22" },
+    { name="IB0381",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.23" },
+    { name="IB0390",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.24" },
+    { name="IB0400",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.25" },
+    { name="IB0410",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.26" },
+    { name="IB0411",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.27" },
+    { name="IB0420",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.28" },
+    { name="IB0430",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.29" },
+    { name="IB0431",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.30" },
+    { name="IB0440",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.31" },
+    { name="IB0450",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.32" },
+    { name="IB0459",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.33" },
+    { name="IB0460",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.34" },
+    { name="IB0470",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.35" },
+    { name="IB0480",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.36" },
+    { name="IB0490",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.37" },
+    { name="IB0500",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.38" },
+    { name="IB0510",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.39" },
+    { name="IB0530",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.40" },
+    { name="IB0540",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.41" },
+    { name="IB0545",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.42" },
+    { name="IB0550",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.43" },
+    { name="IB0560",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.44" },
+    { name="IB0570",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.45" },
+    { name="IB0580",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.46" },
+    { name="IB0590",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.47" },
+    { name="IB0600",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.48" },
+    { name="IB0610",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.49" },
+    { name="IB0620",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.50" },
+    { name="IB0621",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.51" },
+    { name="IB0630",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.52" },
+    { name="IB0640",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.53" },
+    { name="IB0641",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.54" },
+    { name="IB0650",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.55" },
+    { name="IB0660",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.56" },
+    { name="IB0661",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.57" },
+    { name="IB0670",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.58" },
+    { name="IB0680",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.59" },
+    { name="IB0690",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.60" },
+    { name="IB0700",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.61" },
+    { name="IB0701",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.62" },
+    { name="IB0710",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.63" },
+    { name="IB0720",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.64" },
+    { name="IB0730",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.65" },
+    { name="IB0740",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.66" },
+    { name="IB0750",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.67" },
+    { name="IB0760",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.68" },
+    { name="IB0770",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.69" },
+    { name="IB0780",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.70" },
+    { name="IB0790",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.71" },
+    { name="IB0800",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.72" },
+]

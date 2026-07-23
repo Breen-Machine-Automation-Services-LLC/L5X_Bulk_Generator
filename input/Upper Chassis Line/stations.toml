@@ -1,0 +1,50 @@
+[config]
+output_dir = "output/Upper Chassis Line"
+template_dir = "input/Templates"
+
+[templates]
+Queue = "Staight_Track_Standard_Code_Program.L5X"
+Transfer = "Chain_Transfer_Standard_Code_Program.L5X"
+
+[type_prefix]
+Queue = "ST"
+Transfer = "CT"
+Filler = "FI"
+
+[external_type_hints]
+
+[stations]
+data = [
+    { number = 4700, type = "Queue", prev = 0, next = 4710 },
+    { number = 4710, type = "Queue", prev = 4700, next = 4720 },
+    { number = 4720, type = "Queue", prev = 4710, next = 4730 },
+    { number = 4730, type = "Queue", prev = 4720, next = 4740 },
+    { number = 4740, type = "Queue", prev = 4730, next = 4750 },
+    { number = 4750, type = "Queue", prev = 4740, next = 4760 },
+    { number = 4760, type = "Queue", prev = 4750, next = 4770 },
+    { number = 4770, type = "Queue", prev = 4760, next = 4780 },
+    { number = 4780, type = "Queue", prev = 4770, next = 4790 },
+    { number = 4790, type = "Queue", prev = 4780, next = 4800 },
+    { number = 4800, type = "Queue", prev = 4790, next = 4810 },
+    { number = 4810, type = "Queue", prev = 4800, next = 4820 },
+    { number = 4820, type = "Queue", prev = 4810, next = 4830 },
+    { number = 4830, type = "Queue", prev = 4820, next = 4840 },
+    { number = 4840, type = "Queue", prev = 4830, next = 4845 },
+    { number = 4845, type = "Queue", prev = 4840, next = 4850 },
+    { number = 4850, type = "Queue", prev = 4845, next = 4860 },
+    { number = 4860, type = "Queue", prev = 4850, next = 4870 },
+    { number = 4870, type = "Queue", prev = 4860, next = 4880 },
+    { number = 4880, type = "Queue", prev = 4870, next = 4890 },
+    { number = 4890, type = "Queue", prev = 4880, next = 4900 },
+    { number = 4900, type = "Queue", prev = 4890, next = 4910 },
+    { number = 4910, type = "Queue", prev = 4900, next = 4920 },
+    { number = 4920, type = "Queue", prev = 4910, next = 4930 },
+    { number = 4930, type = "Queue", prev = 4920, next = 4940 },
+    { number = 4940, type = "Queue", prev = 4930, next = 4950 },
+    { number = 4950, type = "Queue", prev = 4940, next = 4960 },
+    { number = 4960, type = "Queue", prev = 4950, next = 4970 },
+    { number = 4970, type = "Queue", prev = 4960, next = 4980 },
+    { number = 4980, type = "Queue", prev = 4970, next = 4990 },
+    { number = 4990, type = "Queue", prev = 4980, next = 4995 },
+    { number = 4995, type = "Queue", prev = 4990, next = 0 },
+]

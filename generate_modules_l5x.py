@@ -7,19 +7,30 @@ port binding, and addressing so the same schema can generate mixed hierarchies.
 # Standard library imports
 from __future__ import annotations
 
+import argparse
+import tomllib
 from copy import deepcopy
 from datetime import datetime
 from pathlib import Path
 
 # Third-party imports
 import lxml.etree as etree
-import tomllib
 
 # Local application imports
 
-# --- paths (edit per panel run) --------------------------------------------
-DEFAULT_TOML_FILE = Path("input/Backplane.toml")
-# DEFAULT_TOML_FILE = Path("sandbox/network_proposed.toml")
+# Constants
+DEFAULT_TOML_FILE = Path("input/Hybrid Main Line/Network.toml")
+
+
+def _parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Generate a Module-targeted L5X from a TOML modules list.")
+    parser.add_argument(
+        "--toml",
+        type=Path,
+        default=DEFAULT_TOML_FILE,
+        help="Path to modules TOML (default: input/Hybrid Main Line/Network.toml).",
+    )
+    return parser.parse_args()
 
 
 def load_toml(path: Path) -> dict:
@@ -62,13 +73,9 @@ def make_module(
     if parent_mod_port is not None:
         el.set("ParentModPortId", str(parent_mod_port))
 
-    upstream_ports = [
-        p for p in el.findall(".//Port") if p.get("Upstream", "").lower() == "true"
-    ]
+    upstream_ports = [p for p in el.findall(".//Port") if p.get("Upstream", "").lower() == "true"]
     if len(upstream_ports) != 1:
-        raise RuntimeError(
-            f"Module '{name}' must have exactly one Upstream='true' port."
-        )
+        raise RuntimeError(f"Module '{name}' must have exactly one Upstream='true' port.")
     upstream_ports[0].set("Address", str(address))
 
     result = [el]
@@ -111,8 +118,8 @@ def build_module_export(
     return root
 
 
-def main() -> None:
-    data = load_toml(DEFAULT_TOML_FILE)
+def main(toml_path: Path) -> None:
+    data = load_toml(toml_path)
     cfg = data["config"]
     templates_cfg: dict[str, str] = data["templates"]
     modules_cfg: list[dict] = data["modules"]["data"]
@@ -126,9 +133,7 @@ def main() -> None:
     if len(names) != len(set(names)):
         raise RuntimeError("Duplicate module names found in [modules].data.")
     if target_name not in set(names):
-        raise RuntimeError(
-            f"config.target '{target_name}' is not present in [modules].data."
-        )
+        raise RuntimeError(f"config.target '{target_name}' is not present in [modules].data.")
 
     target_cfg = next(m for m in modules_cfg if m["name"] == target_name)
     target_type = target_cfg["type"]
@@ -141,9 +146,7 @@ def main() -> None:
         if module_type not in templates_cfg:
             raise RuntimeError(f"Missing template mapping for type '{module_type}'.")
         if module_type not in cached_templates:
-            cached_templates[module_type] = load_template_modules(
-                Path(templates_cfg[module_type])
-            )
+            cached_templates[module_type] = load_template_modules(Path(templates_cfg[module_type]))
         return cached_templates[module_type]
 
     modules_out: list[etree._Element] = []
@@ -169,9 +172,7 @@ def main() -> None:
             )
         )
 
-    combined = build_module_export(
-        target_root, modules_out, controller_name, target_name
-    )
+    combined = build_module_export(target_root, modules_out, controller_name, target_name)
 
     output_dir.mkdir(exist_ok=True)
     timestamp = datetime.now().isoformat(timespec="seconds").replace(":", "-")
@@ -192,4 +193,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
-    main()
+    args = _parse_args()
+    main(args.toml)
