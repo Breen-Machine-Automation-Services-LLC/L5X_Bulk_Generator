@@ -25,6 +25,7 @@ GLTap = "input/Templates/GLTap_Module.L5X"
 ELR = "input/Templates/ELRGateway_Module.L5X"
 PIO = "input/Templates/PointIO_Rack.L5X"
 Switch = "input/Templates/Stratix_Module.L5X"
+DLRTap    = "input/Templates/DLRTap_Module.L5X"
 
 [modules]
 data = [

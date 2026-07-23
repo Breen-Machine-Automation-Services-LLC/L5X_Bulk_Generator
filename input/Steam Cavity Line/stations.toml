@@ -3,12 +3,18 @@ output_dir = "output/Steam Cavity Line"
 template_dir = "input/Templates"
 
 [templates]
+Lift = "Lift_Standard_Code_Program.L5X"
 Queue = "Staight_Track_Standard_Code_Program.L5X"
 Transfer = "Chain_Transfer_Standard_Code_Program.L5X"
+Tester = "Staight_Track_Standard_Code_Program.L5X"
+Gravity = "Gravity_Standard_Code_Program.L5X"
 
 [type_prefix]
+Lift = "Li"
 Queue = "ST"
 Transfer = "CT"
+Tester = "ST"
+Gravity = "ST"
 Filler = "FI"
 
 [external_type_hints]

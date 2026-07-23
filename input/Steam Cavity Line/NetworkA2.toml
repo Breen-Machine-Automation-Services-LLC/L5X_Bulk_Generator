@@ -3,8 +3,8 @@
 
 [config]
 controller_name = "Wolf_SteamCavityLine"
-target          = "Switch_MCP"
-output_file     = "Network.L5X"
+target          = "DLRTap"
+output_file     = "NetworkA2.L5X"
 output_dir      = "output/Steam Cavity Line"
 
 [templates]
@@ -16,17 +16,11 @@ GLTap     = "input/Templates/GLTap_Module.L5X"
 ELR       = "input/Templates/ELRGateway_Module.L5X"
 PIO       = "input/Templates/PointIO_Rack.L5X"
 Switch    = "input/Templates/Stratix_Module.L5X"
+DLRTap    = "input/Templates/DLRTap_Module.L5X"
 
 [modules]
 data = [
-    { name="Switch_MCP",      type="Switch",   ParentModule="Local", Address="10.200.202.10" },
-    { name="SIO_MCP",         type="PIO",      ParentModule="Local", Address="10.200.202.20" },
-    { name="SIO_Master6500",  type="GLMaster", ParentModule="Local", Address="10.200.202.90" },
-    { name="ELR4024",         type="ELR",      ParentModule="Local", Address="10.200.202.21" },
-    { name="IOL_Master10000", type="BNI006A",  ParentModule="Local", Address="10.200.202.100" },
-    { name="IOL_Master10500", type="BNI006A",  ParentModule="Local", Address="10.200.202.101" },
-    { name="IOL_Master11000", type="BNI006A",  ParentModule="Local", Address="10.200.202.102" },    
-    { name="Local", type="EN2TR", ParentModule="Local",    Address="12" },
+    { name="DLRTap",   type="DLRTap", ParentModule="Local",    Address="192.168.1.12" },
     { name="IB0300",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.13" },
     { name="IB0310",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.14" },
     { name="IB0320",   type="IB-E03B_A", ParentModule="Local", Address="192.168.1.15" },
