@@ -25,7 +25,7 @@ import lxml.etree as etree
 
 # Constants
 PROJECT_ROOT = Path(__file__).resolve().parent
-DEFAULT_STATIONS_TOML = PROJECT_ROOT / "input" / "Hybrid Main Line" / "Network.toml"
+DEFAULT_STATIONS_TOML = PROJECT_ROOT / "input" / "Hybrid Main Line" / "stations.toml"
 OUTPUT_FILE_STEM = "IO_Simulate"
 DEFAULT_TIMER_PRESET_MS = 3000
 ROUTINE_NAME = "IO_Simulate"
