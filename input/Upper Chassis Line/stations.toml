@@ -52,5 +52,5 @@ data = [
     { number = 4970, type = "Queue", prev = 4960, next = 4980 },
     { number = 4980, type = "Queue", prev = 4970, next = 4990 },
     { number = 4990, type = "Transfer", conv_upstream = 4980, conv_downstream = 0, chain_upstream = 0, chain_downstream = 4995 },
-    { number = 4995, type = "Queue", prev = 4990, next = 4700 },
+    { number = 4995, type = "Queue", prev = 4990, next = 4700 , isWorkstation = true, isMES = 1234 },
 ]

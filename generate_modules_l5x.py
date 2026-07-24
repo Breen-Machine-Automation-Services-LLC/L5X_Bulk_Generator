@@ -19,7 +19,7 @@ import lxml.etree as etree
 # Local application imports
 
 # Constants
-DEFAULT_TOML_FILE = Path("input/Hybrid Main Line/Network.toml")
+DEFAULT_TOML_FILE = Path("input/Hybrid Main Line/Backplane.toml")
 
 
 def _parse_args() -> argparse.Namespace:
@@ -28,7 +28,7 @@ def _parse_args() -> argparse.Namespace:
         "--toml",
         type=Path,
         default=DEFAULT_TOML_FILE,
-        help="Path to modules TOML (default: input/Hybrid Main Line/Network.toml).",
+        help="Path to modules TOML (default: input/Hybrid Main Line/Backplane.toml).",
     )
     return parser.parse_args()
 
