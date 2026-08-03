@@ -27,32 +27,32 @@ Filler = "FI"
 4300 = "Transfer"
 4700 = "Transfer"
 5520 = "Queue"
-7155 = "Filler"
-7181 = "Filler"
-7200 = "Transfer"
-7164 = "Transfer"
-7180 = "Transfer"
-7186 = "Filler"
-7189 = "Gravity"
-7190 = "Gravity"
-7205 = "Filler"
+7139 = "Filler"
+7226 = "Filler"
+7128 = "Transfer"
+7156 = "Transfer"
+7224 = "Transfer"
+7232 = "Filler"
+7229 = "Gravity"
+7227 = "Gravity"
+7241 = "Filler"
 7220 = "Transfer"
-7165 = "Filler"
-7167 = "Filler"
-7169 = "Filler"
-7171 = "Filler"
-7173 = "Filler"
-7175 = "Filler"
-7177 = "Filler"
-7179 = "Filler"
-7301 = "Tester"
-7302 = "Tester"
-7303 = "Tester"
-7304 = "Tester"
-7305 = "Tester"
-7306 = "Tester"
-7307 = "Tester"
-7308 = "Tester"
+7158 = "Filler"
+7198 = "Filler"
+7202 = "Filler"
+7206 = "Filler"
+7210 = "Filler"
+7214 = "Filler"
+7218 = "Filler"
+7222 = "Filler"
+7197 = "Tester"
+7201 = "Tester"
+7205 = "Tester"
+7209 = "Tester"
+7213 = "Tester"
+7217 = "Tester"
+7221 = "Tester"
+7225 = "Tester"
 
 [stations]
 data = [
@@ -134,41 +134,41 @@ data = [
     { number = 4690, type = "Queue",      safety = "Safety_Zone85_OK.DN", prev = 4680, next = 5520 },
 										  							  
     # --- 7000 series ---                                               , 
-    { number = 7150, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7200, next = 7151},
-    { number = 7151, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7150, next = 7152},
-    { number = 7152, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7151, next = 7153},
-    { number = 7153, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7152, next = 7154},
-    { number = 7154, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 7153, conv_downstream = 0,    chain_upstream = 0,    chain_downstream = 7156},
-    { number = 7156, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 7180, conv_downstream = 7182, chain_upstream = 7154, chain_downstream = 7157},
-    { number = 7157, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7156, next = 7158},
-    { number = 7158, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7157, next = 7159},
-    { number = 7159, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7158, next = 7160},
-    { number = 7160, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7159, next = 7161},
-    { number = 7161, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7160, next = 7162},
-    { number = 7162, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7161, next = 7163},
-    { number = 7163, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7162, next = 7164},
-    { number = 7164, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7166, chain_upstream = 7163, chain_downstream = 0},
-    { number = 7166, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 7164, conv_downstream = 7301, chain_upstream = 0,    chain_downstream = 7168},
-    { number = 7168, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7302, chain_upstream = 7166, chain_downstream = 7170},
-    { number = 7170, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7303, chain_upstream = 7168, chain_downstream = 7172},
-    { number = 7172, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7304, chain_upstream = 7170, chain_downstream = 7174},
-    { number = 7174, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7305, chain_upstream = 7172, chain_downstream = 7176},
-    { number = 7176, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7306, chain_upstream = 7174, chain_downstream = 7178},
-    { number = 7178, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7307, chain_upstream = 7176, chain_downstream = 7180},
-    { number = 7180, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 7156, conv_downstream = 7308, chain_upstream = 7178, chain_downstream = 7187},
-    { number = 7187, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7189, chain_upstream = 7180, chain_downstream = 7188},
-    { number = 7188, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7190, chain_upstream = 7187, chain_downstream = 0},
-    { number = 7301, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7166, next = 0, isTester = true},
-    { number = 7302, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7168, next = 0, isTester = true},
-    { number = 7303, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7170, next = 0, isTester = true},
-    { number = 7304, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7172, next = 0, isTester = true},
-    { number = 7305, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7174, next = 0, isTester = true},
-    { number = 7306, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7176, next = 0, isTester = true},
-    { number = 7307, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7178, next = 0, isTester = true},
-    { number = 7308, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7180, next = 0, isTester = true},
-    { number = 7182, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7156, next = 7183},
-    { number = 7183, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7182, next = 7184},
-    { number = 7184, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7183, next = 7185},
-    { number = 7185, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7184, next = 7210},
-    { number = 7210, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 7200, conv_downstream = 7220, chain_upstream = 7185, chain_downstream = 0},
+    { number = 7130, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7128, next = 7132},
+    { number = 7132, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7130, next = 7134},
+    { number = 7134, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7132, next = 7136},
+    { number = 7136, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7134, next = 7138},
+    { number = 7138, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 7136, conv_downstream = 0,    chain_upstream = 0,    chain_downstream = 7140},
+    { number = 7140, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 7224, conv_downstream = 7234, chain_upstream = 7138, chain_downstream = 7142},
+    { number = 7142, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7140, next = 7144},
+    { number = 7144, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7142, next = 7146},
+    { number = 7146, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7144, next = 7148},
+    { number = 7148, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7146, next = 7150},
+    { number = 7150, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7148, next = 7152},
+    { number = 7152, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7150, next = 7154},
+    { number = 7154, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7152, next = 7156},
+    { number = 7156, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7196, chain_upstream = 7154, chain_downstream = 0},
+    { number = 7196, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 7156, conv_downstream = 7197, chain_upstream = 0,    chain_downstream = 7200},
+    { number = 7200, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7201, chain_upstream = 7196, chain_downstream = 7204},
+    { number = 7204, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7205, chain_upstream = 7200, chain_downstream = 7208},
+    { number = 7208, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7209, chain_upstream = 7204, chain_downstream = 7212},
+    { number = 7212, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7213, chain_upstream = 7208, chain_downstream = 7216},
+    { number = 7216, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7217, chain_upstream = 7212, chain_downstream = 7220},
+    { number = 7220, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7221, chain_upstream = 7216, chain_downstream = 7224},
+    { number = 7224, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 7140, conv_downstream = 7225, chain_upstream = 7220, chain_downstream = 7230},
+    { number = 7230, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7229, chain_upstream = 7224, chain_downstream = 7228},
+    { number = 7228, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7227, chain_upstream = 7230, chain_downstream = 0},
+    { number = 7197, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7196, next = 0, isTester = true},
+    { number = 7201, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7200, next = 0, isTester = true},
+    { number = 7205, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7204, next = 0, isTester = true},
+    { number = 7209, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7208, next = 0, isTester = true},
+    { number = 7213, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7212, next = 0, isTester = true},
+    { number = 7217, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7216, next = 0, isTester = true},
+    { number = 7221, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7220, next = 0, isTester = true},
+    { number = 7225, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7224, next = 0, isTester = true},
+    { number = 7234, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7140, next = 7236},
+    { number = 7236, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7234, next = 7238},
+    { number = 7238, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7236, next = 7240},
+    { number = 7240, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7238, next = 7242},
+    { number = 7242, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 7128, conv_downstream = 7220, chain_upstream = 7240, chain_downstream = 0},
 ]
