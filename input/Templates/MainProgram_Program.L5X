@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="MainProgram" TargetType="Program" ContainsContext="true" ExportDate="Thu Aug 06 10:49:46 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="asdf">
+<DataTypes Use="Context">
+</DataTypes>
+<Tags Use="Context">
+<Tag Name="Group_Cycle_Start" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[For small groups of stations to start at once]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="JDV_Bools" TagType="Base" DataType="DINT" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="Sys_Alm_Reset_HMI" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Sys_Blink" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
+<Comments>
+<Comment Operand=".ACC.8">
+<![CDATA[Blink Fast]]>
+</Comment>
+<Comment Operand=".ACC.9">
+<![CDATA[Blink]]>
+</Comment>
+<Comment Operand=".ACC.10">
+<![CDATA[Blink Slow]]>
+</Comment>
+</Comments>
+<Data Format="L5K">
+<![CDATA[[-1073010896,1073741824,38638]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="1073741824"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="38638"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="1"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="1"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="Sys_Level_2_State" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+</Tags>
+<Programs Use="Context">
+<Program Use="Target" Name="MainProgram" TestEdits="false" MainRoutineName="MainRoutine" Disabled="false" UseAsFolder="false">
+<Tags/>
+<Routines>
+<Routine Name="IOL_Masters" Type="RLL"/>
+<Routine Name="IO_Map" Type="RLL"/>
+<Routine Name="IO_Simulate" Type="RLL"/>
+<Routine Name="MainRoutine" Type="RLL">
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Blinkenlights]]>
+</Comment>
+<Text>
+<![CDATA[[TON(Sys_Blink,?,?) ,XIC(Sys_Blink.DN) RES(Sys_Blink) ,XIC(Sys_Blink.ACC.8) XIC(Sys_Blink.ACC.9) XIC(Sys_Blink.ACC.10) NOP() ];]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Text>
+<![CDATA[[XIC(JDV_Bools.0) JSR(IO_Simulate,0) ,XIO(JDV_Bools.0) JSR(IO_Map,0) ];]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Text>
+<![CDATA[XIC(Group_Cycle_Start)XIC(Sys_Alm_Reset_HMI)NOP();]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Text>
+<![CDATA[OTE(Sys_Level_2_State);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+</Routines>
+</Program>
+</Programs>
+</Controller>
+</RSLogix5000Content>
