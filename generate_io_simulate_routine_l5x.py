@@ -1,4 +1,4 @@
-"""Generate Program L5X containing only IO_Simulate routine logic.
+"""Generate Routine L5X containing only IO_Simulate routine logic.
 
 This script uses input/stations.toml as the single source of station
 relationships and emits:
@@ -327,17 +327,20 @@ def _make_rung(number: int, text: str) -> etree._Element:
     return rung
 
 
-def _build_program_root() -> tuple[etree._Element, etree._Element, etree._Element]:
+def _build_routine_root() -> tuple[etree._Element, etree._Element, etree._Element]:
     root = etree.Element(
         "RSLogix5000Content",
         SchemaRevision="1.0",
         SoftwareRevision="34.03",
-        TargetName=PROGRAM_NAME,
-        TargetType="Program",
-        TargetClass="Standard",
+        TargetName=ROUTINE_NAME,
+        TargetType="Routine",
+        TargetSubType="RLL",
         ContainsContext="true",
         ExportDate=datetime.now().strftime("%a %b %d %H:%M:%S %Y"),
-        ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans",
+        ExportOptions=(
+            "References NoRawData L5KData DecoratedData Context Dependencies "
+            "ForceProtectedEncoding AllProjDocTrans"
+        ),
     )
 
     controller = etree.SubElement(root, "Controller", Use="Context", Name=CONTROLLER_NAME)
@@ -345,17 +348,14 @@ def _build_program_root() -> tuple[etree._Element, etree._Element, etree._Elemen
     program = etree.SubElement(
         programs,
         "Program",
-        Use="Target",
+        Use="Context",
         Name=PROGRAM_NAME,
-        TestEdits="false",
-        MainRoutineName="MainRoutine",
-        Disabled="false",
-        Class="Standard",
-        UseAsFolder="false",
     )
-    tags = etree.SubElement(program, "Tags")
-    routines = etree.SubElement(program, "Routines")
-    return root, tags, routines
+    tags = etree.SubElement(program, "Tags", Use="Context")
+    routines = etree.SubElement(program, "Routines", Use="Context")
+    routine = etree.SubElement(routines, "Routine", Use="Target", Name=ROUTINE_NAME, Type="RLL")
+    rll = etree.SubElement(routine, "RLLContent")
+    return root, tags, rll
 
 
 def build_simulation_rungs(
@@ -415,21 +415,16 @@ def build_simulation_rungs(
     return sorted(timer_names), rung_texts
 
 
-def write_program_l5x(
+def write_routine_l5x(
     timer_names: list[str],
     rung_texts: list[str],
     output_dir: Path,
 ) -> Path:
-    root, tags, routines = _build_program_root()
+    root, tags, rll = _build_routine_root()
 
     for timer_name in timer_names:
         tags.append(_make_timer_tag(timer_name, DEFAULT_TIMER_PRESET_MS))
 
-    # Keep MainRoutine present so MainRoutineName always resolves on import.
-    etree.SubElement(routines, "Routine", Name="MainRoutine", Type="RLL")
-
-    routine = etree.SubElement(routines, "Routine", Name=ROUTINE_NAME, Type="RLL")
-    rll = etree.SubElement(routine, "RLLContent")
     for idx, text in enumerate(rung_texts):
         rll.append(_make_rung(idx, text))
 
@@ -450,7 +445,7 @@ def main(stations_toml: Path) -> None:
     stations, output_dir = load_stations(stations_toml)
     edges = build_directed_edges(stations)
     timer_names, rung_texts = build_simulation_rungs(stations, edges, DEFAULT_TIMER_PRESET_MS)
-    out = write_program_l5x(timer_names, rung_texts, output_dir=output_dir)
+    out = write_routine_l5x(timer_names, rung_texts, output_dir=output_dir)
 
     print(f"Stations loaded: {len(stations)}")
     print(f"Directed movement edges simulated: {len(edges)}")
