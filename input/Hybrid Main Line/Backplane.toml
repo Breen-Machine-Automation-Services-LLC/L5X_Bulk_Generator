@@ -13,7 +13,7 @@
 controller_name = "SZG_FAT34"
 target          = "DLR4000"
 output_file     = "Backplane.L5X"
-output_dir      = "output"
+output_dir      = "output/Hybrid Main Line"
 
 [templates]
 EN2TR     = "input/Templates/EN2TR_Module.L5X"
