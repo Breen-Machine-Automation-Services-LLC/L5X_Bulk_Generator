@@ -1,0 +1,472 @@
+[meta]
+source = "User-provided BNI0091 output list"
+line = "Hybrid Main Line"
+notes = "candidate_plc_tag is only filled where naming is known from templates"
+
+[[bni0091.outputs]]
+block = 1
+zone = 4020
+signal = "XFER_SOL"
+candidate_plc_tag = "CT4020_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 1
+zone = 4030
+signal = "XFER_SOL"
+candidate_plc_tag = "CT4030_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 1
+zone = 4120
+signal = "BS1_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 1
+zone = 4120
+signal = "BS2_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 1
+zone = 4120
+signal = "LIFT_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 2
+zone = 4150
+signal = "BS1_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 2
+zone = 4150
+signal = "BS2_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 2
+zone = 4150
+signal = "LIFT_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 2
+zone = 4170
+signal = "BS1_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 2
+zone = 4170
+signal = "BS2_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 2
+zone = 4170
+signal = "LIFT_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 3
+zone = 4190
+signal = "BS1_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 3
+zone = 4190
+signal = "BS2_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 3
+zone = 4190
+signal = "LIFT_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 3
+zone = 4220
+signal = "BS1_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 3
+zone = 4220
+signal = "BS2_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 3
+zone = 4220
+signal = "LIFT_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 4
+zone = 4260
+signal = "XFER_SOL"
+candidate_plc_tag = "CT4260_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 4
+zone = 4280
+signal = "XFER_SOL"
+candidate_plc_tag = "CT4280_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 4
+zone = 4281
+signal = "OMTEC"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 4
+zone = 4281
+signal = "PULLER"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 4
+zone = 4300
+signal = "XFER_SOL"
+candidate_plc_tag = "CT4300_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 4
+zone = 4301
+signal = "OMTEC"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 4
+zone = 4301
+signal = "PULLER"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 4
+zone = 4320
+signal = "XFER_SOL"
+candidate_plc_tag = "CT4320_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 4
+zone = 4321
+signal = "OMTEC"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 4
+zone = 4321
+signal = "PULLER"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 5
+zone = 4350
+signal = "BS1_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 5
+zone = 4350
+signal = "BS2_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 5
+zone = 4350
+signal = "LIFT_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 5
+zone = 4380
+signal = "BS1_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 5
+zone = 4380
+signal = "BS2_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 5
+zone = 4380
+signal = "LIFT_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 6
+zone = 4410
+signal = "BS1_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 6
+zone = 4410
+signal = "BS2_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 6
+zone = 4410
+signal = "LIFT_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 6
+zone = 4420
+signal = "XFER_SOL"
+candidate_plc_tag = "CT4420_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 6
+zone = 4450
+signal = "XFER_SOL"
+candidate_plc_tag = "CT4450_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 6
+zone = 4460
+signal = "BS1_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 6
+zone = 4460
+signal = "BS2_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 6
+zone = 4460
+signal = "LIFT_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 7
+zone = 4520
+signal = "XFER_SOL"
+candidate_plc_tag = "CT4520_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 7
+zone = 4530
+signal = "XFER_SOL"
+candidate_plc_tag = "CT4530_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 7
+zone = 4560
+signal = "XFER_SOL"
+candidate_plc_tag = "CT4560_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 7
+zone = 4580
+signal = "XFER_SOL"
+candidate_plc_tag = "CT4580_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 7
+zone = 4600
+signal = "XFER_SOL"
+candidate_plc_tag = "CT4600_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 7
+zone = 4620
+signal = "XFER_SOL"
+candidate_plc_tag = "CT4620_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 7
+zone = 4680
+signal = "XFER_SOL"
+candidate_plc_tag = "CT4680_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 8
+zone = 7138
+signal = "XFER_SOL"
+candidate_plc_tag = "CT7138_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 8
+zone = 7140
+signal = "XFER_SOL"
+candidate_plc_tag = "CT7140_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 8
+zone = 7156
+signal = "XFER_SOL"
+candidate_plc_tag = "CT7156_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 8
+zone = 7196
+signal = "XFER_SOL"
+candidate_plc_tag = "CT7196_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 8
+zone = 7197
+signal = "OMTEC_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 8
+zone = 7197
+signal = "PULLER"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 8
+zone = 7242
+signal = "XFER_SOL"
+candidate_plc_tag = "CT7242_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 9
+zone = 7200
+signal = "XFER_SOL"
+candidate_plc_tag = "CT7200_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 9
+zone = 7201
+signal = "OMTEC_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 9
+zone = 7201
+signal = "PULLER"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 9
+zone = 7204
+signal = "XFER_SOL"
+candidate_plc_tag = "CT7204_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 9
+zone = 7205
+signal = "OMTEC_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 9
+zone = 7205
+signal = "PULLER"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 9
+zone = 7208
+signal = "XFER_SOL"
+candidate_plc_tag = "CT7208_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 9
+zone = 7209
+signal = "OMTEC_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 9
+zone = 7209
+signal = "PULLER"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 9
+zone = 7212
+signal = "XFER_SOL"
+candidate_plc_tag = "CT7212_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 9
+zone = 7213
+signal = "OMTEC_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 9
+zone = 7213
+signal = "PULLER"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 10
+zone = 7216
+signal = "XFER_SOL"
+candidate_plc_tag = "CT7216_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 10
+zone = 7217
+signal = "OMTEC_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 10
+zone = 7217
+signal = "PULLER"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 10
+zone = 7220
+signal = "XFER_SOL"
+candidate_plc_tag = "CT7220_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 10
+zone = 7221
+signal = "OMTEC_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 10
+zone = 7221
+signal = "PULLER"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 10
+zone = 7224
+signal = "XFER_SOL"
+candidate_plc_tag = "CT7224_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 10
+zone = 7225
+signal = "OMTEC_SOL"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 10
+zone = 7225
+signal = "PULLER"
+candidate_plc_tag = ""
+
+[[bni0091.outputs]]
+block = 10
+zone = 7228
+signal = "XFER_SOL"
+candidate_plc_tag = "CT7228_Sol_Transfer_Up"
+
+[[bni0091.outputs]]
+block = 10
+zone = 7230
+signal = "XFER_SOL"
+candidate_plc_tag = "CT7230_Sol_Transfer_Up"

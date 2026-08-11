@@ -1,0 +1,40 @@
+[config]
+output_dir = "output/Hybrid Main Line"
+
+[io_map]
+# Optional overrides. Leave as-is unless your project names differ.
+controller_name = "Wolf_HybridMainLine"
+program_name = "MainProgram"
+routine_name = "IO_Map"
+output_stem = "IO_Map"
+
+# Populate these rows from the electrical drawing IO schedule.
+# source_instruction: XIC (true) or XIO (false)
+# dest_instruction: OTE, OTL, or OTU
+[[io_map.rungs]]
+source = "Point_IO_9100IM:I.Pt00Data"
+source_instruction = "XIC"
+dest = "ST4000_PE_FE"
+dest_instruction = "OTE"
+comment = "EXAMPLE ONLY: Replace with real mapping from PDF"
+
+[[io_map.rungs]]
+source = "Point_IO_9100IM:I.Pt01Data"
+source_instruction = "XIC"
+dest = "ST4000_PE_RE"
+dest_instruction = "OTE"
+comment = "EXAMPLE ONLY: Replace with real mapping from PDF"
+
+[[io_map.rungs]]
+source = "Point_IO_9200IM:I.Pt00Data"
+source_instruction = "XIC"
+dest = "ST4010_PE_FE"
+dest_instruction = "OTE"
+comment = "EXAMPLE ONLY: Replace with real mapping from PDF"
+
+[[io_map.rungs]]
+source = "Point_IO_9200IM:I.Pt01Data"
+source_instruction = "XIC"
+dest = "ST4010_PE_RE"
+dest_instruction = "OTE"
+comment = "EXAMPLE ONLY: Replace with real mapping from PDF"

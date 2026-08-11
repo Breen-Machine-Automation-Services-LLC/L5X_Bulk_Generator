@@ -1,0 +1,1896 @@
+[meta]
+source = "Derived from stations_io_map_balluff_master.toml"
+line = "Hybrid Main Line"
+
+[conventions]
+first_block_port_pair = [0, 1]
+second_block_port_pair = [2, 3]
+notes = "BNI00HM mapping uses start ports (0,2,4,...) to identify block pairs."
+
+[[masters]]
+hm = 100
+master_type = "BNI00HM"
+master_module = "10000HM"
+iol_master_tag = "IOL_Master10000"
+bni0091_modules = ["10100OM"]
+
+[[masters.connections]]
+hm = 100
+port = 0
+block_start_port = 0
+target = "101"
+target_type = "BNI0091"
+target_module = "10100OM"
+
+[[masters.connections]]
+hm = 100
+port = 2
+block_start_port = 2
+target = "102"
+target_type = "BNI005L"
+target_module = "10200IM"
+
+[[masters.aux_points]]
+hm = 100
+port = 8
+zone = 4000
+signal = "PB_BOX"
+
+[[masters.aux_points]]
+hm = 100
+port = 10
+zone = 4120
+signal = "PB_BOX"
+
+[[masters.aux_points]]
+hm = 100
+port = 4
+zone = 4120
+signal = "INCLIN"
+
+[[masters]]
+hm = 105
+master_type = "BNI00HM"
+master_module = "10500HM"
+iol_master_tag = "IOL_Master10500"
+bni0091_modules = ["10600OM"]
+
+[[masters.connections]]
+hm = 105
+port = 0
+block_start_port = 0
+target = "106"
+target_type = "BNI0091"
+target_module = "10600OM"
+
+[[masters.connections]]
+hm = 105
+port = 2
+block_start_port = 2
+target = "107"
+target_type = "BNI005L"
+target_module = "10700IM"
+
+[[masters.aux_points]]
+hm = 105
+port = 8
+zone = 4150
+signal = "PB_BOX"
+
+[[masters.aux_points]]
+hm = 105
+port = 10
+zone = 4170
+signal = "PB_BOX"
+
+[[masters.aux_points]]
+hm = 105
+port = 4
+zone = 4150
+signal = "INCLIN"
+
+[[masters.aux_points]]
+hm = 105
+port = 6
+zone = 4170
+signal = "INCLIN"
+
+[[masters]]
+hm = 110
+master_type = "BNI00HM"
+master_module = "11000HM"
+iol_master_tag = "IOL_Master11000"
+bni0091_modules = ["11100OM"]
+
+[[masters.connections]]
+hm = 110
+port = 0
+block_start_port = 0
+target = "111"
+target_type = "BNI0091"
+target_module = "11100OM"
+
+[[masters.connections]]
+hm = 110
+port = 2
+block_start_port = 2
+target = "112"
+target_type = "BNI005L"
+target_module = "11200IM"
+
+[[masters.aux_points]]
+hm = 110
+port = 8
+zone = 4190
+signal = "PB_BOX"
+
+[[masters.aux_points]]
+hm = 110
+port = 10
+zone = 4220
+signal = "PB_BOX"
+
+[[masters.aux_points]]
+hm = 110
+port = 4
+zone = 4190
+signal = "INCLIN"
+
+[[masters.aux_points]]
+hm = 110
+port = 6
+zone = 4220
+signal = "INCLIN"
+
+[[masters]]
+hm = 115
+master_type = "BNI00HM"
+master_module = "11500HM"
+iol_master_tag = "IOL_Master11500"
+bni0091_modules = ["11600OM"]
+
+[[masters.connections]]
+hm = 115
+port = 0
+block_start_port = 0
+target = "116"
+target_type = "BNI0091"
+target_module = "11600OM"
+
+[[masters.connections]]
+hm = 115
+port = 2
+block_start_port = 2
+target = "117"
+target_type = "BNI005L"
+target_module = "11700IM"
+
+[[masters.aux_points]]
+hm = 115
+port = 8
+zone = 4281
+signal = "PB_BOX"
+
+[[masters.aux_points]]
+hm = 115
+port = 10
+zone = 4301
+signal = "PB_BOX"
+
+[[masters.aux_points]]
+hm = 115
+port = 12
+zone = 4321
+signal = "PB_BOX"
+
+[[masters]]
+hm = 120
+master_type = "BNI00HM"
+master_module = "12000HM"
+iol_master_tag = "IOL_Master12000"
+bni0091_modules = ["12100OM"]
+
+[[masters.connections]]
+hm = 120
+port = 0
+block_start_port = 0
+target = "121"
+target_type = "BNI0091"
+target_module = "12100OM"
+
+[[masters.connections]]
+hm = 120
+port = 2
+block_start_port = 2
+target = "122"
+target_type = "BNI005L"
+target_module = "12200IM"
+
+[[masters.aux_points]]
+hm = 120
+port = 8
+zone = 4350
+signal = "PB_BOX"
+
+[[masters.aux_points]]
+hm = 120
+port = 10
+zone = 4380
+signal = "PB_BOX"
+
+[[masters.aux_points]]
+hm = 120
+port = 4
+zone = 4350
+signal = "INCLIN"
+
+[[masters.aux_points]]
+hm = 120
+port = 6
+zone = 4380
+signal = "INCLIN"
+
+[[masters]]
+hm = 125
+master_type = "BNI00HM"
+master_module = "12500HM"
+iol_master_tag = "IOL_Master12500"
+bni0091_modules = ["12600OM"]
+
+[[masters.connections]]
+hm = 125
+port = 0
+block_start_port = 0
+target = "126"
+target_type = "BNI0091"
+target_module = "12600OM"
+
+[[masters.connections]]
+hm = 125
+port = 2
+block_start_port = 2
+target = "127"
+target_type = "BNI005L"
+target_module = "12700IM"
+
+[[masters.aux_points]]
+hm = 125
+port = 8
+zone = 4410
+signal = "PB_BOX"
+
+[[masters.aux_points]]
+hm = 125
+port = 10
+zone = 4460
+signal = "PB_BOX"
+
+[[masters.aux_points]]
+hm = 125
+port = 4
+zone = 4410
+signal = "INCLIN"
+
+[[masters.aux_points]]
+hm = 125
+port = 6
+zone = 4460
+signal = "INCLIN"
+
+[[masters]]
+hm = 130
+master_type = "BNI00HM"
+master_module = "13000HM"
+iol_master_tag = "IOL_Master13000"
+bni0091_modules = ["13100OM"]
+
+[[masters.connections]]
+hm = 130
+port = 0
+block_start_port = 0
+target = "131"
+target_type = "BNI0091"
+target_module = "13100OM"
+
+[[masters.connections]]
+hm = 130
+port = 2
+block_start_port = 2
+target = "132"
+target_type = "BNI005L"
+target_module = "13200IM"
+
+[[masters.connections]]
+hm = 130
+port = 4
+block_start_port = 4
+target = "133"
+target_type = "BNI005L"
+target_module = "13300IM"
+
+[[masters]]
+hm = 140
+master_type = "BNI00HM"
+master_module = "14000HM"
+iol_master_tag = "IOL_Master14000"
+bni0091_modules = ["14100OM"]
+
+[[masters.connections]]
+hm = 140
+port = 0
+block_start_port = 0
+target = "141"
+target_type = "BNI0091"
+target_module = "14100OM"
+
+[[masters.connections]]
+hm = 140
+port = 2
+block_start_port = 2
+target = "142"
+target_type = "BNI005L"
+target_module = "14200IM"
+
+[[masters]]
+hm = 145
+master_type = "BNI00HM"
+master_module = "14500HM"
+iol_master_tag = "IOL_Master14500"
+bni0091_modules = ["14600OM", "14700OM"]
+
+[[masters.connections]]
+hm = 145
+port = 0
+block_start_port = 0
+target = "146"
+target_type = "BNI0091"
+target_module = "14600OM"
+
+[[masters.connections]]
+hm = 145
+port = 2
+block_start_port = 2
+target = "147"
+target_type = "BNI0091"
+target_module = "14700OM"
+
+[[masters.connections]]
+hm = 145
+port = 4
+block_start_port = 4
+target = "148"
+target_type = "BNI005L"
+target_module = "14800IM"
+
+[[masters.connections]]
+hm = 145
+port = 6
+block_start_port = 6
+target = "149"
+target_type = "BNI005L"
+target_module = "14900IM"
+
+[[masters.connections]]
+hm = 145
+port = 8
+block_start_port = 8
+target = "150"
+target_type = "BNI005L"
+target_module = "15000IM"
+
+[[bni005l_groups]]
+io_group = 102
+module = "10200IM"
+paired_bni0091_output_count = 7
+input_point_count = 8
+
+[[bni005l_groups.points]]
+io_group = 102
+point_id = "0A"
+port = 0
+block_start_port = 0
+channel = "A"
+zone = 4020
+device = "XFER"
+state = "UP"
+source_tag = "IOL_10200IM_P0.Inputs.A"
+logical_dest_tag = "CT4020_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 102
+point_id = "0B"
+port = 0
+block_start_port = 0
+channel = "B"
+zone = 4020
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_10200IM_P0.Inputs.B"
+logical_dest_tag = "CT4020_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 102
+point_id = "1A"
+port = 1
+block_start_port = 0
+channel = "A"
+zone = 4030
+device = "XFER"
+state = "UP"
+source_tag = "IOL_10200IM_P1.Inputs.A"
+logical_dest_tag = "CT4030_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 102
+point_id = "1B"
+port = 1
+block_start_port = 0
+channel = "B"
+zone = 4030
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_10200IM_P1.Inputs.B"
+logical_dest_tag = "CT4030_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 102
+point_id = "2A"
+port = 2
+block_start_port = 2
+channel = "A"
+zone = 4120
+device = "BS1"
+state = "UP"
+source_tag = "IOL_10200IM_P2.Inputs.A"
+logical_dest_tag = "Li4120_BladeStop1Up"
+
+[[bni005l_groups.points]]
+io_group = 102
+point_id = "2B"
+port = 2
+block_start_port = 2
+channel = "B"
+zone = 4120
+device = "BS1"
+state = "DOWN"
+source_tag = "IOL_10200IM_P2.Inputs.B"
+logical_dest_tag = "Li4120_BladeStop1Down"
+
+[[bni005l_groups.points]]
+io_group = 102
+point_id = "3A"
+port = 3
+block_start_port = 2
+channel = "A"
+zone = 4120
+device = "BS2"
+state = "UP"
+source_tag = "IOL_10200IM_P3.Inputs.A"
+logical_dest_tag = "Li4120_BladeStop2Up"
+
+[[bni005l_groups.points]]
+io_group = 102
+point_id = "3B"
+port = 3
+block_start_port = 2
+channel = "B"
+zone = 4120
+device = "BS2"
+state = "DOWN"
+source_tag = "IOL_10200IM_P3.Inputs.B"
+logical_dest_tag = "Li4120_BladeStop2Down"
+
+[[bni005l_groups]]
+io_group = 107
+module = "10700IM"
+paired_bni0091_output_count = 10
+input_point_count = 8
+
+[[bni005l_groups.points]]
+io_group = 107
+point_id = "0A"
+port = 0
+block_start_port = 0
+channel = "A"
+zone = 4150
+device = "BS1"
+state = "UP"
+source_tag = "IOL_10700IM_P0.Inputs.A"
+logical_dest_tag = "Li4150_BladeStop1Up"
+
+[[bni005l_groups.points]]
+io_group = 107
+point_id = "0B"
+port = 0
+block_start_port = 0
+channel = "B"
+zone = 4150
+device = "BS1"
+state = "DOWN"
+source_tag = "IOL_10700IM_P0.Inputs.B"
+logical_dest_tag = "Li4150_BladeStop1Down"
+
+[[bni005l_groups.points]]
+io_group = 107
+point_id = "1A"
+port = 1
+block_start_port = 0
+channel = "A"
+zone = 4150
+device = "BS2"
+state = "UP"
+source_tag = "IOL_10700IM_P1.Inputs.A"
+logical_dest_tag = "Li4150_BladeStop2Up"
+
+[[bni005l_groups.points]]
+io_group = 107
+point_id = "1B"
+port = 1
+block_start_port = 0
+channel = "B"
+zone = 4150
+device = "BS2"
+state = "DOWN"
+source_tag = "IOL_10700IM_P1.Inputs.B"
+logical_dest_tag = "Li4150_BladeStop2Down"
+
+[[bni005l_groups.points]]
+io_group = 107
+point_id = "2A"
+port = 2
+block_start_port = 2
+channel = "A"
+zone = 4170
+device = "BS1"
+state = "UP"
+source_tag = "IOL_10700IM_P2.Inputs.A"
+logical_dest_tag = "Li4170_BladeStop1Up"
+
+[[bni005l_groups.points]]
+io_group = 107
+point_id = "2B"
+port = 2
+block_start_port = 2
+channel = "B"
+zone = 4170
+device = "BS1"
+state = "DOWN"
+source_tag = "IOL_10700IM_P2.Inputs.B"
+logical_dest_tag = "Li4170_BladeStop1Down"
+
+[[bni005l_groups.points]]
+io_group = 107
+point_id = "3A"
+port = 3
+block_start_port = 2
+channel = "A"
+zone = 4170
+device = "BS2"
+state = "UP"
+source_tag = "IOL_10700IM_P3.Inputs.A"
+logical_dest_tag = "Li4170_BladeStop2Up"
+
+[[bni005l_groups.points]]
+io_group = 107
+point_id = "3B"
+port = 3
+block_start_port = 2
+channel = "B"
+zone = 4170
+device = "BS2"
+state = "DOWN"
+source_tag = "IOL_10700IM_P3.Inputs.B"
+logical_dest_tag = "Li4170_BladeStop2Down"
+
+[[bni005l_groups]]
+io_group = 112
+module = "11200IM"
+paired_bni0091_output_count = 10
+input_point_count = 8
+
+[[bni005l_groups.points]]
+io_group = 112
+point_id = "0A"
+port = 0
+block_start_port = 0
+channel = "A"
+zone = 4190
+device = "BS1"
+state = "UP"
+source_tag = "IOL_11200IM_P0.Inputs.A"
+logical_dest_tag = "Li4190_BladeStop1Up"
+
+[[bni005l_groups.points]]
+io_group = 112
+point_id = "0B"
+port = 0
+block_start_port = 0
+channel = "B"
+zone = 4190
+device = "BS1"
+state = "DOWN"
+source_tag = "IOL_11200IM_P0.Inputs.B"
+logical_dest_tag = "Li4190_BladeStop1Down"
+
+[[bni005l_groups.points]]
+io_group = 112
+point_id = "1A"
+port = 1
+block_start_port = 0
+channel = "A"
+zone = 4190
+device = "BS2"
+state = "UP"
+source_tag = "IOL_11200IM_P1.Inputs.A"
+logical_dest_tag = "Li4190_BladeStop2Up"
+
+[[bni005l_groups.points]]
+io_group = 112
+point_id = "1B"
+port = 1
+block_start_port = 0
+channel = "B"
+zone = 4190
+device = "BS2"
+state = "DOWN"
+source_tag = "IOL_11200IM_P1.Inputs.B"
+logical_dest_tag = "Li4190_BladeStop2Down"
+
+[[bni005l_groups.points]]
+io_group = 112
+point_id = "2A"
+port = 2
+block_start_port = 2
+channel = "A"
+zone = 4220
+device = "BS1"
+state = "UP"
+source_tag = "IOL_11200IM_P2.Inputs.A"
+logical_dest_tag = "Li4220_BladeStop1Up"
+
+[[bni005l_groups.points]]
+io_group = 112
+point_id = "2B"
+port = 2
+block_start_port = 2
+channel = "B"
+zone = 4220
+device = "BS1"
+state = "DOWN"
+source_tag = "IOL_11200IM_P2.Inputs.B"
+logical_dest_tag = "Li4220_BladeStop1Down"
+
+[[bni005l_groups.points]]
+io_group = 112
+point_id = "3A"
+port = 3
+block_start_port = 2
+channel = "A"
+zone = 4220
+device = "BS2"
+state = "UP"
+source_tag = "IOL_11200IM_P3.Inputs.A"
+logical_dest_tag = "Li4220_BladeStop2Up"
+
+[[bni005l_groups.points]]
+io_group = 112
+point_id = "3B"
+port = 3
+block_start_port = 2
+channel = "B"
+zone = 4220
+device = "BS2"
+state = "DOWN"
+source_tag = "IOL_11200IM_P3.Inputs.B"
+logical_dest_tag = "Li4220_BladeStop2Down"
+
+[[bni005l_groups]]
+io_group = 117
+module = "11700IM"
+paired_bni0091_output_count = 10
+input_point_count = 14
+
+[[bni005l_groups.points]]
+io_group = 117
+point_id = "0A"
+port = 0
+block_start_port = 0
+channel = "A"
+zone = 4260
+device = "XFER"
+state = "UP"
+source_tag = "IOL_11700IM_P0.Inputs.A"
+logical_dest_tag = "CT4260_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 117
+point_id = "0B"
+port = 0
+block_start_port = 0
+channel = "B"
+zone = 4260
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_11700IM_P0.Inputs.B"
+logical_dest_tag = "CT4260_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 117
+point_id = "1A"
+port = 1
+block_start_port = 0
+channel = "A"
+zone = 4280
+device = "XFER"
+state = "UP"
+source_tag = "IOL_11700IM_P1.Inputs.A"
+logical_dest_tag = "CT4280_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 117
+point_id = "1B"
+port = 1
+block_start_port = 0
+channel = "B"
+zone = 4280
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_11700IM_P1.Inputs.B"
+logical_dest_tag = "CT4280_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 117
+point_id = "2A"
+port = 2
+block_start_port = 2
+channel = "A"
+zone = 4281
+device = "PULLER"
+state = "PULLED"
+source_tag = "IOL_11700IM_P2.Inputs.A"
+logical_dest_tag = "ST4281_PullerPulled"
+
+[[bni005l_groups.points]]
+io_group = 117
+point_id = "2B"
+port = 2
+block_start_port = 2
+channel = "B"
+zone = 4281
+device = "PULLER"
+state = "RELEASED"
+source_tag = "IOL_11700IM_P2.Inputs.B"
+logical_dest_tag = "ST4281_PullerReleased"
+
+[[bni005l_groups.points]]
+io_group = 117
+point_id = "3A"
+port = 3
+block_start_port = 2
+channel = "A"
+zone = 4300
+device = "XFER"
+state = "UP"
+source_tag = "IOL_11700IM_P3.Inputs.A"
+logical_dest_tag = "CT4300_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 117
+point_id = "3B"
+port = 3
+block_start_port = 2
+channel = "B"
+zone = 4300
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_11700IM_P3.Inputs.B"
+logical_dest_tag = "CT4300_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 117
+point_id = "4A"
+port = 4
+block_start_port = 4
+channel = "A"
+zone = 4301
+device = "PULLER"
+state = "PULLED"
+source_tag = "IOL_11700IM_P4.Inputs.A"
+logical_dest_tag = "ST4301_PullerPulled"
+
+[[bni005l_groups.points]]
+io_group = 117
+point_id = "4B"
+port = 4
+block_start_port = 4
+channel = "B"
+zone = 4301
+device = "PULLER"
+state = "RELEASED"
+source_tag = "IOL_11700IM_P4.Inputs.B"
+logical_dest_tag = "ST4301_PullerReleased"
+
+[[bni005l_groups.points]]
+io_group = 117
+point_id = "5A"
+port = 5
+block_start_port = 4
+channel = "A"
+zone = 4320
+device = "XFER"
+state = "UP"
+source_tag = "IOL_11700IM_P5.Inputs.A"
+logical_dest_tag = "CT4320_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 117
+point_id = "5B"
+port = 5
+block_start_port = 4
+channel = "B"
+zone = 4320
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_11700IM_P5.Inputs.B"
+logical_dest_tag = "CT4320_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 117
+point_id = "6A"
+port = 6
+block_start_port = 6
+channel = "A"
+zone = 4321
+device = "PULLER"
+state = "PULLED"
+source_tag = "IOL_11700IM_P6.Inputs.A"
+logical_dest_tag = "ST4321_PullerPulled"
+
+[[bni005l_groups.points]]
+io_group = 117
+point_id = "6B"
+port = 6
+block_start_port = 6
+channel = "B"
+zone = 4321
+device = "PULLER"
+state = "RELEASED"
+source_tag = "IOL_11700IM_P6.Inputs.B"
+logical_dest_tag = "ST4321_PullerReleased"
+
+[[bni005l_groups]]
+io_group = 122
+module = "12200IM"
+paired_bni0091_output_count = 10
+input_point_count = 8
+
+[[bni005l_groups.points]]
+io_group = 122
+point_id = "0A"
+port = 0
+block_start_port = 0
+channel = "A"
+zone = 4350
+device = "BS1"
+state = "UP"
+source_tag = "IOL_12200IM_P0.Inputs.A"
+logical_dest_tag = "Li4350_BladeStop1Up"
+
+[[bni005l_groups.points]]
+io_group = 122
+point_id = "0B"
+port = 0
+block_start_port = 0
+channel = "B"
+zone = 4350
+device = "BS1"
+state = "DOWN"
+source_tag = "IOL_12200IM_P0.Inputs.B"
+logical_dest_tag = "Li4350_BladeStop1Down"
+
+[[bni005l_groups.points]]
+io_group = 122
+point_id = "1A"
+port = 1
+block_start_port = 0
+channel = "A"
+zone = 4350
+device = "BS2"
+state = "UP"
+source_tag = "IOL_12200IM_P1.Inputs.A"
+logical_dest_tag = "Li4350_BladeStop2Up"
+
+[[bni005l_groups.points]]
+io_group = 122
+point_id = "1B"
+port = 1
+block_start_port = 0
+channel = "B"
+zone = 4350
+device = "BS2"
+state = "DOWN"
+source_tag = "IOL_12200IM_P1.Inputs.B"
+logical_dest_tag = "Li4350_BladeStop2Down"
+
+[[bni005l_groups.points]]
+io_group = 122
+point_id = "2A"
+port = 2
+block_start_port = 2
+channel = "A"
+zone = 4380
+device = "BS1"
+state = "UP"
+source_tag = "IOL_12200IM_P2.Inputs.A"
+logical_dest_tag = "Li4380_BladeStop1Up"
+
+[[bni005l_groups.points]]
+io_group = 122
+point_id = "2B"
+port = 2
+block_start_port = 2
+channel = "B"
+zone = 4380
+device = "BS1"
+state = "DOWN"
+source_tag = "IOL_12200IM_P2.Inputs.B"
+logical_dest_tag = "Li4380_BladeStop1Down"
+
+[[bni005l_groups.points]]
+io_group = 122
+point_id = "3A"
+port = 3
+block_start_port = 2
+channel = "A"
+zone = 4380
+device = "BS2"
+state = "UP"
+source_tag = "IOL_12200IM_P3.Inputs.A"
+logical_dest_tag = "Li4380_BladeStop2Up"
+
+[[bni005l_groups.points]]
+io_group = 122
+point_id = "3B"
+port = 3
+block_start_port = 2
+channel = "B"
+zone = 4380
+device = "BS2"
+state = "DOWN"
+source_tag = "IOL_12200IM_P3.Inputs.B"
+logical_dest_tag = "Li4380_BladeStop2Down"
+
+[[bni005l_groups]]
+io_group = 127
+module = "12700IM"
+paired_bni0091_output_count = 12
+input_point_count = 12
+
+[[bni005l_groups.points]]
+io_group = 127
+point_id = "0A"
+port = 0
+block_start_port = 0
+channel = "A"
+zone = 4410
+device = "BS1"
+state = "UP"
+source_tag = "IOL_12700IM_P0.Inputs.A"
+logical_dest_tag = "Li4410_BladeStop1Up"
+
+[[bni005l_groups.points]]
+io_group = 127
+point_id = "0B"
+port = 0
+block_start_port = 0
+channel = "B"
+zone = 4410
+device = "BS1"
+state = "DOWN"
+source_tag = "IOL_12700IM_P0.Inputs.B"
+logical_dest_tag = "Li4410_BladeStop1Down"
+
+[[bni005l_groups.points]]
+io_group = 127
+point_id = "1A"
+port = 1
+block_start_port = 0
+channel = "A"
+zone = 4410
+device = "BS2"
+state = "UP"
+source_tag = "IOL_12700IM_P1.Inputs.A"
+logical_dest_tag = "Li4410_BladeStop2Up"
+
+[[bni005l_groups.points]]
+io_group = 127
+point_id = "1B"
+port = 1
+block_start_port = 0
+channel = "B"
+zone = 4410
+device = "BS2"
+state = "DOWN"
+source_tag = "IOL_12700IM_P1.Inputs.B"
+logical_dest_tag = "Li4410_BladeStop2Down"
+
+[[bni005l_groups.points]]
+io_group = 127
+point_id = "2A"
+port = 2
+block_start_port = 2
+channel = "A"
+zone = 4420
+device = "XFER"
+state = "UP"
+source_tag = "IOL_12700IM_P2.Inputs.A"
+logical_dest_tag = "CT4420_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 127
+point_id = "2B"
+port = 2
+block_start_port = 2
+channel = "B"
+zone = 4420
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_12700IM_P2.Inputs.B"
+logical_dest_tag = "CT4420_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 127
+point_id = "3A"
+port = 3
+block_start_port = 2
+channel = "A"
+zone = 4450
+device = "XFER"
+state = "UP"
+source_tag = "IOL_12700IM_P3.Inputs.A"
+logical_dest_tag = "CT4450_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 127
+point_id = "3B"
+port = 3
+block_start_port = 2
+channel = "B"
+zone = 4450
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_12700IM_P3.Inputs.B"
+logical_dest_tag = "CT4450_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 127
+point_id = "4A"
+port = 4
+block_start_port = 4
+channel = "A"
+zone = 4460
+device = "BS1"
+state = "UP"
+source_tag = "IOL_12700IM_P4.Inputs.A"
+logical_dest_tag = "Li4460_BladeStop1Up"
+
+[[bni005l_groups.points]]
+io_group = 127
+point_id = "4B"
+port = 4
+block_start_port = 4
+channel = "B"
+zone = 4460
+device = "BS1"
+state = "DOWN"
+source_tag = "IOL_12700IM_P4.Inputs.B"
+logical_dest_tag = "Li4460_BladeStop1Down"
+
+[[bni005l_groups.points]]
+io_group = 127
+point_id = "5A"
+port = 5
+block_start_port = 4
+channel = "A"
+zone = 4460
+device = "BS2"
+state = "UP"
+source_tag = "IOL_12700IM_P5.Inputs.A"
+logical_dest_tag = "Li4460_BladeStop2Up"
+
+[[bni005l_groups.points]]
+io_group = 127
+point_id = "5B"
+port = 5
+block_start_port = 4
+channel = "B"
+zone = 4460
+device = "BS2"
+state = "DOWN"
+source_tag = "IOL_12700IM_P5.Inputs.B"
+logical_dest_tag = "Li4460_BladeStop2Down"
+
+[[bni005l_groups]]
+io_group = 132
+module = "13200IM"
+paired_bni0091_output_count = 7
+input_point_count = 10
+
+[[bni005l_groups.points]]
+io_group = 132
+point_id = "0A"
+port = 0
+block_start_port = 0
+channel = "A"
+zone = 4520
+device = "XFER"
+state = "UP"
+source_tag = "IOL_13200IM_P0.Inputs.A"
+logical_dest_tag = "CT4520_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 132
+point_id = "0B"
+port = 0
+block_start_port = 0
+channel = "B"
+zone = 4520
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_13200IM_P0.Inputs.B"
+logical_dest_tag = "CT4520_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 132
+point_id = "1A"
+port = 1
+block_start_port = 0
+channel = "A"
+zone = 4530
+device = "XFER"
+state = "UP"
+source_tag = "IOL_13200IM_P1.Inputs.A"
+logical_dest_tag = "CT4530_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 132
+point_id = "1B"
+port = 1
+block_start_port = 0
+channel = "B"
+zone = 4530
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_13200IM_P1.Inputs.B"
+logical_dest_tag = "CT4530_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 132
+point_id = "2A"
+port = 2
+block_start_port = 2
+channel = "A"
+zone = 4560
+device = "XFER"
+state = "UP"
+source_tag = "IOL_13200IM_P2.Inputs.A"
+logical_dest_tag = "CT4560_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 132
+point_id = "2B"
+port = 2
+block_start_port = 2
+channel = "B"
+zone = 4560
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_13200IM_P2.Inputs.B"
+logical_dest_tag = "CT4560_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 132
+point_id = "3"
+port = 3
+block_start_port = 2
+channel = ""
+zone = 4561
+device = "PB"
+source_tag = "IOL_13200IM_P3.Inputs"
+logical_dest_tag = "ST4561_ReIntroLPB"
+
+[[bni005l_groups.points]]
+io_group = 132
+point_id = "4A"
+port = 4
+block_start_port = 4
+channel = "A"
+zone = 4580
+device = "XFER"
+state = "UP"
+source_tag = "IOL_13200IM_P4.Inputs.A"
+logical_dest_tag = "CT4580_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 132
+point_id = "4B"
+port = 4
+block_start_port = 4
+channel = "B"
+zone = 4580
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_13200IM_P4.Inputs.B"
+logical_dest_tag = "CT4580_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 132
+point_id = "5"
+port = 5
+block_start_port = 4
+channel = ""
+zone = 4581
+device = "PB"
+source_tag = "IOL_13200IM_P5.Inputs"
+logical_dest_tag = "ST4581_ReIntroLPB"
+
+[[bni005l_groups]]
+io_group = 133
+module = "13300IM"
+input_point_count = 7
+
+[[bni005l_groups.points]]
+io_group = 133
+point_id = "0A"
+port = 0
+block_start_port = 0
+channel = "A"
+zone = 4600
+device = "XFER"
+state = "UP"
+source_tag = "IOL_13300IM_P0.Inputs.A"
+logical_dest_tag = "CT4600_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 133
+point_id = "0B"
+port = 0
+block_start_port = 0
+channel = "B"
+zone = 4600
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_13300IM_P0.Inputs.B"
+logical_dest_tag = "CT4600_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 133
+point_id = "1"
+port = 1
+block_start_port = 0
+channel = ""
+zone = 4601
+device = "PB"
+source_tag = "IOL_13300IM_P1.Inputs"
+logical_dest_tag = "ST4601_ReIntroLPB"
+
+[[bni005l_groups.points]]
+io_group = 133
+point_id = "2A"
+port = 2
+block_start_port = 2
+channel = "A"
+zone = 4620
+device = "XFER"
+state = "UP"
+source_tag = "IOL_13300IM_P2.Inputs.A"
+logical_dest_tag = "CT4620_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 133
+point_id = "2B"
+port = 2
+block_start_port = 2
+channel = "B"
+zone = 4620
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_13300IM_P2.Inputs.B"
+logical_dest_tag = "CT4620_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 133
+point_id = "3A"
+port = 3
+block_start_port = 2
+channel = "A"
+zone = 4680
+device = "XFER"
+state = "UP"
+source_tag = "IOL_13300IM_P3.Inputs.A"
+logical_dest_tag = "CT4680_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 133
+point_id = "3B"
+port = 3
+block_start_port = 2
+channel = "B"
+zone = 4680
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_13300IM_P3.Inputs.B"
+logical_dest_tag = "CT4680_Px_Transfer_Down"
+
+[[bni005l_groups]]
+io_group = 142
+module = "14200IM"
+paired_bni0091_output_count = 7
+input_point_count = 12
+
+[[bni005l_groups.points]]
+io_group = 142
+point_id = "0A"
+port = 0
+block_start_port = 0
+channel = "A"
+zone = 7138
+device = "XFER"
+state = "UP"
+source_tag = "IOL_14200IM_P0.Inputs.A"
+logical_dest_tag = "CT7138_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 142
+point_id = "0B"
+port = 0
+block_start_port = 0
+channel = "B"
+zone = 7138
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_14200IM_P0.Inputs.B"
+logical_dest_tag = "CT7138_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 142
+point_id = "1A"
+port = 1
+block_start_port = 0
+channel = "A"
+zone = 7140
+device = "XFER"
+state = "UP"
+source_tag = "IOL_14200IM_P1.Inputs.A"
+logical_dest_tag = "CT7140_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 142
+point_id = "1B"
+port = 1
+block_start_port = 0
+channel = "B"
+zone = 7140
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_14200IM_P1.Inputs.B"
+logical_dest_tag = "CT7140_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 142
+point_id = "2A"
+port = 2
+block_start_port = 2
+channel = "A"
+zone = 7156
+device = "XFER"
+state = "UP"
+source_tag = "IOL_14200IM_P2.Inputs.A"
+logical_dest_tag = "CT7156_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 142
+point_id = "2B"
+port = 2
+block_start_port = 2
+channel = "B"
+zone = 7156
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_14200IM_P2.Inputs.B"
+logical_dest_tag = "CT7156_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 142
+point_id = "3A"
+port = 3
+block_start_port = 2
+channel = "A"
+zone = 7196
+device = "XFER"
+state = "UP"
+source_tag = "IOL_14200IM_P3.Inputs.A"
+logical_dest_tag = "CT7196_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 142
+point_id = "3B"
+port = 3
+block_start_port = 2
+channel = "B"
+zone = 7196
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_14200IM_P3.Inputs.B"
+logical_dest_tag = "CT7196_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 142
+point_id = "4A"
+port = 4
+block_start_port = 4
+channel = "A"
+zone = 7197
+device = "PULLER"
+state = "PULLED"
+source_tag = "IOL_14200IM_P4.Inputs.A"
+logical_dest_tag = "ST7197_PullerPulled"
+
+[[bni005l_groups.points]]
+io_group = 142
+point_id = "4B"
+port = 4
+block_start_port = 4
+channel = "B"
+zone = 7197
+device = "PULLER"
+state = "RELEASED"
+source_tag = "IOL_14200IM_P4.Inputs.B"
+logical_dest_tag = "ST7197_PullerReleased"
+
+[[bni005l_groups.points]]
+io_group = 142
+point_id = "5A"
+port = 5
+block_start_port = 4
+channel = "A"
+zone = 7242
+device = "XFER"
+state = "UP"
+source_tag = "IOL_14200IM_P5.Inputs.A"
+logical_dest_tag = "CT7242_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 142
+point_id = "5B"
+port = 5
+block_start_port = 4
+channel = "B"
+zone = 7242
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_14200IM_P5.Inputs.B"
+logical_dest_tag = "CT7242_Px_Transfer_Down"
+
+[[bni005l_groups]]
+io_group = 148
+module = "14800IM"
+paired_bni0091_output_count = 12
+input_point_count = 12
+
+[[bni005l_groups.points]]
+io_group = 148
+point_id = "0A"
+port = 0
+block_start_port = 0
+channel = "A"
+zone = 7200
+device = "XFER"
+state = "UP"
+source_tag = "IOL_14800IM_P0.Inputs.A"
+logical_dest_tag = "CT7200_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 148
+point_id = "0B"
+port = 0
+block_start_port = 0
+channel = "B"
+zone = 7200
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_14800IM_P0.Inputs.B"
+logical_dest_tag = "CT7200_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 148
+point_id = "1A"
+port = 1
+block_start_port = 0
+channel = "A"
+zone = 7201
+device = "PULLER"
+state = "PULLED"
+source_tag = "IOL_14800IM_P1.Inputs.A"
+logical_dest_tag = "ST7201_PullerPulled"
+
+[[bni005l_groups.points]]
+io_group = 148
+point_id = "1B"
+port = 1
+block_start_port = 0
+channel = "B"
+zone = 7201
+device = "PULLER"
+state = "RELEASED"
+source_tag = "IOL_14800IM_P1.Inputs.B"
+logical_dest_tag = "ST7201_PullerReleased"
+
+[[bni005l_groups.points]]
+io_group = 148
+point_id = "2A"
+port = 2
+block_start_port = 2
+channel = "A"
+zone = 7204
+device = "XFER"
+state = "UP"
+source_tag = "IOL_14800IM_P2.Inputs.A"
+logical_dest_tag = "CT7204_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 148
+point_id = "2B"
+port = 2
+block_start_port = 2
+channel = "B"
+zone = 7204
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_14800IM_P2.Inputs.B"
+logical_dest_tag = "CT7204_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 148
+point_id = "3A"
+port = 3
+block_start_port = 2
+channel = "A"
+zone = 7205
+device = "PULLER"
+state = "PULLED"
+source_tag = "IOL_14800IM_P3.Inputs.A"
+logical_dest_tag = "ST7205_PullerPulled"
+
+[[bni005l_groups.points]]
+io_group = 148
+point_id = "3B"
+port = 3
+block_start_port = 2
+channel = "B"
+zone = 7205
+device = "PULLER"
+state = "RELEASED"
+source_tag = "IOL_14800IM_P3.Inputs.B"
+logical_dest_tag = "ST7205_PullerReleased"
+
+[[bni005l_groups.points]]
+io_group = 148
+point_id = "4A"
+port = 4
+block_start_port = 4
+channel = "A"
+zone = 7208
+device = "XFER"
+state = "UP"
+source_tag = "IOL_14800IM_P4.Inputs.A"
+logical_dest_tag = "CT7208_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 148
+point_id = "4B"
+port = 4
+block_start_port = 4
+channel = "B"
+zone = 7208
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_14800IM_P4.Inputs.B"
+logical_dest_tag = "CT7208_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 148
+point_id = "5A"
+port = 5
+block_start_port = 4
+channel = "A"
+zone = 7209
+device = "PULLER"
+state = "PULLED"
+source_tag = "IOL_14800IM_P5.Inputs.A"
+logical_dest_tag = "ST7209_PullerPulled"
+
+[[bni005l_groups.points]]
+io_group = 148
+point_id = "5B"
+port = 5
+block_start_port = 4
+channel = "B"
+zone = 7209
+device = "PULLER"
+state = "RELEASED"
+source_tag = "IOL_14800IM_P5.Inputs.B"
+logical_dest_tag = "ST7209_PullerReleased"
+
+[[bni005l_groups]]
+io_group = 149
+module = "14900IM"
+input_point_count = 12
+
+[[bni005l_groups.points]]
+io_group = 149
+point_id = "0A"
+port = 0
+block_start_port = 0
+channel = "A"
+zone = 7212
+device = "XFER"
+state = "UP"
+source_tag = "IOL_14900IM_P0.Inputs.A"
+logical_dest_tag = "CT7212_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 149
+point_id = "0B"
+port = 0
+block_start_port = 0
+channel = "B"
+zone = 7212
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_14900IM_P0.Inputs.B"
+logical_dest_tag = "CT7212_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 149
+point_id = "1A"
+port = 1
+block_start_port = 0
+channel = "A"
+zone = 7213
+device = "PULLER"
+state = "PULLED"
+source_tag = "IOL_14900IM_P1.Inputs.A"
+logical_dest_tag = "ST7213_PullerPulled"
+
+[[bni005l_groups.points]]
+io_group = 149
+point_id = "1B"
+port = 1
+block_start_port = 0
+channel = "B"
+zone = 7213
+device = "PULLER"
+state = "RELEASED"
+source_tag = "IOL_14900IM_P1.Inputs.B"
+logical_dest_tag = "ST7213_PullerReleased"
+
+[[bni005l_groups.points]]
+io_group = 149
+point_id = "2A"
+port = 2
+block_start_port = 2
+channel = "A"
+zone = 7216
+device = "XFER"
+state = "UP"
+source_tag = "IOL_14900IM_P2.Inputs.A"
+logical_dest_tag = "CT7216_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 149
+point_id = "2B"
+port = 2
+block_start_port = 2
+channel = "B"
+zone = 7216
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_14900IM_P2.Inputs.B"
+logical_dest_tag = "CT7216_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 149
+point_id = "3A"
+port = 3
+block_start_port = 2
+channel = "A"
+zone = 7217
+device = "PULLER"
+state = "PULLED"
+source_tag = "IOL_14900IM_P3.Inputs.A"
+logical_dest_tag = "ST7217_PullerPulled"
+
+[[bni005l_groups.points]]
+io_group = 149
+point_id = "3B"
+port = 3
+block_start_port = 2
+channel = "B"
+zone = 7217
+device = "PULLER"
+state = "RELEASED"
+source_tag = "IOL_14900IM_P3.Inputs.B"
+logical_dest_tag = "ST7217_PullerReleased"
+
+[[bni005l_groups.points]]
+io_group = 149
+point_id = "4A"
+port = 4
+block_start_port = 4
+channel = "A"
+zone = 7220
+device = "XFER"
+state = "UP"
+source_tag = "IOL_14900IM_P4.Inputs.A"
+logical_dest_tag = "CT7220_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 149
+point_id = "4B"
+port = 4
+block_start_port = 4
+channel = "B"
+zone = 7220
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_14900IM_P4.Inputs.B"
+logical_dest_tag = "CT7220_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 149
+point_id = "5A"
+port = 5
+block_start_port = 4
+channel = "A"
+zone = 7221
+device = "PULLER"
+state = "PULLED"
+source_tag = "IOL_14900IM_P5.Inputs.A"
+logical_dest_tag = "ST7221_PullerPulled"
+
+[[bni005l_groups.points]]
+io_group = 149
+point_id = "5B"
+port = 5
+block_start_port = 4
+channel = "B"
+zone = 7221
+device = "PULLER"
+state = "RELEASED"
+source_tag = "IOL_14900IM_P5.Inputs.B"
+logical_dest_tag = "ST7221_PullerReleased"
+
+[[bni005l_groups]]
+io_group = 150
+module = "15000IM"
+paired_bni0091_output_count = 11
+input_point_count = 10
+
+[[bni005l_groups.points]]
+io_group = 150
+point_id = "0A"
+port = 0
+block_start_port = 0
+channel = "A"
+zone = 7224
+device = "XFER"
+state = "UP"
+source_tag = "IOL_15000IM_P0.Inputs.A"
+logical_dest_tag = "CT7224_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 150
+point_id = "0B"
+port = 0
+block_start_port = 0
+channel = "B"
+zone = 7224
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_15000IM_P0.Inputs.B"
+logical_dest_tag = "CT7224_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 150
+point_id = "1A"
+port = 1
+block_start_port = 0
+channel = "A"
+zone = 7225
+device = "PULLER"
+state = "PULLED"
+source_tag = "IOL_15000IM_P1.Inputs.A"
+logical_dest_tag = "ST7225_PullerPulled"
+
+[[bni005l_groups.points]]
+io_group = 150
+point_id = "1B"
+port = 1
+block_start_port = 0
+channel = "B"
+zone = 7225
+device = "PULLER"
+state = "RELEASED"
+source_tag = "IOL_15000IM_P1.Inputs.B"
+logical_dest_tag = "ST7225_PullerReleased"
+
+[[bni005l_groups.points]]
+io_group = 150
+point_id = "2"
+port = 2
+block_start_port = 2
+channel = ""
+zone = 7227
+device = "PB"
+source_tag = "IOL_15000IM_P2.Inputs"
+logical_dest_tag = "ST7227_ReIntroLPB"
+
+[[bni005l_groups.points]]
+io_group = 150
+point_id = "3A"
+port = 3
+block_start_port = 2
+channel = "A"
+zone = 7228
+device = "XFER"
+state = "UP"
+source_tag = "IOL_15000IM_P3.Inputs.A"
+logical_dest_tag = "CT7228_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 150
+point_id = "3B"
+port = 3
+block_start_port = 2
+channel = "B"
+zone = 7228
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_15000IM_P3.Inputs.B"
+logical_dest_tag = "CT7228_Px_Transfer_Down"
+
+[[bni005l_groups.points]]
+io_group = 150
+point_id = "4"
+port = 4
+block_start_port = 4
+channel = ""
+zone = 7229
+device = "PB"
+source_tag = "IOL_15000IM_P4.Inputs"
+logical_dest_tag = "ST7229_ReIntroLPB"
+
+[[bni005l_groups.points]]
+io_group = 150
+point_id = "5A"
+port = 5
+block_start_port = 4
+channel = "A"
+zone = 7230
+device = "XFER"
+state = "UP"
+source_tag = "IOL_15000IM_P5.Inputs.A"
+logical_dest_tag = "CT7230_Px_Transfer_Up"
+
+[[bni005l_groups.points]]
+io_group = 150
+point_id = "5B"
+port = 5
+block_start_port = 4
+channel = "B"
+zone = 7230
+device = "XFER"
+state = "DOWN"
+source_tag = "IOL_15000IM_P5.Inputs.B"
+logical_dest_tag = "CT7230_Px_Transfer_Down"

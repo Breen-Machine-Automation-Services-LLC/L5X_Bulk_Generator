@@ -1,0 +1,93 @@
+[meta]
+source = "User-confirmed BNI0091 port/channel details"
+line = "Hybrid Main Line"
+purpose = "Explicit map from BNI output channels to zone function"
+source_syntax_preferred = "IOL_10100OM_P{port}.Outputs{dot_channel}"
+source_syntax_alternate = "IOL_10100OM_PX.Outputs[{port}]{dot_channel}"
+balluff_output_ports = "0-7"
+
+# Strategy:
+# - Keep each physical output channel explicit (0A, 0B, 1, 2A, 2B, 3A, 3B)
+# - Use one row per physical channel
+# - Later transform these rows into IO map rungs when source PLC tag syntax is finalized
+
+[[blocks]]
+name = "BNI00HM_100"
+module = "10100OM"
+io_group = 102
+zone_span = "4020-4120"
+notes = "Ports 0,2,3 use splitters; port 1 unsplit. Lift has 3 solenoids: 1 up, 2 down."
+
+[[blocks.outputs]]
+port = 0
+channel = "A"
+point_id = "0A"
+zone = 4020
+function = "XFER_SOL"
+source_tag = "IOL_10100OM_P0.Outputs.A"
+logical_dest_tag = "CT4020_Sol_Transfer_Up"
+
+[[blocks.outputs]]
+port = 0
+channel = "B"
+point_id = "0B"
+zone = 4030
+function = "XFER_SOL"
+source_tag = "IOL_10100OM_P0.Outputs.B"
+logical_dest_tag = "CT4030_Sol_Transfer_Up"
+
+[[blocks.outputs]]
+port = 1
+channel = ""
+point_id = "1"
+zone = 4120
+function = "LIFT_UP_SOL"
+source_tag = "IOL_10100OM_P1.Outputs"
+logical_dest_tag = "Li4120_Lift_Up_Valves"
+
+[[blocks.outputs]]
+port = 2
+channel = "A"
+point_id = "2A"
+zone = 4120
+function = "BS1_SOL"
+source_tag = "IOL_10100OM_P2.Outputs.A"
+logical_dest_tag = "Li4120_BladeStop1"
+
+[[blocks.outputs]]
+port = 2
+channel = "B"
+point_id = "2B"
+zone = 4120
+function = "BS2_SOL"
+source_tag = "IOL_10100OM_P2.Outputs.B"
+logical_dest_tag = "Li4120_BladeStop2"
+
+[[blocks.outputs]]
+port = 3
+channel = "A"
+point_id = "3A"
+zone = 4120
+function = "LIFT_DOWN_SOL"
+source_tag = "IOL_10100OM_P3.Outputs.A"
+logical_dest_tag = "Li4120_Lift_Down_Valves"
+
+[[blocks.outputs]]
+port = 3
+channel = "B"
+point_id = "3B"
+zone = 4120
+function = "LIFT_DOWN_SOL"
+source_tag = "IOL_10100OM_P3.Outputs.B"
+logical_dest_tag = "Li4120_Lift_Down_Valves"
+notes = "Intentionally duplicated: both channels drive down-solenoid command path."
+
+# Placeholder for source tag syntax once confirmed.
+# Example patterns (to replace with actual project convention):
+#   BNI_10100OM_O0A
+#   BNI_10100OM_O0B
+#   BNI_10100OM_O1
+#   BNI_10100OM_O2A
+#   BNI_10100OM_O2B
+#   BNI_10100OM_O3A
+#   BNI_10100OM_O3B

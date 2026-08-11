@@ -1,0 +1,97 @@
+hm,module,io_group,port,channel,point_id,zone,function,logical_dest_tag,source_tag,enabled,notes
+100,10100OM,102,0,A,0A,4020,XFER_SOL,CT4020_Sol_Transfer_Up,IOL_10100OM_P0.Outputs.A,true,splitter
+100,10100OM,102,0,B,0B,4030,XFER_SOL,CT4030_Sol_Transfer_Up,IOL_10100OM_P0.Outputs.B,true,splitter
+100,10100OM,102,1,,1,4120,LIFT_UP_SOL,Li4120_Lift_Up_Valves,IOL_10100OM_P1.Outputs,true,no splitter
+100,10100OM,102,2,A,2A,4120,BS1_SOL,Li4120_BladeStop1,IOL_10100OM_P2.Outputs.A,true,splitter
+100,10100OM,102,2,B,2B,4120,BS2_SOL,Li4120_BladeStop2,IOL_10100OM_P2.Outputs.B,true,splitter
+100,10100OM,102,3,A,3A,4120,LIFT_DOWN_SOL,Li4120_Lift_Down_Valves,IOL_10100OM_P3.Outputs.A,true,splitter
+100,10100OM,102,3,B,3B,4120,LIFT_DOWN_SOL,Li4120_Lift_Down_Valves,IOL_10100OM_P3.Outputs.B,true,splitter
+105,10600OM,107,0,,0,4150,LIFT_UP_SOL,Li4150_Lift_Up_Valves,IOL_10600OM_P0.Outputs,true,no splitter
+105,10600OM,107,1,,1,4170,LIFT_UP_SOL,Li4170_Lift_Up_Valves,IOL_10600OM_P1.Outputs,true,no splitter
+105,10600OM,107,2,A,2A,4150,LIFT_DOWN_SOL,Li4150_Lift_Down_Valves,IOL_10600OM_P2.Outputs.A,true,splitter
+105,10600OM,107,2,B,2B,4150,LIFT_DOWN_SOL,Li4150_Lift_Down_Valves,IOL_10600OM_P2.Outputs.B,true,splitter
+105,10600OM,107,3,A,3A,4170,LIFT_DOWN_SOL,Li4170_Lift_Down_Valves,IOL_10600OM_P3.Outputs.A,true,splitter
+105,10600OM,107,3,B,3B,4170,LIFT_DOWN_SOL,Li4170_Lift_Down_Valves,IOL_10600OM_P3.Outputs.B,true,splitter
+105,10600OM,107,4,A,4A,4150,BS1_SOL,Li4150_BladeStop1,IOL_10600OM_P4.Outputs.A,true,splitter
+105,10600OM,107,4,B,4B,4150,BS2_SOL,Li4150_BladeStop2,IOL_10600OM_P4.Outputs.B,true,splitter
+105,10600OM,107,5,A,5A,4170,BS1_SOL,Li4170_BladeStop1,IOL_10600OM_P5.Outputs.A,true,splitter
+105,10600OM,107,5,B,5B,4170,BS2_SOL,Li4170_BladeStop2,IOL_10600OM_P5.Outputs.B,true,splitter
+110,11100OM,112,0,,0,4190,LIFT_UP_SOL,Li4190_Lift_Up_Valves,IOL_11100OM_P0.Outputs,true,no splitter
+110,11100OM,112,1,,1,4220,LIFT_UP_SOL,Li4220_Lift_Up_Valves,IOL_11100OM_P1.Outputs,true,no splitter
+110,11100OM,112,2,A,2A,4190,LIFT_DOWN_SOL,Li4190_Lift_Down_Valves,IOL_11100OM_P2.Outputs.A,true,splitter
+110,11100OM,112,2,B,2B,4190,LIFT_DOWN_SOL,Li4190_Lift_Down_Valves,IOL_11100OM_P2.Outputs.B,true,splitter
+110,11100OM,112,3,A,3A,4220,LIFT_DOWN_SOL,Li4220_Lift_Down_Valves,IOL_11100OM_P3.Outputs.A,true,splitter
+110,11100OM,112,3,B,3B,4220,LIFT_DOWN_SOL,Li4220_Lift_Down_Valves,IOL_11100OM_P3.Outputs.B,true,splitter
+110,11100OM,112,4,A,4A,4190,BS1_SOL,Li4190_BladeStop1,IOL_11100OM_P4.Outputs.A,true,splitter
+110,11100OM,112,4,B,4B,4190,BS2_SOL,Li4190_BladeStop2,IOL_11100OM_P4.Outputs.B,true,splitter
+110,11100OM,112,5,A,5A,4220,BS1_SOL,Li4220_BladeStop1,IOL_11100OM_P5.Outputs.A,true,splitter
+110,11100OM,112,5,B,5B,4220,BS2_SOL,Li4220_BladeStop2,IOL_11100OM_P5.Outputs.B,true,splitter
+115,11600OM,117,0,A,0A,4260,XFER_SOL,CT4260_Sol_Transfer_Up,IOL_11600OM_P0.Outputs.A,true,splitter
+115,11600OM,117,0,B,0B,4280,XFER_SOL,CT4280_Sol_Transfer_Up,IOL_11600OM_P0.Outputs.B,true,splitter
+115,11600OM,117,1,A,1A,4281,OMTEC_STRIPS_SOL,ST4281_OmtecStripSol,IOL_11600OM_P1.Outputs.A,true,auto-named from user convention
+115,11600OM,117,1,B,1B,4281,PULLER_SOL,ST4281_PullerSol,IOL_11600OM_P1.Outputs.B,true,auto-named from user convention
+115,11600OM,117,2,A,2A,4300,XFER_SOL,CT4300_Sol_Transfer_Up,IOL_11600OM_P2.Outputs.A,true,splitter
+115,11600OM,117,2,B,2B,4320,XFER_SOL,CT4320_Sol_Transfer_Up,IOL_11600OM_P2.Outputs.B,true,splitter
+115,11600OM,117,3,A,3A,4301,OMTEC_SOL,ST4301_OmtecStripSol,IOL_11600OM_P3.Outputs.A,true,auto-named from user convention
+115,11600OM,117,3,B,3B,4301,PULLER_SOL,ST4301_PullerSol,IOL_11600OM_P3.Outputs.B,true,auto-named from user convention
+115,11600OM,117,5,A,5A,4321,OMTEC_SOL,ST4321_OmtecStripSol,IOL_11600OM_P5.Outputs.A,true,auto-named from user convention
+115,11600OM,117,5,B,5B,4321,PULLER_SOL,ST4321_PullerSol,IOL_11600OM_P5.Outputs.B,true,auto-named from user convention
+120,12100OM,122,0,,0,4350,LIFT_UP_SOL,Li4350_Lift_Up_Valves,IOL_12100OM_P0.Outputs,true,no splitter
+120,12100OM,122,1,,1,4380,LIFT_UP_SOL,Li4380_Lift_Up_Valves,IOL_12100OM_P1.Outputs,true,no splitter
+120,12100OM,122,2,A,2A,4350,LIFT_DOWN_SOL,Li4350_Lift_Down_Valves,IOL_12100OM_P2.Outputs.A,true,splitter
+120,12100OM,122,2,B,2B,4350,LIFT_DOWN_SOL,Li4350_Lift_Down_Valves,IOL_12100OM_P2.Outputs.B,true,splitter
+120,12100OM,122,3,A,3A,4380,LIFT_DOWN_SOL,Li4380_Lift_Down_Valves,IOL_12100OM_P3.Outputs.A,true,splitter
+120,12100OM,122,3,B,3B,4380,LIFT_DOWN_SOL,Li4380_Lift_Down_Valves,IOL_12100OM_P3.Outputs.B,true,splitter
+120,12100OM,122,4,A,4A,4350,BS1_SOL,Li4350_BladeStop1,IOL_12100OM_P4.Outputs.A,true,splitter
+120,12100OM,122,4,B,4B,4350,BS2_SOL,Li4350_BladeStop2,IOL_12100OM_P4.Outputs.B,true,splitter
+120,12100OM,122,5,A,5A,4380,BS1_SOL,Li4380_BladeStop1,IOL_12100OM_P5.Outputs.A,true,splitter
+120,12100OM,122,5,B,5B,4380,BS2_SOL,Li4380_BladeStop2,IOL_12100OM_P5.Outputs.B,true,splitter
+125,12600OM,127,0,,0,4410,LIFT_UP_SOL,Li4410_Lift_Up_Valves,IOL_12600OM_P0.Outputs,true,no splitter
+125,12600OM,127,1,,1,4460,LIFT_UP_SOL,Li4460_Lift_Up_Valves,IOL_12600OM_P1.Outputs,true,no splitter
+125,12600OM,127,2,A,2A,4410,LIFT_DOWN_SOL,Li4410_Lift_Down_Valves,IOL_12600OM_P2.Outputs.A,true,splitter
+125,12600OM,127,2,B,2B,4410,LIFT_DOWN_SOL,Li4410_Lift_Down_Valves,IOL_12600OM_P2.Outputs.B,true,splitter
+125,12600OM,127,3,A,3A,4460,LIFT_DOWN_SOL,Li4460_Lift_Down_Valves,IOL_12600OM_P3.Outputs.A,true,splitter
+125,12600OM,127,3,B,3B,4460,LIFT_DOWN_SOL,Li4460_Lift_Down_Valves,IOL_12600OM_P3.Outputs.B,true,splitter
+125,12600OM,127,4,A,4A,4410,BS1_SOL,Li4410_BladeStop1,IOL_12600OM_P4.Outputs.A,true,splitter
+125,12600OM,127,4,B,4B,4410,BS2_SOL,Li4410_BladeStop2,IOL_12600OM_P4.Outputs.B,true,splitter
+125,12600OM,127,5,A,5A,4460,BS1_SOL,Li4460_BladeStop1,IOL_12600OM_P5.Outputs.A,true,splitter
+125,12600OM,127,5,B,5B,4460,BS2_SOL,Li4460_BladeStop2,IOL_12600OM_P5.Outputs.B,true,splitter
+125,12600OM,127,6,A,6A,4420,XFER_SOL,CT4420_Sol_Transfer_Up,IOL_12600OM_P6.Outputs.A,true,splitter
+125,12600OM,127,6,B,6B,4450,XFER_SOL,CT4450_Sol_Transfer_Up,IOL_12600OM_P6.Outputs.B,true,splitter
+130,13100OM,132,0,A,0A,4520,XFER_SOL,CT4520_Sol_Transfer_Up,IOL_13100OM_P0.Outputs.A,true,splitter
+130,13100OM,132,0,B,0B,4530,XFER_SOL,CT4530_Sol_Transfer_Up,IOL_13100OM_P0.Outputs.B,true,splitter
+130,13100OM,132,1,A,1A,4560,XFER_SOL,CT4560_Sol_Transfer_Up,IOL_13100OM_P1.Outputs.A,true,splitter
+130,13100OM,132,1,B,1B,4580,XFER_SOL,CT4580_Sol_Transfer_Up,IOL_13100OM_P1.Outputs.B,true,splitter
+130,13100OM,132,2,A,2A,4600,XFER_SOL,CT4600_Sol_Transfer_Up,IOL_13100OM_P2.Outputs.A,true,splitter
+130,13100OM,132,2,B,2B,4620,XFER_SOL,CT4620_Sol_Transfer_Up,IOL_13100OM_P2.Outputs.B,true,splitter
+130,13100OM,132,3,A,3A,4680,XFER_SOL,CT4680_Sol_Transfer_Up,IOL_13100OM_P3.Outputs.A,true,splitter
+140,14100OM,142,0,A,0A,7138,XFER_SOL,CT7138_Sol_Transfer_Up,IOL_14100OM_P0.Outputs.A,true,splitter
+140,14100OM,142,0,B,0B,7140,XFER_SOL,CT7140_Sol_Transfer_Up,IOL_14100OM_P0.Outputs.B,true,splitter
+140,14100OM,142,1,A,1A,7156,XFER_SOL,CT7156_Sol_Transfer_Up,IOL_14100OM_P1.Outputs.A,true,splitter
+140,14100OM,142,1,B,1B,7196,XFER_SOL,CT7196_Sol_Transfer_Up,IOL_14100OM_P1.Outputs.B,true,splitter
+140,14100OM,142,2,A,2A,7197,OMTEC_SOL,ST7197_OmtecStripSol,IOL_14100OM_P2.Outputs.A,true,auto-named from user convention
+140,14100OM,142,2,B,2B,7197,PULLER_SOL,ST7197_PullerSol,IOL_14100OM_P2.Outputs.B,true,auto-named from user convention
+140,14100OM,142,3,A,3A,7242,XFER_SOL,CT7242_Sol_Transfer_Up,IOL_14100OM_P3.Outputs.A,true,splitter
+145,14600OM,148,0,A,0A,7200,XFER_SOL,CT7200_Sol_Transfer_Up,IOL_14600OM_P0.Outputs.A,true,splitter
+145,14600OM,148,0,B,0B,7204,XFER_SOL,CT7204_Sol_Transfer_Up,IOL_14600OM_P0.Outputs.B,true,splitter
+145,14600OM,148,1,A,1A,7201,OMTEC_SOL,ST7201_OmtecStripSol,IOL_14600OM_P1.Outputs.A,true,auto-named from user convention
+145,14600OM,148,1,B,1B,7201,PULLER_SOL,ST7201_PullerSol,IOL_14600OM_P1.Outputs.B,true,auto-named from user convention
+145,14600OM,148,2,A,2A,7205,OMTEC_SOL,ST7205_OmtecStripSol,IOL_14600OM_P2.Outputs.A,true,auto-named from user convention
+145,14600OM,148,2,B,2B,7205,PULLER_SOL,ST7205_PullerSol,IOL_14600OM_P2.Outputs.B,true,auto-named from user convention
+145,14600OM,148,3,A,3A,7208,XFER_SOL,CT7208_Sol_Transfer_Up,IOL_14600OM_P3.Outputs.A,true,splitter
+145,14600OM,148,3,B,3B,7212,XFER_SOL,CT7212_Sol_Transfer_Up,IOL_14600OM_P3.Outputs.B,true,splitter
+145,14600OM,148,4,A,4A,7209,OMTEC_SOL,ST7209_OmtecStripSol,IOL_14600OM_P4.Outputs.A,true,auto-named from user convention
+145,14600OM,148,4,B,4B,7209,PULLER_SOL,ST7209_PullerSol,IOL_14600OM_P4.Outputs.B,true,auto-named from user convention
+145,14600OM,148,5,A,5A,7213,OMTEC_SOL,ST7213_OmtecStripSol,IOL_14600OM_P5.Outputs.A,true,auto-named from user convention
+145,14600OM,148,5,B,5B,7213,PULLER_SOL,ST7213_PullerSol,IOL_14600OM_P5.Outputs.B,true,auto-named from user convention
+145,14700OM,150,0,A,0A,7216,XFER_SOL,CT7216_Sol_Transfer_Up,IOL_14700OM_P0.Outputs.A,true,splitter
+145,14700OM,150,0,B,0B,7220,XFER_SOL,CT7220_Sol_Transfer_Up,IOL_14700OM_P0.Outputs.B,true,splitter
+145,14700OM,150,1,A,1A,7217,OMTEC_SOL,ST7217_OmtecStripSol,IOL_14700OM_P1.Outputs.A,true,auto-named from user convention
+145,14700OM,150,1,B,1B,7217,PULLER_SOL,ST7217_PullerSol,IOL_14700OM_P1.Outputs.B,true,auto-named from user convention
+145,14700OM,150,2,A,2A,7221,OMTEC_SOL,ST7221_OmtecStripSol,IOL_14700OM_P2.Outputs.A,true,auto-named from user convention
+145,14700OM,150,2,B,2B,7221,PULLER_SOL,ST7221_PullerSol,IOL_14700OM_P2.Outputs.B,true,auto-named from user convention
+145,14700OM,150,3,A,3A,7224,XFER_SOL,CT7224_Sol_Transfer_Up,IOL_14700OM_P3.Outputs.A,true,splitter
+145,14700OM,150,4,A,4A,7225,OMTEC_SOL,ST7225_OmtecStripSol,IOL_14700OM_P4.Outputs.A,true,auto-named from user convention
+145,14700OM,150,4,B,4B,7225,PULLER_SOL,ST7225_PullerSol,IOL_14700OM_P4.Outputs.B,true,auto-named from user convention
+145,14700OM,150,5,A,5A,7228,XFER_SOL,CT7228_Sol_Transfer_Up,IOL_14700OM_P5.Outputs.A,true,splitter
+145,14700OM,150,5,B,5B,7230,XFER_SOL,CT7230_Sol_Transfer_Up,IOL_14700OM_P5.Outputs.B,true,splitter

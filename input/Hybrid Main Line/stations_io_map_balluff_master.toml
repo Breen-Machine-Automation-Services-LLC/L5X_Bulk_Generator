@@ -1,0 +1,4539 @@
+[meta]
+source = "Combined from balluff_port_map_template.csv and bni00hm_friendly_layout.toml"
+line = "Hybrid Main Line"
+balluff_output_ports = "0-7"
+
+[config]
+output_dir = "output/Hybrid Main Line"
+
+[io_map]
+controller_name = "Wolf_HybridMainLine"
+program_name = "MainProgram"
+routine_name = "IO_Map"
+output_stem = "IO_Map_Balluff_Master"
+
+[[balluff.blocks]]
+hm = 100
+module = "10100OM"
+io_group = "102"
+headers = ["4070 BNI0091"]
+coverages = ["4020-4120"]
+pb_box_zones = [4000, 4120]
+inclinometer_zones = [4120]
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = "A"
+point_id = "0A"
+zone = 4020
+function = "XFER_SOL"
+logical_dest_tag = "CT4020_Sol_Transfer_Up"
+source_tag = "IOL_10100OM_P0.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = "B"
+point_id = "0B"
+zone = 4030
+function = "XFER_SOL"
+logical_dest_tag = "CT4030_Sol_Transfer_Up"
+source_tag = "IOL_10100OM_P0.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = ""
+point_id = "1"
+zone = 4120
+function = "LIFT_UP_SOL"
+logical_dest_tag = "Li4120_Lift_Up_Valves"
+source_tag = "IOL_10100OM_P1.Outputs"
+enabled = true
+notes = "no splitter"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "A"
+point_id = "2A"
+zone = 4120
+function = "BS1_SOL"
+logical_dest_tag = "Li4120_BladeStop1"
+source_tag = "IOL_10100OM_P2.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "B"
+point_id = "2B"
+zone = 4120
+function = "BS2_SOL"
+logical_dest_tag = "Li4120_BladeStop2"
+source_tag = "IOL_10100OM_P2.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "A"
+point_id = "3A"
+zone = 4120
+function = "LIFT_DOWN_SOL"
+logical_dest_tag = "Li4120_Lift_Down_Valves"
+source_tag = "IOL_10100OM_P3.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "B"
+point_id = "3B"
+zone = 4120
+function = "LIFT_DOWN_SOL"
+logical_dest_tag = "Li4120_Lift_Down_Valves"
+source_tag = "IOL_10100OM_P3.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks]]
+hm = 105
+module = "10600OM"
+io_group = "107"
+headers = ["4160 BNI0091"]
+coverages = ["4150-4170"]
+pb_box_zones = [4150, 4170]
+inclinometer_zones = [4150, 4170]
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = ""
+point_id = "0"
+zone = 4150
+function = "LIFT_UP_SOL"
+logical_dest_tag = "Li4150_Lift_Up_Valves"
+source_tag = "IOL_10600OM_P0.Outputs"
+enabled = true
+notes = "no splitter"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = ""
+point_id = "1"
+zone = 4170
+function = "LIFT_UP_SOL"
+logical_dest_tag = "Li4170_Lift_Up_Valves"
+source_tag = "IOL_10600OM_P1.Outputs"
+enabled = true
+notes = "no splitter"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "A"
+point_id = "2A"
+zone = 4150
+function = "LIFT_DOWN_SOL"
+logical_dest_tag = "Li4150_Lift_Down_Valves"
+source_tag = "IOL_10600OM_P2.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "B"
+point_id = "2B"
+zone = 4150
+function = "LIFT_DOWN_SOL"
+logical_dest_tag = "Li4150_Lift_Down_Valves"
+source_tag = "IOL_10600OM_P2.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "A"
+point_id = "3A"
+zone = 4170
+function = "LIFT_DOWN_SOL"
+logical_dest_tag = "Li4170_Lift_Down_Valves"
+source_tag = "IOL_10600OM_P3.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "B"
+point_id = "3B"
+zone = 4170
+function = "LIFT_DOWN_SOL"
+logical_dest_tag = "Li4170_Lift_Down_Valves"
+source_tag = "IOL_10600OM_P3.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 4
+channel = "A"
+point_id = "4A"
+zone = 4150
+function = "BS1_SOL"
+logical_dest_tag = "Li4150_BladeStop1"
+source_tag = "IOL_10600OM_P4.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 4
+channel = "B"
+point_id = "4B"
+zone = 4150
+function = "BS2_SOL"
+logical_dest_tag = "Li4150_BladeStop2"
+source_tag = "IOL_10600OM_P4.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "A"
+point_id = "5A"
+zone = 4170
+function = "BS1_SOL"
+logical_dest_tag = "Li4170_BladeStop1"
+source_tag = "IOL_10600OM_P5.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "B"
+point_id = "5B"
+zone = 4170
+function = "BS2_SOL"
+logical_dest_tag = "Li4170_BladeStop2"
+source_tag = "IOL_10600OM_P5.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks]]
+hm = 110
+module = "11100OM"
+io_group = "112"
+headers = ["4200 BNI0091"]
+coverages = ["4190-4220"]
+pb_box_zones = [4190, 4220]
+inclinometer_zones = [4190, 4220]
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = ""
+point_id = "0"
+zone = 4190
+function = "LIFT_UP_SOL"
+logical_dest_tag = "Li4190_Lift_Up_Valves"
+source_tag = "IOL_11100OM_P0.Outputs"
+enabled = true
+notes = "no splitter"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = ""
+point_id = "1"
+zone = 4220
+function = "LIFT_UP_SOL"
+logical_dest_tag = "Li4220_Lift_Up_Valves"
+source_tag = "IOL_11100OM_P1.Outputs"
+enabled = true
+notes = "no splitter"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "A"
+point_id = "2A"
+zone = 4190
+function = "LIFT_DOWN_SOL"
+logical_dest_tag = "Li4190_Lift_Down_Valves"
+source_tag = "IOL_11100OM_P2.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "B"
+point_id = "2B"
+zone = 4190
+function = "LIFT_DOWN_SOL"
+logical_dest_tag = "Li4190_Lift_Down_Valves"
+source_tag = "IOL_11100OM_P2.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "A"
+point_id = "3A"
+zone = 4220
+function = "LIFT_DOWN_SOL"
+logical_dest_tag = "Li4220_Lift_Down_Valves"
+source_tag = "IOL_11100OM_P3.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "B"
+point_id = "3B"
+zone = 4220
+function = "LIFT_DOWN_SOL"
+logical_dest_tag = "Li4220_Lift_Down_Valves"
+source_tag = "IOL_11100OM_P3.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 4
+channel = "A"
+point_id = "4A"
+zone = 4190
+function = "BS1_SOL"
+logical_dest_tag = "Li4190_BladeStop1"
+source_tag = "IOL_11100OM_P4.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 4
+channel = "B"
+point_id = "4B"
+zone = 4190
+function = "BS2_SOL"
+logical_dest_tag = "Li4190_BladeStop2"
+source_tag = "IOL_11100OM_P4.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "A"
+point_id = "5A"
+zone = 4220
+function = "BS1_SOL"
+logical_dest_tag = "Li4220_BladeStop1"
+source_tag = "IOL_11100OM_P5.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "B"
+point_id = "5B"
+zone = 4220
+function = "BS2_SOL"
+logical_dest_tag = "Li4220_BladeStop2"
+source_tag = "IOL_11100OM_P5.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks]]
+hm = 115
+module = "11600OM"
+io_group = "117"
+headers = ["4300 BNI0091"]
+coverages = ["4260-4321"]
+pb_box_zones = [4281, 4301, 4321]
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = "A"
+point_id = "0A"
+zone = 4260
+function = "XFER_SOL"
+logical_dest_tag = "CT4260_Sol_Transfer_Up"
+source_tag = "IOL_11600OM_P0.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = "B"
+point_id = "0B"
+zone = 4280
+function = "XFER_SOL"
+logical_dest_tag = "CT4280_Sol_Transfer_Up"
+source_tag = "IOL_11600OM_P0.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = "A"
+point_id = "1A"
+zone = 4281
+function = "OMTEC_STRIPS_SOL"
+logical_dest_tag = "ST4281_OmtecStripSol"
+source_tag = "IOL_11600OM_P1.Outputs.A"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = "B"
+point_id = "1B"
+zone = 4281
+function = "PULLER_SOL"
+logical_dest_tag = "ST4281_PullerSol"
+source_tag = "IOL_11600OM_P1.Outputs.B"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "A"
+point_id = "2A"
+zone = 4300
+function = "XFER_SOL"
+logical_dest_tag = "CT4300_Sol_Transfer_Up"
+source_tag = "IOL_11600OM_P2.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "B"
+point_id = "2B"
+zone = 4320
+function = "XFER_SOL"
+logical_dest_tag = "CT4320_Sol_Transfer_Up"
+source_tag = "IOL_11600OM_P2.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "A"
+point_id = "3A"
+zone = 4301
+function = "OMTEC_SOL"
+logical_dest_tag = "ST4301_OmtecStripSol"
+source_tag = "IOL_11600OM_P3.Outputs.A"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "B"
+point_id = "3B"
+zone = 4301
+function = "PULLER_SOL"
+logical_dest_tag = "ST4301_PullerSol"
+source_tag = "IOL_11600OM_P3.Outputs.B"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "A"
+point_id = "5A"
+zone = 4321
+function = "OMTEC_SOL"
+logical_dest_tag = "ST4321_OmtecStripSol"
+source_tag = "IOL_11600OM_P5.Outputs.A"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "B"
+point_id = "5B"
+zone = 4321
+function = "PULLER_SOL"
+logical_dest_tag = "ST4321_PullerSol"
+source_tag = "IOL_11600OM_P5.Outputs.B"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks]]
+hm = 120
+module = "12100OM"
+io_group = "122"
+headers = ["4360 BNI0091"]
+coverages = ["4350-4380"]
+pb_box_zones = [4350, 4380]
+inclinometer_zones = [4350, 4380]
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = ""
+point_id = "0"
+zone = 4350
+function = "LIFT_UP_SOL"
+logical_dest_tag = "Li4350_Lift_Up_Valves"
+source_tag = "IOL_12100OM_P0.Outputs"
+enabled = true
+notes = "no splitter"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = ""
+point_id = "1"
+zone = 4380
+function = "LIFT_UP_SOL"
+logical_dest_tag = "Li4380_Lift_Up_Valves"
+source_tag = "IOL_12100OM_P1.Outputs"
+enabled = true
+notes = "no splitter"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "A"
+point_id = "2A"
+zone = 4350
+function = "LIFT_DOWN_SOL"
+logical_dest_tag = "Li4350_Lift_Down_Valves"
+source_tag = "IOL_12100OM_P2.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "B"
+point_id = "2B"
+zone = 4350
+function = "LIFT_DOWN_SOL"
+logical_dest_tag = "Li4350_Lift_Down_Valves"
+source_tag = "IOL_12100OM_P2.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "A"
+point_id = "3A"
+zone = 4380
+function = "LIFT_DOWN_SOL"
+logical_dest_tag = "Li4380_Lift_Down_Valves"
+source_tag = "IOL_12100OM_P3.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "B"
+point_id = "3B"
+zone = 4380
+function = "LIFT_DOWN_SOL"
+logical_dest_tag = "Li4380_Lift_Down_Valves"
+source_tag = "IOL_12100OM_P3.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 4
+channel = "A"
+point_id = "4A"
+zone = 4350
+function = "BS1_SOL"
+logical_dest_tag = "Li4350_BladeStop1"
+source_tag = "IOL_12100OM_P4.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 4
+channel = "B"
+point_id = "4B"
+zone = 4350
+function = "BS2_SOL"
+logical_dest_tag = "Li4350_BladeStop2"
+source_tag = "IOL_12100OM_P4.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "A"
+point_id = "5A"
+zone = 4380
+function = "BS1_SOL"
+logical_dest_tag = "Li4380_BladeStop1"
+source_tag = "IOL_12100OM_P5.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "B"
+point_id = "5B"
+zone = 4380
+function = "BS2_SOL"
+logical_dest_tag = "Li4380_BladeStop2"
+source_tag = "IOL_12100OM_P5.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks]]
+hm = 125
+module = "12600OM"
+io_group = "127"
+headers = ["4420 BNI0091"]
+coverages = ["4410-4460"]
+pb_box_zones = [4410, 4460]
+inclinometer_zones = [4410, 4460]
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = ""
+point_id = "0"
+zone = 4410
+function = "LIFT_UP_SOL"
+logical_dest_tag = "Li4410_Lift_Up_Valves"
+source_tag = "IOL_12600OM_P0.Outputs"
+enabled = true
+notes = "no splitter"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = ""
+point_id = "1"
+zone = 4460
+function = "LIFT_UP_SOL"
+logical_dest_tag = "Li4460_Lift_Up_Valves"
+source_tag = "IOL_12600OM_P1.Outputs"
+enabled = true
+notes = "no splitter"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "A"
+point_id = "2A"
+zone = 4410
+function = "LIFT_DOWN_SOL"
+logical_dest_tag = "Li4410_Lift_Down_Valves"
+source_tag = "IOL_12600OM_P2.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "B"
+point_id = "2B"
+zone = 4410
+function = "LIFT_DOWN_SOL"
+logical_dest_tag = "Li4410_Lift_Down_Valves"
+source_tag = "IOL_12600OM_P2.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "A"
+point_id = "3A"
+zone = 4460
+function = "LIFT_DOWN_SOL"
+logical_dest_tag = "Li4460_Lift_Down_Valves"
+source_tag = "IOL_12600OM_P3.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "B"
+point_id = "3B"
+zone = 4460
+function = "LIFT_DOWN_SOL"
+logical_dest_tag = "Li4460_Lift_Down_Valves"
+source_tag = "IOL_12600OM_P3.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 4
+channel = "A"
+point_id = "4A"
+zone = 4410
+function = "BS1_SOL"
+logical_dest_tag = "Li4410_BladeStop1"
+source_tag = "IOL_12600OM_P4.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 4
+channel = "B"
+point_id = "4B"
+zone = 4410
+function = "BS2_SOL"
+logical_dest_tag = "Li4410_BladeStop2"
+source_tag = "IOL_12600OM_P4.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "A"
+point_id = "5A"
+zone = 4460
+function = "BS1_SOL"
+logical_dest_tag = "Li4460_BladeStop1"
+source_tag = "IOL_12600OM_P5.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "B"
+point_id = "5B"
+zone = 4460
+function = "BS2_SOL"
+logical_dest_tag = "Li4460_BladeStop2"
+source_tag = "IOL_12600OM_P5.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 6
+channel = "A"
+point_id = "6A"
+zone = 4420
+function = "XFER_SOL"
+logical_dest_tag = "CT4420_Sol_Transfer_Up"
+source_tag = "IOL_12600OM_P6.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 6
+channel = "B"
+point_id = "6B"
+zone = 4450
+function = "XFER_SOL"
+logical_dest_tag = "CT4450_Sol_Transfer_Up"
+source_tag = "IOL_12600OM_P6.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks]]
+hm = 130
+module = "13100OM"
+io_group = "132"
+headers = ["4590 BNI0091"]
+coverages = ["4520-4680"]
+pb_box_zones = [4561, 4581, 4601]
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = "A"
+point_id = "0A"
+zone = 4520
+function = "XFER_SOL"
+logical_dest_tag = "CT4520_Sol_Transfer_Up"
+source_tag = "IOL_13100OM_P0.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = "B"
+point_id = "0B"
+zone = 4530
+function = "XFER_SOL"
+logical_dest_tag = "CT4530_Sol_Transfer_Up"
+source_tag = "IOL_13100OM_P0.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = "A"
+point_id = "1A"
+zone = 4560
+function = "XFER_SOL"
+logical_dest_tag = "CT4560_Sol_Transfer_Up"
+source_tag = "IOL_13100OM_P1.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = "B"
+point_id = "1B"
+zone = 4580
+function = "XFER_SOL"
+logical_dest_tag = "CT4580_Sol_Transfer_Up"
+source_tag = "IOL_13100OM_P1.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "A"
+point_id = "2A"
+zone = 4600
+function = "XFER_SOL"
+logical_dest_tag = "CT4600_Sol_Transfer_Up"
+source_tag = "IOL_13100OM_P2.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "B"
+point_id = "2B"
+zone = 4620
+function = "XFER_SOL"
+logical_dest_tag = "CT4620_Sol_Transfer_Up"
+source_tag = "IOL_13100OM_P2.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "A"
+point_id = "3A"
+zone = 4680
+function = "XFER_SOL"
+logical_dest_tag = "CT4680_Sol_Transfer_Up"
+source_tag = "IOL_13100OM_P3.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks]]
+hm = 140
+module = "14100OM"
+io_group = "142"
+headers = ["7148 BNI0091", "7156 BNI0091"]
+coverages = ["pg 141", "7154-7156, 7172-7188, 7210"]
+pb_box_zones = [7189, 7190]
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = "A"
+point_id = "0A"
+zone = 7138
+function = "XFER_SOL"
+logical_dest_tag = "CT7138_Sol_Transfer_Up"
+source_tag = "IOL_14100OM_P0.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = "B"
+point_id = "0B"
+zone = 7140
+function = "XFER_SOL"
+logical_dest_tag = "CT7140_Sol_Transfer_Up"
+source_tag = "IOL_14100OM_P0.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = "A"
+point_id = "1A"
+zone = 7156
+function = "XFER_SOL"
+logical_dest_tag = "CT7156_Sol_Transfer_Up"
+source_tag = "IOL_14100OM_P1.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = "B"
+point_id = "1B"
+zone = 7196
+function = "XFER_SOL"
+logical_dest_tag = "CT7196_Sol_Transfer_Up"
+source_tag = "IOL_14100OM_P1.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "A"
+point_id = "2A"
+zone = 7197
+function = "OMTEC_SOL"
+logical_dest_tag = "ST7197_OmtecStripSol"
+source_tag = "IOL_14100OM_P2.Outputs.A"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "B"
+point_id = "2B"
+zone = 7197
+function = "PULLER_SOL"
+logical_dest_tag = "ST7197_PullerSol"
+source_tag = "IOL_14100OM_P2.Outputs.B"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "A"
+point_id = "3A"
+zone = 7242
+function = "XFER_SOL"
+logical_dest_tag = "CT7242_Sol_Transfer_Up"
+source_tag = "IOL_14100OM_P3.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks]]
+hm = 145
+module = "14600OM"
+io_group = "148"
+headers = ["BNI0091 - 7209 / BNI0091 - 7221", "7166 BNI0091 / 7306 BNI0091"]
+coverages = ["146-147", "7164-7170, 7301-7303 / 7304-7308"]
+pb_box_zones = [7227, 7229]
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = "A"
+point_id = "0A"
+zone = 7200
+function = "XFER_SOL"
+logical_dest_tag = "CT7200_Sol_Transfer_Up"
+source_tag = "IOL_14600OM_P0.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = "B"
+point_id = "0B"
+zone = 7204
+function = "XFER_SOL"
+logical_dest_tag = "CT7204_Sol_Transfer_Up"
+source_tag = "IOL_14600OM_P0.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = "A"
+point_id = "1A"
+zone = 7201
+function = "OMTEC_SOL"
+logical_dest_tag = "ST7201_OmtecStripSol"
+source_tag = "IOL_14600OM_P1.Outputs.A"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = "B"
+point_id = "1B"
+zone = 7201
+function = "PULLER_SOL"
+logical_dest_tag = "ST7201_PullerSol"
+source_tag = "IOL_14600OM_P1.Outputs.B"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "A"
+point_id = "2A"
+zone = 7205
+function = "OMTEC_SOL"
+logical_dest_tag = "ST7205_OmtecStripSol"
+source_tag = "IOL_14600OM_P2.Outputs.A"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "B"
+point_id = "2B"
+zone = 7205
+function = "PULLER_SOL"
+logical_dest_tag = "ST7205_PullerSol"
+source_tag = "IOL_14600OM_P2.Outputs.B"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "A"
+point_id = "3A"
+zone = 7208
+function = "XFER_SOL"
+logical_dest_tag = "CT7208_Sol_Transfer_Up"
+source_tag = "IOL_14600OM_P3.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "B"
+point_id = "3B"
+zone = 7212
+function = "XFER_SOL"
+logical_dest_tag = "CT7212_Sol_Transfer_Up"
+source_tag = "IOL_14600OM_P3.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 4
+channel = "A"
+point_id = "4A"
+zone = 7209
+function = "OMTEC_SOL"
+logical_dest_tag = "ST7209_OmtecStripSol"
+source_tag = "IOL_14600OM_P4.Outputs.A"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 4
+channel = "B"
+point_id = "4B"
+zone = 7209
+function = "PULLER_SOL"
+logical_dest_tag = "ST7209_PullerSol"
+source_tag = "IOL_14600OM_P4.Outputs.B"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "A"
+point_id = "5A"
+zone = 7213
+function = "OMTEC_SOL"
+logical_dest_tag = "ST7213_OmtecStripSol"
+source_tag = "IOL_14600OM_P5.Outputs.A"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "B"
+point_id = "5B"
+zone = 7213
+function = "PULLER_SOL"
+logical_dest_tag = "ST7213_PullerSol"
+source_tag = "IOL_14600OM_P5.Outputs.B"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks]]
+hm = 145
+module = "14700OM"
+io_group = "150"
+headers = ["BNI0091 - 7209 / BNI0091 - 7221", "7166 BNI0091 / 7306 BNI0091"]
+coverages = ["146-147", "7164-7170, 7301-7303 / 7304-7308"]
+pb_box_zones = [7227, 7229]
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = "A"
+point_id = "0A"
+zone = 7216
+function = "XFER_SOL"
+logical_dest_tag = "CT7216_Sol_Transfer_Up"
+source_tag = "IOL_14700OM_P0.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = "B"
+point_id = "0B"
+zone = 7220
+function = "XFER_SOL"
+logical_dest_tag = "CT7220_Sol_Transfer_Up"
+source_tag = "IOL_14700OM_P0.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = "A"
+point_id = "1A"
+zone = 7217
+function = "OMTEC_SOL"
+logical_dest_tag = "ST7217_OmtecStripSol"
+source_tag = "IOL_14700OM_P1.Outputs.A"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = "B"
+point_id = "1B"
+zone = 7217
+function = "PULLER_SOL"
+logical_dest_tag = "ST7217_PullerSol"
+source_tag = "IOL_14700OM_P1.Outputs.B"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "A"
+point_id = "2A"
+zone = 7221
+function = "OMTEC_SOL"
+logical_dest_tag = "ST7221_OmtecStripSol"
+source_tag = "IOL_14700OM_P2.Outputs.A"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "B"
+point_id = "2B"
+zone = 7221
+function = "PULLER_SOL"
+logical_dest_tag = "ST7221_PullerSol"
+source_tag = "IOL_14700OM_P2.Outputs.B"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "A"
+point_id = "3A"
+zone = 7224
+function = "XFER_SOL"
+logical_dest_tag = "CT7224_Sol_Transfer_Up"
+source_tag = "IOL_14700OM_P3.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 4
+channel = "A"
+point_id = "4A"
+zone = 7225
+function = "OMTEC_SOL"
+logical_dest_tag = "ST7225_OmtecStripSol"
+source_tag = "IOL_14700OM_P4.Outputs.A"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 4
+channel = "B"
+point_id = "4B"
+zone = 7225
+function = "PULLER_SOL"
+logical_dest_tag = "ST7225_PullerSol"
+source_tag = "IOL_14700OM_P4.Outputs.B"
+enabled = true
+notes = "auto-named from user convention"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "A"
+point_id = "5A"
+zone = 7228
+function = "XFER_SOL"
+logical_dest_tag = "CT7228_Sol_Transfer_Up"
+source_tag = "IOL_14700OM_P5.Outputs.A"
+enabled = true
+notes = "splitter"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "B"
+point_id = "5B"
+zone = 7230
+function = "XFER_SOL"
+logical_dest_tag = "CT7230_Sol_Transfer_Up"
+source_tag = "IOL_14700OM_P5.Outputs.B"
+enabled = true
+notes = "splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4020_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P0.Outputs.A"
+dest_instruction = "OTE"
+comment = "10100OM 0A | Zone 4020 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4030_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P0.Outputs.B"
+dest_instruction = "OTE"
+comment = "10100OM 0B | Zone 4030 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4120_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P1.Outputs"
+dest_instruction = "OTE"
+comment = "10100OM 1 | Zone 4120 | LIFT_UP_SOL | no splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4120_BladeStop1"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "10100OM 2A | Zone 4120 | BS1_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4120_BladeStop2"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "10100OM 2B | Zone 4120 | BS2_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4120_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "10100OM 3A | Zone 4120 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4120_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P3.Outputs.B"
+dest_instruction = "OTE"
+comment = "10100OM 3B | Zone 4120 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4150_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P0.Outputs"
+dest_instruction = "OTE"
+comment = "10600OM 0 | Zone 4150 | LIFT_UP_SOL | no splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4170_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P1.Outputs"
+dest_instruction = "OTE"
+comment = "10600OM 1 | Zone 4170 | LIFT_UP_SOL | no splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4150_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "10600OM 2A | Zone 4150 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4150_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "10600OM 2B | Zone 4150 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4170_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "10600OM 3A | Zone 4170 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4170_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P3.Outputs.B"
+dest_instruction = "OTE"
+comment = "10600OM 3B | Zone 4170 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4150_BladeStop1"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P4.Outputs.A"
+dest_instruction = "OTE"
+comment = "10600OM 4A | Zone 4150 | BS1_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4150_BladeStop2"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P4.Outputs.B"
+dest_instruction = "OTE"
+comment = "10600OM 4B | Zone 4150 | BS2_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4170_BladeStop1"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P5.Outputs.A"
+dest_instruction = "OTE"
+comment = "10600OM 5A | Zone 4170 | BS1_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4170_BladeStop2"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P5.Outputs.B"
+dest_instruction = "OTE"
+comment = "10600OM 5B | Zone 4170 | BS2_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4190_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P0.Outputs"
+dest_instruction = "OTE"
+comment = "11100OM 0 | Zone 4190 | LIFT_UP_SOL | no splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4220_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P1.Outputs"
+dest_instruction = "OTE"
+comment = "11100OM 1 | Zone 4220 | LIFT_UP_SOL | no splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4190_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "11100OM 2A | Zone 4190 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4190_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "11100OM 2B | Zone 4190 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4220_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "11100OM 3A | Zone 4220 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4220_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P3.Outputs.B"
+dest_instruction = "OTE"
+comment = "11100OM 3B | Zone 4220 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4190_BladeStop1"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P4.Outputs.A"
+dest_instruction = "OTE"
+comment = "11100OM 4A | Zone 4190 | BS1_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4190_BladeStop2"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P4.Outputs.B"
+dest_instruction = "OTE"
+comment = "11100OM 4B | Zone 4190 | BS2_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4220_BladeStop1"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P5.Outputs.A"
+dest_instruction = "OTE"
+comment = "11100OM 5A | Zone 4220 | BS1_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4220_BladeStop2"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P5.Outputs.B"
+dest_instruction = "OTE"
+comment = "11100OM 5B | Zone 4220 | BS2_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4260_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P0.Outputs.A"
+dest_instruction = "OTE"
+comment = "11600OM 0A | Zone 4260 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4280_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P0.Outputs.B"
+dest_instruction = "OTE"
+comment = "11600OM 0B | Zone 4280 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST4281_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P1.Outputs.A"
+dest_instruction = "OTE"
+comment = "11600OM 1A | Zone 4281 | OMTEC_STRIPS_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST4281_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P1.Outputs.B"
+dest_instruction = "OTE"
+comment = "11600OM 1B | Zone 4281 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4300_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "11600OM 2A | Zone 4300 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4320_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "11600OM 2B | Zone 4320 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST4301_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "11600OM 3A | Zone 4301 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST4301_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P3.Outputs.B"
+dest_instruction = "OTE"
+comment = "11600OM 3B | Zone 4301 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST4321_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P5.Outputs.A"
+dest_instruction = "OTE"
+comment = "11600OM 5A | Zone 4321 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST4321_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P5.Outputs.B"
+dest_instruction = "OTE"
+comment = "11600OM 5B | Zone 4321 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4350_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P0.Outputs"
+dest_instruction = "OTE"
+comment = "12100OM 0 | Zone 4350 | LIFT_UP_SOL | no splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4380_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P1.Outputs"
+dest_instruction = "OTE"
+comment = "12100OM 1 | Zone 4380 | LIFT_UP_SOL | no splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4350_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "12100OM 2A | Zone 4350 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4350_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "12100OM 2B | Zone 4350 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4380_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "12100OM 3A | Zone 4380 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4380_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P3.Outputs.B"
+dest_instruction = "OTE"
+comment = "12100OM 3B | Zone 4380 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4350_BladeStop1"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P4.Outputs.A"
+dest_instruction = "OTE"
+comment = "12100OM 4A | Zone 4350 | BS1_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4350_BladeStop2"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P4.Outputs.B"
+dest_instruction = "OTE"
+comment = "12100OM 4B | Zone 4350 | BS2_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4380_BladeStop1"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P5.Outputs.A"
+dest_instruction = "OTE"
+comment = "12100OM 5A | Zone 4380 | BS1_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4380_BladeStop2"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P5.Outputs.B"
+dest_instruction = "OTE"
+comment = "12100OM 5B | Zone 4380 | BS2_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4410_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P0.Outputs"
+dest_instruction = "OTE"
+comment = "12600OM 0 | Zone 4410 | LIFT_UP_SOL | no splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4460_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P1.Outputs"
+dest_instruction = "OTE"
+comment = "12600OM 1 | Zone 4460 | LIFT_UP_SOL | no splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4410_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "12600OM 2A | Zone 4410 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4410_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "12600OM 2B | Zone 4410 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4460_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "12600OM 3A | Zone 4460 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4460_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P3.Outputs.B"
+dest_instruction = "OTE"
+comment = "12600OM 3B | Zone 4460 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4410_BladeStop1"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P4.Outputs.A"
+dest_instruction = "OTE"
+comment = "12600OM 4A | Zone 4410 | BS1_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4410_BladeStop2"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P4.Outputs.B"
+dest_instruction = "OTE"
+comment = "12600OM 4B | Zone 4410 | BS2_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4460_BladeStop1"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P5.Outputs.A"
+dest_instruction = "OTE"
+comment = "12600OM 5A | Zone 4460 | BS1_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4460_BladeStop2"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P5.Outputs.B"
+dest_instruction = "OTE"
+comment = "12600OM 5B | Zone 4460 | BS2_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4420_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P6.Outputs.A"
+dest_instruction = "OTE"
+comment = "12600OM 6A | Zone 4420 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4450_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P6.Outputs.B"
+dest_instruction = "OTE"
+comment = "12600OM 6B | Zone 4450 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4520_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_13100OM_P0.Outputs.A"
+dest_instruction = "OTE"
+comment = "13100OM 0A | Zone 4520 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4530_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_13100OM_P0.Outputs.B"
+dest_instruction = "OTE"
+comment = "13100OM 0B | Zone 4530 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4560_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_13100OM_P1.Outputs.A"
+dest_instruction = "OTE"
+comment = "13100OM 1A | Zone 4560 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4580_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_13100OM_P1.Outputs.B"
+dest_instruction = "OTE"
+comment = "13100OM 1B | Zone 4580 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4600_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_13100OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "13100OM 2A | Zone 4600 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4620_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_13100OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "13100OM 2B | Zone 4620 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4680_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_13100OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "13100OM 3A | Zone 4680 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7138_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14100OM_P0.Outputs.A"
+dest_instruction = "OTE"
+comment = "14100OM 0A | Zone 7138 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7140_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14100OM_P0.Outputs.B"
+dest_instruction = "OTE"
+comment = "14100OM 0B | Zone 7140 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7156_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14100OM_P1.Outputs.A"
+dest_instruction = "OTE"
+comment = "14100OM 1A | Zone 7156 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7196_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14100OM_P1.Outputs.B"
+dest_instruction = "OTE"
+comment = "14100OM 1B | Zone 7196 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7197_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_14100OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "14100OM 2A | Zone 7197 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7197_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_14100OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "14100OM 2B | Zone 7197 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7242_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14100OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "14100OM 3A | Zone 7242 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7200_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P0.Outputs.A"
+dest_instruction = "OTE"
+comment = "14600OM 0A | Zone 7200 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7204_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P0.Outputs.B"
+dest_instruction = "OTE"
+comment = "14600OM 0B | Zone 7204 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7201_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P1.Outputs.A"
+dest_instruction = "OTE"
+comment = "14600OM 1A | Zone 7201 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7201_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P1.Outputs.B"
+dest_instruction = "OTE"
+comment = "14600OM 1B | Zone 7201 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7205_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "14600OM 2A | Zone 7205 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7205_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "14600OM 2B | Zone 7205 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7208_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "14600OM 3A | Zone 7208 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7212_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P3.Outputs.B"
+dest_instruction = "OTE"
+comment = "14600OM 3B | Zone 7212 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7209_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P4.Outputs.A"
+dest_instruction = "OTE"
+comment = "14600OM 4A | Zone 7209 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7209_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P4.Outputs.B"
+dest_instruction = "OTE"
+comment = "14600OM 4B | Zone 7209 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7213_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P5.Outputs.A"
+dest_instruction = "OTE"
+comment = "14600OM 5A | Zone 7213 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7213_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P5.Outputs.B"
+dest_instruction = "OTE"
+comment = "14600OM 5B | Zone 7213 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7216_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P0.Outputs.A"
+dest_instruction = "OTE"
+comment = "14700OM 0A | Zone 7216 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7220_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P0.Outputs.B"
+dest_instruction = "OTE"
+comment = "14700OM 0B | Zone 7220 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7217_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P1.Outputs.A"
+dest_instruction = "OTE"
+comment = "14700OM 1A | Zone 7217 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7217_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P1.Outputs.B"
+dest_instruction = "OTE"
+comment = "14700OM 1B | Zone 7217 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7221_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "14700OM 2A | Zone 7221 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7221_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "14700OM 2B | Zone 7221 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7224_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "14700OM 3A | Zone 7224 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7225_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P4.Outputs.A"
+dest_instruction = "OTE"
+comment = "14700OM 4A | Zone 7225 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7225_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P4.Outputs.B"
+dest_instruction = "OTE"
+comment = "14700OM 4B | Zone 7225 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7228_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P5.Outputs.A"
+dest_instruction = "OTE"
+comment = "14700OM 5A | Zone 7228 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7230_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P5.Outputs.B"
+dest_instruction = "OTE"
+comment = "14700OM 5B | Zone 7230 | XFER_SOL | splitter"
+
+# BEGIN AUTO BNI005L INPUT RUNGS
+# Generated from [balluff.bni005l_inputs.blocks.points].
+# Source is physical BNI005L input; destination is logical status tag.
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10200IM_P0.Inputs.A"
+source_instruction = "XIC"
+dest = "CT4020_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 102 0A | Zone 4020 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10200IM_P0.Inputs.B"
+source_instruction = "XIC"
+dest = "CT4020_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 102 0B | Zone 4020 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10200IM_P1.Inputs.A"
+source_instruction = "XIC"
+dest = "CT4030_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 102 1A | Zone 4030 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10200IM_P1.Inputs.B"
+source_instruction = "XIC"
+dest = "CT4030_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 102 1B | Zone 4030 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10200IM_P2.Inputs.A"
+source_instruction = "XIC"
+dest = "Li4120_BladeStop1Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 102 2A | Zone 4120 | BS1 UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10200IM_P2.Inputs.B"
+source_instruction = "XIC"
+dest = "Li4120_BladeStop1Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 102 2B | Zone 4120 | BS1 DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10200IM_P3.Inputs.A"
+source_instruction = "XIC"
+dest = "Li4120_BladeStop2Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 102 3A | Zone 4120 | BS2 UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10200IM_P3.Inputs.B"
+source_instruction = "XIC"
+dest = "Li4120_BladeStop2Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 102 3B | Zone 4120 | BS2 DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10700IM_P0.Inputs.A"
+source_instruction = "XIC"
+dest = "Li4150_BladeStop1Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 107 0A | Zone 4150 | BS1 UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10700IM_P0.Inputs.B"
+source_instruction = "XIC"
+dest = "Li4150_BladeStop1Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 107 0B | Zone 4150 | BS1 DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10700IM_P1.Inputs.A"
+source_instruction = "XIC"
+dest = "Li4150_BladeStop2Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 107 1A | Zone 4150 | BS2 UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10700IM_P1.Inputs.B"
+source_instruction = "XIC"
+dest = "Li4150_BladeStop2Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 107 1B | Zone 4150 | BS2 DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10700IM_P2.Inputs.A"
+source_instruction = "XIC"
+dest = "Li4170_BladeStop1Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 107 2A | Zone 4170 | BS1 UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10700IM_P2.Inputs.B"
+source_instruction = "XIC"
+dest = "Li4170_BladeStop1Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 107 2B | Zone 4170 | BS1 DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10700IM_P3.Inputs.A"
+source_instruction = "XIC"
+dest = "Li4170_BladeStop2Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 107 3A | Zone 4170 | BS2 UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10700IM_P3.Inputs.B"
+source_instruction = "XIC"
+dest = "Li4170_BladeStop2Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 107 3B | Zone 4170 | BS2 DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P0.Inputs.A"
+source_instruction = "XIC"
+dest = "Li4190_BladeStop1Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 112 0A | Zone 4190 | BS1 UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P0.Inputs.B"
+source_instruction = "XIC"
+dest = "Li4190_BladeStop1Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 112 0B | Zone 4190 | BS1 DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P1.Inputs.A"
+source_instruction = "XIC"
+dest = "Li4190_BladeStop2Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 112 1A | Zone 4190 | BS2 UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P1.Inputs.B"
+source_instruction = "XIC"
+dest = "Li4190_BladeStop2Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 112 1B | Zone 4190 | BS2 DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P2.Inputs.A"
+source_instruction = "XIC"
+dest = "Li4220_BladeStop1Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 112 2A | Zone 4220 | BS1 UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P2.Inputs.B"
+source_instruction = "XIC"
+dest = "Li4220_BladeStop1Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 112 2B | Zone 4220 | BS1 DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P3.Inputs.A"
+source_instruction = "XIC"
+dest = "Li4220_BladeStop2Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 112 3A | Zone 4220 | BS2 UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P3.Inputs.B"
+source_instruction = "XIC"
+dest = "Li4220_BladeStop2Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 112 3B | Zone 4220 | BS2 DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P0.Inputs.A"
+source_instruction = "XIC"
+dest = "CT4260_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 117 0A | Zone 4260 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P0.Inputs.B"
+source_instruction = "XIC"
+dest = "CT4260_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 117 0B | Zone 4260 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P1.Inputs.A"
+source_instruction = "XIC"
+dest = "CT4280_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 117 1A | Zone 4280 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P1.Inputs.B"
+source_instruction = "XIC"
+dest = "CT4280_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 117 1B | Zone 4280 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P2.Inputs.A"
+source_instruction = "XIC"
+dest = "ST4281_PullerPulled"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 117 2A | Zone 4281 | PULLER PULLED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P2.Inputs.B"
+source_instruction = "XIC"
+dest = "ST4281_PullerReleased"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 117 2B | Zone 4281 | PULLER RELEASED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P3.Inputs.A"
+source_instruction = "XIC"
+dest = "CT4300_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 117 3A | Zone 4300 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P3.Inputs.B"
+source_instruction = "XIC"
+dest = "CT4300_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 117 3B | Zone 4300 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P4.Inputs.A"
+source_instruction = "XIC"
+dest = "ST4301_PullerPulled"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 117 4A | Zone 4301 | PULLER PULLED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P4.Inputs.B"
+source_instruction = "XIC"
+dest = "ST4301_PullerReleased"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 117 4B | Zone 4301 | PULLER RELEASED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P5.Inputs.A"
+source_instruction = "XIC"
+dest = "CT4320_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 117 5A | Zone 4320 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P5.Inputs.B"
+source_instruction = "XIC"
+dest = "CT4320_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 117 5B | Zone 4320 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P6.Inputs.A"
+source_instruction = "XIC"
+dest = "ST4321_PullerPulled"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 117 6A | Zone 4321 | PULLER PULLED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P6.Inputs.B"
+source_instruction = "XIC"
+dest = "ST4321_PullerReleased"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 117 6B | Zone 4321 | PULLER RELEASED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12200IM_P0.Inputs.A"
+source_instruction = "XIC"
+dest = "Li4350_BladeStop1Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 122 0A | Zone 4350 | BS1 UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12200IM_P0.Inputs.B"
+source_instruction = "XIC"
+dest = "Li4350_BladeStop1Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 122 0B | Zone 4350 | BS1 DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12200IM_P1.Inputs.A"
+source_instruction = "XIC"
+dest = "Li4350_BladeStop2Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 122 1A | Zone 4350 | BS2 UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12200IM_P1.Inputs.B"
+source_instruction = "XIC"
+dest = "Li4350_BladeStop2Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 122 1B | Zone 4350 | BS2 DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12200IM_P2.Inputs.A"
+source_instruction = "XIC"
+dest = "Li4380_BladeStop1Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 122 2A | Zone 4380 | BS1 UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12200IM_P2.Inputs.B"
+source_instruction = "XIC"
+dest = "Li4380_BladeStop1Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 122 2B | Zone 4380 | BS1 DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12200IM_P3.Inputs.A"
+source_instruction = "XIC"
+dest = "Li4380_BladeStop2Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 122 3A | Zone 4380 | BS2 UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12200IM_P3.Inputs.B"
+source_instruction = "XIC"
+dest = "Li4380_BladeStop2Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 122 3B | Zone 4380 | BS2 DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P0.Inputs.A"
+source_instruction = "XIC"
+dest = "Li4410_BladeStop1Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 127 0A | Zone 4410 | BS1 UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P0.Inputs.B"
+source_instruction = "XIC"
+dest = "Li4410_BladeStop1Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 127 0B | Zone 4410 | BS1 DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P1.Inputs.A"
+source_instruction = "XIC"
+dest = "Li4410_BladeStop2Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 127 1A | Zone 4410 | BS2 UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P1.Inputs.B"
+source_instruction = "XIC"
+dest = "Li4410_BladeStop2Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 127 1B | Zone 4410 | BS2 DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P2.Inputs.A"
+source_instruction = "XIC"
+dest = "CT4420_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 127 2A | Zone 4420 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P2.Inputs.B"
+source_instruction = "XIC"
+dest = "CT4420_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 127 2B | Zone 4420 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P3.Inputs.A"
+source_instruction = "XIC"
+dest = "CT4450_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 127 3A | Zone 4450 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P3.Inputs.B"
+source_instruction = "XIC"
+dest = "CT4450_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 127 3B | Zone 4450 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P4.Inputs.A"
+source_instruction = "XIC"
+dest = "Li4460_BladeStop1Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 127 4A | Zone 4460 | BS1 UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P4.Inputs.B"
+source_instruction = "XIC"
+dest = "Li4460_BladeStop1Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 127 4B | Zone 4460 | BS1 DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P5.Inputs.A"
+source_instruction = "XIC"
+dest = "Li4460_BladeStop2Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 127 5A | Zone 4460 | BS2 UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P5.Inputs.B"
+source_instruction = "XIC"
+dest = "Li4460_BladeStop2Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 127 5B | Zone 4460 | BS2 DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_13200IM_P0.Inputs.A"
+source_instruction = "XIC"
+dest = "CT4520_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 132 0A | Zone 4520 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_13200IM_P0.Inputs.B"
+source_instruction = "XIC"
+dest = "CT4520_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 132 0B | Zone 4520 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_13200IM_P1.Inputs.A"
+source_instruction = "XIC"
+dest = "CT4530_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 132 1A | Zone 4530 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_13200IM_P1.Inputs.B"
+source_instruction = "XIC"
+dest = "CT4530_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 132 1B | Zone 4530 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_13200IM_P2.Inputs.A"
+source_instruction = "XIC"
+dest = "CT4560_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 132 2A | Zone 4560 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_13200IM_P2.Inputs.B"
+source_instruction = "XIC"
+dest = "CT4560_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 132 2B | Zone 4560 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_13200IM_P3.Inputs"
+source_instruction = "XIC"
+dest = "ST4561_ReIntroLPB"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 132 3 | Zone 4561 | PB N/A"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_13200IM_P4.Inputs.A"
+source_instruction = "XIC"
+dest = "CT4580_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 132 4A | Zone 4580 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_13200IM_P4.Inputs.B"
+source_instruction = "XIC"
+dest = "CT4580_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 132 4B | Zone 4580 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_13200IM_P5.Inputs"
+source_instruction = "XIC"
+dest = "ST4581_ReIntroLPB"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 132 5 | Zone 4581 | PB N/A"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_13300IM_P0.Inputs.A"
+source_instruction = "XIC"
+dest = "CT4600_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 133 0A | Zone 4600 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_13300IM_P0.Inputs.B"
+source_instruction = "XIC"
+dest = "CT4600_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 133 0B | Zone 4600 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_13300IM_P1.Inputs"
+source_instruction = "XIC"
+dest = "ST4601_ReIntroLPB"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 133 1 | Zone 4601 | PB N/A"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_13300IM_P2.Inputs.A"
+source_instruction = "XIC"
+dest = "CT4620_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 133 2A | Zone 4620 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_13300IM_P2.Inputs.B"
+source_instruction = "XIC"
+dest = "CT4620_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 133 2B | Zone 4620 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_13300IM_P3.Inputs.A"
+source_instruction = "XIC"
+dest = "CT4680_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 133 3A | Zone 4680 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_13300IM_P3.Inputs.B"
+source_instruction = "XIC"
+dest = "CT4680_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 133 3B | Zone 4680 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14200IM_P0.Inputs.A"
+source_instruction = "XIC"
+dest = "CT7138_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 142 0A | Zone 7138 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14200IM_P0.Inputs.B"
+source_instruction = "XIC"
+dest = "CT7138_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 142 0B | Zone 7138 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14200IM_P1.Inputs.A"
+source_instruction = "XIC"
+dest = "CT7140_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 142 1A | Zone 7140 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14200IM_P1.Inputs.B"
+source_instruction = "XIC"
+dest = "CT7140_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 142 1B | Zone 7140 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14200IM_P2.Inputs.A"
+source_instruction = "XIC"
+dest = "CT7156_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 142 2A | Zone 7156 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14200IM_P2.Inputs.B"
+source_instruction = "XIC"
+dest = "CT7156_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 142 2B | Zone 7156 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14200IM_P3.Inputs.A"
+source_instruction = "XIC"
+dest = "CT7196_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 142 3A | Zone 7196 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14200IM_P3.Inputs.B"
+source_instruction = "XIC"
+dest = "CT7196_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 142 3B | Zone 7196 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14200IM_P4.Inputs.A"
+source_instruction = "XIC"
+dest = "ST7197_PullerPulled"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 142 4A | Zone 7197 | PULLER PULLED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14200IM_P4.Inputs.B"
+source_instruction = "XIC"
+dest = "ST7197_PullerReleased"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 142 4B | Zone 7197 | PULLER RELEASED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14200IM_P5.Inputs.A"
+source_instruction = "XIC"
+dest = "CT7242_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 142 5A | Zone 7242 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14200IM_P5.Inputs.B"
+source_instruction = "XIC"
+dest = "CT7242_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 142 5B | Zone 7242 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14800IM_P0.Inputs.A"
+source_instruction = "XIC"
+dest = "CT7200_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 148 0A | Zone 7200 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14800IM_P0.Inputs.B"
+source_instruction = "XIC"
+dest = "CT7200_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 148 0B | Zone 7200 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14800IM_P1.Inputs.A"
+source_instruction = "XIC"
+dest = "ST7201_PullerPulled"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 148 1A | Zone 7201 | PULLER PULLED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14800IM_P1.Inputs.B"
+source_instruction = "XIC"
+dest = "ST7201_PullerReleased"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 148 1B | Zone 7201 | PULLER RELEASED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14800IM_P2.Inputs.A"
+source_instruction = "XIC"
+dest = "CT7204_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 148 2A | Zone 7204 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14800IM_P2.Inputs.B"
+source_instruction = "XIC"
+dest = "CT7204_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 148 2B | Zone 7204 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14800IM_P3.Inputs.A"
+source_instruction = "XIC"
+dest = "ST7205_PullerPulled"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 148 3A | Zone 7205 | PULLER PULLED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14800IM_P3.Inputs.B"
+source_instruction = "XIC"
+dest = "ST7205_PullerReleased"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 148 3B | Zone 7205 | PULLER RELEASED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14800IM_P4.Inputs.A"
+source_instruction = "XIC"
+dest = "CT7208_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 148 4A | Zone 7208 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14800IM_P4.Inputs.B"
+source_instruction = "XIC"
+dest = "CT7208_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 148 4B | Zone 7208 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14800IM_P5.Inputs.A"
+source_instruction = "XIC"
+dest = "ST7209_PullerPulled"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 148 5A | Zone 7209 | PULLER PULLED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14800IM_P5.Inputs.B"
+source_instruction = "XIC"
+dest = "ST7209_PullerReleased"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 148 5B | Zone 7209 | PULLER RELEASED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14900IM_P0.Inputs.A"
+source_instruction = "XIC"
+dest = "CT7212_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 149 0A | Zone 7212 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14900IM_P0.Inputs.B"
+source_instruction = "XIC"
+dest = "CT7212_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 149 0B | Zone 7212 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14900IM_P1.Inputs.A"
+source_instruction = "XIC"
+dest = "ST7213_PullerPulled"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 149 1A | Zone 7213 | PULLER PULLED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14900IM_P1.Inputs.B"
+source_instruction = "XIC"
+dest = "ST7213_PullerReleased"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 149 1B | Zone 7213 | PULLER RELEASED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14900IM_P2.Inputs.A"
+source_instruction = "XIC"
+dest = "CT7216_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 149 2A | Zone 7216 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14900IM_P2.Inputs.B"
+source_instruction = "XIC"
+dest = "CT7216_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 149 2B | Zone 7216 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14900IM_P3.Inputs.A"
+source_instruction = "XIC"
+dest = "ST7217_PullerPulled"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 149 3A | Zone 7217 | PULLER PULLED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14900IM_P3.Inputs.B"
+source_instruction = "XIC"
+dest = "ST7217_PullerReleased"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 149 3B | Zone 7217 | PULLER RELEASED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14900IM_P4.Inputs.A"
+source_instruction = "XIC"
+dest = "CT7220_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 149 4A | Zone 7220 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14900IM_P4.Inputs.B"
+source_instruction = "XIC"
+dest = "CT7220_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 149 4B | Zone 7220 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14900IM_P5.Inputs.A"
+source_instruction = "XIC"
+dest = "ST7221_PullerPulled"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 149 5A | Zone 7221 | PULLER PULLED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_14900IM_P5.Inputs.B"
+source_instruction = "XIC"
+dest = "ST7221_PullerReleased"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 149 5B | Zone 7221 | PULLER RELEASED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_15000IM_P0.Inputs.A"
+source_instruction = "XIC"
+dest = "CT7224_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 150 0A | Zone 7224 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_15000IM_P0.Inputs.B"
+source_instruction = "XIC"
+dest = "CT7224_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 150 0B | Zone 7224 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_15000IM_P1.Inputs.A"
+source_instruction = "XIC"
+dest = "ST7225_PullerPulled"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 150 1A | Zone 7225 | PULLER PULLED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_15000IM_P1.Inputs.B"
+source_instruction = "XIC"
+dest = "ST7225_PullerReleased"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 150 1B | Zone 7225 | PULLER RELEASED"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_15000IM_P2.Inputs"
+source_instruction = "XIC"
+dest = "ST7227_ReIntroLPB"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 150 2 | Zone 7227 | PB N/A"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_15000IM_P3.Inputs.A"
+source_instruction = "XIC"
+dest = "CT7228_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 150 3A | Zone 7228 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_15000IM_P3.Inputs.B"
+source_instruction = "XIC"
+dest = "CT7228_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 150 3B | Zone 7228 | XFER DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_15000IM_P4.Inputs"
+source_instruction = "XIC"
+dest = "ST7229_ReIntroLPB"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 150 4 | Zone 7229 | PB N/A"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_15000IM_P5.Inputs.A"
+source_instruction = "XIC"
+dest = "CT7230_Px_Transfer_Up"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 150 5A | Zone 7230 | XFER UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_15000IM_P5.Inputs.B"
+source_instruction = "XIC"
+dest = "CT7230_Px_Transfer_Down"
+dest_instruction = "OTE"
+comment = "BNI005L input | IO 150 5B | Zone 7230 | XFER DOWN"
+
+# END AUTO BNI005L INPUT RUNGS
+[balluff.master_layout]
+source = "User-provided BNI00HM master map"
+notes = "Defines BNI00HM nodes, attached BNI0091/BNI005L modules, and PB/INCLIN auxiliary points."
+
+[[balluff.master_layout.nodes]]
+hm = 100
+master = "BNI00HM"
+
+[[balluff.master_layout.nodes.connections]]
+port = 0
+target = "101"
+target_type = "BNI0091"
+
+[[balluff.master_layout.nodes.connections]]
+port = 2
+target = "102"
+target_type = "BNI005L"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 8
+zone = 4000
+signal = "PB_BOX"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 10
+zone = 4120
+signal = "PB_BOX"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 4
+zone = 4120
+signal = "INCLIN"
+
+[[balluff.master_layout.nodes]]
+hm = 105
+master = "BNI00HM"
+
+[[balluff.master_layout.nodes.connections]]
+port = 0
+target = "106"
+target_type = "BNI0091"
+
+[[balluff.master_layout.nodes.connections]]
+port = 2
+target = "107"
+target_type = "BNI005L"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 8
+zone = 4150
+signal = "PB_BOX"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 10
+zone = 4170
+signal = "PB_BOX"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 4
+zone = 4150
+signal = "INCLIN"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 6
+zone = 4170
+signal = "INCLIN"
+
+[[balluff.master_layout.nodes]]
+hm = 110
+master = "BNI00HM"
+
+[[balluff.master_layout.nodes.connections]]
+port = 0
+target = "111"
+target_type = "BNI0091"
+
+[[balluff.master_layout.nodes.connections]]
+port = 2
+target = "112"
+target_type = "BNI005L"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 8
+zone = 4190
+signal = "PB_BOX"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 10
+zone = 4220
+signal = "PB_BOX"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 4
+zone = 4190
+signal = "INCLIN"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 6
+zone = 4220
+signal = "INCLIN"
+
+[[balluff.master_layout.nodes]]
+hm = 115
+master = "BNI00HM"
+
+[[balluff.master_layout.nodes.connections]]
+port = 0
+target = "116"
+target_type = "BNI0091"
+
+[[balluff.master_layout.nodes.connections]]
+port = 2
+target = "117"
+target_type = "BNI005L"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 8
+zone = 4281
+signal = "PB_BOX"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 10
+zone = 4301
+signal = "PB_BOX"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 12
+zone = 4321
+signal = "PB_BOX"
+
+[[balluff.master_layout.nodes]]
+hm = 120
+master = "BNI00HM"
+
+[[balluff.master_layout.nodes.connections]]
+port = 0
+target = "121"
+target_type = "BNI0091"
+
+[[balluff.master_layout.nodes.connections]]
+port = 2
+target = "122"
+target_type = "BNI005L"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 8
+zone = 4350
+signal = "PB_BOX"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 10
+zone = 4380
+signal = "PB_BOX"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 4
+zone = 4350
+signal = "INCLIN"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 6
+zone = 4380
+signal = "INCLIN"
+
+[[balluff.master_layout.nodes]]
+hm = 125
+master = "BNI00HM"
+
+[[balluff.master_layout.nodes.connections]]
+port = 0
+target = "126"
+target_type = "BNI0091"
+
+[[balluff.master_layout.nodes.connections]]
+port = 2
+target = "127"
+target_type = "BNI005L"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 8
+zone = 4410
+signal = "PB_BOX"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 10
+zone = 4460
+signal = "PB_BOX"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 4
+zone = 4410
+signal = "INCLIN"
+
+[[balluff.master_layout.nodes.aux_points]]
+port = 6
+zone = 4460
+signal = "INCLIN"
+
+[[balluff.master_layout.nodes]]
+hm = 130
+master = "BNI00HM"
+
+[[balluff.master_layout.nodes.connections]]
+port = 0
+target = "131"
+target_type = "BNI0091"
+
+[[balluff.master_layout.nodes.connections]]
+port = 2
+target = "132"
+target_type = "BNI005L"
+
+[[balluff.master_layout.nodes.connections]]
+port = 4
+target = "133"
+target_type = "BNI005L"
+
+[[balluff.master_layout.nodes]]
+hm = 140
+master = "BNI00HM"
+
+[[balluff.master_layout.nodes.connections]]
+port = 0
+target = "141"
+target_type = "BNI0091"
+
+[[balluff.master_layout.nodes.connections]]
+port = 2
+target = "142"
+target_type = "BNI005L"
+
+[[balluff.master_layout.nodes]]
+hm = 145
+master = "BNI00HM"
+
+[[balluff.master_layout.nodes.connections]]
+port = 0
+target = "146"
+target_type = "BNI0091"
+
+[[balluff.master_layout.nodes.connections]]
+port = 2
+target = "147"
+target_type = "BNI0091"
+
+[[balluff.master_layout.nodes.connections]]
+port = 4
+target = "148"
+target_type = "BNI005L"
+
+[[balluff.master_layout.nodes.connections]]
+port = 6
+target = "149"
+target_type = "BNI005L"
+
+[[balluff.master_layout.nodes.connections]]
+port = 8
+target = "150"
+target_type = "BNI005L"
+
+[balluff.bni005l_inputs]
+source = "User-provided BNI005L input mappings"
+notes = "Channel-level input map with source/destination tag hints; verify low-confidence destination tags."
+
+[[balluff.bni005l_inputs.blocks]]
+io_group = 102
+module_hint = "10200IM"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0A"
+port = 0
+channel = "A"
+zone = 4020
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_10200IM_P0.Inputs.A"
+logical_dest_tag_hint = "CT4020_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0B"
+port = 0
+channel = "B"
+zone = 4020
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_10200IM_P0.Inputs.B"
+logical_dest_tag_hint = "CT4020_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1A"
+port = 1
+channel = "A"
+zone = 4030
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_10200IM_P1.Inputs.A"
+logical_dest_tag_hint = "CT4030_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1B"
+port = 1
+channel = "B"
+zone = 4030
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_10200IM_P1.Inputs.B"
+logical_dest_tag_hint = "CT4030_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2A"
+port = 2
+channel = "A"
+zone = 4120
+device = "BS1"
+state = "UP"
+source_tag_hint = "IOL_10200IM_P2.Inputs.A"
+logical_dest_tag_hint = "Li4120_BladeStop1Up"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2B"
+port = 2
+channel = "B"
+zone = 4120
+device = "BS1"
+state = "DOWN"
+source_tag_hint = "IOL_10200IM_P2.Inputs.B"
+logical_dest_tag_hint = "Li4120_BladeStop1Down"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3A"
+port = 3
+channel = "A"
+zone = 4120
+device = "BS2"
+state = "UP"
+source_tag_hint = "IOL_10200IM_P3.Inputs.A"
+logical_dest_tag_hint = "Li4120_BladeStop2Up"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3B"
+port = 3
+channel = "B"
+zone = 4120
+device = "BS2"
+state = "DOWN"
+source_tag_hint = "IOL_10200IM_P3.Inputs.B"
+logical_dest_tag_hint = "Li4120_BladeStop2Down"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks]]
+io_group = 107
+module_hint = "10700IM"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0A"
+port = 0
+channel = "A"
+zone = 4150
+device = "BS1"
+state = "UP"
+source_tag_hint = "IOL_10700IM_P0.Inputs.A"
+logical_dest_tag_hint = "Li4150_BladeStop1Up"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0B"
+port = 0
+channel = "B"
+zone = 4150
+device = "BS1"
+state = "DOWN"
+source_tag_hint = "IOL_10700IM_P0.Inputs.B"
+logical_dest_tag_hint = "Li4150_BladeStop1Down"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1A"
+port = 1
+channel = "A"
+zone = 4150
+device = "BS2"
+state = "UP"
+source_tag_hint = "IOL_10700IM_P1.Inputs.A"
+logical_dest_tag_hint = "Li4150_BladeStop2Up"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1B"
+port = 1
+channel = "B"
+zone = 4150
+device = "BS2"
+state = "DOWN"
+source_tag_hint = "IOL_10700IM_P1.Inputs.B"
+logical_dest_tag_hint = "Li4150_BladeStop2Down"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2A"
+port = 2
+channel = "A"
+zone = 4170
+device = "BS1"
+state = "UP"
+source_tag_hint = "IOL_10700IM_P2.Inputs.A"
+logical_dest_tag_hint = "Li4170_BladeStop1Up"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2B"
+port = 2
+channel = "B"
+zone = 4170
+device = "BS1"
+state = "DOWN"
+source_tag_hint = "IOL_10700IM_P2.Inputs.B"
+logical_dest_tag_hint = "Li4170_BladeStop1Down"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3A"
+port = 3
+channel = "A"
+zone = 4170
+device = "BS2"
+state = "UP"
+source_tag_hint = "IOL_10700IM_P3.Inputs.A"
+logical_dest_tag_hint = "Li4170_BladeStop2Up"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3B"
+port = 3
+channel = "B"
+zone = 4170
+device = "BS2"
+state = "DOWN"
+source_tag_hint = "IOL_10700IM_P3.Inputs.B"
+logical_dest_tag_hint = "Li4170_BladeStop2Down"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks]]
+io_group = 112
+module_hint = "11200IM"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0A"
+port = 0
+channel = "A"
+zone = 4190
+device = "BS1"
+state = "UP"
+source_tag_hint = "IOL_11200IM_P0.Inputs.A"
+logical_dest_tag_hint = "Li4190_BladeStop1Up"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0B"
+port = 0
+channel = "B"
+zone = 4190
+device = "BS1"
+state = "DOWN"
+source_tag_hint = "IOL_11200IM_P0.Inputs.B"
+logical_dest_tag_hint = "Li4190_BladeStop1Down"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1A"
+port = 1
+channel = "A"
+zone = 4190
+device = "BS2"
+state = "UP"
+source_tag_hint = "IOL_11200IM_P1.Inputs.A"
+logical_dest_tag_hint = "Li4190_BladeStop2Up"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1B"
+port = 1
+channel = "B"
+zone = 4190
+device = "BS2"
+state = "DOWN"
+source_tag_hint = "IOL_11200IM_P1.Inputs.B"
+logical_dest_tag_hint = "Li4190_BladeStop2Down"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2A"
+port = 2
+channel = "A"
+zone = 4220
+device = "BS1"
+state = "UP"
+source_tag_hint = "IOL_11200IM_P2.Inputs.A"
+logical_dest_tag_hint = "Li4220_BladeStop1Up"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2B"
+port = 2
+channel = "B"
+zone = 4220
+device = "BS1"
+state = "DOWN"
+source_tag_hint = "IOL_11200IM_P2.Inputs.B"
+logical_dest_tag_hint = "Li4220_BladeStop1Down"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3A"
+port = 3
+channel = "A"
+zone = 4220
+device = "BS2"
+state = "UP"
+source_tag_hint = "IOL_11200IM_P3.Inputs.A"
+logical_dest_tag_hint = "Li4220_BladeStop2Up"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3B"
+port = 3
+channel = "B"
+zone = 4220
+device = "BS2"
+state = "DOWN"
+source_tag_hint = "IOL_11200IM_P3.Inputs.B"
+logical_dest_tag_hint = "Li4220_BladeStop2Down"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks]]
+io_group = 117
+module_hint = "11700IM"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0A"
+port = 0
+channel = "A"
+zone = 4260
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_11700IM_P0.Inputs.A"
+logical_dest_tag_hint = "CT4260_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0B"
+port = 0
+channel = "B"
+zone = 4260
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_11700IM_P0.Inputs.B"
+logical_dest_tag_hint = "CT4260_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1A"
+port = 1
+channel = "A"
+zone = 4280
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_11700IM_P1.Inputs.A"
+logical_dest_tag_hint = "CT4280_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1B"
+port = 1
+channel = "B"
+zone = 4280
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_11700IM_P1.Inputs.B"
+logical_dest_tag_hint = "CT4280_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2A"
+port = 2
+channel = "A"
+zone = 4281
+device = "PULLER"
+state = "PULLED"
+source_tag_hint = "IOL_11700IM_P2.Inputs.A"
+logical_dest_tag_hint = "ST4281_PullerPulled"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2B"
+port = 2
+channel = "B"
+zone = 4281
+device = "PULLER"
+state = "RELEASED"
+source_tag_hint = "IOL_11700IM_P2.Inputs.B"
+logical_dest_tag_hint = "ST4281_PullerReleased"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3A"
+port = 3
+channel = "A"
+zone = 4300
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_11700IM_P3.Inputs.A"
+logical_dest_tag_hint = "CT4300_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3B"
+port = 3
+channel = "B"
+zone = 4300
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_11700IM_P3.Inputs.B"
+logical_dest_tag_hint = "CT4300_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "4A"
+port = 4
+channel = "A"
+zone = 4301
+device = "PULLER"
+state = "PULLED"
+source_tag_hint = "IOL_11700IM_P4.Inputs.A"
+logical_dest_tag_hint = "ST4301_PullerPulled"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "4B"
+port = 4
+channel = "B"
+zone = 4301
+device = "PULLER"
+state = "RELEASED"
+source_tag_hint = "IOL_11700IM_P4.Inputs.B"
+logical_dest_tag_hint = "ST4301_PullerReleased"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "5A"
+port = 5
+channel = "A"
+zone = 4320
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_11700IM_P5.Inputs.A"
+logical_dest_tag_hint = "CT4320_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "5B"
+port = 5
+channel = "B"
+zone = 4320
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_11700IM_P5.Inputs.B"
+logical_dest_tag_hint = "CT4320_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "6A"
+port = 6
+channel = "A"
+zone = 4321
+device = "PULLER"
+state = "PULLED"
+source_tag_hint = "IOL_11700IM_P6.Inputs.A"
+logical_dest_tag_hint = "ST4321_PullerPulled"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "6B"
+port = 6
+channel = "B"
+zone = 4321
+device = "PULLER"
+state = "RELEASED"
+source_tag_hint = "IOL_11700IM_P6.Inputs.B"
+logical_dest_tag_hint = "ST4321_PullerReleased"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks]]
+io_group = 122
+module_hint = "12200IM"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0A"
+port = 0
+channel = "A"
+zone = 4350
+device = "BS1"
+state = "UP"
+source_tag_hint = "IOL_12200IM_P0.Inputs.A"
+logical_dest_tag_hint = "Li4350_BladeStop1Up"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0B"
+port = 0
+channel = "B"
+zone = 4350
+device = "BS1"
+state = "DOWN"
+source_tag_hint = "IOL_12200IM_P0.Inputs.B"
+logical_dest_tag_hint = "Li4350_BladeStop1Down"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1A"
+port = 1
+channel = "A"
+zone = 4350
+device = "BS2"
+state = "UP"
+source_tag_hint = "IOL_12200IM_P1.Inputs.A"
+logical_dest_tag_hint = "Li4350_BladeStop2Up"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1B"
+port = 1
+channel = "B"
+zone = 4350
+device = "BS2"
+state = "DOWN"
+source_tag_hint = "IOL_12200IM_P1.Inputs.B"
+logical_dest_tag_hint = "Li4350_BladeStop2Down"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2A"
+port = 2
+channel = "A"
+zone = 4380
+device = "BS1"
+state = "UP"
+source_tag_hint = "IOL_12200IM_P2.Inputs.A"
+logical_dest_tag_hint = "Li4380_BladeStop1Up"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2B"
+port = 2
+channel = "B"
+zone = 4380
+device = "BS1"
+state = "DOWN"
+source_tag_hint = "IOL_12200IM_P2.Inputs.B"
+logical_dest_tag_hint = "Li4380_BladeStop1Down"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3A"
+port = 3
+channel = "A"
+zone = 4380
+device = "BS2"
+state = "UP"
+source_tag_hint = "IOL_12200IM_P3.Inputs.A"
+logical_dest_tag_hint = "Li4380_BladeStop2Up"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3B"
+port = 3
+channel = "B"
+zone = 4380
+device = "BS2"
+state = "DOWN"
+source_tag_hint = "IOL_12200IM_P3.Inputs.B"
+logical_dest_tag_hint = "Li4380_BladeStop2Down"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks]]
+io_group = 127
+module_hint = "12700IM"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0A"
+port = 0
+channel = "A"
+zone = 4410
+device = "BS1"
+state = "UP"
+source_tag_hint = "IOL_12700IM_P0.Inputs.A"
+logical_dest_tag_hint = "Li4410_BladeStop1Up"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0B"
+port = 0
+channel = "B"
+zone = 4410
+device = "BS1"
+state = "DOWN"
+source_tag_hint = "IOL_12700IM_P0.Inputs.B"
+logical_dest_tag_hint = "Li4410_BladeStop1Down"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1A"
+port = 1
+channel = "A"
+zone = 4410
+device = "BS2"
+state = "UP"
+source_tag_hint = "IOL_12700IM_P1.Inputs.A"
+logical_dest_tag_hint = "Li4410_BladeStop2Up"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1B"
+port = 1
+channel = "B"
+zone = 4410
+device = "BS2"
+state = "DOWN"
+source_tag_hint = "IOL_12700IM_P1.Inputs.B"
+logical_dest_tag_hint = "Li4410_BladeStop2Down"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2A"
+port = 2
+channel = "A"
+zone = 4420
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_12700IM_P2.Inputs.A"
+logical_dest_tag_hint = "CT4420_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2B"
+port = 2
+channel = "B"
+zone = 4420
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_12700IM_P2.Inputs.B"
+logical_dest_tag_hint = "CT4420_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3A"
+port = 3
+channel = "A"
+zone = 4450
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_12700IM_P3.Inputs.A"
+logical_dest_tag_hint = "CT4450_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3B"
+port = 3
+channel = "B"
+zone = 4450
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_12700IM_P3.Inputs.B"
+logical_dest_tag_hint = "CT4450_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "4A"
+port = 4
+channel = "A"
+zone = 4460
+device = "BS1"
+state = "UP"
+source_tag_hint = "IOL_12700IM_P4.Inputs.A"
+logical_dest_tag_hint = "Li4460_BladeStop1Up"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "4B"
+port = 4
+channel = "B"
+zone = 4460
+device = "BS1"
+state = "DOWN"
+source_tag_hint = "IOL_12700IM_P4.Inputs.B"
+logical_dest_tag_hint = "Li4460_BladeStop1Down"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "5A"
+port = 5
+channel = "A"
+zone = 4460
+device = "BS2"
+state = "UP"
+source_tag_hint = "IOL_12700IM_P5.Inputs.A"
+logical_dest_tag_hint = "Li4460_BladeStop2Up"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "5B"
+port = 5
+channel = "B"
+zone = 4460
+device = "BS2"
+state = "DOWN"
+source_tag_hint = "IOL_12700IM_P5.Inputs.B"
+logical_dest_tag_hint = "Li4460_BladeStop2Down"
+dest_tag_confidence = "low"
+
+[[balluff.bni005l_inputs.blocks]]
+io_group = 132
+module_hint = "13200IM"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0A"
+port = 0
+channel = "A"
+zone = 4520
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_13200IM_P0.Inputs.A"
+logical_dest_tag_hint = "CT4520_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0B"
+port = 0
+channel = "B"
+zone = 4520
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_13200IM_P0.Inputs.B"
+logical_dest_tag_hint = "CT4520_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1A"
+port = 1
+channel = "A"
+zone = 4530
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_13200IM_P1.Inputs.A"
+logical_dest_tag_hint = "CT4530_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1B"
+port = 1
+channel = "B"
+zone = 4530
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_13200IM_P1.Inputs.B"
+logical_dest_tag_hint = "CT4530_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2A"
+port = 2
+channel = "A"
+zone = 4560
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_13200IM_P2.Inputs.A"
+logical_dest_tag_hint = "CT4560_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2B"
+port = 2
+channel = "B"
+zone = 4560
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_13200IM_P2.Inputs.B"
+logical_dest_tag_hint = "CT4560_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3"
+port = 3
+channel = ""
+zone = 4561
+device = "PB"
+state = ""
+source_tag_hint = "IOL_13200IM_P3.Inputs"
+logical_dest_tag_hint = "ST4561_ReIntroLPB"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "4A"
+port = 4
+channel = "A"
+zone = 4580
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_13200IM_P4.Inputs.A"
+logical_dest_tag_hint = "CT4580_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "4B"
+port = 4
+channel = "B"
+zone = 4580
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_13200IM_P4.Inputs.B"
+logical_dest_tag_hint = "CT4580_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "5"
+port = 5
+channel = ""
+zone = 4581
+device = "PB"
+state = ""
+source_tag_hint = "IOL_13200IM_P5.Inputs"
+logical_dest_tag_hint = "ST4581_ReIntroLPB"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks]]
+io_group = 133
+module_hint = "13300IM"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0A"
+port = 0
+channel = "A"
+zone = 4600
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_13300IM_P0.Inputs.A"
+logical_dest_tag_hint = "CT4600_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0B"
+port = 0
+channel = "B"
+zone = 4600
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_13300IM_P0.Inputs.B"
+logical_dest_tag_hint = "CT4600_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1"
+port = 1
+channel = ""
+zone = 4601
+device = "PB"
+state = ""
+source_tag_hint = "IOL_13300IM_P1.Inputs"
+logical_dest_tag_hint = "ST4601_ReIntroLPB"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2A"
+port = 2
+channel = "A"
+zone = 4620
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_13300IM_P2.Inputs.A"
+logical_dest_tag_hint = "CT4620_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2B"
+port = 2
+channel = "B"
+zone = 4620
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_13300IM_P2.Inputs.B"
+logical_dest_tag_hint = "CT4620_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3A"
+port = 3
+channel = "A"
+zone = 4680
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_13300IM_P3.Inputs.A"
+logical_dest_tag_hint = "CT4680_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3B"
+port = 3
+channel = "B"
+zone = 4680
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_13300IM_P3.Inputs.B"
+logical_dest_tag_hint = "CT4680_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks]]
+io_group = 142
+module_hint = "14200IM"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0A"
+port = 0
+channel = "A"
+zone = 7138
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_14200IM_P0.Inputs.A"
+logical_dest_tag_hint = "CT7138_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0B"
+port = 0
+channel = "B"
+zone = 7138
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_14200IM_P0.Inputs.B"
+logical_dest_tag_hint = "CT7138_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1A"
+port = 1
+channel = "A"
+zone = 7140
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_14200IM_P1.Inputs.A"
+logical_dest_tag_hint = "CT7140_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1B"
+port = 1
+channel = "B"
+zone = 7140
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_14200IM_P1.Inputs.B"
+logical_dest_tag_hint = "CT7140_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2A"
+port = 2
+channel = "A"
+zone = 7156
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_14200IM_P2.Inputs.A"
+logical_dest_tag_hint = "CT7156_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2B"
+port = 2
+channel = "B"
+zone = 7156
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_14200IM_P2.Inputs.B"
+logical_dest_tag_hint = "CT7156_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3A"
+port = 3
+channel = "A"
+zone = 7196
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_14200IM_P3.Inputs.A"
+logical_dest_tag_hint = "CT7196_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3B"
+port = 3
+channel = "B"
+zone = 7196
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_14200IM_P3.Inputs.B"
+logical_dest_tag_hint = "CT7196_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "4A"
+port = 4
+channel = "A"
+zone = 7197
+device = "PULLER"
+state = "PULLED"
+source_tag_hint = "IOL_14200IM_P4.Inputs.A"
+logical_dest_tag_hint = "ST7197_PullerPulled"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "4B"
+port = 4
+channel = "B"
+zone = 7197
+device = "PULLER"
+state = "RELEASED"
+source_tag_hint = "IOL_14200IM_P4.Inputs.B"
+logical_dest_tag_hint = "ST7197_PullerReleased"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "5A"
+port = 5
+channel = "A"
+zone = 7242
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_14200IM_P5.Inputs.A"
+logical_dest_tag_hint = "CT7242_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "5B"
+port = 5
+channel = "B"
+zone = 7242
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_14200IM_P5.Inputs.B"
+logical_dest_tag_hint = "CT7242_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks]]
+io_group = 148
+module_hint = "14800IM"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0A"
+port = 0
+channel = "A"
+zone = 7200
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_14800IM_P0.Inputs.A"
+logical_dest_tag_hint = "CT7200_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0B"
+port = 0
+channel = "B"
+zone = 7200
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_14800IM_P0.Inputs.B"
+logical_dest_tag_hint = "CT7200_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1A"
+port = 1
+channel = "A"
+zone = 7201
+device = "PULLER"
+state = "PULLED"
+source_tag_hint = "IOL_14800IM_P1.Inputs.A"
+logical_dest_tag_hint = "ST7201_PullerPulled"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1B"
+port = 1
+channel = "B"
+zone = 7201
+device = "PULLER"
+state = "RELEASED"
+source_tag_hint = "IOL_14800IM_P1.Inputs.B"
+logical_dest_tag_hint = "ST7201_PullerReleased"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2A"
+port = 2
+channel = "A"
+zone = 7204
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_14800IM_P2.Inputs.A"
+logical_dest_tag_hint = "CT7204_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2B"
+port = 2
+channel = "B"
+zone = 7204
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_14800IM_P2.Inputs.B"
+logical_dest_tag_hint = "CT7204_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3A"
+port = 3
+channel = "A"
+zone = 7205
+device = "PULLER"
+state = "PULLED"
+source_tag_hint = "IOL_14800IM_P3.Inputs.A"
+logical_dest_tag_hint = "ST7205_PullerPulled"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3B"
+port = 3
+channel = "B"
+zone = 7205
+device = "PULLER"
+state = "RELEASED"
+source_tag_hint = "IOL_14800IM_P3.Inputs.B"
+logical_dest_tag_hint = "ST7205_PullerReleased"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "4A"
+port = 4
+channel = "A"
+zone = 7208
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_14800IM_P4.Inputs.A"
+logical_dest_tag_hint = "CT7208_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "4B"
+port = 4
+channel = "B"
+zone = 7208
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_14800IM_P4.Inputs.B"
+logical_dest_tag_hint = "CT7208_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "5A"
+port = 5
+channel = "A"
+zone = 7209
+device = "PULLER"
+state = "PULLED"
+source_tag_hint = "IOL_14800IM_P5.Inputs.A"
+logical_dest_tag_hint = "ST7209_PullerPulled"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "5B"
+port = 5
+channel = "B"
+zone = 7209
+device = "PULLER"
+state = "RELEASED"
+source_tag_hint = "IOL_14800IM_P5.Inputs.B"
+logical_dest_tag_hint = "ST7209_PullerReleased"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks]]
+io_group = 149
+module_hint = "14900IM"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0A"
+port = 0
+channel = "A"
+zone = 7212
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_14900IM_P0.Inputs.A"
+logical_dest_tag_hint = "CT7212_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0B"
+port = 0
+channel = "B"
+zone = 7212
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_14900IM_P0.Inputs.B"
+logical_dest_tag_hint = "CT7212_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1A"
+port = 1
+channel = "A"
+zone = 7213
+device = "PULLER"
+state = "PULLED"
+source_tag_hint = "IOL_14900IM_P1.Inputs.A"
+logical_dest_tag_hint = "ST7213_PullerPulled"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1B"
+port = 1
+channel = "B"
+zone = 7213
+device = "PULLER"
+state = "RELEASED"
+source_tag_hint = "IOL_14900IM_P1.Inputs.B"
+logical_dest_tag_hint = "ST7213_PullerReleased"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2A"
+port = 2
+channel = "A"
+zone = 7216
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_14900IM_P2.Inputs.A"
+logical_dest_tag_hint = "CT7216_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2B"
+port = 2
+channel = "B"
+zone = 7216
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_14900IM_P2.Inputs.B"
+logical_dest_tag_hint = "CT7216_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3A"
+port = 3
+channel = "A"
+zone = 7217
+device = "PULLER"
+state = "PULLED"
+source_tag_hint = "IOL_14900IM_P3.Inputs.A"
+logical_dest_tag_hint = "ST7217_PullerPulled"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3B"
+port = 3
+channel = "B"
+zone = 7217
+device = "PULLER"
+state = "RELEASED"
+source_tag_hint = "IOL_14900IM_P3.Inputs.B"
+logical_dest_tag_hint = "ST7217_PullerReleased"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "4A"
+port = 4
+channel = "A"
+zone = 7220
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_14900IM_P4.Inputs.A"
+logical_dest_tag_hint = "CT7220_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "4B"
+port = 4
+channel = "B"
+zone = 7220
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_14900IM_P4.Inputs.B"
+logical_dest_tag_hint = "CT7220_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "5A"
+port = 5
+channel = "A"
+zone = 7221
+device = "PULLER"
+state = "PULLED"
+source_tag_hint = "IOL_14900IM_P5.Inputs.A"
+logical_dest_tag_hint = "ST7221_PullerPulled"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "5B"
+port = 5
+channel = "B"
+zone = 7221
+device = "PULLER"
+state = "RELEASED"
+source_tag_hint = "IOL_14900IM_P5.Inputs.B"
+logical_dest_tag_hint = "ST7221_PullerReleased"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks]]
+io_group = 150
+module_hint = "15000IM"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0A"
+port = 0
+channel = "A"
+zone = 7224
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_15000IM_P0.Inputs.A"
+logical_dest_tag_hint = "CT7224_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "0B"
+port = 0
+channel = "B"
+zone = 7224
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_15000IM_P0.Inputs.B"
+logical_dest_tag_hint = "CT7224_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1A"
+port = 1
+channel = "A"
+zone = 7225
+device = "PULLER"
+state = "PULLED"
+source_tag_hint = "IOL_15000IM_P1.Inputs.A"
+logical_dest_tag_hint = "ST7225_PullerPulled"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "1B"
+port = 1
+channel = "B"
+zone = 7225
+device = "PULLER"
+state = "RELEASED"
+source_tag_hint = "IOL_15000IM_P1.Inputs.B"
+logical_dest_tag_hint = "ST7225_PullerReleased"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "2"
+port = 2
+channel = ""
+zone = 7227
+device = "PB"
+state = ""
+source_tag_hint = "IOL_15000IM_P2.Inputs"
+logical_dest_tag_hint = "ST7227_ReIntroLPB"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3A"
+port = 3
+channel = "A"
+zone = 7228
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_15000IM_P3.Inputs.A"
+logical_dest_tag_hint = "CT7228_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "3B"
+port = 3
+channel = "B"
+zone = 7228
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_15000IM_P3.Inputs.B"
+logical_dest_tag_hint = "CT7228_Px_Transfer_Down"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "4"
+port = 4
+channel = ""
+zone = 7229
+device = "PB"
+state = ""
+source_tag_hint = "IOL_15000IM_P4.Inputs"
+logical_dest_tag_hint = "ST7229_ReIntroLPB"
+dest_tag_confidence = "medium"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "5A"
+port = 5
+channel = "A"
+zone = 7230
+device = "XFER"
+state = "UP"
+source_tag_hint = "IOL_15000IM_P5.Inputs.A"
+logical_dest_tag_hint = "CT7230_Px_Transfer_Up"
+dest_tag_confidence = "high"
+
+[[balluff.bni005l_inputs.blocks.points]]
+point_id = "5B"
+port = 5
+channel = "B"
+zone = 7230
+device = "XFER"
+state = "DOWN"
+source_tag_hint = "IOL_15000IM_P5.Inputs.B"
+logical_dest_tag_hint = "CT7230_Px_Transfer_Down"
+dest_tag_confidence = "high"
+

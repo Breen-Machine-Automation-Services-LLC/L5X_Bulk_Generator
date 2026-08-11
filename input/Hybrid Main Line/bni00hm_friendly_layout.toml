@@ -1,0 +1,251 @@
+[meta]
+source = "User-provided friendly BNI00HM layout"
+line = "Hybrid Main Line"
+last_updated = "2026-08-10"
+
+[[blocks]]
+hm = 100
+header = "4070 BNI0091"
+coverage = "4020-4120"
+pb_box_zones = [4000, 4120]
+inclinometer_zones = [4120]
+
+[[blocks.io_groups]]
+io = 102
+points = [
+    "ZONE 4020 XFER",
+    "ZONE 4030 XFER",
+    "ZONE 4120 BS1",
+    "ZONE 4120 BS2",
+]
+
+[[blocks]]
+hm = 105
+header = "4160 BNI0091"
+coverage = "4150-4170"
+pb_box_zones = [4150, 4170]
+inclinometer_zones = [4150, 4170]
+
+[[blocks.io_groups]]
+io = 107
+points = [
+    "ZONE 4150 BS1",
+    "ZONE 4150 BS2",
+    "ZONE 4170 BS1",
+    "ZONE 4170 BS2",
+]
+
+[[blocks]]
+hm = 110
+header = "4200 BNI0091"
+coverage = "4190-4220"
+pb_box_zones = [4190, 4220]
+inclinometer_zones = [4190, 4220]
+
+[[blocks.io_groups]]
+io = 112
+points = [
+    "ZONE 4190 BS1",
+    "ZONE 4190 BS2",
+    "ZONE 4220 BS1",
+    "ZONE 4220 BS2",
+]
+
+[[blocks]]
+hm = 115
+header = "4300 BNI0091"
+coverage = "4260-4321"
+pb_box_zones = [4281, 4301, 4321]
+inclinometer_zones = []
+
+[[blocks.io_groups]]
+io = 117
+points = [
+    "ZONE 4260 XFER",
+    "ZONE 4280 XFER",
+    "ZONE 4281 PULLER",
+    "ZONE 4300 XFER",
+    "ZONE 4301 PULLER",
+    "ZONE 4320 XFER",
+    "ZONE 4321 PULLER",
+]
+
+[[blocks]]
+hm = 120
+header = "4360 BNI0091"
+coverage = "4350-4380"
+pb_box_zones = [4350, 4380]
+inclinometer_zones = [4350, 4380]
+
+[[blocks.io_groups]]
+io = 122
+points = [
+    "ZONE 4350 BS1",
+    "ZONE 4350 BS2",
+    "ZONE 4380 BS1",
+    "ZONE 4380 BS2",
+]
+
+[[blocks]]
+hm = 125
+header = "4420 BNI0091"
+coverage = "4410-4460"
+pb_box_zones = [4410, 4460]
+inclinometer_zones = [4410, 4460]
+
+[[blocks.io_groups]]
+io = 127
+points = [
+    "ZONE 4410 BS1",
+    "ZONE 4410 BS2",
+    "ZONE 4420 XFER",
+    "ZONE 4450 XFER",
+    "ZONE 4460 BS1",
+    "ZONE 4460 BS2",
+]
+
+[[blocks]]
+hm = 130
+header = "4590 BNI0091"
+coverage = "4520-4680"
+pb_box_zones = [4561, 4581, 4601]
+inclinometer_zones = []
+
+[[blocks.io_groups]]
+io = 132
+points = [
+    "ZONE 4520 XFER",
+    "ZONE 4530 XFER",
+    "ZONE 4560 XFER",
+    "ZONE 4561 PB",
+    "ZONE 4580 XFER",
+    "ZONE 4581 PB",
+]
+
+[[blocks.io_groups]]
+io = 133
+points = [
+    "ZONE 4600 XFER",
+    "ZONE 4601 PB",
+    "ZONE 4620 XFER",
+    "ZONE 4680 XFER",
+]
+
+[[blocks]]
+hm = 140
+header = "7148 BNI0091"
+coverage = "pg 141"
+pb_box_zones = []
+inclinometer_zones = []
+
+[[blocks.io_groups]]
+io = 142
+notes = "BNI005L - 142"
+points = [
+    "ZONE 7138 XFER",
+    "ZONE 7140 XFER",
+    "ZONE 7156 XFER",
+    "ZONE 7196 XFER",
+    "ZONE 7197 PULLER",
+    "ZONE 7242 XFER",
+]
+
+[[blocks]]
+hm = 145
+header = "BNI0091 - 7209 / BNI0091 - 7221"
+coverage = "146-147"
+pb_box_zones = [7227, 7229]
+inclinometer_zones = []
+
+[[blocks.io_groups]]
+io = 148
+points = [
+    "ZONE 7200 XFER",
+    "ZONE 7201 PULLER",
+    "ZONE 7204 XFER",
+    "ZONE 7205 PULLER",
+    "ZONE 7208 XFER",
+    "ZONE 7209 PULLER",
+]
+
+[[blocks.io_groups]]
+io = 149
+points = [
+    "ZONE 7212 XFER",
+    "ZONE 7213 PULLER",
+    "ZONE 7216 XFER",
+    "ZONE 7217 PULLER",
+    "ZONE 7220 XFER",
+    "ZONE 7221 PULLER",
+]
+
+[[blocks.io_groups]]
+io = 150
+points = [
+    "ZONE 7224 XFER",
+    "ZONE 7225 PULLER",
+    "ZONE 7227 PB",
+    "ZONE 7228 XFER",
+    "ZONE 7229 PB",
+    "ZONE 7230 XFER",
+]
+
+[[blocks]]
+hm = 140
+header = "7156 BNI0091"
+coverage = "7154-7156, 7172-7188, 7210"
+pb_box_zones = [7189, 7190]
+inclinometer_zones = []
+
+[[blocks.io_groups]]
+io = 143
+notes = "BNI005L - 143"
+points = [
+    "ZONE 7172 XFER",
+    "ZONE 7174 XFER",
+    "ZONE 7176 XFER",
+    "ZONE 7178 XFER",
+    "ZONE 7180 XFER",
+]
+
+[[blocks.io_groups]]
+io = 142
+notes = "BNI005L - 142"
+points = [
+    "ZONE 7154 XFER",
+    "ZONE 7156 XFER",
+    "ZONE 7210 XFER",
+    "ZONE 7187 XFER",
+    "ZONE 7188 XFER",
+    "ZONE 7189 PB",
+    "ZONE 7190 PB",
+]
+
+[[blocks]]
+hm = 145
+header = "7166 BNI0091 / 7306 BNI0091"
+coverage = "7164-7170, 7301-7303 / 7304-7308"
+pb_box_zones = []
+inclinometer_zones = []
+
+[[blocks.io_groups]]
+io = 148
+points = [
+    "ZONE 7164 XFER",
+    "ZONE 7166 XFER",
+    "ZONE 7168 XFER",
+    "ZONE 7170 XFER",
+    "ZONE 7301 PULLER",
+    "ZONE 7302 PULLER",
+    "ZONE 7303 PULLER",
+]
+
+[[blocks.io_groups]]
+io = 149
+points = [
+    "ZONE 7304 PULLER",
+    "ZONE 7305 PULLER",
+    "ZONE 7306 PULLER",
+    "ZONE 7307 PULLER",
+    "ZONE 7308 PULLER",
+]

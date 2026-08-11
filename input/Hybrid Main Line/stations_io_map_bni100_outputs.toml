@@ -1,0 +1,67 @@
+[config]
+output_dir = "output/Hybrid Main Line"
+
+[io_map]
+controller_name = "Wolf_HybridMainLine"
+program_name = "MainProgram"
+routine_name = "IO_Map"
+output_stem = "IO_Map_BNI100"
+
+# Recommended output mapping direction:
+#   command/internal tag -> IOL output channel
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4020_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P0.Outputs.A"
+dest_instruction = "OTE"
+comment = "BNI00HM_100 P0A -> Zone 4020 transfer sol"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4030_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P0.Outputs.B"
+dest_instruction = "OTE"
+comment = "BNI00HM_100 P0B -> Zone 4030 transfer sol"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4120_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P1.Outputs"
+dest_instruction = "OTE"
+comment = "BNI00HM_100 P1 -> Zone 4120 lift up sol"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4120_BladeStop1"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "BNI00HM_100 P2A -> Zone 4120 blade stop 1 sol"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4120_BladeStop2"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "BNI00HM_100 P2B -> Zone 4120 blade stop 2 sol"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4120_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "BNI00HM_100 P3A -> Zone 4120 lift down sol 1"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4120_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P3.Outputs.B"
+dest_instruction = "OTE"
+comment = "BNI00HM_100 P3B -> Zone 4120 lift down sol 2"

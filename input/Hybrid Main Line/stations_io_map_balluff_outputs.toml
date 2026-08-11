@@ -1,0 +1,776 @@
+[config]
+output_dir = "output/Hybrid Main Line"
+
+[io_map]
+controller_name = "Wolf_HybridMainLine"
+program_name = "MainProgram"
+routine_name = "IO_Map"
+output_stem = "IO_Map_Balluff"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4020_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P0.Outputs.A"
+dest_instruction = "OTE"
+comment = "10100OM 0A | Zone 4020 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4030_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P0.Outputs.B"
+dest_instruction = "OTE"
+comment = "10100OM 0B | Zone 4030 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4120_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P1.Outputs"
+dest_instruction = "OTE"
+comment = "10100OM 1 | Zone 4120 | LIFT_UP_SOL | no splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4120_BladeStop1"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "10100OM 2A | Zone 4120 | BS1_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4120_BladeStop2"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "10100OM 2B | Zone 4120 | BS2_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4120_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "10100OM 3A | Zone 4120 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4120_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_10100OM_P3.Outputs.B"
+dest_instruction = "OTE"
+comment = "10100OM 3B | Zone 4120 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4150_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P0.Outputs"
+dest_instruction = "OTE"
+comment = "10600OM 0 | Zone 4150 | LIFT_UP_SOL | no splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4170_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P1.Outputs"
+dest_instruction = "OTE"
+comment = "10600OM 1 | Zone 4170 | LIFT_UP_SOL | no splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4150_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "10600OM 2A | Zone 4150 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4150_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "10600OM 2B | Zone 4150 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4170_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "10600OM 3A | Zone 4170 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4170_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P3.Outputs.B"
+dest_instruction = "OTE"
+comment = "10600OM 3B | Zone 4170 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4150_BladeStop1"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P4.Outputs.A"
+dest_instruction = "OTE"
+comment = "10600OM 4A | Zone 4150 | BS1_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4150_BladeStop2"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P4.Outputs.B"
+dest_instruction = "OTE"
+comment = "10600OM 4B | Zone 4150 | BS2_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4170_BladeStop1"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P5.Outputs.A"
+dest_instruction = "OTE"
+comment = "10600OM 5A | Zone 4170 | BS1_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4170_BladeStop2"
+source_instruction = "XIC"
+dest = "IOL_10600OM_P5.Outputs.B"
+dest_instruction = "OTE"
+comment = "10600OM 5B | Zone 4170 | BS2_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4190_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P0.Outputs"
+dest_instruction = "OTE"
+comment = "11100OM 0 | Zone 4190 | LIFT_UP_SOL | no splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4220_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P1.Outputs"
+dest_instruction = "OTE"
+comment = "11100OM 1 | Zone 4220 | LIFT_UP_SOL | no splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4190_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "11100OM 2A | Zone 4190 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4190_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "11100OM 2B | Zone 4190 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4220_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "11100OM 3A | Zone 4220 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4220_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P3.Outputs.B"
+dest_instruction = "OTE"
+comment = "11100OM 3B | Zone 4220 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4190_BladeStop1"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P4.Outputs.A"
+dest_instruction = "OTE"
+comment = "11100OM 4A | Zone 4190 | BS1_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4190_BladeStop2"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P4.Outputs.B"
+dest_instruction = "OTE"
+comment = "11100OM 4B | Zone 4190 | BS2_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4220_BladeStop1"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P5.Outputs.A"
+dest_instruction = "OTE"
+comment = "11100OM 5A | Zone 4220 | BS1_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4220_BladeStop2"
+source_instruction = "XIC"
+dest = "IOL_11100OM_P5.Outputs.B"
+dest_instruction = "OTE"
+comment = "11100OM 5B | Zone 4220 | BS2_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4260_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P0.Outputs.A"
+dest_instruction = "OTE"
+comment = "11600OM 0A | Zone 4260 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4280_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P0.Outputs.B"
+dest_instruction = "OTE"
+comment = "11600OM 0B | Zone 4280 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST4281_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P1.Outputs.A"
+dest_instruction = "OTE"
+comment = "11600OM 1A | Zone 4281 | OMTEC_STRIPS_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST4281_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P1.Outputs.B"
+dest_instruction = "OTE"
+comment = "11600OM 1B | Zone 4281 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4300_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "11600OM 2A | Zone 4300 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4320_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "11600OM 2B | Zone 4320 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST4301_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "11600OM 3A | Zone 4301 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST4301_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P3.Outputs.B"
+dest_instruction = "OTE"
+comment = "11600OM 3B | Zone 4301 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST4321_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P5.Outputs.A"
+dest_instruction = "OTE"
+comment = "11600OM 5A | Zone 4321 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST4321_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_11600OM_P5.Outputs.B"
+dest_instruction = "OTE"
+comment = "11600OM 5B | Zone 4321 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4350_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P0.Outputs"
+dest_instruction = "OTE"
+comment = "12100OM 0 | Zone 4350 | LIFT_UP_SOL | no splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4380_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P1.Outputs"
+dest_instruction = "OTE"
+comment = "12100OM 1 | Zone 4380 | LIFT_UP_SOL | no splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4350_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "12100OM 2A | Zone 4350 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4350_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "12100OM 2B | Zone 4350 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4380_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "12100OM 3A | Zone 4380 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4380_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P3.Outputs.B"
+dest_instruction = "OTE"
+comment = "12100OM 3B | Zone 4380 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4350_BladeStop1"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P4.Outputs.A"
+dest_instruction = "OTE"
+comment = "12100OM 4A | Zone 4350 | BS1_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4350_BladeStop2"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P4.Outputs.B"
+dest_instruction = "OTE"
+comment = "12100OM 4B | Zone 4350 | BS2_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4380_BladeStop1"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P5.Outputs.A"
+dest_instruction = "OTE"
+comment = "12100OM 5A | Zone 4380 | BS1_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4380_BladeStop2"
+source_instruction = "XIC"
+dest = "IOL_12100OM_P5.Outputs.B"
+dest_instruction = "OTE"
+comment = "12100OM 5B | Zone 4380 | BS2_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4410_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P0.Outputs"
+dest_instruction = "OTE"
+comment = "12600OM 0 | Zone 4410 | LIFT_UP_SOL | no splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4460_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P1.Outputs"
+dest_instruction = "OTE"
+comment = "12600OM 1 | Zone 4460 | LIFT_UP_SOL | no splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4410_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "12600OM 2A | Zone 4410 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4410_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "12600OM 2B | Zone 4410 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4460_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "12600OM 3A | Zone 4460 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4460_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P3.Outputs.B"
+dest_instruction = "OTE"
+comment = "12600OM 3B | Zone 4460 | LIFT_DOWN_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4410_BladeStop1"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P4.Outputs.A"
+dest_instruction = "OTE"
+comment = "12600OM 4A | Zone 4410 | BS1_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4410_BladeStop2"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P4.Outputs.B"
+dest_instruction = "OTE"
+comment = "12600OM 4B | Zone 4410 | BS2_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4460_BladeStop1"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P5.Outputs.A"
+dest_instruction = "OTE"
+comment = "12600OM 5A | Zone 4460 | BS1_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li4460_BladeStop2"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P5.Outputs.B"
+dest_instruction = "OTE"
+comment = "12600OM 5B | Zone 4460 | BS2_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4420_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P6.Outputs.A"
+dest_instruction = "OTE"
+comment = "12600OM 6A | Zone 4420 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4450_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_12600OM_P6.Outputs.B"
+dest_instruction = "OTE"
+comment = "12600OM 6B | Zone 4450 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4520_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_13100OM_P0.Outputs.A"
+dest_instruction = "OTE"
+comment = "13100OM 0A | Zone 4520 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4530_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_13100OM_P0.Outputs.B"
+dest_instruction = "OTE"
+comment = "13100OM 0B | Zone 4530 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4560_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_13100OM_P1.Outputs.A"
+dest_instruction = "OTE"
+comment = "13100OM 1A | Zone 4560 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4580_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_13100OM_P1.Outputs.B"
+dest_instruction = "OTE"
+comment = "13100OM 1B | Zone 4580 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4600_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_13100OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "13100OM 2A | Zone 4600 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4620_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_13100OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "13100OM 2B | Zone 4620 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT4680_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_13100OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "13100OM 3A | Zone 4680 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7138_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14100OM_P0.Outputs.A"
+dest_instruction = "OTE"
+comment = "14100OM 0A | Zone 7138 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7140_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14100OM_P0.Outputs.B"
+dest_instruction = "OTE"
+comment = "14100OM 0B | Zone 7140 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7156_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14100OM_P1.Outputs.A"
+dest_instruction = "OTE"
+comment = "14100OM 1A | Zone 7156 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7196_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14100OM_P1.Outputs.B"
+dest_instruction = "OTE"
+comment = "14100OM 1B | Zone 7196 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7197_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_14100OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "14100OM 2A | Zone 7197 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7197_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_14100OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "14100OM 2B | Zone 7197 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7242_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14100OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "14100OM 3A | Zone 7242 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7200_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P0.Outputs.A"
+dest_instruction = "OTE"
+comment = "14600OM 0A | Zone 7200 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7204_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P0.Outputs.B"
+dest_instruction = "OTE"
+comment = "14600OM 0B | Zone 7204 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7201_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P1.Outputs.A"
+dest_instruction = "OTE"
+comment = "14600OM 1A | Zone 7201 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7201_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P1.Outputs.B"
+dest_instruction = "OTE"
+comment = "14600OM 1B | Zone 7201 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7205_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "14600OM 2A | Zone 7205 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7205_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "14600OM 2B | Zone 7205 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7208_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "14600OM 3A | Zone 7208 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7212_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P3.Outputs.B"
+dest_instruction = "OTE"
+comment = "14600OM 3B | Zone 7212 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7209_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P4.Outputs.A"
+dest_instruction = "OTE"
+comment = "14600OM 4A | Zone 7209 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7209_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P4.Outputs.B"
+dest_instruction = "OTE"
+comment = "14600OM 4B | Zone 7209 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7213_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P5.Outputs.A"
+dest_instruction = "OTE"
+comment = "14600OM 5A | Zone 7213 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7213_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_14600OM_P5.Outputs.B"
+dest_instruction = "OTE"
+comment = "14600OM 5B | Zone 7213 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7216_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P0.Outputs.A"
+dest_instruction = "OTE"
+comment = "14700OM 0A | Zone 7216 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7220_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P0.Outputs.B"
+dest_instruction = "OTE"
+comment = "14700OM 0B | Zone 7220 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7217_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P1.Outputs.A"
+dest_instruction = "OTE"
+comment = "14700OM 1A | Zone 7217 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7217_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P1.Outputs.B"
+dest_instruction = "OTE"
+comment = "14700OM 1B | Zone 7217 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7221_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P2.Outputs.A"
+dest_instruction = "OTE"
+comment = "14700OM 2A | Zone 7221 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7221_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P2.Outputs.B"
+dest_instruction = "OTE"
+comment = "14700OM 2B | Zone 7221 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7224_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P3.Outputs.A"
+dest_instruction = "OTE"
+comment = "14700OM 3A | Zone 7224 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7225_OmtecStripSol"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P4.Outputs.A"
+dest_instruction = "OTE"
+comment = "14700OM 4A | Zone 7225 | OMTEC_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "ST7225_PullerSol"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P4.Outputs.B"
+dest_instruction = "OTE"
+comment = "14700OM 4B | Zone 7225 | PULLER_SOL | auto-named from user convention"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7228_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P5.Outputs.A"
+dest_instruction = "OTE"
+comment = "14700OM 5A | Zone 7228 | XFER_SOL | splitter"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT7230_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "IOL_14700OM_P5.Outputs.B"
+dest_instruction = "OTE"
+comment = "14700OM 5B | Zone 7230 | XFER_SOL | splitter"
