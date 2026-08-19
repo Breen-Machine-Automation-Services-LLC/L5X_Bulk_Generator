@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "l5x-bulk-generator"
+version = "0.1.0"
+description = "Generate and merge Rockwell Studio 5000 L5X artifacts from TOML inputs and templates."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "lxml>=4.9,<6",
+]
+
+[project.optional-dependencies]
+sandbox = [
+    "matplotlib>=3.8",
+    "networkx>=3.2",
+]
+
+[tool.setuptools]
+py-modules = [
+    "generate_programs",
+    "merge_programs",
+    "generate_modules_l5x",
+    "generate_io_simulate_routine_l5x",
+    "generate_HMI_object_xml",
+]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
