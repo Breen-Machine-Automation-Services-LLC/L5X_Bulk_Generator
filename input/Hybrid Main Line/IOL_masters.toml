@@ -11,7 +11,8 @@ notes = "BNI00HM mapping uses start ports (0,2,4,...) to identify block pairs."
 hm = 100
 master_type = "BNI00HM"
 master_module = "10000HM"
-iol_master_tag = "IOL_Master10000"
+iol_master_tag = "_10000IOL"
+iol_port_prefix = "_10000IOL_P"
 bni0091_modules = ["10100OM"]
 
 [[masters.connections]]
@@ -52,7 +53,8 @@ signal = "INCLIN"
 hm = 105
 master_type = "BNI00HM"
 master_module = "10500HM"
-iol_master_tag = "IOL_Master10500"
+iol_master_tag = "_10500IOL"
+iol_port_prefix = "_10500IOL_P"
 bni0091_modules = ["10600OM"]
 
 [[masters.connections]]
@@ -99,7 +101,8 @@ signal = "INCLIN"
 hm = 110
 master_type = "BNI00HM"
 master_module = "11000HM"
-iol_master_tag = "IOL_Master11000"
+iol_master_tag = "_11000IOL"
+iol_port_prefix = "_11000IOL_P"
 bni0091_modules = ["11100OM"]
 
 [[masters.connections]]
@@ -146,7 +149,8 @@ signal = "INCLIN"
 hm = 115
 master_type = "BNI00HM"
 master_module = "11500HM"
-iol_master_tag = "IOL_Master11500"
+iol_master_tag = "_11500IOL"
+iol_port_prefix = "_11500IOL_P"
 bni0091_modules = ["11600OM"]
 
 [[masters.connections]]
@@ -187,7 +191,8 @@ signal = "PB_BOX"
 hm = 120
 master_type = "BNI00HM"
 master_module = "12000HM"
-iol_master_tag = "IOL_Master12000"
+iol_master_tag = "_12000IOL"
+iol_port_prefix = "_12000IOL_P"
 bni0091_modules = ["12100OM"]
 
 [[masters.connections]]
@@ -234,7 +239,8 @@ signal = "INCLIN"
 hm = 125
 master_type = "BNI00HM"
 master_module = "12500HM"
-iol_master_tag = "IOL_Master12500"
+iol_master_tag = "_12500IOL"
+iol_port_prefix = "_12500IOL_P"
 bni0091_modules = ["12600OM"]
 
 [[masters.connections]]
@@ -281,7 +287,8 @@ signal = "INCLIN"
 hm = 130
 master_type = "BNI00HM"
 master_module = "13000HM"
-iol_master_tag = "IOL_Master13000"
+iol_master_tag = "_13000IOL"
+iol_port_prefix = "_13000IOL_P"
 bni0091_modules = ["13100OM"]
 
 [[masters.connections]]
@@ -312,7 +319,8 @@ target_module = "13300IM"
 hm = 140
 master_type = "BNI00HM"
 master_module = "14000HM"
-iol_master_tag = "IOL_Master14000"
+iol_master_tag = "_14000IOL"
+iol_port_prefix = "_14000IOL_P"
 bni0091_modules = ["14100OM"]
 
 [[masters.connections]]
@@ -335,7 +343,8 @@ target_module = "14200IM"
 hm = 145
 master_type = "BNI00HM"
 master_module = "14500HM"
-iol_master_tag = "IOL_Master14500"
+iol_master_tag = "_14500IOL"
+iol_port_prefix = "_14500IOL_P"
 bni0091_modules = ["14600OM", "14700OM"]
 
 [[masters.connections]]

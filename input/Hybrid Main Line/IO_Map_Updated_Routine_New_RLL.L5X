@@ -1,0 +1,3276 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="IO_Map_Updated" TargetType="Routine" TargetSubType="RLL" TargetClass="Standard" ContainsContext="true" ExportDate="Wed Aug 19 15:06:36 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="Test">
+<DataTypes Use="Context">
+<DataType Name="BMC_UDT_DIAG_IOL_Data_1916US" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[IO-Link Diagnostics]]>
+</Description>
+<Members>
+<Member Name="ZZZZZZZZZZBMC_UDT_DI0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="DeviceOK" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZBMC_UDT_DI0" BitNumber="0" ExternalAccess="Read/Write"/>
+<Member Name="MismatchFault" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZBMC_UDT_DI0" BitNumber="1" ExternalAccess="Read/Write"/>
+<Member Name="CommFault" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZBMC_UDT_DI0" BitNumber="2" ExternalAccess="Read/Write"/>
+<Member Name="ValidationFailed" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZBMC_UDT_DI0" BitNumber="3" ExternalAccess="Read/Write"/>
+<Member Name="ProcessDataInvalid" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZBMC_UDT_DI0" BitNumber="4" ExternalAccess="Read/Write"/>
+<Member Name="DSValidationFailure" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZBMC_UDT_DI0" BitNumber="5" ExternalAccess="Read/Write"/>
+<Member Name="IOLShortCircuit" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZBMC_UDT_DI0" BitNumber="6" ExternalAccess="Read/Write"/>
+<Member Name="Event" DataType="BMC_UDT_DIAG_IOL_Event_1916US" Dimension="3" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="VendorID" DataType="SINT" Dimension="2" Radix="Hex" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="DeviceID" DataType="SINT" Dimension="3" Radix="Hex" Hidden="false" ExternalAccess="Read/Write"/>
+</Members>
+<Dependencies>
+<Dependency Type="DataType" Name="BMC_UDT_DIAG_IOL_Event_1916US"/>
+</Dependencies>
+</DataType>
+<DataType Name="BMC_UDT_DIAG_IOL_Event_1916US" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[IO-Link Event Codes]]>
+</Description>
+<Members>
+<Member Name="Code" DataType="SINT" Dimension="0" Radix="Hex" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Additional_Data_1" DataType="SINT" Dimension="0" Radix="Hex" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Additional_Data_2" DataType="SINT" Dimension="0" Radix="Hex" Hidden="false" ExternalAccess="Read/Write"/>
+</Members>
+</DataType>
+<DataType Name="IO_Link_Port_Data" Family="NoFamily" Class="User">
+<Members>
+<Member Name="Inputs" DataType="SINT" Dimension="48" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="Outputs" DataType="SINT" Dimension="48" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write"/>
+</Members>
+</DataType>
+</DataTypes>
+<AddOnInstructionDefinitions Use="Context">
+<AddOnInstructionDefinition Name="BM_IO_HUB" Class="Standard" Revision="1.0" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="false" CreatedDate="2026-08-12T20:33:01.714Z" CreatedBy="DESKTOP-C9MF2UJ\BMAS" EditedDate="2026-08-18T19:44:28.193Z" EditedBy="DESKTOP-C9MF2UJ\BMAS" SoftwareRevision="v34.03"
+>
+<Description>
+<![CDATA[IOL Hub
+]]>
+</Description>
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="IO_Link_Port_Data" TagType="Base" DataType="IO_Link_Port_Data" Usage="InOut" Required="true" Visible="true" Constant="false"/>
+<Parameter Name="EP" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Extension Port Status]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inputs" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Comments>
+<Comment Operand=".0">
+<![CDATA[Port 0 - Pin 4]]>
+</Comment>
+<Comment Operand=".1">
+<![CDATA[Port 0 - Pin 2]]>
+</Comment>
+<Comment Operand=".2">
+<![CDATA[Port 1 - Pin 4]]>
+</Comment>
+<Comment Operand=".3">
+<![CDATA[Port 1 - Pin 2]]>
+</Comment>
+<Comment Operand=".4">
+<![CDATA[Port 2 - Pin 4]]>
+</Comment>
+<Comment Operand=".5">
+<![CDATA[Port 2 - Pin 2]]>
+</Comment>
+<Comment Operand=".6">
+<![CDATA[Port 3 - Pin 4]]>
+</Comment>
+<Comment Operand=".7">
+<![CDATA[Port 3 - Pin 2]]>
+</Comment>
+<Comment Operand=".8">
+<![CDATA[Port 4 - Pin 4]]>
+</Comment>
+<Comment Operand=".9">
+<![CDATA[Port 4 - Pin 2]]>
+</Comment>
+<Comment Operand=".10">
+<![CDATA[Port 5 - Pin 4]]>
+</Comment>
+<Comment Operand=".11">
+<![CDATA[Port 5 - Pin 2]]>
+</Comment>
+<Comment Operand=".12">
+<![CDATA[Port 6 - Pin 4]]>
+</Comment>
+<Comment Operand=".13">
+<![CDATA[Port 6 - Pin 2]]>
+</Comment>
+<Comment Operand=".14">
+<![CDATA[Port 7 - Pin 4]]>
+</Comment>
+<Comment Operand=".15">
+<![CDATA[Port 7 - Pin 2]]>
+</Comment>
+</Comments>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Outputs" TagType="Base" DataType="DINT" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Comments>
+<Comment Operand=".0">
+<![CDATA[Port 0 - Pin 4]]>
+</Comment>
+<Comment Operand=".1">
+<![CDATA[Port 0 - Pin 2]]>
+</Comment>
+<Comment Operand=".2">
+<![CDATA[Port 1 - Pin 4]]>
+</Comment>
+<Comment Operand=".3">
+<![CDATA[Port 1 - Pin 2]]>
+</Comment>
+<Comment Operand=".4">
+<![CDATA[Port 2 - Pin 4]]>
+</Comment>
+<Comment Operand=".5">
+<![CDATA[Port 2 - Pin 2]]>
+</Comment>
+<Comment Operand=".6">
+<![CDATA[Port 3 - Pin 4]]>
+</Comment>
+<Comment Operand=".7">
+<![CDATA[Port 3 - Pin 2]]>
+</Comment>
+<Comment Operand=".8">
+<![CDATA[Port 4 - Pin 4]]>
+</Comment>
+<Comment Operand=".9">
+<![CDATA[Port 4 - Pin 2]]>
+</Comment>
+<Comment Operand=".10">
+<![CDATA[Port 5 - Pin 4]]>
+</Comment>
+<Comment Operand=".11">
+<![CDATA[Port 5 - Pin 2]]>
+</Comment>
+<Comment Operand=".12">
+<![CDATA[Port 6 - Pin 4]]>
+</Comment>
+<Comment Operand=".13">
+<![CDATA[Port 6 - Pin 2]]>
+</Comment>
+<Comment Operand=".14">
+<![CDATA[Port 7 - Pin 4]]>
+</Comment>
+<Comment Operand=".15">
+<![CDATA[Port 7 - Pin 2]]>
+</Comment>
+</Comments>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Data_Diag" TagType="Base" DataType="BMC_UDT_DIAG_IOL_Data_1916US" Usage="InOut" Required="true" Visible="true" Constant="false"/>
+</Parameters>
+<LocalTags/>
+<Routines>
+<Routine Name="Logic" Type="RLL">
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Copyright 2013 Balluff, Inc.
+Licensed under the Apache License, Version 2.0 (the "License"); you may
+not use this file except in compliance with the License.  You may obtain
+a copy of the License at:
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+implied.  See the License for the specific language governing
+permissions and limitations under the License.]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[If Port is active IO-Link mode, verify correct device is connected.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[32].0)XIC(IO_Link_Port_Data.Inputs[32].1)XIO(IO_Link_Port_Data.Inputs[33].0)EQU(IO_Link_Port_Data.Inputs[34],3)EQU(IO_Link_Port_Data.Inputs[35],120)EQU(IO_Link_Port_Data.Inputs[36],5)EQU(IO_Link_Port_Data.Inputs[37],11)LEQ(IO_Link_Port_Data.Inputs[38],4)OTE(Data_Diag.DeviceOK);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[Error indication if connected device is not correct.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[32].0)XIC(IO_Link_Port_Data.Inputs[32].1)XIO(IO_Link_Port_Data.Inputs[33].0)[NEQ(IO_Link_Port_Data.Inputs[36],5) ,NEQ(IO_Link_Port_Data.Inputs[37],11) ,GRT(IO_Link_Port_Data.Inputs[38],4) ,NEQ(IO_Link_Port_Data.Inputs[34],3) ,NEQ(IO_Link_Port_Data.Inputs[35],120) ]OTE(Data_Diag.MismatchFault);]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Text>
+<![CDATA[COP(IO_Link_Port_Data.Inputs[34],Data_Diag.VendorID[0],2)COP(IO_Link_Port_Data.Inputs[36],Data_Diag.DeviceID[0],3);]]>
+</Text>
+</Rung>
+<Rung Number="4" Type="N">
+<Comment>
+<![CDATA[Error indication if no device connected.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[32].0)XIO(IO_Link_Port_Data.Inputs[32].1)OTE(Data_Diag.CommFault);]]>
+</Text>
+</Rung>
+<Rung Number="5" Type="N">
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[33].0)OTE(Data_Diag.ValidationFailed);]]>
+</Text>
+</Rung>
+<Rung Number="6" Type="N">
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[33].1)OTE(Data_Diag.DSValidationFailure);]]>
+</Text>
+</Rung>
+<Rung Number="7" Type="N">
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[33].2)OTE(Data_Diag.ProcessDataInvalid);]]>
+</Text>
+</Rung>
+<Rung Number="8" Type="N">
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[33].7)OTE(Data_Diag.IOLShortCircuit);]]>
+</Text>
+</Rung>
+<Rung Number="9" Type="N">
+<Comment>
+<![CDATA[The next 3 rungs map the 3 most recent Event Codes]]>
+</Comment>
+<Text>
+<![CDATA[MOV(IO_Link_Port_Data.Inputs[39],Data_Diag.Event[0].Code)MOV(IO_Link_Port_Data.Inputs[40],Mapped_BNI007Z_Data.IOL_Diag.Event[0].Additional_Data_1)MOV(IO_Link_Port_Data.Inputs[41],Mapped_BNI007Z_Data.IOL_Diag.Event[0].Additional_Data_2);]]>
+</Text>
+</Rung>
+<Rung Number="10" Type="N">
+<Text>
+<![CDATA[MOV(IO_Link_Port_Data.Inputs[42],Mapped_BNI007Z_Data.IOL_Diag.Event[1].Code)MOV(IO_Link_Port_Data.Inputs[43],Mapped_BNI007Z_Data.IOL_Diag.Event[1].Additional_Data_1)MOV(IO_Link_Port_Data.Inputs[44],Mapped_BNI007Z_Data.IOL_Diag.Event[1].Additional_Data_2);]]>
+</Text>
+</Rung>
+<Rung Number="11" Type="N">
+<Text>
+<![CDATA[MOV(IO_Link_Port_Data.Inputs[45],Mapped_BNI007Z_Data.IOL_Diag.Event[2].Code)MOV(IO_Link_Port_Data.Inputs[46],Mapped_BNI007Z_Data.IOL_Diag.Event[2].Additional_Data_1)MOV(IO_Link_Port_Data.Inputs[47],Mapped_BNI007Z_Data.IOL_Diag.Event[2].Additional_Data_2);]]>
+</Text>
+</Rung>
+<Rung Number="12" Type="N">
+<Comment>
+<![CDATA[
+The next 16 rungs map the raw input data to defined Parameters.
+]]>
+</Comment>
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[0].0)OTE(Inputs.0);]]>
+</Text>
+</Rung>
+<Rung Number="13" Type="N">
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[1].0)OTE(Inputs.1);]]>
+</Text>
+</Rung>
+<Rung Number="14" Type="N">
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[0].1)OTE(Inputs.2);]]>
+</Text>
+</Rung>
+<Rung Number="15" Type="N">
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[1].1)OTE(Inputs.3);]]>
+</Text>
+</Rung>
+<Rung Number="16" Type="N">
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[0].2)OTE(Inputs.4);]]>
+</Text>
+</Rung>
+<Rung Number="17" Type="N">
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[1].2)OTE(Inputs.5);]]>
+</Text>
+</Rung>
+<Rung Number="18" Type="N">
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[0].3)OTE(Inputs.6);]]>
+</Text>
+</Rung>
+<Rung Number="19" Type="N">
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[1].3)OTE(Inputs.7);]]>
+</Text>
+</Rung>
+<Rung Number="20" Type="N">
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[0].4)OTE(Inputs.8);]]>
+</Text>
+</Rung>
+<Rung Number="21" Type="N">
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[1].4)OTE(Inputs.9);]]>
+</Text>
+</Rung>
+<Rung Number="22" Type="N">
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[0].5)OTE(Inputs.10);]]>
+</Text>
+</Rung>
+<Rung Number="23" Type="N">
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[1].5)OTE(Inputs.11);]]>
+</Text>
+</Rung>
+<Rung Number="24" Type="N">
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[0].6)OTE(Inputs.12);]]>
+</Text>
+</Rung>
+<Rung Number="25" Type="N">
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[1].6)OTE(Inputs.13);]]>
+</Text>
+</Rung>
+<Rung Number="26" Type="N">
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[0].7)OTE(Inputs.14);]]>
+</Text>
+</Rung>
+<Rung Number="27" Type="N">
+<Text>
+<![CDATA[XIC(IO_Link_Port_Data.Inputs[1].7)OTE(Inputs.15);]]>
+</Text>
+</Rung>
+<Rung Number="28" Type="N">
+<Comment>
+<![CDATA[
+The next 16 rungs write the defined Parameter output arrays to Raw Outputs.
+
+]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Outputs.0)OTE(IO_Link_Port_Data.Outputs[0].0);]]>
+</Text>
+</Rung>
+<Rung Number="29" Type="N">
+<Text>
+<![CDATA[XIC(Outputs.1)OTE(IO_Link_Port_Data.Outputs[1].0);]]>
+</Text>
+</Rung>
+<Rung Number="30" Type="N">
+<Text>
+<![CDATA[XIC(Outputs.2)OTE(IO_Link_Port_Data.Outputs[0].1);]]>
+</Text>
+</Rung>
+<Rung Number="31" Type="N">
+<Text>
+<![CDATA[XIC(Outputs.3)OTE(IO_Link_Port_Data.Outputs[1].1);]]>
+</Text>
+</Rung>
+<Rung Number="32" Type="N">
+<Text>
+<![CDATA[XIC(Outputs.4)OTE(IO_Link_Port_Data.Outputs[0].2);]]>
+</Text>
+</Rung>
+<Rung Number="33" Type="N">
+<Text>
+<![CDATA[XIC(Outputs.5)OTE(IO_Link_Port_Data.Outputs[1].2);]]>
+</Text>
+</Rung>
+<Rung Number="34" Type="N">
+<Text>
+<![CDATA[XIC(Outputs.6)OTE(IO_Link_Port_Data.Outputs[0].3);]]>
+</Text>
+</Rung>
+<Rung Number="35" Type="N">
+<Text>
+<![CDATA[XIC(Outputs.7)OTE(IO_Link_Port_Data.Outputs[1].3);]]>
+</Text>
+</Rung>
+<Rung Number="36" Type="N">
+<Text>
+<![CDATA[XIC(Outputs.8)OTE(IO_Link_Port_Data.Outputs[0].4);]]>
+</Text>
+</Rung>
+<Rung Number="37" Type="N">
+<Text>
+<![CDATA[XIC(Outputs.9)OTE(IO_Link_Port_Data.Outputs[1].4);]]>
+</Text>
+</Rung>
+<Rung Number="38" Type="N">
+<Text>
+<![CDATA[XIC(Outputs.10)OTE(IO_Link_Port_Data.Outputs[0].5);]]>
+</Text>
+</Rung>
+<Rung Number="39" Type="N">
+<Text>
+<![CDATA[XIC(Outputs.11)OTE(IO_Link_Port_Data.Outputs[1].5);]]>
+</Text>
+</Rung>
+<Rung Number="40" Type="N">
+<Text>
+<![CDATA[XIC(Outputs.12)OTE(IO_Link_Port_Data.Outputs[0].6);]]>
+</Text>
+</Rung>
+<Rung Number="41" Type="N">
+<Text>
+<![CDATA[XIC(Outputs.13)OTE(IO_Link_Port_Data.Outputs[1].6);]]>
+</Text>
+</Rung>
+<Rung Number="42" Type="N">
+<Text>
+<![CDATA[XIC(Outputs.14)OTE(IO_Link_Port_Data.Outputs[0].7);]]>
+</Text>
+</Rung>
+<Rung Number="43" Type="N">
+<Text>
+<![CDATA[XIC(Outputs.15)OTE(IO_Link_Port_Data.Outputs[1].7);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+</Routines>
+<Dependencies>
+<Dependency Type="DataType" Name="BMC_UDT_DIAG_IOL_Data_1916US"/>
+<Dependency Type="DataType" Name="IO_Link_Port_Data"/>
+</Dependencies>
+</AddOnInstructionDefinition>
+</AddOnInstructionDefinitions>
+<Tags Use="Context">
+<Tag Name="_10100IOL" Class="Standard" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="CT4020_Px_Transfer_Down" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Down
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="CT4020_Px_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Up 
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4020_Sol_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer Raise
+Solenoid]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4030_Px_Transfer_Down" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Down
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="CT4030_Px_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Up 
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4030_Sol_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer Raise
+Solenoid]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4260_Px_Transfer_Down" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Down
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="CT4260_Px_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Up 
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4260_Sol_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer Raise
+Solenoid]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4280_Px_Transfer_Down" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Down
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="CT4280_Px_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Up 
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4280_Sol_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer Raise
+Solenoid]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4300_Px_Transfer_Down" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Down
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="CT4300_Px_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Up 
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4300_Sol_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer Raise
+Solenoid]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4320_Px_Transfer_Down" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Down
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="CT4320_Px_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Up 
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4320_Sol_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer Raise
+Solenoid]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4420_Px_Transfer_Down" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Down
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="CT4420_Px_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Up 
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4420_Sol_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer Raise
+Solenoid]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4450_Px_Transfer_Down" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Down
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="CT4450_Px_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Up 
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4450_Sol_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer Raise
+Solenoid]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4520_Px_Transfer_Down" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Down
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="CT4520_Px_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Up 
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4520_Sol_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer Raise
+Solenoid]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4530_Px_Transfer_Down" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Down
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="CT4530_Px_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Up 
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4530_Sol_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer Raise
+Solenoid]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4560_Px_Transfer_Down" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Down
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="CT4560_Px_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Up 
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4560_Sol_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer Raise
+Solenoid]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4580_Px_Transfer_Down" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Down
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="CT4580_Px_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Up 
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4580_Sol_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer Raise
+Solenoid]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4600_Px_Transfer_Down" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Down
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="CT4600_Px_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Up 
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4600_Sol_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer Raise
+Solenoid]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4620_Px_Transfer_Down" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Down
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="CT4620_Px_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Up 
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4620_Sol_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer Raise
+Solenoid]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4680_Px_Transfer_Down" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Down
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="CT4680_Px_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Up 
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT4680_Sol_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer Raise
+Solenoid]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT7156_Px_Transfer_Down" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Down
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="CT7156_Px_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer in Up 
+Position Prox]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="CT7156_Sol_Transfer_Up" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####)
+Transfer Raise
+Solenoid]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Li4120_Lift_Down_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Li4120_Lift_Up_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Li4150_Lift_Down_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Li4150_Lift_Up_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Li4170_Lift_Down_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Li4170_Lift_Up_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Li4190_Lift_Down_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Li4190_Lift_Up_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Li4220_Lift_Down_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Li4220_Lift_Up_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Li4350_Lift_Down_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Li4350_Lift_Up_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Li4380_Lift_Down_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Li4380_Lift_Up_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Li4410_Lift_Down_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Li4410_Lift_Up_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Li4460_Lift_Down_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Li4460_Lift_Up_Valves" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+</Tags>
+<Programs Use="Context">
+<Program Use="Context" Name="MainProgram" Class="Standard">
+<Tags Use="Context">
+<Tag Name="_10200IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_10600IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_10700IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_11100IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_11200IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_11600IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_11700IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_12100IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_12200IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_12600IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_12700IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_13100IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_13200IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_13300IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_14100IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_14200IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_14600IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_14700IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_14800IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_14900IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="_15000IOL" TagType="Base" DataType="BM_IO_HUB" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[1,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="BM_IO_HUB">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="0"/>
+<DataValueMember Name="EP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inputs" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Outputs" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+</Tags>
+<Routines Use="Context">
+<Routine Use="Target" Name="IO_Map_Updated" Type="RLL">
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Auto-generated IO_Map routine]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[10100OM 0A | Zone 4020 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT4020_Sol_Transfer_Up)OTE(_10100IOL.Outputs.0);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[10100OM 0B | Zone 4030 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT4030_Sol_Transfer_Up)OTE(_10100IOL.Outputs.1);]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Comment>
+<![CDATA[10100OM 1 | Zone 4120 | LIFT_UP_SOL | no splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4120_Lift_Up_Valves)OTE(_10100IOL.Outputs.2);]]>
+</Text>
+</Rung>
+<Rung Number="4" Type="N">
+<Comment>
+<![CDATA[10100OM 2A | Zone 4120 | BS1_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4120_BladeStop1)OTE(_10100IOL.Outputs.4);]]>
+</Text>
+</Rung>
+<Rung Number="5" Type="N">
+<Comment>
+<![CDATA[10100OM 2B | Zone 4120 | BS2_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4120_BladeStop2)OTE(_10100IOL.Outputs.5);]]>
+</Text>
+</Rung>
+<Rung Number="6" Type="N">
+<Comment>
+<![CDATA[10100OM 3A | Zone 4120 | LIFT_DOWN_SOL | splitter
+10100OM 3B | Zone 4120 | LIFT_DOWN_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4120_Lift_Down_Valves)[OTE(_10100IOL.Outputs.6) ,OTE(_10100IOL.Outputs.7) ];]]>
+</Text>
+</Rung>
+<Rung Number="7" Type="N">
+<Comment>
+<![CDATA[10600OM 0 | Zone 4150 | LIFT_UP_SOL | no splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4150_Lift_Up_Valves)OTE(_10600IOL.Outputs.0);]]>
+</Text>
+</Rung>
+<Rung Number="8" Type="N">
+<Comment>
+<![CDATA[10600OM 1 | Zone 4170 | LIFT_UP_SOL | no splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4170_Lift_Up_Valves)OTE(_10600IOL.Outputs.2);]]>
+</Text>
+</Rung>
+<Rung Number="9" Type="N">
+<Comment>
+<![CDATA[10600OM 2A | Zone 4150 | LIFT_DOWN_SOL | splitter
+10600OM 2B | Zone 4150 | LIFT_DOWN_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4150_Lift_Down_Valves)[OTE(_10600IOL.Outputs.4) ,OTE(_10600IOL.Outputs.5) ];]]>
+</Text>
+</Rung>
+<Rung Number="10" Type="N">
+<Comment>
+<![CDATA[10600OM 3A | Zone 4170 | LIFT_DOWN_SOL | splitter
+10600OM 3B | Zone 4170 | LIFT_DOWN_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4170_Lift_Down_Valves)[OTE(_10600IOL.Outputs.6) ,OTE(_10600IOL.Outputs.7) ];]]>
+</Text>
+</Rung>
+<Rung Number="11" Type="N">
+<Comment>
+<![CDATA[10600OM 4A | Zone 4150 | BS1_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4150_BladeStop1)OTE(_10600IOL.Outputs.8);]]>
+</Text>
+</Rung>
+<Rung Number="12" Type="N">
+<Comment>
+<![CDATA[10600OM 4B | Zone 4150 | BS2_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4150_BladeStop2)OTE(_10600IOL.Outputs.9);]]>
+</Text>
+</Rung>
+<Rung Number="13" Type="N">
+<Comment>
+<![CDATA[10600OM 5A | Zone 4170 | BS1_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4170_BladeStop1)OTE(_10600IOL.Outputs.10);]]>
+</Text>
+</Rung>
+<Rung Number="14" Type="N">
+<Comment>
+<![CDATA[10600OM 5B | Zone 4170 | BS2_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4170_BladeStop2)OTE(_10600IOL.Outputs.11);]]>
+</Text>
+</Rung>
+<Rung Number="15" Type="N">
+<Comment>
+<![CDATA[11100OM 0 | Zone 4190 | LIFT_UP_SOL | no splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4190_Lift_Up_Valves)OTE(_11100IOL.Outputs.0);]]>
+</Text>
+</Rung>
+<Rung Number="16" Type="N">
+<Comment>
+<![CDATA[11100OM 1 | Zone 4220 | LIFT_UP_SOL | no splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4220_Lift_Up_Valves)OTE(_11100IOL.Outputs.2);]]>
+</Text>
+</Rung>
+<Rung Number="17" Type="N">
+<Comment>
+<![CDATA[11100OM 2A | Zone 4190 | LIFT_DOWN_SOL | splitter
+11100OM 2B | Zone 4190 | LIFT_DOWN_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4190_Lift_Down_Valves)[OTE(_11100IOL.Outputs.4) ,OTE(_11100IOL.Outputs.5) ];]]>
+</Text>
+</Rung>
+<Rung Number="18" Type="N">
+<Comment>
+<![CDATA[11100OM 3A | Zone 4220 | LIFT_DOWN_SOL | splitter
+11100OM 3B | Zone 4220 | LIFT_DOWN_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4220_Lift_Down_Valves)[OTE(_11100IOL.Outputs.6) ,OTE(_11100IOL.Outputs.7) ];]]>
+</Text>
+</Rung>
+<Rung Number="19" Type="N">
+<Comment>
+<![CDATA[11100OM 4A | Zone 4190 | BS1_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4190_BladeStop1)OTE(_11100IOL.Outputs.8);]]>
+</Text>
+</Rung>
+<Rung Number="20" Type="N">
+<Comment>
+<![CDATA[11100OM 4B | Zone 4190 | BS2_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4190_BladeStop2)OTE(_11100IOL.Outputs.9);]]>
+</Text>
+</Rung>
+<Rung Number="21" Type="N">
+<Comment>
+<![CDATA[11100OM 5A | Zone 4220 | BS1_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4220_BladeStop1)OTE(_11100IOL.Outputs.10);]]>
+</Text>
+</Rung>
+<Rung Number="22" Type="N">
+<Comment>
+<![CDATA[11100OM 5B | Zone 4220 | BS2_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4220_BladeStop2)OTE(_11100IOL.Outputs.11);]]>
+</Text>
+</Rung>
+<Rung Number="23" Type="N">
+<Comment>
+<![CDATA[11600OM 0A | Zone 4260 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT4260_Sol_Transfer_Up)OTE(_11600IOL.Outputs.0);]]>
+</Text>
+</Rung>
+<Rung Number="24" Type="N">
+<Comment>
+<![CDATA[11600OM 0B | Zone 4280 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT4280_Sol_Transfer_Up)OTE(_11600IOL.Outputs.1);]]>
+</Text>
+</Rung>
+<Rung Number="25" Type="N">
+<Comment>
+<![CDATA[11600OM 1A | Zone 4281 | OMTEC_STRIPS_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST4281_OmtecStripSol)OTE(_11600IOL.Outputs.2);]]>
+</Text>
+</Rung>
+<Rung Number="26" Type="N">
+<Comment>
+<![CDATA[11600OM 1B | Zone 4281 | PULLER_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST4281_PullerSol)OTE(_11600IOL.Outputs.3);]]>
+</Text>
+</Rung>
+<Rung Number="27" Type="N">
+<Comment>
+<![CDATA[11600OM 2A | Zone 4300 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT4300_Sol_Transfer_Up)OTE(_11600IOL.Outputs.4);]]>
+</Text>
+</Rung>
+<Rung Number="28" Type="N">
+<Comment>
+<![CDATA[11600OM 2B | Zone 4320 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT4320_Sol_Transfer_Up)OTE(_11600IOL.Outputs.5);]]>
+</Text>
+</Rung>
+<Rung Number="29" Type="N">
+<Comment>
+<![CDATA[11600OM 3A | Zone 4301 | OMTEC_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST4301_OmtecStripSol)OTE(_11600IOL.Outputs.6);]]>
+</Text>
+</Rung>
+<Rung Number="30" Type="N">
+<Comment>
+<![CDATA[11600OM 3B | Zone 4301 | PULLER_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST4301_PullerSol)OTE(_11600IOL.Outputs.7);]]>
+</Text>
+</Rung>
+<Rung Number="31" Type="N">
+<Comment>
+<![CDATA[11600OM 5A | Zone 4321 | OMTEC_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST4321_OmtecStripSol)OTE(_11600IOL.Outputs.10);]]>
+</Text>
+</Rung>
+<Rung Number="32" Type="N">
+<Comment>
+<![CDATA[11600OM 5B | Zone 4321 | PULLER_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST4321_PullerSol)OTE(_11600IOL.Outputs.11);]]>
+</Text>
+</Rung>
+<Rung Number="33" Type="N">
+<Comment>
+<![CDATA[12100OM 0 | Zone 4350 | LIFT_UP_SOL | no splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4350_Lift_Up_Valves)OTE(_12100IOL.Outputs.0);]]>
+</Text>
+</Rung>
+<Rung Number="34" Type="N">
+<Comment>
+<![CDATA[12100OM 1 | Zone 4380 | LIFT_UP_SOL | no splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4380_Lift_Up_Valves)OTE(_12100IOL.Outputs.2);]]>
+</Text>
+</Rung>
+<Rung Number="35" Type="N">
+<Comment>
+<![CDATA[12100OM 2A | Zone 4350 | LIFT_DOWN_SOL | splitter
+12100OM 2B | Zone 4350 | LIFT_DOWN_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4350_Lift_Down_Valves)[OTE(_12100IOL.Outputs.4) ,OTE(_12100IOL.Outputs.5) ];]]>
+</Text>
+</Rung>
+<Rung Number="36" Type="N">
+<Comment>
+<![CDATA[12100OM 3A | Zone 4380 | LIFT_DOWN_SOL | splitter
+12100OM 3B | Zone 4380 | LIFT_DOWN_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4380_Lift_Down_Valves)[OTE(_12100IOL.Outputs.6) ,OTE(_12100IOL.Outputs.7) ];]]>
+</Text>
+</Rung>
+<Rung Number="37" Type="N">
+<Comment>
+<![CDATA[12100OM 4A | Zone 4350 | BS1_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4350_BladeStop1)OTE(_12100IOL.Outputs.8);]]>
+</Text>
+</Rung>
+<Rung Number="38" Type="N">
+<Comment>
+<![CDATA[12100OM 4B | Zone 4350 | BS2_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4350_BladeStop2)OTE(_12100IOL.Outputs.9);]]>
+</Text>
+</Rung>
+<Rung Number="39" Type="N">
+<Comment>
+<![CDATA[12100OM 5A | Zone 4380 | BS1_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4380_BladeStop1)OTE(_12100IOL.Outputs.10);]]>
+</Text>
+</Rung>
+<Rung Number="40" Type="N">
+<Comment>
+<![CDATA[12100OM 5B | Zone 4380 | BS2_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4380_BladeStop2)OTE(_12100IOL.Outputs.11);]]>
+</Text>
+</Rung>
+<Rung Number="41" Type="N">
+<Comment>
+<![CDATA[12600OM 0 | Zone 4410 | LIFT_UP_SOL | no splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4410_Lift_Up_Valves)OTE(_12600IOL.Outputs.0);]]>
+</Text>
+</Rung>
+<Rung Number="42" Type="N">
+<Comment>
+<![CDATA[12600OM 1 | Zone 4460 | LIFT_UP_SOL | no splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4460_Lift_Up_Valves)OTE(_12600IOL.Outputs.2);]]>
+</Text>
+</Rung>
+<Rung Number="43" Type="N">
+<Comment>
+<![CDATA[12600OM 2A | Zone 4410 | LIFT_DOWN_SOL | splitter
+12600OM 2B | Zone 4410 | LIFT_DOWN_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4410_Lift_Down_Valves)[OTE(_12600IOL.Outputs.4) ,OTE(_12600IOL.Outputs.5) ];]]>
+</Text>
+</Rung>
+<Rung Number="44" Type="N">
+<Comment>
+<![CDATA[12600OM 3A | Zone 4460 | LIFT_DOWN_SOL | splitter
+12600OM 3B | Zone 4460 | LIFT_DOWN_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4460_Lift_Down_Valves)[OTE(_12600IOL.Outputs.6) ,OTE(_12600IOL.Outputs.7) ];]]>
+</Text>
+</Rung>
+<Rung Number="45" Type="N">
+<Comment>
+<![CDATA[12600OM 4A | Zone 4410 | BS1_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4410_BladeStop1)OTE(_12600IOL.Outputs.8);]]>
+</Text>
+</Rung>
+<Rung Number="46" Type="N">
+<Comment>
+<![CDATA[12600OM 4B | Zone 4410 | BS2_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4410_BladeStop2)OTE(_12600IOL.Outputs.9);]]>
+</Text>
+</Rung>
+<Rung Number="47" Type="N">
+<Comment>
+<![CDATA[12600OM 5A | Zone 4460 | BS1_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4460_BladeStop1)OTE(_12600IOL.Outputs.10);]]>
+</Text>
+</Rung>
+<Rung Number="48" Type="N">
+<Comment>
+<![CDATA[12600OM 5B | Zone 4460 | BS2_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Li4460_BladeStop2)OTE(_12600IOL.Outputs.11);]]>
+</Text>
+</Rung>
+<Rung Number="49" Type="N">
+<Comment>
+<![CDATA[12600OM 6A | Zone 4420 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT4420_Sol_Transfer_Up)OTE(_12600IOL.Outputs.12);]]>
+</Text>
+</Rung>
+<Rung Number="50" Type="N">
+<Comment>
+<![CDATA[12600OM 6B | Zone 4450 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT4450_Sol_Transfer_Up)OTE(_12600IOL.Outputs.13);]]>
+</Text>
+</Rung>
+<Rung Number="51" Type="N">
+<Comment>
+<![CDATA[13100OM 0A | Zone 4520 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT4520_Sol_Transfer_Up)OTE(_13100IOL.Outputs.0);]]>
+</Text>
+</Rung>
+<Rung Number="52" Type="N">
+<Comment>
+<![CDATA[13100OM 0B | Zone 4530 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT4530_Sol_Transfer_Up)OTE(_13100IOL.Outputs.1);]]>
+</Text>
+</Rung>
+<Rung Number="53" Type="N">
+<Comment>
+<![CDATA[13100OM 1A | Zone 4560 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT4560_Sol_Transfer_Up)OTE(_13100IOL.Outputs.2);]]>
+</Text>
+</Rung>
+<Rung Number="54" Type="N">
+<Comment>
+<![CDATA[13100OM 1B | Zone 4580 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT4580_Sol_Transfer_Up)OTE(_13100IOL.Outputs.3);]]>
+</Text>
+</Rung>
+<Rung Number="55" Type="N">
+<Comment>
+<![CDATA[13100OM 2A | Zone 4600 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT4600_Sol_Transfer_Up)OTE(_13100IOL.Outputs.4);]]>
+</Text>
+</Rung>
+<Rung Number="56" Type="N">
+<Comment>
+<![CDATA[13100OM 2B | Zone 4620 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT4620_Sol_Transfer_Up)OTE(_13100IOL.Outputs.5);]]>
+</Text>
+</Rung>
+<Rung Number="57" Type="N">
+<Comment>
+<![CDATA[13100OM 3A | Zone 4680 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT4680_Sol_Transfer_Up)OTE(_13100IOL.Outputs.6);]]>
+</Text>
+</Rung>
+<Rung Number="58" Type="N">
+<Comment>
+<![CDATA[14100OM 0A | Zone 7138 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT7138_Sol_Transfer_Up)OTE(_14100IOL.Outputs.0);]]>
+</Text>
+</Rung>
+<Rung Number="59" Type="N">
+<Comment>
+<![CDATA[14100OM 0B | Zone 7140 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT7140_Sol_Transfer_Up)OTE(_14100IOL.Outputs.1);]]>
+</Text>
+</Rung>
+<Rung Number="60" Type="N">
+<Comment>
+<![CDATA[14100OM 1A | Zone 7156 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT7156_Sol_Transfer_Up)OTE(_14100IOL.Outputs.2);]]>
+</Text>
+</Rung>
+<Rung Number="61" Type="N">
+<Comment>
+<![CDATA[14100OM 1B | Zone 7196 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT7196_Sol_Transfer_Up)OTE(_14100IOL.Outputs.3);]]>
+</Text>
+</Rung>
+<Rung Number="62" Type="N">
+<Comment>
+<![CDATA[14100OM 2A | Zone 7197 | OMTEC_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST7197_OmtecStripSol)OTE(_14100IOL.Outputs.4);]]>
+</Text>
+</Rung>
+<Rung Number="63" Type="N">
+<Comment>
+<![CDATA[14100OM 2B | Zone 7197 | PULLER_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST7197_PullerSol)OTE(_14100IOL.Outputs.5);]]>
+</Text>
+</Rung>
+<Rung Number="64" Type="N">
+<Comment>
+<![CDATA[14100OM 3A | Zone 7242 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT7242_Sol_Transfer_Up)OTE(_14100IOL.Outputs.6);]]>
+</Text>
+</Rung>
+<Rung Number="65" Type="N">
+<Comment>
+<![CDATA[14600OM 0A | Zone 7200 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT7200_Sol_Transfer_Up)OTE(_14600IOL.Outputs.0);]]>
+</Text>
+</Rung>
+<Rung Number="66" Type="N">
+<Comment>
+<![CDATA[14600OM 0B | Zone 7204 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT7204_Sol_Transfer_Up)OTE(_14600IOL.Outputs.1);]]>
+</Text>
+</Rung>
+<Rung Number="67" Type="N">
+<Comment>
+<![CDATA[14600OM 1A | Zone 7201 | OMTEC_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST7201_OmtecStripSol)OTE(_14600IOL.Outputs.2);]]>
+</Text>
+</Rung>
+<Rung Number="68" Type="N">
+<Comment>
+<![CDATA[14600OM 1B | Zone 7201 | PULLER_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST7201_PullerSol)OTE(_14600IOL.Outputs.3);]]>
+</Text>
+</Rung>
+<Rung Number="69" Type="N">
+<Comment>
+<![CDATA[14600OM 2A | Zone 7205 | OMTEC_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST7205_OmtecStripSol)OTE(_14600IOL.Outputs.4);]]>
+</Text>
+</Rung>
+<Rung Number="70" Type="N">
+<Comment>
+<![CDATA[14600OM 2B | Zone 7205 | PULLER_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST7205_PullerSol)OTE(_14600IOL.Outputs.5);]]>
+</Text>
+</Rung>
+<Rung Number="71" Type="N">
+<Comment>
+<![CDATA[14600OM 3A | Zone 7208 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT7208_Sol_Transfer_Up)OTE(_14600IOL.Outputs.6);]]>
+</Text>
+</Rung>
+<Rung Number="72" Type="N">
+<Comment>
+<![CDATA[14600OM 3B | Zone 7212 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT7212_Sol_Transfer_Up)OTE(_14600IOL.Outputs.7);]]>
+</Text>
+</Rung>
+<Rung Number="73" Type="N">
+<Comment>
+<![CDATA[14600OM 4A | Zone 7209 | OMTEC_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST7209_OmtecStripSol)OTE(_14600IOL.Outputs.8);]]>
+</Text>
+</Rung>
+<Rung Number="74" Type="N">
+<Comment>
+<![CDATA[14600OM 4B | Zone 7209 | PULLER_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST7209_PullerSol)OTE(_14600IOL.Outputs.9);]]>
+</Text>
+</Rung>
+<Rung Number="75" Type="N">
+<Comment>
+<![CDATA[14600OM 5A | Zone 7213 | OMTEC_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST7213_OmtecStripSol)OTE(_14600IOL.Outputs.10);]]>
+</Text>
+</Rung>
+<Rung Number="76" Type="N">
+<Comment>
+<![CDATA[14600OM 5B | Zone 7213 | PULLER_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST7213_PullerSol)OTE(_14600IOL.Outputs.11);]]>
+</Text>
+</Rung>
+<Rung Number="77" Type="N">
+<Comment>
+<![CDATA[14700OM 0A | Zone 7217 | OMTEC_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST7217_OmtecStripSol)OTE(_14700IOL.Outputs.0);]]>
+</Text>
+</Rung>
+<Rung Number="78" Type="N">
+<Comment>
+<![CDATA[14700OM 0B | Zone 7217 | PULLER_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST7217_PullerSol)OTE(_14700IOL.Outputs.1);]]>
+</Text>
+</Rung>
+<Rung Number="79" Type="N">
+<Comment>
+<![CDATA[14700OM 1A | Zone 7216 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT7216_Sol_Transfer_Up)OTE(_14700IOL.Outputs.2);]]>
+</Text>
+</Rung>
+<Rung Number="80" Type="N">
+<Comment>
+<![CDATA[14700OM 1B | Zone 7220 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT7220_Sol_Transfer_Up)OTE(_14700IOL.Outputs.3);]]>
+</Text>
+</Rung>
+<Rung Number="81" Type="N">
+<Comment>
+<![CDATA[14700OM 2A | Zone 7221 | OMTEC_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST7221_OmtecStripSol)OTE(_14700IOL.Outputs.4);]]>
+</Text>
+</Rung>
+<Rung Number="82" Type="N">
+<Comment>
+<![CDATA[14700OM 2B | Zone 7221 | PULLER_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST7221_PullerSol)OTE(_14700IOL.Outputs.5);]]>
+</Text>
+</Rung>
+<Rung Number="83" Type="N">
+<Comment>
+<![CDATA[14700OM 3A | Zone 7224 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT7224_Sol_Transfer_Up)OTE(_14700IOL.Outputs.6);]]>
+</Text>
+</Rung>
+<Rung Number="84" Type="N">
+<Comment>
+<![CDATA[14700OM 4A | Zone 7225 | OMTEC_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST7225_OmtecStripSol)OTE(_14700IOL.Outputs.8);]]>
+</Text>
+</Rung>
+<Rung Number="85" Type="N">
+<Comment>
+<![CDATA[14700OM 4B | Zone 7225 | PULLER_SOL | auto-named from user convention]]>
+</Comment>
+<Text>
+<![CDATA[XIC(ST7225_PullerSol)OTE(_14700IOL.Outputs.9);]]>
+</Text>
+</Rung>
+<Rung Number="86" Type="N">
+<Comment>
+<![CDATA[14700OM 5A | Zone 7228 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT7228_Sol_Transfer_Up)OTE(_14700IOL.Outputs.10);]]>
+</Text>
+</Rung>
+<Rung Number="87" Type="N">
+<Comment>
+<![CDATA[14700OM 5B | Zone 7230 | XFER_SOL | splitter]]>
+</Comment>
+<Text>
+<![CDATA[XIC(CT7230_Sol_Transfer_Up)OTE(_14700IOL.Outputs.11);]]>
+</Text>
+</Rung>
+<Rung Number="88" Type="N">
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="89" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 102 0A | Zone 4020 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_10200IOL.Inputs.0)OTE(CT4020_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="90" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 102 0B | Zone 4020 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_10200IOL.Inputs.1)OTE(CT4020_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="91" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 102 1A | Zone 4030 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_10200IOL.Inputs.2)OTE(CT4030_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="92" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 102 1B | Zone 4030 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_10200IOL.Inputs.3)OTE(CT4030_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="93" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 102 2A | Zone 4120 | BS1 UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_10200IOL.Inputs.4)OTE(Li4120_BladeStop1Up);]]>
+</Text>
+</Rung>
+<Rung Number="94" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 102 2B | Zone 4120 | BS1 DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_10200IOL.Inputs.5)OTE(Li4120_BladeStop1Down);]]>
+</Text>
+</Rung>
+<Rung Number="95" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 102 3A | Zone 4120 | BS2 UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_10200IOL.Inputs.6)OTE(Li4120_BladeStop2Up);]]>
+</Text>
+</Rung>
+<Rung Number="96" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 102 3B | Zone 4120 | BS2 DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_10200IOL.Inputs.7)OTE(Li4120_BladeStop2Down);]]>
+</Text>
+</Rung>
+<Rung Number="97" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 107 0A | Zone 4150 | BS1 UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_10700IOL.Inputs.0)OTE(Li4150_BladeStop1Up);]]>
+</Text>
+</Rung>
+<Rung Number="98" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 107 0B | Zone 4150 | BS1 DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_10700IOL.Inputs.1)OTE(Li4150_BladeStop1Down);]]>
+</Text>
+</Rung>
+<Rung Number="99" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 107 1A | Zone 4150 | BS2 UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_10700IOL.Inputs.2)OTE(Li4150_BladeStop2Up);]]>
+</Text>
+</Rung>
+<Rung Number="100" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 107 1B | Zone 4150 | BS2 DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_10700IOL.Inputs.3)OTE(Li4150_BladeStop2Down);]]>
+</Text>
+</Rung>
+<Rung Number="101" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 107 2A | Zone 4170 | BS1 UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_10700IOL.Inputs.4)OTE(Li4170_BladeStop1Up);]]>
+</Text>
+</Rung>
+<Rung Number="102" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 107 2B | Zone 4170 | BS1 DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_10700IOL.Inputs.5)OTE(Li4170_BladeStop1Down);]]>
+</Text>
+</Rung>
+<Rung Number="103" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 107 3A | Zone 4170 | BS2 UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_10700IOL.Inputs.6)OTE(Li4170_BladeStop2Up);]]>
+</Text>
+</Rung>
+<Rung Number="104" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 107 3B | Zone 4170 | BS2 DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_10700IOL.Inputs.7)OTE(Li4170_BladeStop2Down);]]>
+</Text>
+</Rung>
+<Rung Number="105" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 112 0A | Zone 4190 | BS1 UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11200IOL.Inputs.0)OTE(Li4190_BladeStop1Up);]]>
+</Text>
+</Rung>
+<Rung Number="106" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 112 0B | Zone 4190 | BS1 DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11200IOL.Inputs.1)OTE(Li4190_BladeStop1Down);]]>
+</Text>
+</Rung>
+<Rung Number="107" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 112 1A | Zone 4190 | BS2 UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11200IOL.Inputs.2)OTE(Li4190_BladeStop2Up);]]>
+</Text>
+</Rung>
+<Rung Number="108" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 112 1B | Zone 4190 | BS2 DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11200IOL.Inputs.3)OTE(Li4190_BladeStop2Down);]]>
+</Text>
+</Rung>
+<Rung Number="109" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 112 2A | Zone 4220 | BS1 UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11200IOL.Inputs.4)OTE(Li4220_BladeStop1Up);]]>
+</Text>
+</Rung>
+<Rung Number="110" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 112 2B | Zone 4220 | BS1 DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11200IOL.Inputs.5)OTE(Li4220_BladeStop1Down);]]>
+</Text>
+</Rung>
+<Rung Number="111" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 112 3A | Zone 4220 | BS2 UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11200IOL.Inputs.6)OTE(Li4220_BladeStop2Up);]]>
+</Text>
+</Rung>
+<Rung Number="112" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 112 3B | Zone 4220 | BS2 DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11200IOL.Inputs.7)OTE(Li4220_BladeStop2Down);]]>
+</Text>
+</Rung>
+<Rung Number="113" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 117 0A | Zone 4260 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11700IOL.Inputs.0)OTE(CT4260_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="114" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 117 0B | Zone 4260 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11700IOL.Inputs.1)OTE(CT4260_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="115" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 117 1A | Zone 4280 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11700IOL.Inputs.2)OTE(CT4280_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="116" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 117 1B | Zone 4280 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11700IOL.Inputs.3)OTE(CT4280_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="117" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 117 2A | Zone 4281 | PULLER PULLED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11700IOL.Inputs.4)OTE(ST4281_PullerPulled);]]>
+</Text>
+</Rung>
+<Rung Number="118" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 117 2B | Zone 4281 | PULLER RELEASED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11700IOL.Inputs.5)OTE(ST4281_PullerReleased);]]>
+</Text>
+</Rung>
+<Rung Number="119" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 117 3A | Zone 4300 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11700IOL.Inputs.6)OTE(CT4300_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="120" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 117 3B | Zone 4300 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11700IOL.Inputs.7)OTE(CT4300_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="121" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 117 4A | Zone 4301 | PULLER PULLED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11700IOL.Inputs.8)OTE(ST4301_PullerPulled);]]>
+</Text>
+</Rung>
+<Rung Number="122" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 117 4B | Zone 4301 | PULLER RELEASED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11700IOL.Inputs.9)OTE(ST4301_PullerReleased);]]>
+</Text>
+</Rung>
+<Rung Number="123" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 117 5A | Zone 4320 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11700IOL.Inputs.10)OTE(CT4320_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="124" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 117 5B | Zone 4320 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11700IOL.Inputs.11)OTE(CT4320_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="125" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 117 6A | Zone 4321 | PULLER PULLED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11700IOL.Inputs.12)OTE(ST4321_PullerPulled);]]>
+</Text>
+</Rung>
+<Rung Number="126" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 117 6B | Zone 4321 | PULLER RELEASED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_11700IOL.Inputs.13)OTE(ST4321_PullerReleased);]]>
+</Text>
+</Rung>
+<Rung Number="127" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 122 0A | Zone 4350 | BS1 UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12200IOL.Inputs.0)OTE(Li4350_BladeStop1Up);]]>
+</Text>
+</Rung>
+<Rung Number="128" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 122 0B | Zone 4350 | BS1 DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12200IOL.Inputs.1)OTE(Li4350_BladeStop1Down);]]>
+</Text>
+</Rung>
+<Rung Number="129" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 122 1A | Zone 4350 | BS2 UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12200IOL.Inputs.2)OTE(Li4350_BladeStop2Up);]]>
+</Text>
+</Rung>
+<Rung Number="130" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 122 1B | Zone 4350 | BS2 DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12200IOL.Inputs.3)OTE(Li4350_BladeStop2Down);]]>
+</Text>
+</Rung>
+<Rung Number="131" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 122 2A | Zone 4380 | BS1 UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12200IOL.Inputs.4)OTE(Li4380_BladeStop1Up);]]>
+</Text>
+</Rung>
+<Rung Number="132" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 122 2B | Zone 4380 | BS1 DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12200IOL.Inputs.5)OTE(Li4380_BladeStop1Down);]]>
+</Text>
+</Rung>
+<Rung Number="133" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 122 3A | Zone 4380 | BS2 UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12200IOL.Inputs.6)OTE(Li4380_BladeStop2Up);]]>
+</Text>
+</Rung>
+<Rung Number="134" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 122 3B | Zone 4380 | BS2 DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12200IOL.Inputs.7)OTE(Li4380_BladeStop2Down);]]>
+</Text>
+</Rung>
+<Rung Number="135" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 127 0A | Zone 4410 | BS1 UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12700IOL.Inputs.0)OTE(Li4410_BladeStop1Up);]]>
+</Text>
+</Rung>
+<Rung Number="136" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 127 0B | Zone 4410 | BS1 DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12700IOL.Inputs.1)OTE(Li4410_BladeStop1Down);]]>
+</Text>
+</Rung>
+<Rung Number="137" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 127 1A | Zone 4410 | BS2 UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12700IOL.Inputs.2)OTE(Li4410_BladeStop2Up);]]>
+</Text>
+</Rung>
+<Rung Number="138" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 127 1B | Zone 4410 | BS2 DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12700IOL.Inputs.3)OTE(Li4410_BladeStop2Down);]]>
+</Text>
+</Rung>
+<Rung Number="139" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 127 2A | Zone 4420 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12700IOL.Inputs.4)OTE(CT4420_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="140" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 127 2B | Zone 4420 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12700IOL.Inputs.5)OTE(CT4420_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="141" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 127 3A | Zone 4450 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12700IOL.Inputs.6)OTE(CT4450_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="142" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 127 3B | Zone 4450 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12700IOL.Inputs.7)OTE(CT4450_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="143" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 127 4A | Zone 4460 | BS1 UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12700IOL.Inputs.8)OTE(Li4460_BladeStop1Up);]]>
+</Text>
+</Rung>
+<Rung Number="144" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 127 4B | Zone 4460 | BS1 DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12700IOL.Inputs.9)OTE(Li4460_BladeStop1Down);]]>
+</Text>
+</Rung>
+<Rung Number="145" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 127 5A | Zone 4460 | BS2 UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12700IOL.Inputs.10)OTE(Li4460_BladeStop2Up);]]>
+</Text>
+</Rung>
+<Rung Number="146" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 127 5B | Zone 4460 | BS2 DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_12700IOL.Inputs.11)OTE(Li4460_BladeStop2Down);]]>
+</Text>
+</Rung>
+<Rung Number="147" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 132 0A | Zone 4520 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13200IOL.Inputs.0)OTE(CT4520_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="148" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 132 0B | Zone 4520 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13200IOL.Inputs.1)OTE(CT4520_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="149" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 132 1A | Zone 4530 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13200IOL.Inputs.2)OTE(CT4530_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="150" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 132 1B | Zone 4530 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13200IOL.Inputs.3)OTE(CT4530_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="151" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 132 2A | Zone 4560 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13200IOL.Inputs.4)OTE(CT4560_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="152" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 132 2B | Zone 4560 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13200IOL.Inputs.5)OTE(CT4560_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="153" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 132 3 | Zone 4561 | PB N/A]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13200IOL.Inputs.6)OTE(ST4561_ReIntroLPB);]]>
+</Text>
+</Rung>
+<Rung Number="154" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 132 3 | Zone 4561 | PB N/A]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13200IOL.Inputs.7)OTE(ST4561_ReIntroLPB);]]>
+</Text>
+</Rung>
+<Rung Number="155" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 132 4A | Zone 4580 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13200IOL.Inputs.8)OTE(CT4580_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="156" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 132 4B | Zone 4580 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13200IOL.Inputs.9)OTE(CT4580_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="157" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 132 5 | Zone 4581 | PB N/A]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13200IOL.Inputs.10)OTE(ST4581_ReIntroLPB);]]>
+</Text>
+</Rung>
+<Rung Number="158" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 132 5 | Zone 4581 | PB N/A]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13200IOL.Inputs.11)OTE(ST4581_ReIntroLPB);]]>
+</Text>
+</Rung>
+<Rung Number="159" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 133 0A | Zone 4600 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13300IOL.Inputs.0)OTE(CT4600_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="160" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 133 0B | Zone 4600 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13300IOL.Inputs.1)OTE(CT4600_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="161" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 133 1 | Zone 4601 | PB N/A]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13300IOL.Inputs.2)OTE(ST4601_ReIntroLPB);]]>
+</Text>
+</Rung>
+<Rung Number="162" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 133 1 | Zone 4601 | PB N/A]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13300IOL.Inputs.3)OTE(ST4601_ReIntroLPB);]]>
+</Text>
+</Rung>
+<Rung Number="163" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 133 2A | Zone 4620 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13300IOL.Inputs.4)OTE(CT4620_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="164" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 133 2B | Zone 4620 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13300IOL.Inputs.5)OTE(CT4620_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="165" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 133 3A | Zone 4680 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13300IOL.Inputs.6)OTE(CT4680_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="166" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 133 3B | Zone 4680 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_13300IOL.Inputs.7)OTE(CT4680_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="167" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 142 0A | Zone 7138 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14200IOL.Inputs.0)OTE(CT7138_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="168" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 142 0B | Zone 7138 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14200IOL.Inputs.1)OTE(CT7138_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="169" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 142 1A | Zone 7140 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14200IOL.Inputs.2)OTE(CT7140_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="170" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 142 1B | Zone 7140 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14200IOL.Inputs.3)OTE(CT7140_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="171" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 142 2A | Zone 7156 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14200IOL.Inputs.4)OTE(CT7156_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="172" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 142 2B | Zone 7156 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14200IOL.Inputs.5)OTE(CT7156_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="173" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 142 3A | Zone 7196 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14200IOL.Inputs.6)OTE(CT7196_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="174" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 142 3B | Zone 7196 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14200IOL.Inputs.7)OTE(CT7196_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="175" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 142 4A | Zone 7197 | PULLER PULLED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14200IOL.Inputs.8)OTE(ST7197_PullerPulled);]]>
+</Text>
+</Rung>
+<Rung Number="176" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 142 4B | Zone 7197 | PULLER RELEASED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14200IOL.Inputs.9)OTE(ST7197_PullerReleased);]]>
+</Text>
+</Rung>
+<Rung Number="177" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 142 5A | Zone 7242 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14200IOL.Inputs.10)OTE(CT7242_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="178" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 142 5B | Zone 7242 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14200IOL.Inputs.11)OTE(CT7242_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="179" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 148 0A | Zone 7200 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14800IOL.Inputs.0)OTE(CT7200_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="180" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 148 0B | Zone 7200 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14800IOL.Inputs.1)OTE(CT7200_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="181" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 148 1A | Zone 7201 | PULLER PULLED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14800IOL.Inputs.2)OTE(ST7201_PullerPulled);]]>
+</Text>
+</Rung>
+<Rung Number="182" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 148 1B | Zone 7201 | PULLER RELEASED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14800IOL.Inputs.3)OTE(ST7201_PullerReleased);]]>
+</Text>
+</Rung>
+<Rung Number="183" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 148 2A | Zone 7204 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14800IOL.Inputs.4)OTE(CT7204_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="184" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 148 2B | Zone 7204 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14800IOL.Inputs.5)OTE(CT7204_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="185" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 148 3A | Zone 7205 | PULLER PULLED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14800IOL.Inputs.6)OTE(ST7205_PullerPulled);]]>
+</Text>
+</Rung>
+<Rung Number="186" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 148 3B | Zone 7205 | PULLER RELEASED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14800IOL.Inputs.7)OTE(ST7205_PullerReleased);]]>
+</Text>
+</Rung>
+<Rung Number="187" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 148 4A | Zone 7208 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14800IOL.Inputs.8)OTE(CT7208_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="188" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 148 4B | Zone 7208 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14800IOL.Inputs.9)OTE(CT7208_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="189" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 148 5A | Zone 7209 | PULLER PULLED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14800IOL.Inputs.10)OTE(ST7209_PullerPulled);]]>
+</Text>
+</Rung>
+<Rung Number="190" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 148 5B | Zone 7209 | PULLER RELEASED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14800IOL.Inputs.11)OTE(ST7209_PullerReleased);]]>
+</Text>
+</Rung>
+<Rung Number="191" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 149 0A | Zone 7212 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14900IOL.Inputs.0)OTE(CT7212_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="192" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 149 0B | Zone 7212 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14900IOL.Inputs.1)OTE(CT7212_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="193" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 149 1A | Zone 7213 | PULLER PULLED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14900IOL.Inputs.2)OTE(ST7213_PullerPulled);]]>
+</Text>
+</Rung>
+<Rung Number="194" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 149 1B | Zone 7213 | PULLER RELEASED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14900IOL.Inputs.3)OTE(ST7213_PullerReleased);]]>
+</Text>
+</Rung>
+<Rung Number="195" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 149 2A | Zone 7216 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14900IOL.Inputs.4)OTE(CT7216_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="196" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 149 2B | Zone 7216 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14900IOL.Inputs.5)OTE(CT7216_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="197" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 149 3A | Zone 7217 | PULLER PULLED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14900IOL.Inputs.6)OTE(ST7217_PullerPulled);]]>
+</Text>
+</Rung>
+<Rung Number="198" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 149 3B | Zone 7217 | PULLER RELEASED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14900IOL.Inputs.7)OTE(ST7217_PullerReleased);]]>
+</Text>
+</Rung>
+<Rung Number="199" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 149 4A | Zone 7220 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14900IOL.Inputs.8)OTE(CT7220_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="200" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 149 4B | Zone 7220 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14900IOL.Inputs.9)OTE(CT7220_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="201" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 149 5A | Zone 7221 | PULLER PULLED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14900IOL.Inputs.10)OTE(ST7221_PullerPulled);]]>
+</Text>
+</Rung>
+<Rung Number="202" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 149 5B | Zone 7221 | PULLER RELEASED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_14900IOL.Inputs.11)OTE(ST7221_PullerReleased);]]>
+</Text>
+</Rung>
+<Rung Number="203" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 150 0A | Zone 7224 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_15000IOL.Inputs.0)OTE(CT7224_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="204" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 150 0B | Zone 7224 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_15000IOL.Inputs.1)OTE(CT7224_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="205" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 150 1A | Zone 7225 | PULLER PULLED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_15000IOL.Inputs.2)OTE(ST7225_PullerPulled);]]>
+</Text>
+</Rung>
+<Rung Number="206" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 150 1B | Zone 7225 | PULLER RELEASED]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_15000IOL.Inputs.3)OTE(ST7225_PullerReleased);]]>
+</Text>
+</Rung>
+<Rung Number="207" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 150 2 | Zone 7227 | PB N/A]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_15000IOL.Inputs.4)OTE(ST7227_ReIntroLPB);]]>
+</Text>
+</Rung>
+<Rung Number="208" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 150 2 | Zone 7227 | PB N/A]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_15000IOL.Inputs.5)OTE(ST7227_ReIntroLPB);]]>
+</Text>
+</Rung>
+<Rung Number="209" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 150 3A | Zone 7228 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_15000IOL.Inputs.6)OTE(CT7228_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="210" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 150 3B | Zone 7228 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_15000IOL.Inputs.7)OTE(CT7228_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+<Rung Number="211" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 150 4 | Zone 7229 | PB N/A]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_15000IOL.Inputs.8)OTE(ST7229_ReIntroLPB);]]>
+</Text>
+</Rung>
+<Rung Number="212" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 150 4 | Zone 7229 | PB N/A]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_15000IOL.Inputs.9)OTE(ST7229_ReIntroLPB);]]>
+</Text>
+</Rung>
+<Rung Number="213" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 150 5A | Zone 7230 | XFER UP]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_15000IOL.Inputs.10)OTE(CT7230_Px_Transfer_Up);]]>
+</Text>
+</Rung>
+<Rung Number="214" Type="N">
+<Comment>
+<![CDATA[BNI005L input | IO 150 5B | Zone 7230 | XFER DOWN]]>
+</Comment>
+<Text>
+<![CDATA[XIC(_15000IOL.Inputs.11)OTE(CT7230_Px_Transfer_Down);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+</Routines>
+</Program>
+</Programs>
+</Controller>
+</RSLogix5000Content>

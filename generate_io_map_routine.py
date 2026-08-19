@@ -24,6 +24,7 @@ import lxml.etree as etree
 # Constants
 PROJECT_ROOT = Path(__file__).resolve().parent
 DEFAULT_IO_MAP_TOML = PROJECT_ROOT / "input" / "Hybrid Main Line" / "stations_io_map.toml"
+DEFAULT_TEMPLATE_L5X = PROJECT_ROOT / "input" / "Hybrid Main Line" / "IO_Map_Updated_Routine_New_RLL.L5X"
 DEFAULT_OUTPUT_FILE_STEM = "IO_Map"
 DEFAULT_ROUTINE_NAME = "IO_Map"
 CONTROLLER_NAME = "Wolf_HybridMainLine"
@@ -117,7 +118,97 @@ def _parse_dest_instruction(value: object, *, row_idx: int) -> DestInstruction:
 	return instr
 
 
-def _load_io_rows(data: dict[str, Any], source_path: Path) -> list[IoMapRow]:
+def _compose_balluff_comment(block_module: str, output_row: dict[str, Any]) -> str | None:
+	point_id = str(output_row.get("point_id", "")).strip()
+	zone = str(output_row.get("zone", "")).strip()
+	function = str(output_row.get("function", "")).strip()
+	notes = str(output_row.get("notes", "")).strip()
+
+	parts: list[str] = []
+	head = f"{block_module} {point_id}".strip()
+	if head:
+		parts.append(head)
+	if zone:
+		parts.append(f"Zone {zone}")
+	if function:
+		parts.append(function)
+	if notes:
+		parts.append(notes)
+
+	if not parts:
+		return None
+	return " | ".join(parts)
+
+
+def _load_io_rows_from_balluff(data: dict[str, Any], source_path: Path) -> list[IoMapRow]:
+	balluff_cfg = data.get("balluff")
+	if not isinstance(balluff_cfg, dict):
+		raise RuntimeError(f"Missing [balluff] table in {source_path}.")
+
+	blocks = balluff_cfg.get("blocks")
+	if not isinstance(blocks, list):
+		raise RuntimeError(f"Missing [[balluff.blocks]] array in {source_path}.")
+
+	rows: list[IoMapRow] = []
+	row_idx = 0
+	for block_idx, block in enumerate(blocks, start=1):
+		if not isinstance(block, dict):
+			raise RuntimeError(f"Each [[balluff.blocks]] row must be a TOML table (block {block_idx}).")
+
+		module = _require_nonempty_string(
+			block.get("module"),
+			field_name=f"balluff.blocks[{block_idx}].module",
+		)
+
+		outputs_raw = block.get("outputs")
+		if not isinstance(outputs_raw, list):
+			continue
+
+		for output in outputs_raw:
+			if not isinstance(output, dict):
+				raise RuntimeError(
+					f"Each [[balluff.blocks.outputs]] row must be a TOML table (block {block_idx})."
+				)
+
+			enabled = output.get("enabled", True)
+			if isinstance(enabled, bool) and not enabled:
+				continue
+
+			row_idx += 1
+			source = _require_nonempty_string(
+				output.get("logical_dest_tag"),
+				field_name=f"balluff.blocks[{block_idx}].outputs[{row_idx}].logical_dest_tag",
+			)
+			dest = _require_nonempty_string(
+				output.get("source_tag"),
+				field_name=f"balluff.blocks[{block_idx}].outputs[{row_idx}].source_tag",
+			)
+			source_instruction = _parse_source_instruction(output.get("source_instruction"), row_idx=row_idx)
+			dest_instruction = _parse_dest_instruction(output.get("dest_instruction"), row_idx=row_idx)
+
+			comment_raw = output.get("comment")
+			if comment_raw is not None and str(comment_raw).strip():
+				comment = str(comment_raw).strip()
+			else:
+				comment = _compose_balluff_comment(module, output)
+
+			rows.append(
+				IoMapRow(
+					source=source,
+					source_instruction=source_instruction,
+					dest=dest,
+					dest_instruction=dest_instruction,
+					comment=comment,
+				)
+			)
+
+	if not rows:
+		raise RuntimeError("No enabled [[balluff.blocks.outputs]] mappings found. Nothing to generate.")
+
+	return rows
+
+
+def _load_io_rows_from_rungs(data: dict[str, Any], source_path: Path) -> list[IoMapRow]:
 	io_map_cfg = data.get("io_map")
 	if not isinstance(io_map_cfg, dict):
 		raise RuntimeError(f"Missing [io_map] table in {source_path}.")
@@ -162,6 +253,20 @@ def _load_io_rows(data: dict[str, Any], source_path: Path) -> list[IoMapRow]:
 	return rows
 
 
+def _load_io_rows(data: dict[str, Any], source_path: Path) -> list[IoMapRow]:
+	io_map_cfg = data.get("io_map")
+	if isinstance(io_map_cfg, dict) and isinstance(io_map_cfg.get("rungs"), list):
+		return _load_io_rows_from_rungs(data, source_path)
+
+	balluff_cfg = data.get("balluff")
+	if isinstance(balluff_cfg, dict) and isinstance(balluff_cfg.get("blocks"), list):
+		return _load_io_rows_from_balluff(data, source_path)
+
+	raise RuntimeError(
+		f"No IO map rows found in {source_path}. Provide either [[io_map.rungs]] or [[balluff.blocks.outputs]]."
+	)
+
+
 def _make_rung(number: int, text: str, comment: str | None = None) -> etree._Element:
 	rung = etree.Element("Rung", Number=str(number), Type="N")
 	if comment:
@@ -201,8 +306,9 @@ def _build_rung_text(row: IoMapRow) -> str:
 	return f"{row.source_instruction}({row.source}){row.dest_instruction}({row.dest});"
 
 
-def write_io_map_l5x(config: IoMapConfig, rows: list[IoMapRow]) -> Path:
-	root, rll = _build_routine_root(config)
+def _replace_rungs(rll: etree._Element, rows: list[IoMapRow]) -> None:
+	for child in list(rll):
+		rll.remove(child)
 
 	# Keep rung 0 as a harmless placeholder to match existing routine style.
 	rll.append(_make_rung(0, "NOP();", "Auto-generated IO_Map routine"))
@@ -210,27 +316,70 @@ def write_io_map_l5x(config: IoMapConfig, rows: list[IoMapRow]) -> Path:
 	for idx, row in enumerate(rows, start=1):
 		rll.append(_make_rung(idx, _build_rung_text(row), row.comment))
 
+
+def _find_target_rll_content(root: etree._Element, *, routine_name: str) -> etree._Element:
+	# Prefer the target routine context in importable L5X exports.
+	nodes = root.xpath("//Routine[@Use='Target' and @Type='RLL']/RLLContent")
+	if nodes:
+		return nodes[0]
+
+	# Fall back to routine-name match when template lacks Use='Target'.
+	nodes = root.xpath(f"//Routine[@Type='RLL' and @Name='{routine_name}']/RLLContent")
+	if nodes:
+		return nodes[0]
+
+	# Last resort: first RLL routine in template.
+	nodes = root.xpath("//Routine[@Type='RLL']/RLLContent")
+	if nodes:
+		return nodes[0]
+
+	raise RuntimeError("Could not find an RLL routine in template L5X.")
+
+
+def write_io_map_l5x(config: IoMapConfig, rows: list[IoMapRow], *, template_path: Path | None = None) -> Path:
+	if template_path and template_path.exists():
+		parser = etree.XMLParser(remove_blank_text=False)
+		tree = etree.parse(str(template_path), parser)
+		root = tree.getroot()
+		root.set("ExportDate", datetime.now().strftime("%a %b %d %H:%M:%S %Y"))
+		rll = _find_target_rll_content(root, routine_name=config.routine_name)
+		_replace_rungs(rll, rows)
+	else:
+		root, rll = _build_routine_root(config)
+		_replace_rungs(rll, rows)
+
 	config.output_dir.mkdir(parents=True, exist_ok=True)
 	timestamp = datetime.now().isoformat(timespec="seconds").replace(":", "-")
 	out_path = config.output_dir / f"{config.output_stem}_{timestamp}.L5X"
-	etree.ElementTree(root).write(
-		str(out_path),
-		xml_declaration=True,
-		encoding="UTF-8",
-		standalone=True,
-		pretty_print=True,
-	)
+	if template_path and template_path.exists():
+		tree.write(
+			str(out_path),
+			xml_declaration=True,
+			encoding="UTF-8",
+			standalone=True,
+			pretty_print=True,
+		)
+	else:
+		etree.ElementTree(root).write(
+			str(out_path),
+			xml_declaration=True,
+			encoding="UTF-8",
+			standalone=True,
+			pretty_print=True,
+		)
 	return out_path
 
 
-def main(io_map_toml: Path) -> None:
+def main(io_map_toml: Path, template_l5x: Path | None) -> None:
 	data = _read_toml(io_map_toml)
 	config = _load_config(data, io_map_toml)
 	rows = _load_io_rows(data, io_map_toml)
-	out = write_io_map_l5x(config, rows)
+	out = write_io_map_l5x(config, rows, template_path=template_l5x)
 
 	print(f"IO map rows generated: {len(rows)}")
 	print(f"Routine name: {config.routine_name}")
+	if template_l5x:
+		print(f"Template: {template_l5x}")
 	print(f"Wrote: {out}")
 
 
@@ -242,9 +391,15 @@ def _parse_args() -> argparse.Namespace:
 		default=DEFAULT_IO_MAP_TOML,
 		help="Path to IO map TOML (default: input/Hybrid Main Line/stations_io_map.toml).",
 	)
+	parser.add_argument(
+		"--template",
+		type=Path,
+		default=DEFAULT_TEMPLATE_L5X,
+		help="Path to template Routine L5X to clone and update.",
+	)
 	return parser.parse_args()
 
 
 if __name__ == "__main__":
 	args = _parse_args()
-	main(args.stations)
+	main(args.stations, args.template)
