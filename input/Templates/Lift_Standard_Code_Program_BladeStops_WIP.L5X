@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Lift_Standard_Code" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Wed Jul 01 10:25:40 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Lift_Standard_Code_BladeStops_WIP" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Wed Jul 01 10:25:40 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Standard_Code_Library">
 <DataTypes Use="Context">
 <DataType Name="IO_Link_Port_Data" Family="NoFamily" Class="User">
@@ -2964,7 +2964,7 @@ Conveyor Run]]>
 </Tag>
 </Tags>
 <Programs Use="Context">
-<Program Use="Target" Name="Lift_Standard_Code" TestEdits="false" MainRoutineName="MainRoutine" Disabled="false" Class="Standard" UseAsFolder="false">
+<Program Use="Target" Name="Lift_Standard_Code_BladeStops_WIP" TestEdits="false" MainRoutineName="MainRoutine" Disabled="false" Class="Standard" UseAsFolder="false">
 <Tags/>
 <Routines>
 <Routine Name="MainRoutine" Type="RLL">
@@ -3030,7 +3030,7 @@ Output Permissives:
 3. HMI conveyor jog forward or reverse pushbutton]]>
 </Comment>
 <Text>
-<![CDATA[XIC(Safety_PowerOn_Placeholder.DN)[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode) [EQU(State_Infeeding,LiXXXX.State) XIC(LiXXXX_Lift_Infeed.InRange) XIO(LiXXXX_PE_FE) ,EQU(State_Outfeeding,LiXXXX.State) XIC(LiXXXX_Lift_Outfeed.InRange) XIC(STZZZZ_Conv_Run) XIC(Outfeed_InPosition_Placeholder) ] ,EQU(Sys_Mode_Manual,LiXXXX.Mode) [XIC(LiXXXX_Conv_Fwd_HMI) ,XIC(LiXXXX_Conv_Rev_HMI) XIC(LiXXXX_Conv_Dir) ] ]OTE(LiXXXX_Conv_Run);]]>
+<![CDATA[XIC(Safety_PowerOn_Placeholder.DN)[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode) [EQU(State_Infeeding,LiXXXX.State) XIC(LiXXXX_Lift_Infeed.InRange) XIO(LiXXXX_PE_FE) XIC(LiXXXX_BladeStop1Down) XIO(LiXXXX_BladeStop1Up) XIC(LiXXXX_BladeStop2Down) XIO(LiXXXX_BladeStop2Up) ,EQU(State_Outfeeding,LiXXXX.State) XIC(LiXXXX_Lift_Outfeed.InRange) XIC(STZZZZ_Conv_Run) XIC(Outfeed_InPosition_Placeholder) XIC(LiXXXX_BladeStop1Down) XIO(LiXXXX_BladeStop1Up) XIC(LiXXXX_BladeStop2Down) XIO(LiXXXX_BladeStop2Up) ] ,EQU(Sys_Mode_Manual,LiXXXX.Mode) [XIC(LiXXXX_Conv_Fwd_HMI) ,XIC(LiXXXX_Conv_Rev_HMI) XIC(LiXXXX_Conv_Dir) ] ]OTE(LiXXXX_Conv_Run);]]>
 </Text>
 </Rung>
 <Rung Number="2" Type="N">
@@ -3163,6 +3163,18 @@ Output Triggers:
 <![CDATA[[EQU(State_WaitingForOperator,LiXXXX.State) XIC(MES_FFFFF_XXXX.Data.UpstreamOK) XIC(Sys_Slow_Blink) ,[EQU(State_WaitingForDownstream,LiXXXX.State) ,EQU(State_Outfeeding,LiXXXX.State) ] ]OTE(LiXXXX_Release_Lt);]]>
 </Text>
 </Rung>
+<Rung Number="10" Type="N">
+<Comment>
+<![CDATA[Output:
+Blade Stop Solenoids
+Behavior:
+1. Blade Stop 1 raises after part load and remains raised through downstream transfer prep.
+2. Blade Stop 2 follows Blade Stop 1 and can be pre-raised while waiting for part when Config.31 is enabled.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Safety_PowerOn_Placeholder.DN)[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode) [EQU(State_MovingMinWork,LiXXXX.State) ,EQU(State_MovingToWork,LiXXXX.State) ,EQU(State_WaitingForOperator,LiXXXX.State) ] OTE(LiXXXX_BladeStop1) ,EQU(Sys_Mode_CycleStarted,LiXXXX.Mode) [[EQU(State_MovingMinWork,LiXXXX.State) ,EQU(State_MovingToWork,LiXXXX.State) ,EQU(State_WaitingForOperator,LiXXXX.State) ] ,EQU(State_WaitingForPart,LiXXXX.State) XIC(LiXXXX.Config.31) ] OTE(LiXXXX_BladeStop2) ];]]>
+</Text>
+</Rung>
 </RLLContent>
 </Routine>
 <Routine Name="_XXXX_States" Type="RLL">
@@ -3218,7 +3230,7 @@ b. Checking if a minimum move is needed to get to the outfeed height
 ]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_Infeeding,LiXXXX.State)XIC(LiXXXX_PE_FE)TON(LiXXXX_Infeeding_TON,?,?)XIC(LiXXXX_Infeeding_TON.DN)[XIC(LiXXXX_SW_Active) MOV(State_MovingMinWork,LiXXXX.State) ,XIO(LiXXXX_SW_Active) MOV(State_MovingMinOutfeed,LiXXXX.State) ];]]>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_Infeeding,LiXXXX.State)XIC(LiXXXX_PE_FE)TON(LiXXXX_Infeeding_TON,?,?)XIC(LiXXXX_Infeeding_TON.DN)XIC(LiXXXX_BladeStop1Up)XIO(LiXXXX_BladeStop1Down)XIC(LiXXXX_BladeStop2Up)XIO(LiXXXX_BladeStop2Down)[XIC(LiXXXX_SW_Active) MOV(State_MovingMinWork,LiXXXX.State) ,XIO(LiXXXX_SW_Active) MOV(State_MovingMinOutfeed,LiXXXX.State) ];]]>
 </Text>
 </Rung>
 <Rung Number="3" Type="N">
@@ -3234,7 +3246,7 @@ Moving lift to work height
 ]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_MovingMinWork,LiXXXX.State)XIO(LiXXXX_HPU_Hold.DN)[XIC(LiXXXX_Lift_Work_Temp.InRange) ,XIC(LiXXXX_Lift_Work.InRange) ]MOV(State_MovingToWork,LiXXXX.State);]]>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_MovingMinWork,LiXXXX.State)XIO(LiXXXX_HPU_Hold.DN)XIC(LiXXXX_BladeStop1Up)XIO(LiXXXX_BladeStop1Down)XIC(LiXXXX_BladeStop2Up)XIO(LiXXXX_BladeStop2Down)[XIC(LiXXXX_Lift_Work_Temp.InRange) ,XIC(LiXXXX_Lift_Work.InRange) ]MOV(State_MovingToWork,LiXXXX.State);]]>
 </Text>
 </Rung>
 <Rung Number="4" Type="N">
@@ -3315,7 +3327,7 @@ send feedback to MES that part is released
 b. Checking if a minimum move is needed to get to the outfeed height]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_WaitingForDownstream,LiXXXX.State)XIC(LiXXXX_PE_FE)EQU(State_Infeeding,STZZZZ.State)[XIC(LiXXXX_Lift_Outfeed.InRange) [MOV(State_Outfeeding,LiXXXX.State) ,OTL(MES_FFFFF_XXXX.DN) ] ,XIO(LiXXXX_Lift_Outfeed.InRange) MOV(State_MovingMinOutfeed,LiXXXX.State) ];]]>
+<![CDATA[EQU(Sys_Mode_CycleStarted,LiXXXX.Mode)EQU(State_WaitingForDownstream,LiXXXX.State)XIC(LiXXXX_PE_FE)EQU(State_Infeeding,STZZZZ.State)[XIC(LiXXXX_Lift_Outfeed.InRange) XIC(LiXXXX_BladeStop1Down) XIO(LiXXXX_BladeStop1Up) XIC(LiXXXX_BladeStop2Down) XIO(LiXXXX_BladeStop2Up) [MOV(State_Outfeeding,LiXXXX.State) ,OTL(MES_FFFFF_XXXX.DN) ] ,[XIC(LiXXXX_Lift_Outfeed.InRange) XIO(LiXXXX_BladeStop1Down) ,XIC(LiXXXX_Lift_Outfeed.InRange) XIC(LiXXXX_BladeStop1Up) ,XIC(LiXXXX_Lift_Outfeed.InRange) XIO(LiXXXX_BladeStop2Down) ,XIC(LiXXXX_Lift_Outfeed.InRange) XIC(LiXXXX_BladeStop2Up) ,XIO(LiXXXX_Lift_Outfeed.InRange) ] MOV(State_MovingMinOutfeed,LiXXXX.State) ];]]>
 </Text>
 </Rung>
 <Rung Number="9" Type="N">
@@ -3384,7 +3396,7 @@ Turn on if functionality exists
 If configuration bit is not listed, it is marked as spare and available for use]]>
 </Comment>
 <Text>
-<![CDATA[XIC(LiXXXX.Config.5)XIC(LiXXXX.Config.6)XIC(LiXXXX.Config.10)XIC(LiXXXX.Config.11)XIC(LiXXXX.Config.20)XIC(LiXXXX.Config.21)XIC(LiXXXX.Config.22)XIC(LiXXXX.Config.23)XIC(LiXXXX.Config.30)NOP();]]>
+<![CDATA[XIC(LiXXXX.Config.5)XIC(LiXXXX.Config.6)XIC(LiXXXX.Config.10)XIC(LiXXXX.Config.11)XIC(LiXXXX.Config.20)XIC(LiXXXX.Config.21)XIC(LiXXXX.Config.22)XIC(LiXXXX.Config.23)XIC(LiXXXX.Config.30)XIC(LiXXXX.Config.31)NOP();]]>
 </Text>
 </Rung>
 <Rung Number="2" Type="N">

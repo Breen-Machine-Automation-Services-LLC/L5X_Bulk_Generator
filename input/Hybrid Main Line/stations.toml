@@ -5,6 +5,7 @@ template_dir = "input/Templates"
 [templates]
 Lift = "Lift_Standard_Code_Program.L5X"
 Queue = "Staight_Track_Standard_Code_Program.L5X"
+Kickout = "Kickout_Standard_Code_Program.L5X"
 Transfer = "Chain_Transfer_Standard_Code_Program.L5X"
 Tester = "Staight_Track_Standard_Code_Program.L5X"
 Gravity = "Gravity_Standard_Code_Program.L5X"
@@ -12,6 +13,7 @@ Gravity = "Gravity_Standard_Code_Program.L5X"
 [type_prefix]
 Lift = "Li"
 Queue = "ST"
+Kickout = "ST"
 Transfer = "CT"
 Tester = "ST"
 Gravity = "ST"
@@ -86,13 +88,13 @@ data = [
     { number = 4260, type = "Transfer",   safety = "Safety_Zone85_OK.DN", conv_upstream = 0,    conv_downstream = 4270, chain_upstream = 4250, chain_downstream = 0 },
     { number = 4270, type = "Queue",      safety = "Safety_Zone85_OK.DN", prev = 4260, next = 4280, hasRoute=true },
     { number = 4280, type = "Transfer",   safety = "Safety_Zone85_OK.DN", conv_upstream = 4270, conv_downstream = 4290, chain_upstream = 4600, chain_downstream = 4281, hasRoute=true },
-    { number = 4281, type = "Tester",     safety = "Safety_Zone85_OK.DN", prev = 4280, next = 0, isWorkstation = true, hasRoute=true },
+    { number = 4281, type = "Kickout",    safety = "Safety_Zone85_OK.DN", prev = 4280, next = 0, isWorkstation = true, hasRoute=true },
     { number = 4290, type = "Queue",      safety = "Safety_Zone85_OK.DN", prev = 4280, next = 4300, hasRoute=true },
     { number = 4300, type = "Transfer",   safety = "Safety_Zone85_OK.DN", conv_upstream = 4290, conv_downstream = 4310, chain_upstream = 4580, chain_downstream = 4301, hasRoute=true },
-    { number = 4301, type = "Tester",     safety = "Safety_Zone85_OK.DN", prev = 4300, next = 0, isWorkstation = true, hasRoute=true },
+    { number = 4301, type = "Kickout",    safety = "Safety_Zone85_OK.DN", prev = 4300, next = 0, isWorkstation = true, hasRoute=true },
     { number = 4310, type = "Queue",      safety = "Safety_Zone85_OK.DN", prev = 4300, next = 4320, hasRoute=true },
     { number = 4320, type = "Transfer",   safety = "Safety_Zone85_OK.DN", conv_upstream = 4310, conv_downstream = 4330, chain_upstream = 4560, chain_downstream = 4321, hasRoute=true },
-    { number = 4321, type = "Tester",     safety = "Safety_Zone85_OK.DN", prev = 4320, next = 0, isWorkstation = true, hasRoute=true },
+    { number = 4321, type = "Kickout",    safety = "Safety_Zone85_OK.DN", prev = 4320, next = 0, isWorkstation = true, hasRoute=true },
     { number = 4330, type = "Queue",      safety = "Safety_Zone85_OK.DN", prev = 4320, next = 4340, hasRoute=true },
     { number = 4340, type = "Queue",      safety = "Safety_Zone85_OK.DN", prev = 4330, next = 4350 },
     { number = 4350, type = "Lift",       safety = "Safety_Zone85_OK.DN", prev = 4340, next = 4360, isWorkstation = true, isMES = 1234 },
