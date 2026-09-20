@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Staight_Track_Standard_Code" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Thu Jun 25 15:55:14 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Staight_Track_Standard_Code" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Sun Sep 20 12:16:52 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Standard_Code_Library">
 <DataTypes Use="Context">
 <DataType Name="MES_Brake_Integration" Family="NoFamily" Class="User">
@@ -1944,7 +1944,7 @@ Next State:
 Waiting to infeed part from upstream station]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_Outfeeding,STXXXX.State)XIO(STXXXX_PE_FE)XIC(Outfeed_Complete_Placeholder)TON(STXXXX_Outfeeding_TON,?,?)XIC(STXXXX_Outfeeding_TON.DN)MOV(State_WaitingForPart,STXXXX.State);]]>
+<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_Outfeeding,STXXXX.State)XIO(STXXXX_PE_FE)XIC(Outfeed_Complete_Placeholder)TON(STXXXX_Outfeeding_TON,?,?)XIC(STXXXX_Outfeeding_TON.DN)[MOV(State_WaitingForPart,STXXXX.State) ,CLR(STXXXX_Route) ];]]>
 </Text>
 </Rung>
 </RLLContent>
