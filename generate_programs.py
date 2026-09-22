@@ -72,6 +72,7 @@ class Station:
     # Semantic flags derived from TOML row content.
     is_transfer: bool = False
     is_tester: bool = False
+    is_kickout: bool = False
 
     @property
     def effective_template_type(self) -> str:
@@ -89,6 +90,10 @@ def _is_transfer_type(type_name: str) -> bool:
 
 def _is_tester_type(type_name: str) -> bool:
     return "test" in type_name.strip().lower()
+
+
+def _is_kickout_type(type_name: str) -> bool:
+    return "kickout" in type_name.strip().lower()
 
 
 def _is_gravity_type(type_name: str) -> bool:
@@ -265,6 +270,7 @@ def _load_stations_from_toml(toml_data: dict[str, Any], station_types: set[str])
             "has_route": bool(row.get("hasRoute", False)),
             "is_transfer": _is_transfer_type(station_type),
             "is_tester": _is_tester_type(station_type),
+            "is_kickout": _is_kickout_type(station_type),
         }
 
         if base_kwargs["is_transfer"]:
@@ -438,7 +444,7 @@ def _outfeed_complete_neighbor_number(
             "chain_forward": station.chain_rev,
             "chain_reverse": station.chain_fwd,
         }
-    elif station.is_tester:
+    elif station.is_tester or station.is_kickout:
         branch_to_neighbor = {
             "conveyor_forward": station.next,
             "conveyor_reverse": station.prev,
@@ -486,9 +492,9 @@ def _resolve_outfeed_complete_infeed_state(
             "chain_reverse": "State_InfeedingChainReverse",
         }.get(branch_name, "State_Infeeding")
 
-    if neighbor_type is not None and _is_tester_type(neighbor_type):
+    if neighbor_type is not None and (_is_tester_type(neighbor_type) or _is_kickout_type(neighbor_type)):
         neighbor_station = stations_by_number.get(neighbor_number)
-        if neighbor_station is not None and neighbor_station.is_tester:
+        if neighbor_station is not None and (neighbor_station.is_tester or neighbor_station.is_kickout):
             if neighbor_station.prev == current_station.number:
                 return "State_Infeeding"
             if neighbor_station.next == current_station.number:
@@ -542,7 +548,7 @@ def _rewrite_outfeed_complete_checks(
                 f"EQU(State_OutfeedingChainReverse,{self_tag}.State) XIO({self_tag}_FE_Chain)",
             ),
         ]
-    elif station.is_tester:
+    elif station.is_tester or station.is_kickout:
         replacements = [
             (
                 f"EQU(State_Outfeeding,{self_tag}.State)XIO({self_tag}_PE_FE)XIC(Outfeed_Complete_Placeholder)",

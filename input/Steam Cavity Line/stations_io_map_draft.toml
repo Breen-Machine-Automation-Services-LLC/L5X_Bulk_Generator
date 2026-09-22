@@ -1,0 +1,1275 @@
+[config]
+output_dir = "output/Steam Cavity Line"
+
+[io_map]
+controller_name = "Wolf_SteamCavityLine"
+program_name = "MainProgram"
+routine_name = "IO_Map"
+output_stem = "IO_Map"
+
+# Auto-generated draft scaffold. Fill source tags from the official IO list, then set enabled = true.
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST300_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST300_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST300_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST300_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT310_FE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT310_FE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT310_RE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT310_RE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT310_FE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT310_FE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT310_RE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT310_RE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST320_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST320_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST320_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST320_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT330_FE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT330_FE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT330_RE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT330_RE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT330_FE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT330_FE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT330_RE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT330_RE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT340_FE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT340_FE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT340_RE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT340_RE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT340_FE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT340_FE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT340_RE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT340_RE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "Li350_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for Li350_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "Li350_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for Li350_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT360_FE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT360_FE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT360_RE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT360_RE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT360_FE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT360_FE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT360_RE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT360_RE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST361_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST361_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST361_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST361_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST370_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST370_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST370_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST370_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT380_FE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT380_FE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT380_RE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT380_RE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT380_FE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT380_FE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT380_RE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT380_RE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST381_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST381_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST381_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST381_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "Li390_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for Li390_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "Li390_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for Li390_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST400_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST400_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST400_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST400_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT410_FE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT410_FE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT410_RE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT410_RE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT410_FE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT410_FE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT410_RE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT410_RE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST411_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST411_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST411_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST411_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST420_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST420_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST420_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST420_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT430_FE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT430_FE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT430_RE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT430_RE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT430_FE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT430_FE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT430_RE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT430_RE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST431_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST431_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST431_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST431_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT440_FE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT440_FE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT440_RE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT440_RE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT440_FE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT440_FE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT440_RE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT440_RE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST450_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST450_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST450_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST450_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST459_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST459_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST459_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST459_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT460_FE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT460_FE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT460_RE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT460_RE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT460_FE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT460_FE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT460_RE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT460_RE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "Li470_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for Li470_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "Li470_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for Li470_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST480_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST480_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST480_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST480_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "Li490_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for Li490_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "Li490_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for Li490_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST500_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST500_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST500_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST500_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT510_FE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT510_FE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT510_RE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT510_RE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT510_FE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT510_FE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT510_RE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT510_RE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST530_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST530_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST530_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST530_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST540_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST540_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST540_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST540_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST545_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST545_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST545_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST545_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT550_FE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT550_FE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT550_RE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT550_RE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT550_FE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT550_FE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT550_RE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT550_RE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST560_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST560_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST560_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST560_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST570_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST570_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST570_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST570_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST580_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST580_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST580_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST580_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST590_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST590_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST590_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST590_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT600_FE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT600_FE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT600_RE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT600_RE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT600_FE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT600_FE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT600_RE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT600_RE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST610_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST610_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST610_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST610_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT620_FE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT620_FE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT620_RE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT620_RE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT620_FE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT620_FE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT620_RE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT620_RE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST621_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST621_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST621_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST621_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST630_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST630_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST630_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST630_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT640_FE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT640_FE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT640_RE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT640_RE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT640_FE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT640_FE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT640_RE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT640_RE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST641_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST641_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST641_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST641_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST650_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST650_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST650_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST650_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT660_FE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT660_FE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT660_RE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT660_RE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT660_FE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT660_FE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT660_RE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT660_RE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST661_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST661_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST661_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST661_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "Li670_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for Li670_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "Li670_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for Li670_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST680_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST680_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST680_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST680_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST690_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST690_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST690_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST690_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT700_FE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT700_FE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT700_RE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT700_RE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT700_FE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT700_FE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT700_RE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT700_RE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST701_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST701_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST701_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST701_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST710_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST710_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST710_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST710_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST720_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST720_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST720_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST720_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST726_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST726_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST726_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST726_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST730_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST730_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST730_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST730_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST740_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST740_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST740_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST740_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT750_FE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT750_FE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT750_RE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT750_RE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT750_FE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT750_FE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT750_RE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT750_RE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST760_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST760_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST760_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST760_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST770_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST770_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST770_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST770_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST780_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST780_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST780_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST780_PE_RE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT790_FE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT790_FE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT790_RE_Conv"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT790_RE_Conv"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT790_FE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT790_FE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "CT790_RE_Chain"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for CT790_RE_Chain"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST800_PE_FE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST800_PE_FE"
+
+[[io_map.rungs]]
+enabled = false
+source = "TODO_SOURCE_TAG"
+source_instruction = "XIC"
+dest = "ST800_PE_RE"
+dest_instruction = "OTE"
+comment = "Fill from electrical drawing for ST800_PE_RE"
+
