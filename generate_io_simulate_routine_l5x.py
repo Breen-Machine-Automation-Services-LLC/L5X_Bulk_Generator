@@ -404,13 +404,11 @@ def build_simulation_rungs(
                 f"[XIO(CT{s.number}_Sol_Transfer_Up) "
                 f"TON({down_timer},{preset_ms},0) "
                 f"XIC({down_timer}.DN) "
-                f"OTE(CT{s.number}_Px_Transfer_Down) "
-                f"RES({down_timer}) ,"
+                f"OTE(CT{s.number}_Px_Transfer_Down) ,"
                 f"XIC(CT{s.number}_Sol_Transfer_Up) "
                 f"TON({up_timer},{preset_ms},0) "
                 f"XIC({up_timer}.DN) "
-                f"OTE(CT{s.number}_Px_Transfer_Up) "
-                f"RES({up_timer}) ];"
+                f"OTE(CT{s.number}_Px_Transfer_Up) ];"
             )
         )
 
