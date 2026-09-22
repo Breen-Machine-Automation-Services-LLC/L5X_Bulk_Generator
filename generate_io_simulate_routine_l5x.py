@@ -338,8 +338,7 @@ def _build_routine_root() -> tuple[etree._Element, etree._Element, etree._Elemen
         ContainsContext="true",
         ExportDate=datetime.now().strftime("%a %b %d %H:%M:%S %Y"),
         ExportOptions=(
-            "References NoRawData L5KData DecoratedData Context Dependencies "
-            "ForceProtectedEncoding AllProjDocTrans"
+            "References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans"
         ),
     )
 
@@ -386,7 +385,8 @@ def build_simulation_rungs(
                 f"TON({timer},{preset_ms},0)"
                 f"XIC({timer}.DN)"
                 f"{src_otu_text}"
-                f"OTL({_presence_tag(dst, dst_axis)});"
+                f"OTL({_presence_tag(dst, dst_axis)})"
+                f"RES({timer});"
             )
         )
 
