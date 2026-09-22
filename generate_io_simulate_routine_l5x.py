@@ -373,11 +373,13 @@ def build_simulation_rungs(
         timer = f"T{src_num}to{dst_num}"
         src_dir_instr = _dir_instr(src, dst_num, role="src")
         dst_dir_instr = _dir_instr(dst, src_num, role="dst")
+        src_xic_text = f"[{', '.join(f'XIC({tag})' for tag in _source_presence_tags(src))}]"
         src_otu_text = "".join(f"OTU({tag})" for tag in _source_presence_tags(src))
         timer_names.add(timer)
 
         rung_texts.append(
             (
+                f"{src_xic_text}"
                 f"XIC({_run_tag(src, src_axis)})"
                 f"{src_dir_instr}({_dir_tag(src, src_axis)})"
                 f"XIC({_run_tag(dst, dst_axis)})"
