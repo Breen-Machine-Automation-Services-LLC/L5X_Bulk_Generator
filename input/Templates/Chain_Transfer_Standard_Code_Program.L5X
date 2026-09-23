@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Chain_Transfer_Standard_Code" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Mon Sep 21 15:11:58 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Chain_Transfer_Standard_Code" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Wed Sep 23 10:14:09 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Standard_Code_Library">
 <DataTypes Use="Context">
 <DataType Name="MES_Brake_Integration" Family="NoFamily" Class="User">
@@ -853,6 +853,17 @@ destination]]>
 <![CDATA[Replace with logic
 that checks routing
 destination]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Outfeed_Complete_Placeholder" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Use next station state or PE to ensure outfeed was successful]]>
 </Description>
 <Data Format="L5K">
 <![CDATA[0]]>
@@ -2583,7 +2594,7 @@ Waiting to infeed part from conveyor forward/reverse or chain forward/reverse
 ]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,CTXXXX.Mode)[EQU(State_OutfeedingConveyorForward,CTXXXX.State) XIO(CTXXXX_FE_Conv) NEQ(State_Infeeding,STZZZZ.State) ,EQU(State_OutfeedingConveyorReverse,CTXXXX.State) XIO(CTXXXX_RE_Conv) NEQ(State_Infeeding,STYYYY.State) ,EQU(State_OutfeedingChainForward,CTXXXX.State) XIO(CTXXXX_FE_Chain) NEQ(State_Infeeding,STWWWW.State) ,EQU(State_OutfeedingChainReverse,CTXXXX.State) XIO(CTXXXX_FE_Chain) NEQ(State_Infeeding,STVVVV.State) ]TON(CTXXXX_Outfeeding_TON,?,?)XIC(CTXXXX_Outfeeding_TON.DN)MOV(State_WaitingForPart,CTXXXX.State);]]>
+<![CDATA[EQU(Sys_Mode_CycleStarted,CTXXXX.Mode)[EQU(State_OutfeedingConveyorForward,CTXXXX.State) XIC(Outfeed_Complete_Placeholder) ,EQU(State_OutfeedingConveyorReverse,CTXXXX.State) XIC(Outfeed_Complete_Placeholder) ,EQU(State_OutfeedingChainForward,CTXXXX.State) XIC(Outfeed_Complete_Placeholder) ,EQU(State_OutfeedingChainReverse,CTXXXX.State) XIC(Outfeed_Complete_Placeholder) ]XIC(CTXXXX_PE_SE)TON(CTXXXX_Outfeeding_TON,?,?)XIC(CTXXXX_Outfeeding_TON.DN)[MOV(State_WaitingForPart,CTXXXX.State) ,CLR(CTXXXX_Route) ];]]>
 </Text>
 </Rung>
 </RLLContent>

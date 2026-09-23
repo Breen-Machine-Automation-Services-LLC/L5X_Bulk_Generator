@@ -516,36 +516,24 @@ def _rewrite_outfeed_complete_checks(
     if station.is_transfer:
         replacements = [
             (
-                (
-                    f"EQU(State_OutfeedingConveyorForward,{self_tag}.State) "
-                    f"XIO({self_tag}_FE_Conv) XIC(Outfeed_Complete_Placeholder)"
-                ),
+                (f"EQU(State_OutfeedingConveyorForward,{self_tag}.State) XIC(Outfeed_Complete_Placeholder)"),
                 "conveyor_forward",
-                f"EQU(State_OutfeedingConveyorForward,{self_tag}.State) XIO({self_tag}_FE_Conv)",
+                f"EQU(State_OutfeedingConveyorForward,{self_tag}.State)",
             ),
             (
-                (
-                    f"EQU(State_OutfeedingConveyorReverse,{self_tag}.State) "
-                    f"XIO({self_tag}_RE_Conv) XIC(Outfeed_Complete_Placeholder)"
-                ),
+                (f"EQU(State_OutfeedingConveyorReverse,{self_tag}.State) XIC(Outfeed_Complete_Placeholder)"),
                 "conveyor_reverse",
-                f"EQU(State_OutfeedingConveyorReverse,{self_tag}.State) XIO({self_tag}_RE_Conv)",
+                f"EQU(State_OutfeedingConveyorReverse,{self_tag}.State)",
             ),
             (
-                (
-                    f"EQU(State_OutfeedingChainForward,{self_tag}.State) "
-                    f"XIO({self_tag}_FE_Chain) XIC(Outfeed_Complete_Placeholder)"
-                ),
+                (f"EQU(State_OutfeedingChainForward,{self_tag}.State) XIC(Outfeed_Complete_Placeholder)"),
                 "chain_forward",
-                f"EQU(State_OutfeedingChainForward,{self_tag}.State) XIO({self_tag}_FE_Chain)",
+                f"EQU(State_OutfeedingChainForward,{self_tag}.State)",
             ),
             (
-                (
-                    f"EQU(State_OutfeedingChainReverse,{self_tag}.State) "
-                    f"XIO({self_tag}_FE_Chain) XIC(Outfeed_Complete_Placeholder)"
-                ),
+                (f"EQU(State_OutfeedingChainReverse,{self_tag}.State) XIC(Outfeed_Complete_Placeholder)"),
                 "chain_reverse",
-                f"EQU(State_OutfeedingChainReverse,{self_tag}.State) XIO({self_tag}_FE_Chain)",
+                f"EQU(State_OutfeedingChainReverse,{self_tag}.State)",
             ),
         ]
     elif station.is_tester or station.is_kickout:
