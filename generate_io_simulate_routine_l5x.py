@@ -91,12 +91,23 @@ def _dir_tag(station: StationDef, axis: Axis) -> str:
     return f"{station.prefix}{station.number}_Conv_Dir"
 
 
-def _presence_tag(station: StationDef, axis: Axis) -> str:
+def _presence_tag(station: StationDef, other_station_num: int) -> str:
     if not station.is_transfer:
-        return f"{station.prefix}{station.number}_PE_FE"
+        relation = _endpoint_relation(station, other_station_num)
+        direction: Relation = relation[1] if relation is not None else "upstream"
+        return (
+            f"{station.prefix}{station.number}_PE_FE"
+            if direction == "upstream"
+            else f"{station.prefix}{station.number}_PE_RE"
+        )
+
+    relation = _endpoint_relation(station, other_station_num)
+    axis: Axis = relation[0] if relation is not None else "conv"
+    direction = relation[1] if relation is not None else "upstream"
+
     if axis == "chain":
-        return f"CT{station.number}_FE_Chain"
-    return f"CT{station.number}_FE_Conv"
+        return f"CT{station.number}_FE_Chain" if direction == "upstream" else f"CT{station.number}_RE_Chain"
+    return f"CT{station.number}_FE_Conv" if direction == "upstream" else f"CT{station.number}_RE_Conv"
 
 
 def _source_presence_tags(station: StationDef) -> list[str]:
@@ -387,7 +398,7 @@ def build_simulation_rungs(
                 f"TON({timer},{preset_ms},0)"
                 f"XIC({timer}.DN)"
                 f"{src_otu_text}"
-                f"OTL({_presence_tag(dst, dst_axis)})"
+                f"OTL({_presence_tag(dst, src_num)})"
                 f"RES({timer});"
             )
         )

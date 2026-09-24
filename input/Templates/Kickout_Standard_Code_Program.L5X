@@ -1,102 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Bi_Directional_Track_Standard_Code" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Wed Jun 24 14:28:20 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Kickout_Standard_Code" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Wed Sep 23 15:12:14 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Standard_Code_Library">
 <DataTypes Use="Context">
-<DataType Name="MES_Brake_Integration" Family="NoFamily" Class="User">
-<Members>
-<Member Name="UnitIdentifier" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
-<Description>
-<![CDATA[Tag shared between MES and PLC]]>
-</Description>
-</Member>
-<Member Name="StationNumber" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
-<Description>
-<![CDATA[Tag shared between MES and PLC]]>
-</Description>
-</Member>
-<Member Name="ZZZZZZZZZZMES_Brake_2" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
-<Member Name="OK" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZMES_Brake_2" BitNumber="0" ExternalAccess="Read/Write">
-<Description>
-<![CDATA["Unit Ready for Release" UI control]]>
-</Description>
-</Member>
-<Member Name="DN" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZMES_Brake_2" BitNumber="1" ExternalAccess="Read/Write">
-<Description>
-<![CDATA[Brake Release Process Complete]]>
-</Description>
-</Member>
-<Member Name="Data" DataType="MES_Data" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
-<Member Name="OEE" DataType="MES_OEE" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
-<Description>
-<![CDATA[Unused]]>
-</Description>
-</Member>
-<Member Name="Shift" DataType="MES_Shift" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
-<Description>
-<![CDATA[Unused]]>
-</Description>
-</Member>
-</Members>
-<Dependencies>
-<Dependency Type="DataType" Name="MES_Data"/>
-<Dependency Type="DataType" Name="MES_OEE"/>
-<Dependency Type="DataType" Name="MES_Shift"/>
-</Dependencies>
-</DataType>
-<DataType Name="MES_Data" Family="NoFamily" Class="User">
-<Description>
-<![CDATA[Data from MES DB]]>
-</Description>
-<Members>
-<Member Name="UnitIdentifier" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
-<Description>
-<![CDATA[Tan/Serial]]>
-</Description>
-</Member>
-<Member Name="ManufacturingOrder" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
-<Description>
-<![CDATA[Work Order]]>
-</Description>
-</Member>
-<Member Name="ItemNumber" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
-<Description>
-<![CDATA[Tag controlled by MES]]>
-</Description>
-</Member>
-<Member Name="Grade" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
-<Description>
-<![CDATA[Tag controlled by MES]]>
-</Description>
-</Member>
-<Member Name="ZZZZZZZZZZMES_Data4" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
-<Member Name="UpstreamOK" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZMES_Data4" BitNumber="0" ExternalAccess="Read/Write">
-<Description>
-<![CDATA[Tag controlled by MES]]>
-</Description>
-</Member>
-</Members>
-</DataType>
-<DataType Name="MES_OEE" Family="NoFamily" Class="User">
-<Members>
-<Member Name="ZZZZZZZZZZMES_OEE0" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
-<Member Name="Available" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZMES_OEE0" BitNumber="0" ExternalAccess="Read/Write">
-<Description>
-<![CDATA[Tag controlled by MES]]>
-</Description>
-</Member>
-<Member Name="AvailabilityReasonCode" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
-<Description>
-<![CDATA[Tag controlled by PLC]]>
-</Description>
-</Member>
-</Members>
-</DataType>
-<DataType Name="MES_Shift" Family="NoFamily" Class="User">
-<Members>
-<Member Name="EndTime" DataType="STRING" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
-<Member Name="Identification" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write"/>
-</Members>
-</DataType>
 <DataType Name="SZG_MachineStats_V0" Family="NoFamily" Class="User">
 <Members>
 <Member Name="PLC_MachineState" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write">
@@ -178,105 +83,6 @@
 </DataType>
 </DataTypes>
 <Tags Use="Context">
-<Tag Name="CTXXXX" Class="Standard" TagType="Base" DataType="SZG_Station" Constant="false" ExternalAccess="Read/Write">
-<Comments>
-<Comment Operand=".ERROR.1">
-<![CDATA[Unexpected Part
-Found]]>
-</Comment>
-<Comment Operand=".ERROR.2">
-<![CDATA[Lost Part]]>
-</Comment>
-<Comment Operand=".ERROR.3">
-<![CDATA[Part Load
-Failure]]>
-</Comment>
-<Comment Operand=".ERROR.5">
-<![CDATA[IOL Master Connection Lost]]>
-</Comment>
-<Comment Operand=".ERROR.10">
-<![CDATA[Lift Timeout]]>
-</Comment>
-<Comment Operand=".WARNING.0">
-<![CDATA[Cycle Started
-While Faulted]]>
-</Comment>
-<Comment Operand=".WARNING.1">
-<![CDATA[Occupancy Cleared While Sensor
- Blocked]]>
-</Comment>
-<Comment Operand=".WARNING.2">
-<![CDATA[Occupancy Set 
-While Sensor 
-Clear]]>
-</Comment>
-<Comment Operand=".CONFIG.5">
-<![CDATA[Enable Set Occupancy HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.6">
-<![CDATA[Enable Clear Occupancy HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.10">
-<![CDATA[Enable Conv Jog Fwd HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.11">
-<![CDATA[Enable Conv Jog Rev HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.15">
-<![CDATA[Chain
-Forward Enable
-Configuration Bit]]>
-</Comment>
-<Comment Operand=".CONFIG.16">
-<![CDATA[Chain
-Reverse Enable
-Configuration Bit]]>
-</Comment>
-<Comment Operand=".CONFIG.20">
-<![CDATA[Conveyor Forward Eye Visible HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.21">
-<![CDATA[Conveyor Reverese Eye Visible HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.22">
-<![CDATA[Chain Forward Eye Visible HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.23">
-<![CDATA[Chain Reverse Eye Visible HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.30">
-<![CDATA[Enable Routing HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.31">
-<![CDATA[Enable Multiple Work Positions]]>
-</Comment>
-</Comments>
-<Data Format="L5K">
-<![CDATA[[0,0,0,0,0,0]]]>
-</Data>
-<Data Format="Decorated">
-<Structure DataType="SZG_Station">
-<DataValueMember Name="State" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Mode" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Error" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Warning" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Config" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Stop_HMI" DataType="BOOL" Value="0"/>
-<DataValueMember Name="Start_HMI" DataType="BOOL" Value="0"/>
-<DataValueMember Name="Manual_HMI" DataType="BOOL" Value="0"/>
-<DataValueMember Name="SetState_PartPresent_HMI" DataType="BOOL" Value="0"/>
-<DataValueMember Name="SetState_PartClear_HMI" DataType="BOOL" Value="0"/>
-</Structure>
-</Data>
-</Tag>
-<Tag Name="CTXXXX_State_Desc_Idx" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
-<Data Format="L5K">
-<![CDATA[0]]>
-</Data>
-<Data Format="Decorated">
-<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
-</Data>
-</Tag>
 <Tag Name="FiSZ_BI_XXXX_MachineStats" Class="Standard" TagType="Base" DataType="SZG_MachineStats_V0" Constant="false" ExternalAccess="Read/Write">
 <Data Format="L5K">
 <![CDATA[[0,0,0,0,0,0]]]>
@@ -306,93 +112,6 @@ Configuration Bit]]>
 <Tag Name="IOLMaster_Connection_Faulted_Placeholder" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
 <Description>
 <![CDATA[Replace with IOL master connection faulted bit]]>
-</Description>
-<Data Format="L5K">
-<![CDATA[0]]>
-</Data>
-<Data Format="Decorated">
-<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
-</Data>
-</Tag>
-<Tag Name="MES_FFFFF_XXXX" Class="Standard" TagType="Base" DataType="MES_Brake_Integration" Constant="false" ExternalAccess="Read/Write">
-<Data Format="L5K">
-<![CDATA[[[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
-		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
-		],0,[[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
-		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
-		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
-		],[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
-		],0],[0,[18,'Unplanned_Downtime$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
-		]],[[0,'$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
-		],0]]]]>
-</Data>
-<Data Format="Decorated">
-<Structure DataType="MES_Brake_Integration">
-<StructureMember Name="UnitIdentifier" DataType="STRING">
-<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
-<![CDATA[]]>
-</DataValueMember>
-</StructureMember>
-<StructureMember Name="StationNumber" DataType="STRING">
-<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
-<![CDATA[]]>
-</DataValueMember>
-</StructureMember>
-<DataValueMember Name="OK" DataType="BOOL" Value="0"/>
-<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
-<StructureMember Name="Data" DataType="MES_Data">
-<StructureMember Name="UnitIdentifier" DataType="STRING">
-<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
-<![CDATA[]]>
-</DataValueMember>
-</StructureMember>
-<StructureMember Name="ManufacturingOrder" DataType="STRING">
-<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
-<![CDATA[]]>
-</DataValueMember>
-</StructureMember>
-<StructureMember Name="ItemNumber" DataType="STRING">
-<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
-<![CDATA[]]>
-</DataValueMember>
-</StructureMember>
-<StructureMember Name="Grade" DataType="STRING">
-<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
-<![CDATA[]]>
-</DataValueMember>
-</StructureMember>
-<DataValueMember Name="UpstreamOK" DataType="BOOL" Value="0"/>
-</StructureMember>
-<StructureMember Name="OEE" DataType="MES_OEE">
-<DataValueMember Name="Available" DataType="BOOL" Value="0"/>
-<StructureMember Name="AvailabilityReasonCode" DataType="STRING">
-<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="18"/>
-<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
-<![CDATA['Unplanned_Downtime']]>
-</DataValueMember>
-</StructureMember>
-</StructureMember>
-<StructureMember Name="Shift" DataType="MES_Shift">
-<StructureMember Name="EndTime" DataType="STRING">
-<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="DATA" DataType="STRING" Radix="ASCII">
-<![CDATA[]]>
-</DataValueMember>
-</StructureMember>
-<DataValueMember Name="Identification" DataType="DINT" Radix="Decimal" Value="0"/>
-</StructureMember>
-</Structure>
-</Data>
-</Tag>
-<Tag Name="Outfeed_Complete_Placeholder" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
-<Description>
-<![CDATA[Use next station state or PE to ensure outfeed was successful]]>
 </Description>
 <Data Format="L5K">
 <![CDATA[0]]>
@@ -1346,12 +1065,12 @@ Configuration Bit]]>
 <DataValue DataType="DINT" Radix="Decimal" Value="20"/>
 </Data>
 </Tag>
-<Tag Name="State_InfeedingConveyorReverse" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Tag Name="State_InfeedingChainReverse" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
 <Data Format="L5K">
-<![CDATA[220]]>
+<![CDATA[420]]>
 </Data>
 <Data Format="Decorated">
-<DataValue DataType="DINT" Radix="Decimal" Value="220"/>
+<DataValue DataType="DINT" Radix="Decimal" Value="420"/>
 </Data>
 </Tag>
 <Tag Name="State_Outfeeding" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
@@ -1362,28 +1081,12 @@ Configuration Bit]]>
 <DataValue DataType="DINT" Radix="Decimal" Value="80"/>
 </Data>
 </Tag>
-<Tag Name="State_OutfeedingConveyorReverse" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
-<Data Format="L5K">
-<![CDATA[280]]>
-</Data>
-<Data Format="Decorated">
-<DataValue DataType="DINT" Radix="Decimal" Value="280"/>
-</Data>
-</Tag>
 <Tag Name="State_WaitingForDownstream" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
 <Data Format="L5K">
 <![CDATA[50]]>
 </Data>
 <Data Format="Decorated">
 <DataValue DataType="DINT" Radix="Decimal" Value="50"/>
-</Data>
-</Tag>
-<Tag Name="State_WaitingForDownstream_Rev" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
-<Data Format="L5K">
-<![CDATA[250]]>
-</Data>
-<Data Format="Decorated">
-<DataValue DataType="DINT" Radix="Decimal" Value="250"/>
 </Data>
 </Tag>
 <Tag Name="State_WaitingForOperator" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
@@ -1532,18 +1235,12 @@ Conveyor Run]]>
 <DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
 </Data>
 </Tag>
-<Tag Name="STXXXX_Infeeding_Rev_TON" Class="Standard" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
+<Tag Name="STXXXX_Fail" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
 <Data Format="L5K">
-<![CDATA[[0,1000,0]]]>
+<![CDATA[0]]>
 </Data>
 <Data Format="Decorated">
-<Structure DataType="TIMER">
-<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="1000"/>
-<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
-<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
-<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
-</Structure>
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
 </Data>
 </Tag>
 <Tag Name="STXXXX_Infeeding_TON" Class="Standard" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
@@ -1568,27 +1265,13 @@ Conveyor Run]]>
 <DataValue DataType="DINT" Radix="Decimal" Value="0"/>
 </Data>
 </Tag>
-<Tag Name="STXXXX_Outfeeding_Rev_TON" Class="Standard" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
-<Data Format="L5K">
-<![CDATA[[0,1000,0]]]>
-</Data>
-<Data Format="Decorated">
-<Structure DataType="TIMER">
-<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="1000"/>
-<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
-<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
-<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
-</Structure>
-</Data>
-</Tag>
 <Tag Name="STXXXX_Outfeeding_TON" Class="Standard" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
 <Data Format="L5K">
-<![CDATA[[0,1000,0]]]>
+<![CDATA[[0,0,0]]]>
 </Data>
 <Data Format="Decorated">
 <Structure DataType="TIMER">
-<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="1000"/>
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
 <DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
 <DataValueMember Name="EN" DataType="BOOL" Value="0"/>
 <DataValueMember Name="TT" DataType="BOOL" Value="0"/>
@@ -1638,12 +1321,7 @@ Conveyor Run]]>
 </Structure>
 </Data>
 </Tag>
-<Tag Name="STXXXX_PB_Release" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
-<Description>
-<![CDATA[(####)
-Workstation
-Release Pushbutton]]>
-</Description>
+<Tag Name="STXXXX_Pass" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
 <Data Format="L5K">
 <![CDATA[0]]>
 </Data>
@@ -1738,19 +1416,6 @@ Stop Photoeye]]>
 <DataValue DataType="DINT" Radix="Decimal" Value="0"/>
 </Data>
 </Tag>
-<Tag Name="STXXXX_SW_Active" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
-<Description>
-<![CDATA[(####)
-Workstation
-Active Switch]]>
-</Description>
-<Data Format="L5K">
-<![CDATA[0]]>
-</Data>
-<Data Format="Decorated">
-<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
-</Data>
-</Tag>
 <Tag Name="STYYYY" Class="Standard" TagType="Base" DataType="SZG_Station" Constant="false" ExternalAccess="Read/Write">
 <Comments>
 <Comment Operand=".CONFIG.5">
@@ -1815,67 +1480,20 @@ Conveyor Run
 <DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
 </Data>
 </Tag>
-<Tag Name="STZZZZ" Class="Standard" TagType="Base" DataType="SZG_Station" Constant="false" ExternalAccess="Read/Write">
-<Comments>
-<Comment Operand=".CONFIG.5">
-<![CDATA[Enable Set Occupancy HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.6">
-<![CDATA[Enable Clear Occupancy HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.10">
-<![CDATA[Enable Conv Jog Fwd HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.11">
-<![CDATA[Enable Conv Jog Rev HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.20">
-<![CDATA[Under Travel Eye Visible HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.21">
-<![CDATA[Reverse Eye Visible HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.22">
-<![CDATA[Forward Eye Visible HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.23">
-<![CDATA[Over Travel Eye Visible HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.30">
-<![CDATA[Enable Routing HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.31">
-<![CDATA[Enable Multiple Work Positions]]>
-</Comment>
-</Comments>
-<Data Format="L5K">
-<![CDATA[[0,0,0,0,0,0]]]>
-</Data>
-<Data Format="Decorated">
-<Structure DataType="SZG_Station">
-<DataValueMember Name="State" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Mode" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Error" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Warning" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Config" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Stop_HMI" DataType="BOOL" Value="0"/>
-<DataValueMember Name="Start_HMI" DataType="BOOL" Value="0"/>
-<DataValueMember Name="Manual_HMI" DataType="BOOL" Value="0"/>
-<DataValueMember Name="SetState_PartPresent_HMI" DataType="BOOL" Value="0"/>
-<DataValueMember Name="SetState_PartClear_HMI" DataType="BOOL" Value="0"/>
-</Structure>
-</Data>
-</Tag>
-<Tag Name="STZZZZ_Conv_Run" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
-<Description>
-<![CDATA[(####)
-Conveyor Run]]>
-</Description>
+<Tag Name="STYYYY_Outfeed_Dest" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
 <Data Format="L5K">
 <![CDATA[0]]>
 </Data>
 <Data Format="Decorated">
-<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="STYYYY_Route" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
 </Data>
 </Tag>
 <Tag Name="Sys_Alm_Reset_HMI" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
@@ -1910,6 +1528,14 @@ Conveyor Run]]>
 <DataValue DataType="DINT" Radix="Decimal" Value="2"/>
 </Data>
 </Tag>
+<Tag Name="Sys_Outfeed_Chain_Fwd_ID" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[3]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="3"/>
+</Data>
+</Tag>
 <Tag Name="Sys_Slow_Blink" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
 <Data Format="L5K">
 <![CDATA[0]]>
@@ -1920,7 +1546,7 @@ Conveyor Run]]>
 </Tag>
 </Tags>
 <Programs Use="Context">
-<Program Use="Target" Name="Bi_Directional_Track_Standard_Code" TestEdits="false" MainRoutineName="MainRoutine" Disabled="false" Class="Standard" UseAsFolder="false">
+<Program Use="Target" Name="Kickout_Standard_Code" TestEdits="false" MainRoutineName="MainRoutine" Disabled="false" Class="Standard" UseAsFolder="false">
 <Tags/>
 <Routines>
 <Routine Name="MainRoutine" Type="RLL">
@@ -1951,7 +1577,7 @@ MES and Data Collection]]>
 <![CDATA[Machine Stats for HMI, Andon]]>
 </Comment>
 <Text>
-<![CDATA[[EQU(State_WaitingForPart,STXXXX.State) MOV(1,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,[EQU(State_Infeeding,STXXXX.State) ,EQU(State_InfeedingConveyorReverse,STXXXX.State) ] MOV(2,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,EQU(State_WaitingForOperator,STXXXX.State) MOV(4,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,[EQU(State_WaitingForDownstream,STXXXX.State) ,EQU(State_WaitingForDownstream_Rev,STXXXX.State) ] MOV(5,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,[EQU(State_Outfeeding,STXXXX.State) ,EQU(State_OutfeedingConveyorReverse,STXXXX.State) ] MOV(6,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,EQU(Sys_Mode_Manual,STXXXX.Mode) MOV(28,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,EQU(Sys_Mode_CycleStopped,STXXXX.Mode) MOV(29,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,NEQ(0,STXXXX.Error) MOV(30,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,XIO(Safety_PowerOn_Placeholder.DN) MOV(31,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,MOV(STXXXX.Warning,FiSZ_BI_XXXX_MachineStats.PLC_Warning) MOV(STXXXX.Error,FiSZ_BI_XXXX_MachineStats.PLC_Fault) ];]]>
+<![CDATA[[EQU(State_WaitingForPart,STXXXX.State) MOV(1,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,EQU(State_Infeeding,STXXXX.State) MOV(2,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,EQU(State_WaitingForOperator,STXXXX.State) MOV(4,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,EQU(State_WaitingForDownstream,STXXXX.State) MOV(5,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,EQU(State_Outfeeding,STXXXX.State) MOV(6,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,EQU(Sys_Mode_Manual,STXXXX.Mode) MOV(28,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,EQU(Sys_Mode_CycleStopped,STXXXX.Mode) MOV(29,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,NEQ(0,STXXXX.Error) MOV(30,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,XIO(Safety_PowerOn_Placeholder.DN) MOV(31,FiSZ_BI_XXXX_MachineStats.PLC_MachineState) ,MOV(STXXXX.Warning,FiSZ_BI_XXXX_MachineStats.PLC_Warning) MOV(STXXXX.Error,FiSZ_BI_XXXX_MachineStats.PLC_Fault) ];]]>
 </Text>
 </Rung>
 </RLLContent>
@@ -1984,7 +1610,7 @@ Output Permissives:
 3. HMI coneyor jog forward or reverse pushbutton]]>
 </Comment>
 <Text>
-<![CDATA[XIC(Safety_PowerOn_Placeholder.DN)[EQU(Sys_Mode_CycleStarted,STXXXX.Mode) [EQU(State_Infeeding,STXXXX.State) XIO(STXXXX_PE_FE) ,EQU(State_InfeedingConveyorReverse,STXXXX.State) XIO(STXXXX_PE_RE) XIC(STXXXX_Conv_Dir) ,EQU(State_Outfeeding,STXXXX.State) XIC(STZZZZ_Conv_Run) XIC(Outfeed_InPosition_Placeholder) ,EQU(State_OutfeedingConveyorReverse,STXXXX.State) XIC(STYYYY_Conv_Run) XIC(STXXXX_Conv_Dir) XIC(Outfeed_InPosition_Placeholder) ] ,EQU(Sys_Mode_Manual,STXXXX.Mode) [XIC(STXXXX_Conv_Fwd_HMI) ,XIC(STXXXX_Conv_Rev_HMI) XIC(STXXXX_Conv_Dir) ] ]OTE(STXXXX_Conv_Run);]]>
+<![CDATA[XIC(Safety_PowerOn_Placeholder.DN)[EQU(Sys_Mode_CycleStarted,STXXXX.Mode) [EQU(State_Infeeding,STXXXX.State) XIO(STXXXX_PE_FE) ,EQU(State_Outfeeding,STXXXX.State) XIC(STYYYY_Conv_Run) XIC(Outfeed_InPosition_Placeholder) ] ,EQU(Sys_Mode_Manual,STXXXX.Mode) [XIC(STXXXX_Conv_Fwd_HMI) ,XIC(STXXXX_Conv_Rev_HMI) XIC(STXXXX_Conv_Dir) ] ]OTE(STXXXX_Conv_Run);]]>
 </Text>
 </Rung>
 <Rung Number="2" Type="N">
@@ -1997,7 +1623,7 @@ Output Permissives:
 1. HMI coneyor jog reverse pushbutton]]>
 </Comment>
 <Text>
-<![CDATA[XIC(Safety_PowerOn_Placeholder.DN)[EQU(Sys_Mode_CycleStarted,STXXXX.Mode) [EQU(State_InfeedingConveyorReverse,STXXXX.State) ,EQU(State_OutfeedingConveyorReverse,STXXXX.State) ] ,EQU(Sys_Mode_Manual,STXXXX.Mode) XIC(STXXXX_Conv_Rev_HMI) ]OTE(STXXXX_Conv_Dir);]]>
+<![CDATA[XIC(Safety_PowerOn_Placeholder.DN)[EQU(Sys_Mode_CycleStarted,STXXXX.Mode) EQU(State_Outfeeding,STXXXX.State) ,EQU(Sys_Mode_Manual,STXXXX.Mode) XIC(STXXXX_Conv_Rev_HMI) ]OTE(STXXXX_Conv_Dir);]]>
 </Text>
 </Rung>
 <Rung Number="3" Type="N">
@@ -2009,7 +1635,7 @@ Output Triggers:
 2. Solid when waiting to outfeed or when outfeeding]]>
 </Comment>
 <Text>
-<![CDATA[[EQU(State_WaitingForOperator,STXXXX.State) XIC(MES_FFFFF_XXXX.Data.UpstreamOK) XIC(Sys_Slow_Blink) ,[EQU(State_WaitingForDownstream,STXXXX.State) ,EQU(State_Outfeeding,STXXXX.State) ] ]OTE(STXXXX_Release_Lt);]]>
+<![CDATA[[EQU(State_WaitingForOperator,STXXXX.State) XIC(Sys_Slow_Blink) ,[EQU(State_WaitingForDownstream,STXXXX.State) ,EQU(State_Outfeeding,STXXXX.State) ] ]OTE(STXXXX_Release_Lt);]]>
 </Text>
 </Rung>
 </RLLContent>
@@ -2023,9 +1649,9 @@ Output Triggers:
 Station XXXX States
 -------------------------------------------------------
 This routine contains logic to control the state of station XXXX. The general function of this station is:
-1. Infeed part from YYYY or ZZZZ
+1. Infeed part from YYYY
 2. Operator works on part
-3. Outfeed part to ZZZZ or YYYY
+3. Outfeed part to ZZZZ
 ]]>
 </Comment>
 <Text>
@@ -2043,7 +1669,7 @@ Infeeding part from upstream station
 ]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_WaitingForPart,STXXXX.State)XIO(STXXXX_PE_FE)XIO(STXXXX_PE_RE)[EQU(State_WaitingForDownstream,STYYYY.State) MOV(State_Infeeding,STXXXX.State) ,EQU(State_WaitingForDownstream,STZZZZ.State) MOV(State_InfeedingConveyorReverse,STXXXX.State) ];]]>
+<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_WaitingForPart,STXXXX.State)EQU(State_WaitingForDownstream,STYYYY.State)XIO(STXXXX_PE_FE)EQU(Sys_Outfeed_Chain_Fwd_ID,STYYYY_Outfeed_Dest)MOV(State_Infeeding,STXXXX.State);]]>
 </Text>
 </Rung>
 <Rung Number="2" Type="N">
@@ -2061,7 +1687,7 @@ b. Waiting to outfeed part to downstream station
 ]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_Infeeding,STXXXX.State)XIC(STXXXX_PE_FE)TON(STXXXX_Infeeding_TON,?,?)XIC(STXXXX_Infeeding_TON.DN)[XIC(STXXXX_SW_Active) MOV(State_WaitingForOperator,STXXXX.State) ,XIO(STXXXX_SW_Active) MOV(State_WaitingForDownstream,STXXXX.State) ];]]>
+<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_Infeeding,STXXXX.State)XIC(STXXXX_PE_FE)TON(STXXXX_Infeeding_TON,?,?)XIC(STXXXX_Infeeding_TON.DN)MOV(State_WaitingForOperator,STXXXX.State);]]>
 </Text>
 </Rung>
 <Rung Number="3" Type="N">
@@ -2079,7 +1705,7 @@ send feedback to MES that part is releasing
 ]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_WaitingForOperator,STXXXX.State)TON(STXXXX_Release_TON,?,?)XIC(STXXXX_Release_TON.DN)XIC(MES_FFFFF_XXXX.Data.UpstreamOK)[OTE(MES_FFFFF_XXXX.OK) ,[XIC(STXXXX_SW_Active) XIC(STXXXX_PB_Release) ,XIO(STXXXX_SW_Active) ] MOV(State_WaitingForDownstream,STXXXX.State) ];]]>
+<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_WaitingForOperator,STXXXX.State)TON(STXXXX_Release_TON,?,?)XIC(STXXXX_Release_TON.DN)[XIC(STXXXX_Pass) MOV(4330,STXXXX_Route) ,XIC(STXXXX_Fail) MOV(2,STXXXX_Route) ]MOV(State_WaitingForDownstream,STXXXX.State);]]>
 </Text>
 </Rung>
 <Rung Number="4" Type="N">
@@ -2094,7 +1720,7 @@ Outfeeding part to downstream station,
 send feedback to MES that part is released]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_WaitingForDownstream,STXXXX.State)XIC(STXXXX_PE_FE)EQU(State_Infeeding,STZZZZ.State)[MOV(State_Outfeeding,STXXXX.State) ,OTL(MES_FFFFF_XXXX.DN) ];]]>
+<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_WaitingForDownstream,STXXXX.State)EQU(State_InfeedingChainReverse,STYYYY.State)XIC(STXXXX_PE_FE)MOV(State_Outfeeding,STXXXX.State);]]>
 </Text>
 </Rung>
 <Rung Number="5" Type="N">
@@ -2108,62 +1734,7 @@ Next State:
 Waiting to infeed part from upstream station]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_Outfeeding,STXXXX.State)XIO(STXXXX_PE_FE)XIC(Outfeed_Complete_Placeholder)TON(STXXXX_Outfeeding_TON,?,?)XIC(STXXXX_Outfeeding_TON.DN)MOV(State_WaitingForPart,STXXXX.State);]]>
-</Text>
-</Rung>
-<Rung Number="6" Type="N">
-<Comment>
-<![CDATA[***
-
-Reverse States
-
-***]]>
-</Comment>
-<Text>
-<![CDATA[NOP();]]>
-</Text>
-</Rung>
-<Rung Number="7" Type="N">
-<Comment>
-<![CDATA[State: 
-Infeeding part from upstream station
-Next State Conditions: 
-1. Stop photoeye is blocked
-2. Infeeding steady state timer is done
-Next State:
-b. Waiting to outfeed part to downstream station
-]]>
-</Comment>
-<Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_InfeedingConveyorReverse,STXXXX.State)XIC(STXXXX_PE_RE)TON(STXXXX_Infeeding_Rev_TON,?,?)XIC(STXXXX_Infeeding_Rev_TON.DN)MOV(State_WaitingForDownstream_Rev,STXXXX.State);]]>
-</Text>
-</Rung>
-<Rung Number="8" Type="N">
-<Comment>
-<![CDATA[State: 
-Waiting to outfeed part to downstream station
-Next State Conditions: 
-1. Stop photoeye is blocked
-2. Downstream station is in the infeeding state
-Next State:
-Outfeeding part to downstream station]]>
-</Comment>
-<Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_WaitingForDownstream_Rev,STXXXX.State)[XIC(STXXXX_PE_FE) ,XIC(STXXXX_PE_RE) ]EQU(State_Infeeding,STYYYY.State)MOV(State_OutfeedingConveyorReverse,STXXXX.State);]]>
-</Text>
-</Rung>
-<Rung Number="9" Type="N">
-<Comment>
-<![CDATA[State: 
-Outfeeding part to downstream station
-Next State Conditions: 
-1. Stop photoeye is clear
-2. Outfeeding steady state timer is done
-Next State:
-Waiting to infeed part from upstream station]]>
-</Comment>
-<Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_OutfeedingConveyorReverse,STXXXX.State)XIO(STXXXX_PE_RE)XIC(Outfeed_Complete_Placeholder)TON(STXXXX_Outfeeding_Rev_TON,?,?)XIC(STXXXX_Outfeeding_Rev_TON.DN)MOV(State_WaitingForPart,STXXXX.State);]]>
+<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_Outfeeding,STXXXX.State)XIO(STXXXX_PE_FE)NEQ(State_InfeedingChainReverse,STYYYY.State)TON(STXXXX_Outfeeding_TON,?,?)XIC(STXXXX_Outfeeding_TON.DN)[MOV(State_WaitingForPart,STXXXX.State) ,MOV(STXXXX_Route,STYYYY_Route) ,CLR(STXXXX_Route) ];]]>
 </Text>
 </Rung>
 </RLLContent>
@@ -2213,7 +1784,7 @@ If configuration bit is not listed, it is marked as spare and available for use]
 <![CDATA[HMI state descriptions]]>
 </Comment>
 <Text>
-<![CDATA[[MOV(99,STXXXX_State_Desc_Idx) ,EQU(State_WaitingForPart,STXXXX.State) MOV(0,STXXXX_State_Desc_Idx) ,EQU(State_Infeeding,STXXXX.State) MOV(1,STXXXX_State_Desc_Idx) ,EQU(State_WaitingForOperator,STXXXX.State) MOV(10,STXXXX_State_Desc_Idx) ,[EQU(State_WaitingForDownstream,STXXXX.State) ,EQU(State_WaitingForDownstream_Rev,STXXXX.State) ] MOV(2,STXXXX_State_Desc_Idx) ,EQU(State_Outfeeding,STXXXX.State) MOV(3,STXXXX_State_Desc_Idx) ,EQU(State_InfeedingConveyorReverse,CTXXXX.State) MOV(51,CTXXXX_State_Desc_Idx) ,EQU(State_OutfeedingConveyorReverse,CTXXXX.State) MOV(55,CTXXXX_State_Desc_Idx) ,NEQ(State_Desc_HMI[STXXXX_State_Desc_Idx],STXXXX_State_Desc_HMI) MOV(State_Desc_HMI[STXXXX_State_Desc_Idx],STXXXX_State_Desc_HMI) ];]]>
+<![CDATA[[MOV(99,STXXXX_State_Desc_Idx) ,EQU(State_WaitingForPart,STXXXX.State) MOV(0,STXXXX_State_Desc_Idx) ,EQU(State_Infeeding,STXXXX.State) MOV(1,STXXXX_State_Desc_Idx) ,EQU(State_WaitingForOperator,STXXXX.State) MOV(10,STXXXX_State_Desc_Idx) ,EQU(State_WaitingForDownstream,STXXXX.State) MOV(2,STXXXX_State_Desc_Idx) ,EQU(State_Outfeeding,STXXXX.State) MOV(3,STXXXX_State_Desc_Idx) ,NEQ(State_Desc_HMI[STXXXX_State_Desc_Idx],STXXXX_State_Desc_HMI) MOV(State_Desc_HMI[STXXXX_State_Desc_Idx],STXXXX_State_Desc_HMI) ];]]>
 </Text>
 </Rung>
 <Rung Number="5" Type="N">
@@ -2241,7 +1812,7 @@ Manual mode logic]]>
 3. Station is not an active workstation]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_Manual,STXXXX.Mode)[XIC(STXXXX.SetState_PartClear_HMI) XIO(STXXXX_PE_FE) MOV(State_WaitingForPart,STXXXX.State) ,XIC(STXXXX.SetState_PartPresent_HMI) XIC(STXXXX_PE_FE) [XIC(STXXXX_SW_Active) MOV(State_WaitingForOperator,STXXXX.State) ,XIO(STXXXX_SW_Active) MOV(State_WaitingForDownstream,STXXXX.State) ] ];]]>
+<![CDATA[EQU(Sys_Mode_Manual,STXXXX.Mode)[XIC(STXXXX.SetState_PartClear_HMI) XIO(STXXXX_PE_FE) MOV(State_WaitingForPart,STXXXX.State) ,XIC(STXXXX.SetState_PartPresent_HMI) XIC(STXXXX_PE_FE) MOV(State_WaitingForOperator,STXXXX.State) ];]]>
 </Text>
 </Rung>
 <Rung Number="7" Type="N">
