@@ -462,8 +462,6 @@ def _outfeed_complete_neighbor_number(
     neighbor_type = station_lookup.get(neighbor_number)
     if neighbor_type is None:
         return None
-    if _is_gravity_type(neighbor_type):
-        return None
     if neighbor_type == "Filler":
         return None
 
