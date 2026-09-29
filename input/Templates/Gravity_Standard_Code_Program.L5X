@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Gravity_Standard_Code" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Tue Jul 07 12:30:39 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Gravity_Standard_Code" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Mon Sep 28 16:09:28 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Standard_Code_Library">
 <DataTypes Use="Context">
 <DataType Name="MES_Brake_Integration" Family="NoFamily" Class="User">
@@ -1483,19 +1483,6 @@ Stop Photoeye]]>
 <DataValue DataType="DINT" Radix="Decimal" Value="0"/>
 </Data>
 </Tag>
-<Tag Name="STXXXX_SW_Active" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
-<Description>
-<![CDATA[(####)
-Workstation
-Active Switch]]>
-</Description>
-<Data Format="L5K">
-<![CDATA[0]]>
-</Data>
-<Data Format="Decorated">
-<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
-</Data>
-</Tag>
 <Tag Name="STYYYY" Class="Standard" TagType="Base" DataType="SZG_Station" Constant="false" ExternalAccess="Read/Write">
 <Comments>
 <Comment Operand=".CONFIG.5">
@@ -1547,55 +1534,12 @@ Active Switch]]>
 </Structure>
 </Data>
 </Tag>
-<Tag Name="STZZZZ" Class="Standard" TagType="Base" DataType="SZG_Station" Constant="false" ExternalAccess="Read/Write">
-<Comments>
-<Comment Operand=".CONFIG.5">
-<![CDATA[Enable Set Occupancy HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.6">
-<![CDATA[Enable Clear Occupancy HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.10">
-<![CDATA[Enable Conv Jog Fwd HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.11">
-<![CDATA[Enable Conv Jog Rev HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.20">
-<![CDATA[Under Travel Eye Visible HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.21">
-<![CDATA[Reverse Eye Visible HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.22">
-<![CDATA[Forward Eye Visible HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.23">
-<![CDATA[Over Travel Eye Visible HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.30">
-<![CDATA[Enable Routing HMI]]>
-</Comment>
-<Comment Operand=".CONFIG.31">
-<![CDATA[Enable Multiple Work Positions]]>
-</Comment>
-</Comments>
+<Tag Name="STYYYY_Route" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
 <Data Format="L5K">
-<![CDATA[[0,0,0,0,0,0]]]>
+<![CDATA[0]]>
 </Data>
 <Data Format="Decorated">
-<Structure DataType="SZG_Station">
-<DataValueMember Name="State" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Mode" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Error" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Warning" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Config" DataType="DINT" Radix="Decimal" Value="0"/>
-<DataValueMember Name="Stop_HMI" DataType="BOOL" Value="0"/>
-<DataValueMember Name="Start_HMI" DataType="BOOL" Value="0"/>
-<DataValueMember Name="Manual_HMI" DataType="BOOL" Value="0"/>
-<DataValueMember Name="SetState_PartPresent_HMI" DataType="BOOL" Value="0"/>
-<DataValueMember Name="SetState_PartClear_HMI" DataType="BOOL" Value="0"/>
-</Structure>
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
 </Data>
 </Tag>
 <Tag Name="Sys_Alm_Reset_HMI" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
@@ -1767,7 +1711,7 @@ Waiting to outfeed part to downstream station,
 ]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_WaitingForOperator,STXXXX.State)[[XIC(STXXXX_SW_Active) XIC(STXXXX_PB_Release) ,XIO(STXXXX_SW_Active) ] MOV(State_WaitingForDownstream,STXXXX.State) ,XIO(STXXXX_PE_FE) TON(STXXXX_Release_TON,?,?) XIC(STXXXX_Release_TON.DN) MOV(State_WaitingForPart,STXXXX.State) ];]]>
+<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_WaitingForOperator,STXXXX.State)[XIC(STXXXX_PB_Release) MOV(1,STXXXX_Route) MOV(State_WaitingForDownstream,STXXXX.State) ,XIO(STXXXX_PE_FE) TON(STXXXX_Release_TON,?,?) XIC(STXXXX_Release_TON.DN) MOV(State_WaitingForPart,STXXXX.State) ];]]>
 </Text>
 </Rung>
 <Rung Number="4" Type="N">
@@ -1781,7 +1725,7 @@ Next State:
 Outfeeding part to downstream station,]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_WaitingForDownstream,STXXXX.State)XIC(STXXXX_PE_FE)EQU(State_Infeeding,STZZZZ.State)MOV(State_Outfeeding,STXXXX.State);]]>
+<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_WaitingForDownstream,STXXXX.State)XIC(STXXXX_PE_FE)EQU(State_Infeeding,STYYYY.State)MOV(State_Outfeeding,STXXXX.State);]]>
 </Text>
 </Rung>
 <Rung Number="5" Type="N">
@@ -1795,7 +1739,7 @@ Next State:
 Waiting to infeed part from upstream station]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_Outfeeding,STXXXX.State)XIO(STXXXX_PE_FE)XIC(Outfeed_Complete_Placeholder)TON(STXXXX_Outfeeding_TON,?,?)XIC(STXXXX_Outfeeding_TON.DN)MOV(State_WaitingForPart,STXXXX.State);]]>
+<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_Outfeeding,STXXXX.State)XIO(STXXXX_PE_FE)XIC(Outfeed_Complete_Placeholder)TON(STXXXX_Outfeeding_TON,?,?)XIC(STXXXX_Outfeeding_TON.DN)[MOV(State_WaitingForPart,STXXXX.State) ,MOV(STXXXX_Route,STYYYY_Route) ,CLR(STXXXX_Route) ];]]>
 </Text>
 </Rung>
 </RLLContent>
@@ -1873,7 +1817,7 @@ Manual mode logic]]>
 3. Station is not an active workstation]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_Manual,STXXXX.Mode)[XIC(STXXXX.SetState_PartClear_HMI) XIO(STXXXX_PE_FE) MOV(State_WaitingForPart,STXXXX.State) ,XIC(STXXXX.SetState_PartPresent_HMI) XIC(STXXXX_PE_FE) [XIC(STXXXX_SW_Active) MOV(State_WaitingForOperator,STXXXX.State) ,XIO(STXXXX_SW_Active) MOV(State_WaitingForDownstream,STXXXX.State) ] ];]]>
+<![CDATA[EQU(Sys_Mode_Manual,STXXXX.Mode)[XIC(STXXXX.SetState_PartClear_HMI) XIO(STXXXX_PE_FE) MOV(State_WaitingForPart,STXXXX.State) ,XIC(STXXXX.SetState_PartPresent_HMI) XIC(STXXXX_PE_FE) MOV(State_WaitingForOperator,STXXXX.State) ];]]>
 </Text>
 </Rung>
 <Rung Number="7" Type="N">
