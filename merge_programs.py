@@ -44,15 +44,13 @@ BASE_FILE: Path | None = None  # e.g. Path(r"G:\...\Sta4150_Workstation.L5X")
 # Glob pattern for files to merge (the base file is excluded automatically)
 INPUT_GLOB = "Sta*.L5X"
 
-# Optional station-number filter. If set, only files whose station number
-# falls in [STATION_MIN, STATION_MAX] (inclusive) are merged. Use this to
-# import a single section into a controller that already has the others.
-# Set both to None to disable filtering.
+# Optional station-number and filename-type filters.
 STATION_MIN: int | None = None
 STATION_MAX: int | None = None
+STATION_TYPE_POSTFIX: str | None = "None"  # e.g. "Transfer" for Sta####_Transfer.L5X
 
 # Tag for output filename when filter is active (purely cosmetic)
-OUTPUT_TAG: str = "7000s"  # set to "" to omit
+OUTPUT_TAG: str = "Workstation"  # set to "" to omit
 
 
 def _read_toml(path: Path) -> dict:
@@ -376,6 +374,8 @@ def _in_filter(path: Path) -> bool:
         return False
     if STATION_MAX is not None and n > STATION_MAX:
         return False
+    if STATION_TYPE_POSTFIX and not path.stem.endswith(f"_{STATION_TYPE_POSTFIX}"):
+        return False
     return True
 
 
@@ -393,11 +393,10 @@ def main(stations_toml: Path) -> int:
         return 1
 
     # Apply optional station-number filter.
-    filter_active = STATION_MIN is not None or STATION_MAX is not None
+    filter_active = STATION_MIN is not None or STATION_MAX is not None or bool(STATION_TYPE_POSTFIX)
     files = [f for f in all_matches if _in_filter(f)] if filter_active else all_matches
     if not files:
-        rng = f"[{STATION_MIN}..{STATION_MAX}]"
-        print(f"ERROR: no files in station range {rng}", file=sys.stderr)
+        print("ERROR: no files match the configured station filters", file=sys.stderr)
         return 1
 
     base = BASE_FILE if BASE_FILE is not None else files[0]
@@ -414,7 +413,10 @@ def main(stations_toml: Path) -> int:
 
     print(f"Base:    {base.name}")
     if filter_active:
-        print(f"Filter:  station numbers in [{STATION_MIN}..{STATION_MAX}]  ({len(files)}/{len(all_matches)} files)")
+        print(
+            f"Filter:  station numbers in [{STATION_MIN}..{STATION_MAX}], "
+            f"filename postfix={STATION_TYPE_POSTFIX!r}  ({len(files)}/{len(all_matches)} files)"
+        )
     print(f"Merging: {len(sources)} files from {input_dir}")
     print(f"Output:  {out}")
     print()
