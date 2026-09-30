@@ -49,6 +49,10 @@ class StationDef:
     def is_transfer(self) -> bool:
         return self.station_type == "Transfer"
 
+    @property
+    def is_lift(self) -> bool:
+        return self.station_type == "Lift"
+
 
 Axis = Literal["conv", "chain"]
 Relation = Literal["upstream", "downstream"]
@@ -122,6 +126,20 @@ def _source_presence_tags(station: StationDef) -> list[str]:
         f"{station.prefix}{station.number}_PE_FE",
         f"{station.prefix}{station.number}_PE_RE",
     ]
+
+
+def _lift_rung_text(number: int) -> str:
+    prefix = f"Li{number}"
+    iol = f"IOL_{number}_PX"
+    return (
+        f"[XIC({prefix}_SV1)LES({iol}.Inputs[3],125)ADD({iol}.Inputs[3],1,{iol}.Inputs[3]),"
+        f"XIC({prefix}_SV2)XIC({prefix}_SV3)GRT({iol}.Inputs[3],0)SUB({iol}.Inputs[3],1,{iol}.Inputs[3]),"
+        f"XIC({prefix}_Sol_BladeStopDownstream)OTE({prefix}_Px_BladeStopDownstream_Up),"
+        f"XIO({prefix}_Sol_BladeStopDownstream)OTE({prefix}_Px_BladeStopDownstream_Down),"
+        f"XIC({prefix}_Sol_BladeStopUpstream)OTE({prefix}_Px_BladeStopUpstream_Up),"
+        f"XIO({prefix}_Sol_BladeStopUpstream)OTE({prefix}_Px_BladeStopUpstream_Down)]"
+        f"MOV(-1,{iol}.Inputs[4]);"
+    )
 
 
 def _dir_instr(station: StationDef, other_station_num: int, role: str) -> str:
@@ -424,6 +442,12 @@ def build_simulation_rungs(
                 f"OTE(CT{s.number}_Px_Transfer_Up) ];"
             )
         )
+
+    for s in sorted(stations.values(), key=lambda x: x.number):
+        if not s.is_lift:
+            continue
+
+        rung_texts.append(_lift_rung_text(s.number))
 
     return sorted(timer_names), rung_texts
 
