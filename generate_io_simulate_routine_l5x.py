@@ -53,6 +53,10 @@ class StationDef:
     def is_lift(self) -> bool:
         return self.station_type == "Lift"
 
+    @property
+    def is_gravity(self) -> bool:
+        return self.station_type == "Gravity"
+
 
 Axis = Literal["conv", "chain"]
 Relation = Literal["upstream", "downstream"]
@@ -406,13 +410,19 @@ def build_simulation_rungs(
         src_otu_text = "".join(f"OTU({tag})" for tag in _source_presence_tags(src))
         timer_names.add(timer)
 
+        # Gravity stations move by gravity/manual release; they have no Conv_Run or Conv_Dir tags.
+        src_run_dir_text = (
+            "" if src.is_gravity else f"XIC({_run_tag(src, src_axis)}){src_dir_instr}({_dir_tag(src, src_axis)})"
+        )
+        dst_run_dir_text = (
+            "" if dst.is_gravity else f"XIC({_run_tag(dst, dst_axis)}){dst_dir_instr}({_dir_tag(dst, dst_axis)})"
+        )
+
         rung_texts.append(
             (
                 f"{src_xic_text}"
-                f"XIC({_run_tag(src, src_axis)})"
-                f"{src_dir_instr}({_dir_tag(src, src_axis)})"
-                f"XIC({_run_tag(dst, dst_axis)})"
-                f"{dst_dir_instr}({_dir_tag(dst, dst_axis)})"
+                f"{src_run_dir_text}"
+                f"{dst_run_dir_text}"
                 f"TON({timer},{preset_ms},0)"
                 f"XIC({timer}.DN)"
                 f"{src_otu_text}"
