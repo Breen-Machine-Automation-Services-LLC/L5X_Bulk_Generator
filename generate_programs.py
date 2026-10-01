@@ -560,6 +560,8 @@ def _rewrite_outfeed_complete_checks(
     for old_snippet, branch_name, prefix in replacements:
         neighbor_number = _outfeed_complete_neighbor_number(station, branch_name, station_lookup)
         if neighbor_number is None:
+            if station.is_transfer:
+                text = text.replace(old_snippet, f"{prefix}XIC(never)")
             continue
         target_tag = _neighbor_tag(neighbor_number, station_lookup, type_prefix)
         if target_tag is None:
@@ -571,7 +573,10 @@ def _rewrite_outfeed_complete_checks(
             station_lookup,
             stations_by_number,
         )
-        new_snippet = f"{prefix}NEQ({infeed_state},{target_tag}.State)"
+        route_move = ""
+        if station.is_transfer and station.has_route:
+            route_move = f"MOV({self_tag}_Route,{target_tag}_Route)"
+        new_snippet = f"{prefix}NEQ({infeed_state},{target_tag}.State){route_move}"
         text = text.replace(old_snippet, new_snippet)
 
     return text

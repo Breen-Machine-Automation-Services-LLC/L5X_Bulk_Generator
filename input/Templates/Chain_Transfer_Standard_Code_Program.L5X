@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Chain_Transfer_Standard_Code" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Wed Sep 23 13:07:05 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Chain_Transfer_Standard_Code" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Thu Oct 01 11:15:21 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Standard_Code_Library">
 <DataTypes Use="Context">
 <DataType Name="MES_Brake_Integration" Family="NoFamily" Class="User">
@@ -524,7 +524,7 @@ Release Pushbutton]]>
 </Tag>
 <Tag Name="CTXXXX_PE_SE" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
 <Description>
-<![CDATA[Status Bit for Level 2 HMI Station Status]]>
+<![CDATA[Any Stop Eye Photoeye Active]]>
 </Description>
 <Data Format="L5K">
 <![CDATA[0]]>
@@ -2508,7 +2508,7 @@ d. Infeeding part from chain reverse station
 ]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,CTXXXX.Mode)EQU(State_WaitingForPart,CTXXXX.State)[EQU(State_WaitingForDownstream,STYYYY.State) EQU(Sys_Infeed_Conv_Fwd_ID,CTXXXX_Infeed_Loc) XIO(CTXXXX_FE_Conv) MOV(State_InfeedingConveyorForward,CTXXXX.State) ,EQU(State_WaitingForDownstream,STZZZZ.State) EQU(Sys_Infeed_Conv_Rev_ID,CTXXXX_Infeed_Loc) XIO(CTXXXX_RE_Conv) MOV(State_InfeedingConveyorReverse,CTXXXX.State) ,EQU(State_WaitingForDownstream,STVVVV.State) EQU(Sys_Infeed_Chain_Fwd_ID,CTXXXX_Infeed_Loc) XIO(CTXXXX_FE_Chain) MOV(State_InfeedingChainForward,CTXXXX.State) ,EQU(State_WaitingForDownstream,STWWWW.State) EQU(Sys_Infeed_Chain_Rev_ID,CTXXXX_Infeed_Loc) XIO(CTXXXX_RE_Chain) MOV(State_InfeedingChainReverse,CTXXXX.State) ];]]>
+<![CDATA[EQU(Sys_Mode_CycleStarted,CTXXXX.Mode)EQU(State_WaitingForPart,CTXXXX.State)XIO(CTXXXX_PE_SE)[EQU(State_WaitingForDownstream,STYYYY.State) EQU(Sys_Infeed_Conv_Fwd_ID,CTXXXX_Infeed_Loc) MOV(State_InfeedingConveyorForward,CTXXXX.State) ,EQU(State_WaitingForDownstream,STZZZZ.State) EQU(Sys_Infeed_Conv_Rev_ID,CTXXXX_Infeed_Loc) MOV(State_InfeedingConveyorReverse,CTXXXX.State) ,EQU(State_WaitingForDownstream,STVVVV.State) EQU(Sys_Infeed_Chain_Fwd_ID,CTXXXX_Infeed_Loc) MOV(State_InfeedingChainForward,CTXXXX.State) ,EQU(State_WaitingForDownstream,STWWWW.State) EQU(Sys_Infeed_Chain_Rev_ID,CTXXXX_Infeed_Loc) MOV(State_InfeedingChainReverse,CTXXXX.State) ];]]>
 </Text>
 </Rung>
 <Rung Number="2" Type="N">
