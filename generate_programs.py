@@ -428,6 +428,52 @@ def _rewrite_ct_neighbor_outfeed_checks(
     return text
 
 
+def _rewrite_transfer_infeed_priorities(
+    text: str,
+    station: Station,
+    station_lookup: dict[int, str],
+) -> str:
+    if not station.is_transfer or station.has_route:
+        return text
+
+    priorities = (
+        (station.conv_rev, "Infeed_Conv_Fwd_Priority_Placeholder"),
+        (None, "Infeed_Conv_Rev_Priority_Placeholder"),
+        (station.chain_fwd, "Infeed_Chain_Fwd_Priority_Placeholder"),
+        (None, "Infeed_Chain_Rev_Priority_Placeholder"),
+    )
+    for neighbor_number, placeholder in priorities:
+        contact = f"XIC({placeholder})"
+        if neighbor_number is None or neighbor_number not in station_lookup:
+            text = text.replace(contact, "XIC(never)")
+        else:
+            text = text.replace(contact, "")
+    return text
+
+
+def _rewrite_transfer_outfeed_routing_priorities(
+    text: str,
+    station: Station,
+    station_lookup: dict[int, str],
+) -> str:
+    if not station.is_transfer or station.has_route:
+        return text
+
+    priorities = (
+        (station.conv_fwd, "Outfeed_Conv_Fwd_Routing_Placeholder"),
+        (None, "Outfeed_Conv_Rev_Routing_Placeholder"),
+        (station.chain_rev, "Outfeed_Chain_Fwd_Routing_Placeholder"),
+        (None, "Outfeed_Chain_Rev_Routing_Placeholder"),
+    )
+    for neighbor_number, placeholder in priorities:
+        contact = f"XIC({placeholder})"
+        if neighbor_number is None or neighbor_number not in station_lookup:
+            text = text.replace(contact, "XIC(never)")
+        else:
+            text = text.replace(contact, "")
+    return text
+
+
 def _self_tag(station: Station, type_prefix: dict[str, str]) -> str:
     return f"{type_prefix[station.effective_template_type]}{station.number}"
 
@@ -461,8 +507,6 @@ def _outfeed_complete_neighbor_number(
 
     neighbor_type = station_lookup.get(neighbor_number)
     if neighbor_type is None:
-        return None
-    if _is_gravity_type(neighbor_type):
         return None
     if neighbor_type == "Filler":
         return None
@@ -516,36 +560,24 @@ def _rewrite_outfeed_complete_checks(
     if station.is_transfer:
         replacements = [
             (
-                (
-                    f"EQU(State_OutfeedingConveyorForward,{self_tag}.State) "
-                    f"XIO({self_tag}_FE_Conv) XIC(Outfeed_Complete_Placeholder)"
-                ),
+                (f"EQU(State_OutfeedingConveyorForward,{self_tag}.State) XIC(Outfeed_Complete_Placeholder)"),
                 "conveyor_forward",
-                f"EQU(State_OutfeedingConveyorForward,{self_tag}.State) XIO({self_tag}_FE_Conv)",
+                f"EQU(State_OutfeedingConveyorForward,{self_tag}.State)",
             ),
             (
-                (
-                    f"EQU(State_OutfeedingConveyorReverse,{self_tag}.State) "
-                    f"XIO({self_tag}_RE_Conv) XIC(Outfeed_Complete_Placeholder)"
-                ),
+                (f"EQU(State_OutfeedingConveyorReverse,{self_tag}.State) XIC(Outfeed_Complete_Placeholder)"),
                 "conveyor_reverse",
-                f"EQU(State_OutfeedingConveyorReverse,{self_tag}.State) XIO({self_tag}_RE_Conv)",
+                f"EQU(State_OutfeedingConveyorReverse,{self_tag}.State)",
             ),
             (
-                (
-                    f"EQU(State_OutfeedingChainForward,{self_tag}.State) "
-                    f"XIO({self_tag}_FE_Chain) XIC(Outfeed_Complete_Placeholder)"
-                ),
+                (f"EQU(State_OutfeedingChainForward,{self_tag}.State) XIC(Outfeed_Complete_Placeholder)"),
                 "chain_forward",
-                f"EQU(State_OutfeedingChainForward,{self_tag}.State) XIO({self_tag}_FE_Chain)",
+                f"EQU(State_OutfeedingChainForward,{self_tag}.State)",
             ),
             (
-                (
-                    f"EQU(State_OutfeedingChainReverse,{self_tag}.State) "
-                    f"XIO({self_tag}_FE_Chain) XIC(Outfeed_Complete_Placeholder)"
-                ),
+                (f"EQU(State_OutfeedingChainReverse,{self_tag}.State) XIC(Outfeed_Complete_Placeholder)"),
                 "chain_reverse",
-                f"EQU(State_OutfeedingChainReverse,{self_tag}.State) XIO({self_tag}_FE_Chain)",
+                f"EQU(State_OutfeedingChainReverse,{self_tag}.State)",
             ),
         ]
     elif station.is_tester or station.is_kickout:
@@ -574,6 +606,8 @@ def _rewrite_outfeed_complete_checks(
     for old_snippet, branch_name, prefix in replacements:
         neighbor_number = _outfeed_complete_neighbor_number(station, branch_name, station_lookup)
         if neighbor_number is None:
+            if station.is_transfer:
+                text = text.replace(old_snippet, f"{prefix}XIC(never)")
             continue
         target_tag = _neighbor_tag(neighbor_number, station_lookup, type_prefix)
         if target_tag is None:
@@ -585,7 +619,10 @@ def _rewrite_outfeed_complete_checks(
             station_lookup,
             stations_by_number,
         )
-        new_snippet = f"{prefix}NEQ({infeed_state},{target_tag}.State)"
+        route_move = ""
+        if station.is_transfer and station.has_route:
+            route_move = f"MOV({self_tag}_Route,{target_tag}_Route)"
+        new_snippet = f"{prefix}NEQ({infeed_state},{target_tag}.State){route_move}"
         text = text.replace(old_snippet, new_snippet)
 
     return text
@@ -751,6 +788,8 @@ def generate(
     for ph in sorted(subs, key=len, reverse=True):
         text = text.replace(ph, subs[ph])
 
+    text = _rewrite_transfer_infeed_priorities(text, station, station_lookup)
+    text = _rewrite_transfer_outfeed_routing_priorities(text, station, station_lookup)
     text = _rewrite_ct_neighbor_outfeed_checks(text, station, stations_by_number)
     text = _rewrite_outfeed_complete_checks(
         text,

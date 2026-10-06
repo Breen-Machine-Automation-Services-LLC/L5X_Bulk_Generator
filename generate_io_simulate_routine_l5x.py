@@ -49,6 +49,14 @@ class StationDef:
     def is_transfer(self) -> bool:
         return self.station_type == "Transfer"
 
+    @property
+    def is_lift(self) -> bool:
+        return self.station_type == "Lift"
+
+    @property
+    def is_gravity(self) -> bool:
+        return self.station_type == "Gravity"
+
 
 Axis = Literal["conv", "chain"]
 Relation = Literal["upstream", "downstream"]
@@ -91,12 +99,23 @@ def _dir_tag(station: StationDef, axis: Axis) -> str:
     return f"{station.prefix}{station.number}_Conv_Dir"
 
 
-def _presence_tag(station: StationDef, axis: Axis) -> str:
+def _presence_tag(station: StationDef, other_station_num: int) -> str:
     if not station.is_transfer:
-        return f"{station.prefix}{station.number}_PE_FE"
+        relation = _endpoint_relation(station, other_station_num)
+        direction: Relation = relation[1] if relation is not None else "upstream"
+        return (
+            f"{station.prefix}{station.number}_PE_FE"
+            if direction == "upstream"
+            else f"{station.prefix}{station.number}_PE_RE"
+        )
+
+    relation = _endpoint_relation(station, other_station_num)
+    axis: Axis = relation[0] if relation is not None else "conv"
+    direction = relation[1] if relation is not None else "upstream"
+
     if axis == "chain":
-        return f"CT{station.number}_FE_Chain"
-    return f"CT{station.number}_FE_Conv"
+        return f"CT{station.number}_FE_Chain" if direction == "upstream" else f"CT{station.number}_RE_Chain"
+    return f"CT{station.number}_FE_Conv" if direction == "upstream" else f"CT{station.number}_RE_Conv"
 
 
 def _source_presence_tags(station: StationDef) -> list[str]:
@@ -111,6 +130,20 @@ def _source_presence_tags(station: StationDef) -> list[str]:
         f"{station.prefix}{station.number}_PE_FE",
         f"{station.prefix}{station.number}_PE_RE",
     ]
+
+
+def _lift_rung_text(number: int) -> str:
+    prefix = f"Li{number}"
+    iol = f"IOL_{number}_PX"
+    return (
+        f"[XIC({prefix}_SV1)LES({iol}.Inputs[3],125)ADD({iol}.Inputs[3],1,{iol}.Inputs[3]),"
+        f"XIC({prefix}_SV2)XIC({prefix}_SV3)GRT({iol}.Inputs[3],0)SUB({iol}.Inputs[3],1,{iol}.Inputs[3]),"
+        f"XIC({prefix}_Sol_BladeStopDownstream)OTE({prefix}_Px_BladeStopDownstream_Up),"
+        f"XIO({prefix}_Sol_BladeStopDownstream)OTE({prefix}_Px_BladeStopDownstream_Down),"
+        f"XIC({prefix}_Sol_BladeStopUpstream)OTE({prefix}_Px_BladeStopUpstream_Up),"
+        f"XIO({prefix}_Sol_BladeStopUpstream)OTE({prefix}_Px_BladeStopUpstream_Down)]"
+        f"MOV(-1,{iol}.Inputs[4]);"
+    )
 
 
 def _dir_instr(station: StationDef, other_station_num: int, role: str) -> str:
@@ -373,19 +406,27 @@ def build_simulation_rungs(
         timer = f"T{src_num}to{dst_num}"
         src_dir_instr = _dir_instr(src, dst_num, role="src")
         dst_dir_instr = _dir_instr(dst, src_num, role="dst")
+        src_xic_text = f"[{', '.join(f'XIC({tag})' for tag in _source_presence_tags(src))}]"
         src_otu_text = "".join(f"OTU({tag})" for tag in _source_presence_tags(src))
         timer_names.add(timer)
 
+        # Gravity stations move by gravity/manual release; they have no Conv_Run or Conv_Dir tags.
+        src_run_dir_text = (
+            "" if src.is_gravity else f"XIC({_run_tag(src, src_axis)}){src_dir_instr}({_dir_tag(src, src_axis)})"
+        )
+        dst_run_dir_text = (
+            "" if dst.is_gravity else f"XIC({_run_tag(dst, dst_axis)}){dst_dir_instr}({_dir_tag(dst, dst_axis)})"
+        )
+
         rung_texts.append(
             (
-                f"XIC({_run_tag(src, src_axis)})"
-                f"{src_dir_instr}({_dir_tag(src, src_axis)})"
-                f"XIC({_run_tag(dst, dst_axis)})"
-                f"{dst_dir_instr}({_dir_tag(dst, dst_axis)})"
+                f"{src_xic_text}"
+                f"{src_run_dir_text}"
+                f"{dst_run_dir_text}"
                 f"TON({timer},{preset_ms},0)"
                 f"XIC({timer}.DN)"
                 f"{src_otu_text}"
-                f"OTL({_presence_tag(dst, dst_axis)})"
+                f"OTL({_presence_tag(dst, src_num)})"
                 f"RES({timer});"
             )
         )
@@ -411,6 +452,12 @@ def build_simulation_rungs(
                 f"OTE(CT{s.number}_Px_Transfer_Up) ];"
             )
         )
+
+    for s in sorted(stations.values(), key=lambda x: x.number):
+        if not s.is_lift:
+            continue
+
+        rung_texts.append(_lift_rung_text(s.number))
 
     return sorted(timer_names), rung_texts
 
