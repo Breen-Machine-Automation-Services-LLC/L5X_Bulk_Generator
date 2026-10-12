@@ -47,7 +47,7 @@ INPUT_GLOB = "Sta*.L5X"
 # Optional station-number and filename-type filters.
 STATION_MIN: int | None = None
 STATION_MAX: int | None = None
-STATION_TYPE_POSTFIX: str | None = "None"  # e.g. "Transfer" for Sta####_Transfer.L5X
+STATION_TYPE_POSTFIX: str | None = None  # e.g. "Transfer" for Sta####_Transfer.L5X
 
 # Tag for output filename when filter is active (purely cosmetic)
 OUTPUT_TAG: str = "Workstation"  # set to "" to omit
@@ -243,27 +243,12 @@ def merge(base_path: Path, sources: list[Path], output_path: Path) -> dict:
 
     stats: dict[str, dict[str, int]] = {ct: {"added": 0, "skipped": 0} for _, ct in CONTAINERS}
     stats["Tag"]["replaced"] = 0
-    stats["Program"] = {"added": 0, "skipped": 0, "renamed": 0}
+    stats["Program"] = {"added": 0, "skipped": 0}
     stats["TagComment"] = {"added": 0, "skipped": 0, "conflicted": 0}
 
-    # Rename the base file's own Program(s) to match the base file's stem so
-    # all programs follow the per-station naming convention. Without this the
-    # base contributes one oddly-named program (e.g. "Staight_Track_Standard_Code").
-    base_program_name = base_path.stem  # e.g. "Sta4000_Workstation"
-    base_progs = list(programs_parent.findall("Program"))
-    if len(base_progs) == 1:
-        old = base_progs[0].get("Name")
-        if old != base_program_name:
-            base_progs[0].set("Name", base_program_name)
-            existing_programs.discard(old)
-            existing_programs.add(base_program_name)
-            stats["Program"]["renamed"] += 1
-
-    # Pair each source file with the desired Program name (file stem).
-    all_inputs: list[tuple[Path, str]] = [(s, s.stem) for s in sources]
-
-    for src, prog_name in all_inputs:
-        src_station_num = _station_number(Path(f"{prog_name}.L5X"))
+    # Preserve each source Program's name while merging its station tags.
+    for src in sources:
+        src_station_num = _station_number(src)
         try:
             src_tree = etree.parse(str(src), parser)
         except etree.XMLSyntaxError as exc:
@@ -317,12 +302,15 @@ def merge(base_path: Path, sources: list[Path], output_path: Path) -> dict:
         if len(src_programs) > 1:
             print(f"  [WARN] {src.name}: {len(src_programs)} Programs; merging only the first as '{{prog_name}}'")
         src_prog = src_programs[0]
-        if prog_name in existing_programs:
+        src_program_name = src_prog.get("Name")
+        if not src_program_name:
+            print(f"  [WARN] {src.name}: Program has no Name attribute")
+            continue
+        if src_program_name in existing_programs:
             stats["Program"]["skipped"] += 1
             continue
-        src_prog.set("Name", prog_name)
         programs_parent.append(src_prog)
-        existing_programs.add(prog_name)
+        existing_programs.add(src_program_name)
         stats["Program"]["added"] += 1
 
     # Studio 5000 requires Controller's children in a specific order; if any
@@ -434,7 +422,7 @@ def main(stations_toml: Path) -> int:
         f"  {'TagComment':30s}  added={tc['added']:>6}   skipped={tc['skipped']:>6}   conflicts={tc['conflicted']:>6}"
     )
     sp = stats["Program"]
-    print(f"  {'Program':30s}  added={sp['added']:>6}   skipped={sp['skipped']:>6}   (base renamed: {sp['renamed']})")
+    print(f"  {'Program':30s}  added={sp['added']:>6}   skipped={sp['skipped']:>6}")
     print(f"\nDone in {elapsed:.2f}s -> {out}")
     return 0
 

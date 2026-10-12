@@ -802,6 +802,14 @@ def generate(
 
     output_type = station.output_type or station.type
     out_path = output_dir / "stationPrograms" / f"Sta{station.number}_{output_type}.L5X"
+    text, program_name_count = re.subn(
+        r'(<Program\b[^>]*\bName=")[^"]*(")',
+        lambda match: f"{match.group(1)}{out_path.stem}{match.group(2)}",
+        text,
+        count=1,
+    )
+    if program_name_count != 1:
+        raise ValueError(f"Expected one Program element in template for station {station.number}.")
     if not dry_run:
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_text(text, encoding="utf-8")
