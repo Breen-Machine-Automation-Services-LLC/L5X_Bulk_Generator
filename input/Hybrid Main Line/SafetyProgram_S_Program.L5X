@@ -1,0 +1,1038 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="SafetyProgram_S" TargetType="Program" TargetClass="Safety" ContainsContext="true" ExportDate="Wed Sep 30 09:36:18 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="Test">
+<DataTypes Use="Context">
+<DataType Name="raC_UDT_Itf_SafetyDevice_Inf" Family="NoFamily" Class="User">
+<Members>
+<Member Name="Type" DataType="STR0032" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="DisplayName" DataType="STR0024" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="eClass" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write"/>
+</Members>
+<Dependencies>
+<Dependency Type="DataType" Name="STR0032"/>
+<Dependency Type="DataType" Name="STR0024"/>
+</Dependencies>
+</DataType>
+<DataType Name="raC_UDT_Itf_SafetyDevice_Sts" Family="NoFamily" Class="User">
+<Members>
+<Member Name="bSts" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="ZZZZZZZZZZraC_UDT_It1" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="DeviceSuspended" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZraC_UDT_It1" BitNumber="0" ExternalAccess="Read/Write"/>
+<Member Name="SafetyDemand" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZraC_UDT_It1" BitNumber="1" ExternalAccess="Read/Write"/>
+<Member Name="ResetRequired" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZraC_UDT_It1" BitNumber="2" ExternalAccess="Read/Write"/>
+<Member Name="DiagnosticPresent" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZraC_UDT_It1" BitNumber="3" ExternalAccess="Read/Write"/>
+<Member Name="FaultPresent" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZraC_UDT_It1" BitNumber="4" ExternalAccess="Read/Write"/>
+<Member Name="Muted" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZraC_UDT_It1" BitNumber="5" ExternalAccess="Read/Write"/>
+</Members>
+</DataType>
+<DataType Name="STR0024" Family="StringFamily" Class="User">
+<Members>
+<Member Name="LEN" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="DATA" DataType="SINT" Dimension="24" Radix="ASCII" Hidden="false" ExternalAccess="Read/Write"/>
+</Members>
+</DataType>
+<DataType Name="STR0032" Family="StringFamily" Class="User">
+<Members>
+<Member Name="LEN" DataType="DINT" Dimension="0" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write"/>
+<Member Name="DATA" DataType="SINT" Dimension="32" Radix="ASCII" Hidden="false" ExternalAccess="Read/Write"/>
+</Members>
+</DataType>
+<DataType Name="UDT_GuardLink_Ch_Unlk_Sfty" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[GuardLink Channel Safety]]>
+</Description>
+<Members>
+<Member Name="Unlock" DataType="AOI_GuardLinkLock" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Unlock]]>
+</Description>
+</Member>
+<Member Name="ZZZZZZZZZZUDT_GuardL1" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="LkReqNewSfty" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZUDT_GuardL1" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Lock Request New
+(Safety Mapped)]]>
+</Description>
+</Member>
+<Member Name="UnlkCmd" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZUDT_GuardL1" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Unlock Command]]>
+</Description>
+</Member>
+<Member Name="UnlkReqNewSfty" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZUDT_GuardL1" BitNumber="2" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Unlock Request New
+(Safety Mapped)]]>
+</Description>
+</Member>
+<Member Name="UnlkReqSfty" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZUDT_GuardL1" BitNumber="3" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Unlock Request
+(Safety Mapped)]]>
+</Description>
+</Member>
+</Members>
+<Dependencies>
+<Dependency Type="AddOnInstructionDefinition" Name="AOI_GuardLinkLock"/>
+</Dependencies>
+</DataType>
+<DataType Name="UDT_Mapped_Tags" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[Standard Tags Mapped to Safety]]>
+</Description>
+<Members>
+<Member Name="BOOL" DataType="DINT" Dimension="10" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Array of Bools]]>
+</Description>
+</Member>
+<Member Name="DINT" DataType="DINT" Dimension="20" Radix="Decimal" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Array of Dints]]>
+</Description>
+</Member>
+<Member Name="REAL" DataType="REAL" Dimension="20" Radix="Float" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Array of Reals]]>
+</Description>
+</Member>
+</Members>
+</DataType>
+</DataTypes>
+<AddOnInstructionDefinitions Use="Context">
+<AddOnInstructionDefinition Name="AOI_GuardLinkLock" Class="Safety" Revision="1.0" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="true" CreatedDate="2024-10-11T17:40:07.106Z" CreatedBy="AzureWin10\LabUser" EditedDate="2025-12-16T18:41:22.230Z" EditedBy="Win11\labuser" SoftwareRevision="v38.00"
+>
+<RevisionNote>
+<![CDATA[10/11/2024]]>
+</RevisionNote>
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="Cfg_Channel_DeviceCount" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Configuration
+GuardLink Channel
+Expected Node Count]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Cfg_LockFbkTime" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Configuration Lock Feedback Time (ms)]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inp_ModuleName_I" TagType="Base" DataType="AB:5000_GL3:I:0" Usage="InOut" Required="true" Visible="true" Constant="false"/>
+<Parameter Name="Inp_GL_Ch_I" TagType="Base" DataType="CHANNEL_GL:I:0" Usage="InOut" Required="true" Visible="true" Constant="false">
+<Description>
+<![CDATA[Input
+GuardLink Channel]]>
+</Description>
+</Parameter>
+<Parameter Name="Out_GL_Ch_O" TagType="Base" DataType="CHANNEL_GL:O:0" Usage="InOut" Required="true" Visible="true" Constant="false">
+<Description>
+<![CDATA[Output
+GuardLink Channel]]>
+</Description>
+</Parameter>
+<Parameter Name="Inp_LkReqNew" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="None">
+<Description>
+<![CDATA[Input
+Lock Request New]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inp_UnlkCmd" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Input
+Unlock Command]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inp_UnlkReqNew" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Input
+Unlock Request New]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="LockSequence" TagType="Base" DataType="DINT" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="None">
+<Description>
+<![CDATA[0 = Initialize
+100 = Unlocked    
+200 = Lock Cmd   
+300 = Lock Cmd/Opn 
+400 = Closed/Locked
+500 = Unlock Cmd]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Out_Ch_RunRdy" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Output
+Channel Run Ready]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Out_LockUnlockEn_Sts" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Output
+Lock Unlock Enable
+Status]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Out_LockCmdStd" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Output
+Lock Command
+(Safety to Standard)]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Out_UnLockCmdStd" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Output
+Unlock Command
+(Safety to Standard)]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+</Parameters>
+<LocalTags>
+<LocalTag Name="StartupTmr" DataType="TIMER" ExternalAccess="None">
+<Description>
+<![CDATA[Startup Timer]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,500,500]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="500"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="500"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="LockTmr" DataType="TIMER" ExternalAccess="None">
+<Description>
+<![CDATA[Lock Timer
+Hold Signal]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,500,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="500"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="UnlockTmr" DataType="TIMER" ExternalAccess="None">
+<Description>
+<![CDATA[UnLock Timer
+Hold Signal]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,500,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="500"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="LockFbkTmr" DataType="TIMER" ExternalAccess="None">
+<Description>
+<![CDATA[Lock Feedback Timer]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,0,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Closed_Lock_State" DataType="BOOL" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[Channel
+Closed and Locked State]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+</LocalTags>
+<Routines>
+<Routine Name="EnableInFalse" Type="RLL">
+<Description>
+<![CDATA[EnableInFalse]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Text>
+<![CDATA[OTU(Out_GL_Ch_O.LockUnlockEn)OTU(Out_Ch_RunRdy);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="Logic" Type="RLL">
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Intialize Timers
+LockFbkTmr.Pre setup is configured for system Close/Lock response and may be system size and device locking time dependent.
+]]>
+</Comment>
+<Text>
+<![CDATA[MOVE(500,StartupTmr.PRE)MOVE(500,LockTmr.PRE)MOVE(500,UnlockTmr.PRE)MOVE(Cfg_LockFbkTime,LockFbkTmr.PRE);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[Intialize Sequence on loss of Run Mode OR First Scan
+250ms was tested minimum]]>
+</Comment>
+<Text>
+<![CDATA[[XIO(S:FS) XIC(Inp_ModuleName_I.RunMode) TON(StartupTmr,?,?) ,[XIO(StartupTmr.DN) ,XIO(Inp_ModuleName_I.RunMode) ] MOVE(0,LockSequence) ];]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[Initialize
+Do not send GuardLink Lock/Unlock commands until 500ms into RunMode]]>
+</Comment>
+<Text>
+<![CDATA[EQ(LockSequence,0)XIC(Inp_ModuleName_I.RunMode)XIC(StartupTmr.DN)[XIO(Inp_UnlkCmd) MOVE(200,LockSequence) ,XIC(Inp_UnlkCmd) MOVE(500,LockSequence) ];]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Comment>
+<![CDATA[Unlocked
+Goto Lock Command when loss of Unlock Command or a new Lock Request
+Goto Unlock Command if a new Unlock Request]]>
+</Comment>
+<Text>
+<![CDATA[EQ(LockSequence,100)[[XIO(Inp_UnlkCmd) ,XIC(Inp_LkReqNew) ] MOVE(200,LockSequence) ,XIC(Inp_UnlkCmd) XIC(Inp_UnlkReqNew) MOVE(500,LockSequence) ];]]>
+</Text>
+</Rung>
+<Rung Number="4" Type="N">
+<Comment>
+<![CDATA[Lock Command
+Turn on LockUnlockEn and command the standard task to issue a lock command.
+350ms was tested minimum effective signal]]>
+</Comment>
+<Text>
+<![CDATA[EQ(LockSequence,200)[OTL(Out_GL_Ch_O.LockUnlockEn) OTE(Out_LockCmdStd) TON(LockTmr,?,?) ,XIC(LockTmr.DN) OTU(Out_GL_Ch_O.LockUnlockEn) MOVE(300,LockSequence) ];]]>
+</Text>
+</Rung>
+<Rung Number="5" Type="N">
+<Comment>
+<![CDATA[Lock Command GD Open
+Timers allows time to receive closed/locked feedback, else return to Unlocked
+LockFbkTmr.Pre setup is configured for system Close/Lock response and may be system size and device locking time dependent.
+Goto Closed/Lock on I.Status
+]]>
+</Comment>
+<Text>
+<![CDATA[EQ(LockSequence,300)[TON(LockFbkTmr,?,?) XIC(LockFbkTmr.DN) MOVE(100,LockSequence) ,XIC(Inp_GL_Ch_I.Status) MOVE(400,LockSequence) ];]]>
+</Text>
+</Rung>
+<Rung Number="6" Type="N">
+<Comment>
+<![CDATA[Closed and Locked ]]>
+</Comment>
+<Text>
+<![CDATA[EQ(LockSequence,400)[OTE(Closed_Lock_State) ,XIC(Inp_UnlkCmd) MOVE(500,LockSequence) ];]]>
+</Text>
+</Rung>
+<Rung Number="7" Type="N">
+<Comment>
+<![CDATA[Unlock Command
+350ms was tested minimum]]>
+</Comment>
+<Text>
+<![CDATA[EQ(LockSequence,500)[OTL(Out_GL_Ch_O.LockUnlockEn) OTE(Out_UnLockCmdStd) TON(UnlockTmr,?,?) ,XIC(UnlockTmr.DN) XIO(Inp_GL_Ch_I.Status) OTU(Out_GL_Ch_O.LockUnlockEn) MOVE(100,LockSequence) ];]]>
+</Text>
+</Rung>
+<Rung Number="8" Type="N">
+<Comment>
+<![CDATA[Status for use in Safety Functions
+Verify the detected device count is equal to the expected number.
+Must be in closed and lock state
+]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Inp_GL_Ch_I.Status)EQ(Inp_GL_Ch_I.DeviceCount,Cfg_Channel_DeviceCount)XIC(Closed_Lock_State)OTE(Out_Ch_RunRdy);]]>
+</Text>
+</Rung>
+<Rung Number="9" Type="N">
+<Comment>
+<![CDATA[Status for display on AOI ]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Out_GL_Ch_O.LockUnlockEn)OTE(Out_LockUnlockEn_Sts);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+</Routines>
+<Dependencies>
+<Dependency Type="DataType" Name="CHANNEL_GL:O:0"/>
+</Dependencies>
+</AddOnInstructionDefinition>
+<EncodedData EncodedType="AddOnInstructionDefinition" Name="raC_Dvc_CROUT" Class="Safety" Revision="1.0" EditedDate="2020-11-05T07:03:14.607Z" SoftwareRevision="v32.00" EncryptionConfig="9">
+<Description>
+<![CDATA[CROUT Safety Device Objects]]>
+</Description>
+<RevisionNote>
+<![CDATA[Released]]>
+</RevisionNote>
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="Inp_CROUT" TagType="Base" DataType="CONFIGURABLE_ROUT" Usage="InOut" Required="true" Visible="true" Constant="false"/>
+<Parameter Name="Out_Ctrl_Inf" TagType="Base" DataType="raC_UDT_Itf_SafetyDevice_Inf" Usage="InOut" Required="true" Visible="true" Constant="false"/>
+<Parameter Name="Out_Ctrl_Sts" TagType="Base" DataType="raC_UDT_Itf_SafetyDevice_Sts" Usage="InOut" Required="true" Visible="true" Constant="false"/>
+<Parameter Name="Sts_SafetyDemand" TagType="Alias" Usage="Output" Radix="Decimal" AliasFor="_bSts.2" Required="false" Visible="true" ExternalAccess="Read Only"/>
+<Parameter Name="Sts_ResetRequired" TagType="Alias" Usage="Output" Radix="Decimal" AliasFor="_bSts.3" Required="false" Visible="true" ExternalAccess="Read Only"/>
+<Parameter Name="Sts_DiagnosticPresent" TagType="Alias" Usage="Output" Radix="Decimal" AliasFor="_bSts.1" Required="false" Visible="true" ExternalAccess="Read Only"/>
+<Parameter Name="Sts_FaultPresent" TagType="Alias" Usage="Output" Radix="Decimal" AliasFor="_bSts.0" Required="false" Visible="true" ExternalAccess="Read Only"/>
+<Parameter Name="raM_Dvc_CROUT" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Instruction Identification Bit]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_ERR" TagType="Base" DataType="DINT" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Instruction Error Code - See Instruction Help for Code Definition]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_Ready" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Sts_eReady" TagType="Base" DataType="SINT" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read/Write">
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="SINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+</Parameters>
+<Dependencies>
+<Dependency Type="DataType" Name="STR0024"/>
+<Dependency Type="DataType" Name="STR0032"/>
+<Dependency Type="DataType" Name="raC_UDT_Itf_SafetyDevice_Inf"/>
+<Dependency Type="DataType" Name="raC_UDT_Itf_SafetyDevice_Sts"/>
+</Dependencies>
+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</EncodedData>
+</AddOnInstructionDefinitions>
+<Tags Use="Context">
+<Tag Name="GuardLink01_Ch0" Class="Safety" TagType="Base" DataType="UDT_GuardLink_Ch_Unlk_Sfty" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[[547,3,1500,400,[-1609328391,500,500],[1194965,500,0],[1062465,500,0],[1195185,1500,0]],0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="UDT_GuardLink_Ch_Unlk_Sfty">
+<StructureMember Name="Unlock" DataType="AOI_GuardLinkLock">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Cfg_Channel_DeviceCount" DataType="DINT" Radix="Decimal" Value="3"/>
+<DataValueMember Name="Cfg_LockFbkTime" DataType="DINT" Radix="Decimal" Value="1500"/>
+<DataValueMember Name="Inp_LkReqNew" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inp_UnlkCmd" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inp_UnlkReqNew" DataType="BOOL" Value="0"/>
+<DataValueMember Name="LockSequence" DataType="DINT" Radix="Decimal" Value="400"/>
+<DataValueMember Name="Out_Ch_RunRdy" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Out_LockUnlockEn_Sts" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Out_LockCmdStd" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Out_UnLockCmdStd" DataType="BOOL" Value="0"/>
+</StructureMember>
+<DataValueMember Name="LkReqNewSfty" DataType="BOOL" Value="0"/>
+<DataValueMember Name="UnlkCmd" DataType="BOOL" Value="0"/>
+<DataValueMember Name="UnlkReqNewSfty" DataType="BOOL" Value="0"/>
+<DataValueMember Name="UnlkReqSfty" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="MappedSafTags_Sfty" Class="Safety" TagType="Base" DataType="UDT_Mapped_Tags" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[[65520,4,0,0,0,0,0,0,0,0],[0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000
+		,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000
+		,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000
+		,0.00000000e+000,0.00000000e+000,0.00000000e+000,0.00000000e+000]]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="UDT_Mapped_Tags">
+<ArrayMember Name="BOOL" DataType="DINT" Dimensions="10" Radix="Decimal">
+<Element Index="[0]" Value="65520"/>
+<Element Index="[1]" Value="4"/>
+<Element Index="[2]" Value="0"/>
+<Element Index="[3]" Value="0"/>
+<Element Index="[4]" Value="0"/>
+<Element Index="[5]" Value="0"/>
+<Element Index="[6]" Value="0"/>
+<Element Index="[7]" Value="0"/>
+<Element Index="[8]" Value="0"/>
+<Element Index="[9]" Value="0"/>
+</ArrayMember>
+<ArrayMember Name="DINT" DataType="DINT" Dimensions="20" Radix="Decimal">
+<Element Index="[0]" Value="0"/>
+<Element Index="[1]" Value="2"/>
+<Element Index="[2]" Value="0"/>
+<Element Index="[3]" Value="0"/>
+<Element Index="[4]" Value="0"/>
+<Element Index="[5]" Value="0"/>
+<Element Index="[6]" Value="0"/>
+<Element Index="[7]" Value="0"/>
+<Element Index="[8]" Value="0"/>
+<Element Index="[9]" Value="0"/>
+<Element Index="[10]" Value="0"/>
+<Element Index="[11]" Value="0"/>
+<Element Index="[12]" Value="0"/>
+<Element Index="[13]" Value="0"/>
+<Element Index="[14]" Value="0"/>
+<Element Index="[15]" Value="0"/>
+<Element Index="[16]" Value="0"/>
+<Element Index="[17]" Value="0"/>
+<Element Index="[18]" Value="0"/>
+<Element Index="[19]" Value="0"/>
+</ArrayMember>
+<ArrayMember Name="REAL" DataType="REAL" Dimensions="20" Radix="Float">
+<Element Index="[0]" Value="0.0"/>
+<Element Index="[1]" Value="0.0"/>
+<Element Index="[2]" Value="0.0"/>
+<Element Index="[3]" Value="0.0"/>
+<Element Index="[4]" Value="0.0"/>
+<Element Index="[5]" Value="0.0"/>
+<Element Index="[6]" Value="0.0"/>
+<Element Index="[7]" Value="0.0"/>
+<Element Index="[8]" Value="0.0"/>
+<Element Index="[9]" Value="0.0"/>
+<Element Index="[10]" Value="0.0"/>
+<Element Index="[11]" Value="0.0"/>
+<Element Index="[12]" Value="0.0"/>
+<Element Index="[13]" Value="0.0"/>
+<Element Index="[14]" Value="0.0"/>
+<Element Index="[15]" Value="0.0"/>
+<Element Index="[16]" Value="0.0"/>
+<Element Index="[17]" Value="0.0"/>
+<Element Index="[18]" Value="0.0"/>
+<Element Index="[19]" Value="0.0"/>
+</ArrayMember>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="Safe_State" Class="Safety" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Zone
+Safe State]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+</Tags>
+<Programs Use="Context">
+<Program Use="Target" Name="SafetyProgram_S" TestEdits="false" MainRoutineName="MainRoutine" Disabled="false" Class="Safety" UseAsFolder="false">
+<Tags>
+<Tag Name="Reset" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Zone Reset]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="ResetOB" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Zone
+Reset Output Bit]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="ResetSB" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Zone
+Reset Storage Bit]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Reset_GuardDoor_Lk" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Zone Reset 
+Guard Door Lock]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="RestTmr" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Zone Reset Timer]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[[1284405,50,60]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="50"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="60"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="SafetyIn_Ok" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Zone
+Safety Inputs Ok]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="SafetyReset" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Safety Reset
+(Safety Mapped)]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="SafetyReset_REQD" TagType="Base" DataType="BOOL" Radix="Decimal" Usage="Output" Constant="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Safety Reset Required]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Safe_RunPerm" TagType="Base" DataType="BOOL" Radix="Decimal" Usage="Output" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Zone
+Safety
+Run Permissive]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[1]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="1"/>
+</Data>
+</Tag>
+<Tag Name="StopTmr" TagType="Base" DataType="TIMER" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Zone Stop Timer]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[[1258905,3000,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="3000"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="Zn1_CROUT1" TagType="Base" DataType="CONFIGURABLE_ROUT" Usage="Output" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Configurable Redundant Output 1
+Contactors]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[[99,500,7,0,0,67305985,99,7,1258905,2,500,0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="CONFIGURABLE_ROUT">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Actuate" DataType="BOOL" Value="1"/>
+<DataValueMember Name="FeedbackType" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Feedback1" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Feedback2" DataType="BOOL" Value="0"/>
+<DataValueMember Name="InputStatus" DataType="BOOL" Value="1"/>
+<DataValueMember Name="OutputStatus" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Reset" DataType="BOOL" Value="0"/>
+<DataValueMember Name="FeedbackReactionTime" DataType="DINT" Radix="Decimal" Value="500"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="1"/>
+<DataValueMember Name="O1" DataType="BOOL" Value="1"/>
+<DataValueMember Name="O2" DataType="BOOL" Value="1"/>
+<DataValueMember Name="FP" DataType="BOOL" Value="0"/>
+<DataValueMember Name="FaultCode" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DiagnosticCode" DataType="DINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="Zn1_CROUT1_Dvc" TagType="Base" DataType="raC_Dvc_CROUT" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[63,0,0,[99,500,7,0,0,67305985,99,7,1258905,2,500,0,0],[13,'raC_Dvc_CROUT$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
+		],0,0,[17,'Safety Contactors$00$00$00$00$00$00$00'],[17,'Safety Contactors$00$00$00$00$00$00$00'
+		]]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="raC_Dvc_CROUT">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Sts_SafetyDemand" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Sts_ResetRequired" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Sts_DiagnosticPresent" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Sts_FaultPresent" DataType="BOOL" Value="0"/>
+<DataValueMember Name="raM_Dvc_CROUT" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Sts_ERR" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="Sts_Ready" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Sts_eReady" DataType="SINT" Radix="Decimal" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="Zn1_CROUT1_Inf" TagType="Base" DataType="raC_UDT_Itf_SafetyDevice_Inf" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[[13,'raC_Dvc_CROUT$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'],[17,'Safety Contactors$00$00$00$00$00$00$00'
+		],3]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="raC_UDT_Itf_SafetyDevice_Inf">
+<StructureMember Name="Type" DataType="STR0032">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="13"/>
+<DataValueMember Name="DATA" DataType="STR0032" Radix="ASCII">
+<![CDATA['raC_Dvc_CROUT']]>
+</DataValueMember>
+</StructureMember>
+<StructureMember Name="DisplayName" DataType="STR0024">
+<DataValueMember Name="LEN" DataType="DINT" Radix="Decimal" Value="17"/>
+<DataValueMember Name="DATA" DataType="STR0024" Radix="ASCII">
+<![CDATA['Safety Contactors']]>
+</DataValueMember>
+</StructureMember>
+<DataValueMember Name="eClass" DataType="DINT" Radix="Decimal" Value="3"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="Zn1_CROUT1_Off" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Configurable Redudnant Output 1
+Contactors Off]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Zn1_CROUT1_Sts" TagType="Base" DataType="raC_UDT_Itf_SafetyDevice_Sts" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[0,0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="raC_UDT_Itf_SafetyDevice_Sts">
+<DataValueMember Name="bSts" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="DeviceSuspended" DataType="BOOL" Value="0"/>
+<DataValueMember Name="SafetyDemand" DataType="BOOL" Value="0"/>
+<DataValueMember Name="ResetRequired" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DiagnosticPresent" DataType="BOOL" Value="0"/>
+<DataValueMember Name="FaultPresent" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Muted" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+</Tags>
+<Routines>
+<Routine Name="I00_MappedTags" Type="RLL">
+<Description>
+<![CDATA[Input: Safety Mapped Tags]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Standard Tags Mapped to Safety]]>
+</Comment>
+<Text>
+<![CDATA[NOP();]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Text>
+<![CDATA[XIC(MappedSafTags_Sfty.BOOL[0].0)OTE(SafetyReset);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Text>
+<![CDATA[XIC(MappedSafTags_Sfty.BOOL[0].1)OTE(GuardLink01_Ch0.UnlkReqSfty);]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Text>
+<![CDATA[XIC(MappedSafTags_Sfty.BOOL[0].2)OTE(GuardLink01_Ch0.UnlkReqNewSfty);]]>
+</Text>
+</Rung>
+<Rung Number="4" Type="N">
+<Text>
+<![CDATA[XIC(MappedSafTags_Sfty.BOOL[0].3)OTE(GuardLink01_Ch0.LkReqNewSfty);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="I01_GuardLink" Type="RLL">
+<Description>
+<![CDATA[GuardLink]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Hazard Safe is the safety bit required for the safety Unlk Command]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Safe_State)XIC(GuardLink01_Ch0.UnlkReqSfty)XIO(Reset_GuardDoor_Lk)OTE(GuardLink01_Ch0.UnlkCmd);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[Lock Sequence:
+0 = Initialize
+100 = Unlocked    
+200 = Lock Cmd   
+300 = Lock Cmd/Opn 
+400 = Closed/Locked
+500 = Unlock Cmd]]>
+</Comment>
+<Text>
+<![CDATA[AOI_GuardLinkLock(GuardLink01_Ch0.Unlock,3,1500,GuardLink01:I,GuardLink01:I.Ch0,GuardLink01:O.Ch0,GuardLink01_Ch0.LkReqNewSfty,GuardLink01_Ch0.UnlkCmd,GuardLink01_Ch0.UnlkReqNewSfty);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="L10_Logic" Type="RLL">
+<Description>
+<![CDATA[Logic: Reset, Input Summary, Run Permissive]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Internal safety logic faults are reset on rising edge.
+Request Guard Door lock on reset rising edge. 
+Transition Reset: ISO13849-1 stipulates that safety functions reset must occur on signal transition.
+]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(SafetyReset) [TOF(RestTmr,?,?) ,OSF(ResetSB,ResetOB) ] ,XIC(RestTmr.DN) OTE(Reset_GuardDoor_Lk) ,XIC(ResetOB) OTE(Reset) ];]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[Indicate to machine safety requires a reset]]>
+</Comment>
+<Text>
+<![CDATA[XIC(SafetyIn_Ok)XIO(GuardLink01_Ch0.UnlkReqSfty)XIO(Safe_RunPerm)OTE(SafetyReset_REQD);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[Safety Input Summary Rung]]>
+</Comment>
+<Text>
+<![CDATA[XIC(GuardLink01_Ch0.Unlock.Out_Ch_RunRdy)OTE(SafetyIn_Ok);]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Comment>
+<![CDATA[Zone Power On Conditions]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(Reset) ,XIC(Safe_RunPerm) ]XIC(SafetyIn_Ok)XIO(GuardLink01_Ch0.UnlkReqSfty)XIO(Zn1_CROUT1.FP)OTE(Safe_RunPerm);]]>
+</Text>
+</Rung>
+<Rung Number="4" Type="N">
+<Comment>
+<![CDATA[Safe State Confirmation
+Timer is worst case stop time.]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Zn1_CROUT1_Off)[MOVE(3000,StopTmr.PRE) TON(StopTmr,?,?) ,XIC(StopTmr.DN) OTE(Safe_State) ];]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="MainRoutine" Type="RLL">
+<RLLContent>
+<Rung Number="0" Type="N">
+<Text>
+<![CDATA[JSR(I00_MappedTags,0);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Text>
+<![CDATA[JSR(I01_GuardLink,0);]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Text>
+<![CDATA[JSR(L10_Logic,0);]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Text>
+<![CDATA[JSR(O20_Contactor,0);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="O20_Contactor" Type="RLL">
+<Description>
+<![CDATA[Output - Contactors]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Contactor CROUT
+Reset output branch allows recovery from a feedback input fault by allowing the solenoids to be cycled independently of the CROUT instruction under input latched fault conditions. The SafetyIn_Ok must be ON for safety.
+If the CROUT is off with no fault or diagnostic code, then the contactors are OFF.
+]]>
+</Comment>
+<Text>
+<![CDATA[[XIC(Local:2:I.Pt00.Status) XIC(Local:2:I.Pt01.Status) OTE(Zn1_CROUT1.OutputStatus) ,CROUT(Zn1_CROUT1,NEGATIVE,500,Safe_RunPerm,Local:1:I.Pt00.Data,Local:1:I.Pt00.Data,Local:1:I.Pt00.Status,Zn1_CROUT1.OutputStatus,ResetSB) raC_Dvc_CROUT(Zn1_CROUT1_Dvc,Zn1_CROUT1,Zn1_CROUT1_Inf,Zn1_CROUT1_Sts) ,[XIC(Zn1_CROUT1.O1) ,XIC(Zn1_CROUT1.FP) XIO(Local:1:I.Pt00.Data) XIC(SafetyIn_Ok) XIC(ResetSB) ] OTE(Local:2:O.Pt00.Data) OTE(Local:2:O.Pt01.Data) ,XIO(Zn1_CROUT1.O1) XIO(Zn1_CROUT1.FP) EQ(Zn1_CROUT1.DiagnosticCode,0) OTE(Zn1_CROUT1_Off) ];]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+</Routines>
+</Program>
+</Programs>
+</Controller>
+</RSLogix5000Content>
