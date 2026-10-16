@@ -517,6 +517,59 @@ def _outfeed_complete_neighbor_number(
     return neighbor_number
 
 
+def _rewrite_outfeed_in_position_checks(
+    text: str,
+    station: Station,
+    station_lookup: dict[int, str],
+    stations_by_number: dict[int, Station],
+    type_prefix: dict[str, str],
+) -> str:
+    self_tag = _self_tag(station, type_prefix)
+
+    if station.is_transfer:
+        branches = (
+            ("State_OutfeedingConveyorForward", "conveyor_forward"),
+            ("State_OutfeedingConveyorReverse", "conveyor_reverse"),
+            ("State_OutfeedingChainForward", "chain_forward"),
+            ("State_OutfeedingChainReverse", "chain_reverse"),
+        )
+    elif station.is_tester or station.is_kickout:
+        branches = (("State_Outfeeding", "conveyor_reverse"),)
+    else:
+        branches = (("State_Outfeeding", "conveyor_forward"),)
+
+    for state_name, branch_name in branches:
+        neighbor_number = _outfeed_complete_neighbor_number(station, branch_name, station_lookup)
+        if neighbor_number is None:
+            continue
+
+        neighbor_type = station_lookup[neighbor_number]
+        if neighbor_type == "Queue":
+            replacement = ""
+        elif neighbor_type == "Lift":
+            replacement = f"XIC({type_prefix[neighbor_type]}{neighbor_number}_Lift_Infeed.InRange)"
+        elif _is_transfer_type(neighbor_type):
+            neighbor_station = stations_by_number.get(neighbor_number)
+            if neighbor_station is None:
+                continue
+            conv_link = station.number in (neighbor_station.conv_rev, neighbor_station.conv_fwd)
+            chain_link = station.number in (neighbor_station.chain_fwd, neighbor_station.chain_rev)
+            if conv_link == chain_link:
+                continue
+            position = "Down" if conv_link else "Up"
+            replacement = f"XIC({type_prefix[neighbor_type]}{neighbor_number}_Px_Transfer_{position})"
+        else:
+            continue
+
+        branch_pattern = re.compile(
+            rf"(EQU\({re.escape(state_name)},{re.escape(self_tag)}\.State\)[^,\]]*?)"
+            r"XIC\(Outfeed_InPosition_Placeholder\)"
+        )
+        text = branch_pattern.sub(lambda match: match.group(1) + replacement, text, count=1)
+
+    return text
+
+
 def _resolve_outfeed_complete_infeed_state(
     current_station: Station,
     neighbor_number: int,
@@ -806,6 +859,13 @@ def generate(
     text = _rewrite_transfer_infeed_priorities(text, station, station_lookup)
     text = _rewrite_transfer_outfeed_routing_priorities(text, station, station_lookup)
     text = _rewrite_ct_neighbor_outfeed_checks(text, station, stations_by_number)
+    text = _rewrite_outfeed_in_position_checks(
+        text,
+        station,
+        station_lookup,
+        stations_by_number,
+        type_prefix,
+    )
     text = _rewrite_outfeed_complete_checks(
         text,
         station,
@@ -817,6 +877,14 @@ def generate(
 
     output_type = station.output_type or station.type
     out_path = output_dir / "stationPrograms" / f"Sta{station.number}_{output_type}.L5X"
+    text, program_name_count = re.subn(
+        r'(<Program\b[^>]*\bName=")[^"]*(")',
+        lambda match: f"{match.group(1)}{out_path.stem}{match.group(2)}",
+        text,
+        count=1,
+    )
+    if program_name_count != 1:
+        raise ValueError(f"Expected one Program element in template for station {station.number}.")
     if not dry_run:
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_text(text, encoding="utf-8")

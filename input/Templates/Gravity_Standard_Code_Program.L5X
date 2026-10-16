@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Gravity_Standard_Code" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Mon Sep 28 16:09:28 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Gravity_Standard_Code" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Fri Oct 02 19:57:19 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Standard_Code_Library">
 <DataTypes Use="Context">
 <DataType Name="MES_Brake_Integration" Family="NoFamily" Class="User">
@@ -1534,6 +1534,14 @@ Stop Photoeye]]>
 </Structure>
 </Data>
 </Tag>
+<Tag Name="STYYYY_Outfeed_Dest" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
 <Tag Name="STYYYY_Route" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
 <Data Format="L5K">
 <![CDATA[0]]>
@@ -1572,6 +1580,14 @@ Stop Photoeye]]>
 </Data>
 <Data Format="Decorated">
 <DataValue DataType="DINT" Radix="Decimal" Value="2"/>
+</Data>
+</Tag>
+<Tag Name="Sys_Outfeed_Chain_Rev_ID" Class="Standard" TagType="Base" DataType="DINT" Radix="Decimal" Constant="true" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[4]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="4"/>
 </Data>
 </Tag>
 <Tag Name="Sys_Slow_Blink" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
@@ -1677,7 +1693,7 @@ Infeeding part from upstream station
 ]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_WaitingForPart,STXXXX.State)[EQU(State_WaitingForDownstream,STYYYY.State) XIO(STXXXX_PE_FE) MOV(State_Infeeding,STXXXX.State) ,XIC(STXXXX_PE_FE) MOV(State_WaitingForOperator,STXXXX.State) ];]]>
+<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_WaitingForPart,STXXXX.State)[EQU(State_WaitingForDownstream,STYYYY.State) EQU(Sys_Outfeed_Chain_Rev_ID,STYYYY_Outfeed_Dest) XIO(STXXXX_PE_FE) MOV(State_Infeeding,STXXXX.State) ,XIC(STXXXX_PE_FE) MOV(State_WaitingForOperator,STXXXX.State) ];]]>
 </Text>
 </Rung>
 <Rung Number="2" Type="N">
