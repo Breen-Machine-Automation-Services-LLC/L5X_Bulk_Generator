@@ -375,6 +375,9 @@ def _resolve_transfer_infeed_state(
     neighbor_station: Station,
 ) -> Optional[tuple[str, str]]:
     """Return the CT run tag suffix and infeed state for a CT neighbor link."""
+    if current_station.type.strip().lower() == "lift":
+        return None
+
     if neighbor_station.type != "Transfer":
         return None
 
@@ -522,6 +525,9 @@ def _resolve_outfeed_complete_infeed_state(
     stations_by_number: dict[int, Station],
 ) -> str:
     neighbor_type = station_lookup.get(neighbor_number)
+    if current_station.type.strip().lower() == "lift":
+        return "State_Infeeding"
+
     if neighbor_type is not None and _is_transfer_type(neighbor_type):
         neighbor_station = stations_by_number.get(neighbor_number)
         if neighbor_station is not None and neighbor_station.is_transfer:
@@ -682,6 +688,15 @@ def _rewrite_mes_logic(text: str, station: Station) -> str:
         text = re.sub(
             r"\[\s*MOV\(State_Outfeeding,[A-Za-z0-9_]+\.State\)\s*\];",
             lambda match: match.group(0).replace("[", "", 1).replace("]", "", 1),
+            text,
+        )
+
+        # Lift templates keep a nested branch around the outfeed MOV when MES is absent.
+        # Flatten that shape so the rung stays in the same branch form as the other
+        # generated lift rungs and import scanners do not choke on the nested no-op branch.
+        text = re.sub(
+            r"\[XIC\((?P<lift>[A-Za-z0-9_]+_Lift_Outfeed\.InRange)\)\s+\[MOV\(State_Outfeeding,(?P<station>[A-Za-z0-9_]+)\.State\)\s+\]\s+,XIO\(\1\)\s+MOV\(State_MovingMinOutfeed,\2\.State\)\s+\];",
+            lambda match: f"[XIC({match.group('lift')}) MOV(State_Outfeeding,{match.group('station')}.State) ,XIO({match.group('lift')}) MOV(State_MovingMinOutfeed,{match.group('station')}.State) ];",
             text,
         )
 

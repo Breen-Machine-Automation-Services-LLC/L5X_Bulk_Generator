@@ -1,0 +1,417 @@
+[config]
+output_dir = "output/Steam Cavity Line"
+
+[io_map]
+controller_name = "Wolf_SteamCavityLine"
+program_name = "MainProgram"
+routine_name = "IO_Map"
+output_stem = "IO_Map"
+template_l5x = "input/Hybrid Main Line/IO_Map_Main_Routine_RLL.L5X"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10200IM_P0.Inputs.A"
+dest = "CT310_Px_Transfer_Up"
+comment = "10200IM 0A | Zone 310 | XFER_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10200IM_P0.Inputs.B"
+dest = "CT310_Px_Transfer_Down"
+comment = "10200IM 0B | Zone 310 | XFER_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10200IM_P1.Inputs.A"
+dest = "CT330_Px_Transfer_Up"
+comment = "10200IM 1A | Zone 330 | XFER_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10200IM_P1.Inputs.B"
+dest = "CT330_Px_Transfer_Down"
+comment = "10200IM 1B | Zone 330 | XFER_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10200IM_P2.Inputs.A"
+dest = "CT340_Px_Transfer_Up"
+comment = "10200IM 2A | Zone 340 | XFER_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10200IM_P2.Inputs.B"
+dest = "CT340_Px_Transfer_Down"
+comment = "10200IM 2B | Zone 340 | XFER_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10200IM_P3.Inputs.A"
+dest = "Li350_Px_BladeStopUpstream_Up"
+comment = "10200IM 3A | Zone 350 | BS1_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10200IM_P3.Inputs.B"
+dest = "Li350_Px_BladeStopUpstream_Down"
+comment = "10200IM 3B | Zone 350 | BS1_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10200IM_P4.Inputs.A"
+dest = "Li350_Px_BladeStopDownstream_Up"
+comment = "10200IM 4A | Zone 350 | BS2_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10200IM_P4.Inputs.B"
+dest = "Li350_Px_BladeStopDownstream_Down"
+comment = "10200IM 4B | Zone 350 | BS2_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10700IM_P0.Inputs.A"
+dest = "CT360_Px_Transfer_Up"
+comment = "10700IM 0A | Zone 360 | XFER_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10700IM_P0.Inputs.B"
+dest = "CT360_Px_Transfer_Down"
+comment = "10700IM 0B | Zone 360 | XFER_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10700IM_P1.Inputs.A"
+dest = "CT380_Px_Transfer_Up"
+comment = "10700IM 1A | Zone 380 | XFER_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10700IM_P1.Inputs.B"
+dest = "CT380_Px_Transfer_Down"
+comment = "10700IM 1B | Zone 380 | XFER_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10700IM_P2.Inputs.A"
+dest = "Li390_Px_BladeStopUpstream_Up"
+comment = "10700IM 2A | Zone 390 | BS1_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10700IM_P2.Inputs.B"
+dest = "Li390_Px_BladeStopUpstream_Down"
+comment = "10700IM 2B | Zone 390 | BS1_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10700IM_P3.Inputs.A"
+dest = "Li390_Px_BladeStopDownstream_Up"
+comment = "10700IM 3A | Zone 390 | BS2_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_10700IM_P3.Inputs.B"
+dest = "Li390_Px_BladeStopDownstream_Down"
+comment = "10700IM 3B | Zone 390 | BS2_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P0.Inputs.A"
+dest = "CT410_Px_Transfer_Up"
+comment = "11200IM 0A | Zone 410 | XFER_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P0.Inputs.B"
+dest = "CT410_Px_Transfer_Down"
+comment = "11200IM 0B | Zone 410 | XFER_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P1.Inputs.A"
+dest = "Li411_Px_BladeStopUpstream_Up"
+comment = "11200IM 1A | Zone 411 | BS_UPSTREAM_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P1.Inputs.B"
+dest = "Li411_Px_BladeStopUpstream_Down"
+comment = "11200IM 1B | Zone 411 | BS_UPSTREAM_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P2.Inputs.A"
+dest = "CT430_Px_Transfer_Up"
+comment = "11200IM 2A | Zone 430 | XFER_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P2.Inputs.B"
+dest = "CT430_Px_Transfer_Down"
+comment = "11200IM 2B | Zone 430 | XFER_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P3.Inputs.A"
+dest = "Li431_Px_BladeStopUpstream_Up"
+comment = "11200IM 3A | Zone 431 | BS_UPSTREAM_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P3.Inputs.B"
+dest = "Li431_Px_BladeStopUpstream_Down"
+comment = "11200IM 3B | Zone 431 | BS_UPSTREAM_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P4.Inputs.A"
+dest = "CT440_Px_Transfer_Up"
+comment = "11200IM 4A | Zone 440 | XFER_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P4.Inputs.B"
+dest = "CT440_Px_Transfer_Down"
+comment = "11200IM 4B | Zone 440 | XFER_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P5.Inputs"
+dest = "ST459_PB_Release"
+comment = "11200IM 5 | Zone 459 | PB_RELEASE"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P6.Inputs.A"
+dest = "CT460_Px_Transfer_Up"
+comment = "11200IM 6A | Zone 460 | XFER_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11200IM_P6.Inputs.B"
+dest = "CT460_Px_Transfer_Down"
+comment = "11200IM 6B | Zone 460 | XFER_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P0.Inputs.A"
+dest = "Li470_Px_BladeStopUpstream_Up"
+comment = "11700IM 0A | Zone 470 | BS1_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P0.Inputs.B"
+dest = "Li470_Px_BladeStopUpstream_Down"
+comment = "11700IM 0B | Zone 470 | BS1_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P1.Inputs.A"
+dest = "Li470_Px_BladeStopDownstream_Up"
+comment = "11700IM 1A | Zone 470 | BS2_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P1.Inputs.B"
+dest = "Li470_Px_BladeStopDownstream_Down"
+comment = "11700IM 1B | Zone 470 | BS2_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P2.Inputs.A"
+dest = "Li490_Px_BladeStopUpstream_Up"
+comment = "11700IM 2A | Zone 490 | BS1_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P2.Inputs.B"
+dest = "Li490_Px_BladeStopUpstream_Down"
+comment = "11700IM 2B | Zone 490 | BS1_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P3.Inputs.A"
+dest = "Li490_Px_BladeStopDownstream_Up"
+comment = "11700IM 3A | Zone 490 | BS2_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P3.Inputs.B"
+dest = "Li490_Px_BladeStopDownstream_Down"
+comment = "11700IM 3B | Zone 490 | BS2_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P4.Inputs.A"
+dest = "CT510_Px_Transfer_Up"
+comment = "11700IM 4A | Zone 510 | XFER_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_11700IM_P4.Inputs.B"
+dest = "CT510_Px_Transfer_Down"
+comment = "11700IM 4B | Zone 510 | XFER_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12200IM_P0.Inputs.A"
+dest = "CT550_Px_Transfer_Up"
+comment = "12200IM 0A | Zone 550 | XFER_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12200IM_P0.Inputs.B"
+dest = "CT550_Px_Transfer_Down"
+comment = "12200IM 0B | Zone 550 | XFER_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12200IM_P1.Inputs.A"
+dest = "CT600_Px_Transfer_Up"
+comment = "12200IM 1A | Zone 600 | XFER_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12200IM_P1.Inputs.B"
+dest = "CT600_Px_Transfer_Down"
+comment = "12200IM 1B | Zone 600 | XFER_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12200IM_P2.Inputs.A"
+dest = "CT620_Px_Transfer_Up"
+comment = "12200IM 2A | Zone 620 | XFER_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12200IM_P2.Inputs.B"
+dest = "CT620_Px_Transfer_Down"
+comment = "12200IM 2B | Zone 620 | XFER_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12200IM_P3.Inputs.A"
+dest = "Li621_Px_BladeStopUpstream_Up"
+comment = "12200IM 3A | Zone 621 | BS_UPSTREAM_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12200IM_P3.Inputs.B"
+dest = "Li621_Px_BladeStopUpstream_Down"
+comment = "12200IM 3B | Zone 621 | BS_UPSTREAM_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12300IM_P0.Inputs.A"
+dest = "CT640_Px_Transfer_Up"
+comment = "12300IM 0A | Zone 640 | XFER_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12300IM_P0.Inputs.B"
+dest = "CT640_Px_Transfer_Down"
+comment = "12300IM 0B | Zone 640 | XFER_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12300IM_P1.Inputs.A"
+dest = "Li641_Px_BladeStopUpstream_Up"
+comment = "12300IM 1A | Zone 641 | BS_UPSTREAM_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12300IM_P1.Inputs.B"
+dest = "Li641_Px_BladeStopUpstream_Down"
+comment = "12300IM 1B | Zone 641 | BS_UPSTREAM_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12300IM_P2.Inputs.A"
+dest = "CT660_Px_Transfer_Up"
+comment = "12300IM 2A | Zone 660 | XFER_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12300IM_P2.Inputs.B"
+dest = "CT660_Px_Transfer_Down"
+comment = "12300IM 2B | Zone 660 | XFER_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12300IM_P3.Inputs.A"
+dest = "Li661_Px_BladeStopUpstream_Up"
+comment = "12300IM 3A | Zone 661 | BS_UPSTREAM_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12300IM_P3.Inputs.B"
+dest = "Li661_Px_BladeStopUpstream_Down"
+comment = "12300IM 3B | Zone 661 | BS_UPSTREAM_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P0.Inputs.A"
+dest = "Li670_Px_BladeStopUpstream_Up"
+comment = "12700IM 0A | Zone 670 | BS1_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P0.Inputs.B"
+dest = "Li670_Px_BladeStopUpstream_Down"
+comment = "12700IM 0B | Zone 670 | BS1_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P1.Inputs.A"
+dest = "Li670_Px_BladeStopDownstream_Up"
+comment = "12700IM 1A | Zone 670 | BS2_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P1.Inputs.B"
+dest = "Li670_Px_BladeStopDownstream_Down"
+comment = "12700IM 1B | Zone 670 | BS2_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P2.Inputs.A"
+dest = "CT700_Px_Transfer_Up"
+comment = "12700IM 2A | Zone 700 | XFER_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P2.Inputs.B"
+dest = "CT700_Px_Transfer_Down"
+comment = "12700IM 2B | Zone 700 | XFER_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P3.Inputs"
+dest = "ST701_PB_Release"
+comment = "12700IM 3 | Zone 701 | PB_RELEASE"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P4.Inputs.A"
+dest = "CT750_Px_Transfer_Up"
+comment = "12700IM 4A | Zone 750 | XFER_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P4.Inputs.B"
+dest = "CT750_Px_Transfer_Down"
+comment = "12700IM 4B | Zone 750 | XFER_DOWN"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P5.Inputs.A"
+dest = "CT790_Px_Transfer_Up"
+comment = "12700IM 5A | Zone 790 | XFER_UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "IOL_12700IM_P5.Inputs.B"
+dest = "CT790_Px_Transfer_Down"
+comment = "12700IM 5B | Zone 790 | XFER_DOWN"

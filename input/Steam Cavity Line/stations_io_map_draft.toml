@@ -1273,3 +1273,453 @@ dest = "ST800_PE_RE"
 dest_instruction = "OTE"
 comment = "Fill from electrical drawing for ST800_PE_RE"
 
+# Steam Cavity BNI0091 output rows
+
+[[io_map.rungs]]
+enabled = true
+source = "CT310_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "_10100IOL.Outputs.0"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 101 0A | Zone 310 | XFER SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li350_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "_10100IOL.Outputs.2"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 101 1 | Zone 350 | LIFT SOL UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT330_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "_10100IOL.Outputs.4"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 101 2A | Zone 330 | XFER SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT340_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "_10100IOL.Outputs.5"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 101 2B | Zone 340 | XFER SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li350_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "_10100IOL.Outputs.6"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 101 3A | Zone 350 | LIFT SOL DOWN 1"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li350_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "_10100IOL.Outputs.7"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 101 3B | Zone 350 | LIFT SOL DOWN 2"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li350_Sol_BladeStopUpstream"
+source_instruction = "XIC"
+dest = "_10100IOL.Outputs.10"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 101 5A | Zone 350 | BS1 SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li350_Sol_BladeStopDownstream"
+source_instruction = "XIC"
+dest = "_10100IOL.Outputs.11"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 101 5B | Zone 350 | BS2 SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT360_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "_10600IOL.Outputs.0"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 106 0A | Zone 360 | XFER SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT380_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "_10600IOL.Outputs.1"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 106 0B | Zone 380 | XFER SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li390_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "_10600IOL.Outputs.2"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 106 1 | Zone 390 | LIFT SOL UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li390_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "_10600IOL.Outputs.6"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 106 3A | Zone 390 | LIFT SOL DOWN 1"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li390_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "_10600IOL.Outputs.7"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 106 3B | Zone 390 | LIFT SOL DOWN 2"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li390_Sol_BladeStopUpstream"
+source_instruction = "XIC"
+dest = "_10600IOL.Outputs.10"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 106 5A | Zone 390 | BS1 SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li390_Sol_BladeStopDownstream"
+source_instruction = "XIC"
+dest = "_10600IOL.Outputs.11"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 106 5B | Zone 390 | BS2 SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT410_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "_11100IOL.Outputs.0"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 111 0A | Zone 410 | XFER SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li411_Sol_BladeStop"
+source_instruction = "XIC"
+dest = "_11100IOL.Outputs.1"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 111 0B | Zone 411 | BS SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT430_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "_11100IOL.Outputs.2"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 111 1A | Zone 430 | XFER SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li431_Sol_BladeStop"
+source_instruction = "XIC"
+dest = "_11100IOL.Outputs.3"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 111 1B | Zone 431 | BS SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li411_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "_11100IOL.Outputs.4"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 111 2 | Zone 411 | LIFT SOL UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li431_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "_11100IOL.Outputs.6"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 111 3 | Zone 431 | LIFT SOL UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li411_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "_11100IOL.Outputs.8"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 111 4A | Zone 411 | LIFT SOL DOWN 1"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li411_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "_11100IOL.Outputs.9"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 111 4B | Zone 411 | LIFT SOL DOWN 2"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li431_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "_11100IOL.Outputs.10"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 111 5A | Zone 431 | LIFT SOL DOWN 1"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li431_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "_11100IOL.Outputs.11"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 111 5B | Zone 431 | LIFT SOL DOWN 2"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT440_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "_11100IOL.Outputs.12"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 111 6A | Zone 440 | XFER SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT460_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "_11100IOL.Outputs.13"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 111 6B | Zone 460 | XFER SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li470_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "_11600IOL.Outputs.0"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 116 0 | Zone 470 | LIFT SOL UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li490_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "_11600IOL.Outputs.2"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 116 1 | Zone 490 | LIFT SOL UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li470_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "_11600IOL.Outputs.4"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 116 2A | Zone 470 | LIFT SOL DOWN 1"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li470_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "_11600IOL.Outputs.5"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 116 2B | Zone 470 | LIFT SOL DOWN 2"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li490_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "_11600IOL.Outputs.6"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 116 3A | Zone 490 | LIFT SOL DOWN 1"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li490_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "_11600IOL.Outputs.7"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 116 3B | Zone 490 | LIFT SOL DOWN 2"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li470_Sol_BladeStopUpstream"
+source_instruction = "XIC"
+dest = "_11600IOL.Outputs.8"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 116 4A | Zone 470 | BS1 SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li470_Sol_BladeStopDownstream"
+source_instruction = "XIC"
+dest = "_11600IOL.Outputs.9"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 116 4B | Zone 470 | BS2 SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li490_Sol_BladeStopUpstream"
+source_instruction = "XIC"
+dest = "_11600IOL.Outputs.10"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 116 5A | Zone 490 | BS1 SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li490_Sol_BladeStopDownstream"
+source_instruction = "XIC"
+dest = "_11600IOL.Outputs.11"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 116 5B | Zone 490 | BS2 SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT510_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "_11600IOL.Outputs.12"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 116 6A | Zone 510 | XFER SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT550_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "_12100IOL.Outputs.0"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 121 0A | Zone 550 | XFER SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT600_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "_12100IOL.Outputs.1"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 121 0B | Zone 600 | XFER SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT620_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "_12100IOL.Outputs.2"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 121 1A | Zone 620 | XFER SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li621_Sol_BladeStop"
+source_instruction = "XIC"
+dest = "_12100IOL.Outputs.3"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 121 1B | Zone 621 | BS SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT640_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "_12100IOL.Outputs.4"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 121 2A | Zone 640 | XFER SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li640_Sol_BladeStop"
+source_instruction = "XIC"
+dest = "_12100IOL.Outputs.5"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 121 2B | Zone 640 | BS SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li641_Sol_BladeStop"
+source_instruction = "XIC"
+dest = "_12100IOL.Outputs.6"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 121 3A | Zone 641 | BS SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li661_Sol_BladeStop"
+source_instruction = "XIC"
+dest = "_12100IOL.Outputs.7"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 121 3B | Zone 661 | BS SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT660_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "_12100IOL.Outputs.8"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 121 4A | Zone 660 | XFER SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li660_Sol_BladeStop"
+source_instruction = "XIC"
+dest = "_12100IOL.Outputs.9"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 121 4B | Zone 660 | BS SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li670_Lift_Up_Valves"
+source_instruction = "XIC"
+dest = "_12600IOL.Outputs.0"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 126 0 | Zone 670 | LIFT SOL UP"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT700_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "_12600IOL.Outputs.2"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 126 1A | Zone 700 | XFER SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT750_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "_12600IOL.Outputs.3"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 126 1B | Zone 750 | XFER SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li670_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "_12600IOL.Outputs.4"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 126 2A | Zone 670 | LIFT SOL DOWN 1"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li670_Lift_Down_Valves"
+source_instruction = "XIC"
+dest = "_12600IOL.Outputs.5"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 126 2B | Zone 670 | LIFT SOL DOWN 2"
+
+[[io_map.rungs]]
+enabled = true
+source = "CT790_Sol_Transfer_Up"
+source_instruction = "XIC"
+dest = "_12600IOL.Outputs.6"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 126 3A | Zone 790 | XFER SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li670_Sol_BladeStopUpstream"
+source_instruction = "XIC"
+dest = "_12600IOL.Outputs.8"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 126 4A | Zone 670 | BS1 SOL"
+
+[[io_map.rungs]]
+enabled = true
+source = "Li670_Sol_BladeStopDownstream"
+source_instruction = "XIC"
+dest = "_12600IOL.Outputs.9"
+dest_instruction = "OTE"
+comment = "BNI0091 output | IO 126 4B | Zone 670 | BS2 SOL"
+

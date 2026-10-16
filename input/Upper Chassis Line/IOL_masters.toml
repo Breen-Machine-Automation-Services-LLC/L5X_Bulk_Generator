@@ -1,0 +1,86 @@
+[meta]
+source = "Derived from Upper Chassis Line BNI00HM and BNI0091 notes"
+line = "Upper Chassis Line"
+
+[config]
+output_dir = "output/Upper Chassis Line"
+
+[[masters]]
+hm = 100
+master_type = "BNI00HM"
+master_module = "10000HM"
+iol_master_tag = "_10000IOL"
+iol_port_prefix = "_10000IOL_P"
+bni0091_modules = ["10100OM"]
+
+[[masters.connections]]
+hm = 100
+port = 0
+block_start_port = 0
+target = "101"
+target_type = "BNI0091"
+target_module = "10100OM"
+
+[[masters]]
+hm = 105
+master_type = "BNI00HM"
+master_module = "10500HM"
+iol_master_tag = "_10500IOL"
+iol_port_prefix = "_10500IOL_P"
+bni0091_modules = ["10600OM"]
+
+[[masters.connections]]
+hm = 105
+port = 0
+block_start_port = 0
+target = "106"
+target_type = "BNI0091"
+target_module = "10600OM"
+
+[[masters]]
+hm = 110
+master_type = "BNI00HM"
+master_module = "11000HM"
+iol_master_tag = "_11000IOL"
+iol_port_prefix = "_11000IOL_P"
+bni0091_modules = ["11100OM"]
+
+[[masters.connections]]
+hm = 110
+port = 0
+block_start_port = 0
+target = "111"
+target_type = "BNI0091"
+target_module = "11100OM"
+
+[[masters]]
+hm = 115
+master_type = "BNI00HM"
+master_module = "11500HM"
+iol_master_tag = "_11500IOL"
+iol_port_prefix = "_11500IOL_P"
+bni0091_modules = ["11600OM"]
+
+[[masters.connections]]
+hm = 115
+port = 0
+block_start_port = 0
+target = "116"
+target_type = "BNI0091"
+target_module = "11600OM"
+
+[[masters]]
+hm = 120
+master_type = "BNI00HM"
+master_module = "12000HM"
+iol_master_tag = "_12000IOL"
+iol_port_prefix = "_12000IOL_P"
+bni0091_modules = ["12100OM"]
+
+[[masters.connections]]
+hm = 120
+port = 0
+block_start_port = 0
+target = "121"
+target_type = "BNI0091"
+target_module = "12100OM"

@@ -1,0 +1,460 @@
+[meta]
+source = "Upper Chassis Line BNI0091 outputs"
+line = "Upper Chassis Line"
+
+[config]
+output_dir = "output/Upper Chassis Line"
+
+[balluff]
+
+[[balluff.blocks]]
+hm = 100
+module = "10100OM"
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = "A"
+point_id = "0A"
+zone = 4700
+function = "XFER_SOL"
+source_tag = "IOL_10100OM_P0.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = "B"
+point_id = "0B"
+zone = 4700
+function = "XFER_SOL"
+source_tag = "IOL_10100OM_P0.Outputs.B"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = ""
+point_id = "1"
+zone = 4730
+function = "LIFT_SOL_UP"
+source_tag = "IOL_10100OM_P1.Outputs"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "A"
+point_id = "2A"
+zone = 4730
+function = "BS1_SOL"
+source_tag = "IOL_10100OM_P2.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "B"
+point_id = "2B"
+zone = 4730
+function = "BS2_SOL"
+source_tag = "IOL_10100OM_P2.Outputs.B"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "A"
+point_id = "3A"
+zone = 4730
+function = "LIFT_SOL_DOWN_1"
+source_tag = "IOL_10100OM_P3.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "B"
+point_id = "3B"
+zone = 4730
+function = "LIFT_SOL_DOWN_2"
+source_tag = "IOL_10100OM_P3.Outputs.B"
+
+[[balluff.blocks.outputs]]
+port = 4
+channel = ""
+point_id = "4"
+zone = 4760
+function = "LIFT_SOL_UP"
+source_tag = "IOL_10100OM_P4.Outputs"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "A"
+point_id = "5A"
+zone = 4760
+function = "BS1_SOL"
+source_tag = "IOL_10100OM_P5.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "B"
+point_id = "5B"
+zone = 4760
+function = "BS2_SOL"
+source_tag = "IOL_10100OM_P5.Outputs.B"
+
+[[balluff.blocks.outputs]]
+port = 6
+channel = "A"
+point_id = "6A"
+zone = 4760
+function = "LIFT_SOL_DOWN_1"
+source_tag = "IOL_10100OM_P6.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 6
+channel = "B"
+point_id = "6B"
+zone = 4760
+function = "LIFT_SOL_DOWN_2"
+source_tag = "IOL_10100OM_P6.Outputs.B"
+
+[[balluff.blocks]]
+hm = 105
+module = "10600OM"
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = ""
+point_id = "0"
+zone = 4780
+function = "LIFT_SOL_UP"
+source_tag = "IOL_10600OM_P0.Outputs"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = ""
+point_id = "1"
+zone = 4800
+function = "LIFT_SOL_UP"
+source_tag = "IOL_10600OM_P1.Outputs"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "A"
+point_id = "2A"
+zone = 4780
+function = "LIFT_SOL_DOWN_1"
+source_tag = "IOL_10600OM_P2.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "B"
+point_id = "2B"
+zone = 4780
+function = "LIFT_SOL_DOWN_2"
+source_tag = "IOL_10600OM_P2.Outputs.B"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "A"
+point_id = "3A"
+zone = 4800
+function = "LIFT_SOL_DOWN_1"
+source_tag = "IOL_10600OM_P3.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "B"
+point_id = "3B"
+zone = 4800
+function = "LIFT_SOL_DOWN_2"
+source_tag = "IOL_10600OM_P3.Outputs.B"
+
+[[balluff.blocks.outputs]]
+port = 4
+channel = "A"
+point_id = "4A"
+zone = 4780
+function = "BS1_SOL"
+source_tag = "IOL_10600OM_P4.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 4
+channel = "B"
+point_id = "4B"
+zone = 4780
+function = "BS2_SOL"
+source_tag = "IOL_10600OM_P4.Outputs.B"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "A"
+point_id = "5A"
+zone = 4800
+function = "BS1_SOL"
+source_tag = "IOL_10600OM_P5.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "B"
+point_id = "5B"
+zone = 4800
+function = "BS2_SOL"
+source_tag = "IOL_10600OM_P5.Outputs.B"
+
+[[balluff.blocks]]
+hm = 110
+module = "11100OM"
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = ""
+point_id = "0"
+zone = 4830
+function = "LIFT_SOL_UP"
+source_tag = "IOL_11100OM_P0.Outputs"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = ""
+point_id = "1"
+zone = 4860
+function = "LIFT_SOL_UP"
+source_tag = "IOL_11100OM_P1.Outputs"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "A"
+point_id = "2A"
+zone = 4830
+function = "LIFT_SOL_DOWN_1"
+source_tag = "IOL_11100OM_P2.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "B"
+point_id = "2B"
+zone = 4830
+function = "LIFT_SOL_DOWN_2"
+source_tag = "IOL_11100OM_P2.Outputs.B"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "A"
+point_id = "3A"
+zone = 4860
+function = "LIFT_SOL_DOWN_1"
+source_tag = "IOL_11100OM_P3.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "B"
+point_id = "3B"
+zone = 4860
+function = "LIFT_SOL_DOWN_2"
+source_tag = "IOL_11100OM_P3.Outputs.B"
+
+[[balluff.blocks.outputs]]
+port = 4
+channel = "A"
+point_id = "4A"
+zone = 4830
+function = "BS1_SOL"
+source_tag = "IOL_11100OM_P4.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 4
+channel = "B"
+point_id = "4B"
+zone = 4830
+function = "BS2_SOL"
+source_tag = "IOL_11100OM_P4.Outputs.B"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "A"
+point_id = "5A"
+zone = 4860
+function = "BS1_SOL"
+source_tag = "IOL_11100OM_P5.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "B"
+point_id = "5B"
+zone = 4860
+function = "BS2_SOL"
+source_tag = "IOL_11100OM_P5.Outputs.B"
+
+[[balluff.blocks.outputs]]
+port = 6
+channel = "A"
+point_id = "6A"
+zone = 4840
+function = "XFER_SOL"
+source_tag = "IOL_11100OM_P6.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 6
+channel = "B"
+point_id = "6B"
+zone = 4850
+function = "XFER_SOL"
+source_tag = "IOL_11100OM_P6.Outputs.B"
+
+[[balluff.blocks]]
+hm = 115
+module = "11600OM"
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = "A"
+point_id = "0A"
+zone = 4260
+function = "XFER_SOL"
+source_tag = "IOL_11600OM_P0.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = "B"
+point_id = "0B"
+zone = 4280
+function = "XFER_SOL"
+source_tag = "IOL_11600OM_P0.Outputs.B"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = "A"
+point_id = "1A"
+zone = 4281
+function = "OMTEC_STRIPS_SOL"
+source_tag = "IOL_11600OM_P1.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = "B"
+point_id = "1B"
+zone = 4281
+function = "PULLER_SOL"
+source_tag = "IOL_11600OM_P1.Outputs.B"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "A"
+point_id = "2A"
+zone = 4300
+function = "XFER_SOL"
+source_tag = "IOL_11600OM_P2.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "B"
+point_id = "2B"
+zone = 4320
+function = "XFER_SOL"
+source_tag = "IOL_11600OM_P2.Outputs.B"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "A"
+point_id = "3A"
+zone = 4301
+function = "OMTEC"
+source_tag = "IOL_11600OM_P3.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "B"
+point_id = "3B"
+zone = 4301
+function = "PULLER"
+source_tag = "IOL_11600OM_P3.Outputs.B"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "A"
+point_id = "5A"
+zone = 4321
+function = "OMTEC"
+source_tag = "IOL_11600OM_P5.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "B"
+point_id = "5B"
+zone = 4321
+function = "PULLER"
+source_tag = "IOL_11600OM_P5.Outputs.B"
+
+[[balluff.blocks]]
+hm = 120
+module = "12100OM"
+
+[[balluff.blocks.outputs]]
+port = 0
+channel = ""
+point_id = "0"
+zone = 4350
+function = "LIFT_SOL_UP"
+source_tag = "IOL_12100OM_P0.Outputs"
+
+[[balluff.blocks.outputs]]
+port = 1
+channel = ""
+point_id = "1"
+zone = 4380
+function = "LIFT_SOL_UP"
+source_tag = "IOL_12100OM_P1.Outputs"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "A"
+point_id = "2A"
+zone = 4350
+function = "LIFT_SOL_DOWN_1"
+source_tag = "IOL_12100OM_P2.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 2
+channel = "B"
+point_id = "2B"
+zone = 4350
+function = "LIFT_SOL_DOWN_2"
+source_tag = "IOL_12100OM_P2.Outputs.B"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "A"
+point_id = "3A"
+zone = 4380
+function = "LIFT_SOL_DOWN_1"
+source_tag = "IOL_12100OM_P3.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 3
+channel = "B"
+point_id = "3B"
+zone = 4380
+function = "LIFT_SOL_DOWN_2"
+source_tag = "IOL_12100OM_P3.Outputs.B"
+
+[[balluff.blocks.outputs]]
+port = 4
+channel = "A"
+point_id = "4A"
+zone = 4350
+function = "BS1_SOL"
+source_tag = "IOL_12100OM_P4.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 4
+channel = "B"
+point_id = "4B"
+zone = 4350
+function = "BS2_SOL"
+source_tag = "IOL_12100OM_P4.Outputs.B"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "A"
+point_id = "5A"
+zone = 4380
+function = "BS1_SOL"
+source_tag = "IOL_12100OM_P5.Outputs.A"
+
+[[balluff.blocks.outputs]]
+port = 5
+channel = "B"
+point_id = "5B"
+zone = 4380
+function = "BS2_SOL"
+source_tag = "IOL_12100OM_P5.Outputs.B"

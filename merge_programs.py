@@ -47,7 +47,7 @@ INPUT_GLOB = "Sta*.L5X"
 # Optional station-number and filename-type filters.
 STATION_MIN: int | None = None
 STATION_MAX: int | None = None
-STATION_TYPE_POSTFIX: str | None = "None"  # e.g. "Transfer" for Sta####_Transfer.L5X
+STATION_TYPE_POSTFIX: str | None = None  # e.g. "Transfer" for Sta####_Transfer.L5X
 
 # Tag for output filename when filter is active (purely cosmetic)
 OUTPUT_TAG: str = "Workstation"  # set to "" to omit
@@ -107,6 +107,10 @@ CONTAINERS: list[tuple[str, str]] = [
     (
         "/RSLogix5000Content/Controller/AddOnInstructionDefinitions",
         "AddOnInstructionDefinition",
+    ),
+    (
+        "/RSLogix5000Content/Controller/AddOnInstructionDefinitions",
+        "EncodedData",
     ),
     ("/RSLogix5000Content/Controller/Tags", "Tag"),
 ]
@@ -226,6 +230,9 @@ def merge(base_path: Path, sources: list[Path], output_path: Path) -> dict:
     parser = etree.XMLParser(remove_blank_text=False, huge_tree=True, strip_cdata=False)
     base_tree = etree.parse(str(base_path), parser)
     base_root = base_tree.getroot()
+
+    # Preserve the Program export shape so Studio 5000 can import it through
+    # the Program import path.
 
     # Index existing names per controller-level container so we don't
     # double-add what's already in the base file.
@@ -374,7 +381,7 @@ def _in_filter(path: Path) -> bool:
         return False
     if STATION_MAX is not None and n > STATION_MAX:
         return False
-    if STATION_TYPE_POSTFIX and not path.stem.endswith(f"_{STATION_TYPE_POSTFIX}"):
+    if STATION_TYPE_POSTFIX is not None and not path.stem.endswith(f"_{STATION_TYPE_POSTFIX}"):
         return False
     return True
 
@@ -393,7 +400,7 @@ def main(stations_toml: Path) -> int:
         return 1
 
     # Apply optional station-number filter.
-    filter_active = STATION_MIN is not None or STATION_MAX is not None or bool(STATION_TYPE_POSTFIX)
+    filter_active = STATION_MIN is not None or STATION_MAX is not None or STATION_TYPE_POSTFIX is not None
     files = [f for f in all_matches if _in_filter(f)] if filter_active else all_matches
     if not files:
         print("ERROR: no files match the configured station filters", file=sys.stderr)

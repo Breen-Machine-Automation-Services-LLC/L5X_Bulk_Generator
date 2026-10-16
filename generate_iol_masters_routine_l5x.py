@@ -117,10 +117,8 @@ def _load_mapping_rows(data: dict[str, Any]) -> list[MappingRow]:
             state = str(point.get("state", "")).strip()
             state_label = state if state else "N/A"
 
-            comment = (
-                f"IOL masters input | IO {io_group} {module} {point_id} | "
-                f"Zone {zone} | {device} {state_label}"
-            )
+            device_label = device if not state else f"{device}_{state_label}"
+            comment = f"{module} {point_id} | Zone {zone} | {device_label}"
 
             rows.append(MappingRow(source=source, dest=dest, comment=comment))
 

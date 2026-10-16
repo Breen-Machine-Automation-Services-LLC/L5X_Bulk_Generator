@@ -286,6 +286,16 @@ def _replace_rungs(
 
 
 def _replace_master_tags(root: etree._Element, masters: list[MasterConfig]) -> None:
+    requested_names = {master.aoi_tag for master in masters} | {master.mapped_tag for master in masters}
+    requested_names |= {f"{master.aoi_tag}_P{port}" for master in masters for port in range(1, 9)}
+
+    modules_nodes = root.xpath("//Modules")
+    for modules_node in modules_nodes:
+        for module in list(modules_node.findall("Module")):
+            name = module.get("Name", "")
+            if re.fullmatch(r"_\d{5}IOL", name) and name not in requested_names:
+                modules_node.remove(module)
+
     tags_nodes = root.xpath("//Controller/Tags")
     if not tags_nodes:
         raise RuntimeError("Could not find <Tags> section in template L5X.")
@@ -301,8 +311,12 @@ def _replace_master_tags(root: etree._Element, masters: list[MasterConfig]) -> N
             mapped_proto = tag
 
     if aoi_proto is None or mapped_proto is None:
-        # Finalized template exports can already contain concrete _#####IOL tags
-        # instead of placeholder prototypes. In that case, keep template tags as-is.
+        for tag in list(tags_node):
+            name = tag.get("Name", "")
+            if not re.fullmatch(r"_\d{5}IOL(?:_Mapped_Data|_P\d+)?", name):
+                continue
+            if name not in requested_names:
+                tags_node.remove(tag)
         return
 
     aoi_index = list(tags_node).index(aoi_proto)
@@ -322,6 +336,13 @@ def _replace_master_tags(root: etree._Element, masters: list[MasterConfig]) -> N
         insert_at += 1
         tags_node.insert(insert_at, mapped_tag)
         insert_at += 1
+
+    for tag in list(tags_node):
+        name = tag.get("Name", "")
+        if not re.fullmatch(r"_\d{5}IOL(?:_Mapped_Data|_P\d+)?", name):
+            continue
+        if name not in requested_names:
+            tags_node.remove(tag)
 
 
 def generate_from_template(

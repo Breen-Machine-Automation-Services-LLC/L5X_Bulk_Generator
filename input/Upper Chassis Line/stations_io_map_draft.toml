@@ -6,582 +6,390 @@ controller_name = "Wolf_UpperChassisLine"
 program_name = "MainProgram"
 routine_name = "IO_Map"
 output_stem = "IO_Map"
+template_l5x = "input/Hybrid Main Line/IO_Map_Main_Routine_RLL.L5X"
 
 # Auto-generated draft scaffold. Fill source tags from the official IO list, then set enabled = true.
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_10200IM_P0.Inputs.A"
 source_instruction = "XIC"
-dest = "CT4700_FE_Conv"
+dest = "CT4700_Px_Transfer_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for CT4700_FE_Conv"
+comment = "BNI005L input | IO 102 0A | Zone 4700 | XFER UP"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_10200IM_P0.Inputs.B"
 source_instruction = "XIC"
-dest = "CT4700_RE_Conv"
+dest = "CT4700_Px_Transfer_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for CT4700_RE_Conv"
+comment = "BNI005L input | IO 102 0B | Zone 4700 | XFER DOWN"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_10200IM_P1.Inputs.A"
 source_instruction = "XIC"
-dest = "CT4700_FE_Chain"
+dest = "Li4730_Px_BladeStopUpstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for CT4700_FE_Chain"
+comment = "BNI005L input | IO 102 1A | Zone 4730 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_10200IM_P1.Inputs.B"
 source_instruction = "XIC"
-dest = "CT4700_RE_Chain"
+dest = "Li4730_Px_BladeStopUpstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for CT4700_RE_Chain"
+comment = "BNI005L input | IO 102 1B | Zone 4730 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_10200IM_P2.Inputs.A"
 source_instruction = "XIC"
-dest = "ST4710_PE_FE"
+dest = "Li4730_Px_BladeStopDownstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4710_PE_FE"
+comment = "BNI005L input | IO 102 2A | Zone 4730 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_10200IM_P2.Inputs.B"
 source_instruction = "XIC"
-dest = "ST4710_PE_RE"
+dest = "Li4730_Px_BladeStopDownstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4710_PE_RE"
+comment = "BNI005L input | IO 102 2B | Zone 4730 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_10200IM_P3.Inputs.A"
 source_instruction = "XIC"
-dest = "ST4720_PE_FE"
+dest = "Li4760_Px_BladeStopUpstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4720_PE_FE"
+comment = "BNI005L input | IO 102 3A | Zone 4760 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_10200IM_P3.Inputs.B"
 source_instruction = "XIC"
-dest = "ST4720_PE_RE"
+dest = "Li4760_Px_BladeStopUpstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4720_PE_RE"
+comment = "BNI005L input | IO 102 3B | Zone 4760 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_10200IM_P4.Inputs.A"
 source_instruction = "XIC"
-dest = "Li4730_PE_FE"
+dest = "Li4760_Px_BladeStopDownstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4730_PE_FE"
+comment = "BNI005L input | IO 102 4A | Zone 4760 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_10200IM_P4.Inputs.B"
 source_instruction = "XIC"
-dest = "Li4730_PE_RE"
+dest = "Li4760_Px_BladeStopDownstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4730_PE_RE"
+comment = "BNI005L input | IO 102 4B | Zone 4760 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_10700IM_P0.Inputs.A"
 source_instruction = "XIC"
-dest = "ST4740_PE_FE"
+dest = "Li4780_Px_BladeStopUpstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4740_PE_FE"
+comment = "BNI005L input | IO 107 0A | Zone 4780 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_10700IM_P0.Inputs.B"
 source_instruction = "XIC"
-dest = "ST4740_PE_RE"
+dest = "Li4780_Px_BladeStopUpstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4740_PE_RE"
+comment = "BNI005L input | IO 107 0B | Zone 4780 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_10700IM_P1.Inputs.A"
 source_instruction = "XIC"
-dest = "ST4750_PE_FE"
+dest = "Li4780_Px_BladeStopDownstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4750_PE_FE"
+comment = "BNI005L input | IO 107 1A | Zone 4780 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_10700IM_P1.Inputs.B"
 source_instruction = "XIC"
-dest = "ST4750_PE_RE"
+dest = "Li4780_Px_BladeStopDownstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4750_PE_RE"
+comment = "BNI005L input | IO 107 1B | Zone 4780 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_10700IM_P2.Inputs.A"
 source_instruction = "XIC"
-dest = "Li4760_PE_FE"
+dest = "Li4800_Px_BladeStopUpstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4760_PE_FE"
+comment = "BNI005L input | IO 107 2A | Zone 4800 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_10700IM_P2.Inputs.B"
 source_instruction = "XIC"
-dest = "Li4760_PE_RE"
+dest = "Li4800_Px_BladeStopUpstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4760_PE_RE"
+comment = "BNI005L input | IO 107 2B | Zone 4800 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_10700IM_P3.Inputs.A"
 source_instruction = "XIC"
-dest = "ST4770_PE_FE"
+dest = "Li4800_Px_BladeStopDownstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4770_PE_FE"
+comment = "BNI005L input | IO 107 3A | Zone 4800 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_10700IM_P3.Inputs.B"
 source_instruction = "XIC"
-dest = "ST4770_PE_RE"
+dest = "Li4800_Px_BladeStopDownstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4770_PE_RE"
+comment = "BNI005L input | IO 107 3B | Zone 4800 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11200IM_P0.Inputs.A"
 source_instruction = "XIC"
-dest = "Li4780_PE_FE"
+dest = "Li4830_Px_BladeStopUpstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4780_PE_FE"
+comment = "BNI005L input | IO 112 0A | Zone 4830 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11200IM_P0.Inputs.B"
 source_instruction = "XIC"
-dest = "Li4780_PE_RE"
+dest = "Li4830_Px_BladeStopUpstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4780_PE_RE"
+comment = "BNI005L input | IO 112 0B | Zone 4830 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11200IM_P1.Inputs.A"
 source_instruction = "XIC"
-dest = "ST4790_PE_FE"
+dest = "Li4830_Px_BladeStopDownstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4790_PE_FE"
+comment = "BNI005L input | IO 112 1A | Zone 4830 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11200IM_P1.Inputs.B"
 source_instruction = "XIC"
-dest = "ST4790_PE_RE"
+dest = "Li4830_Px_BladeStopDownstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4790_PE_RE"
+comment = "BNI005L input | IO 112 1B | Zone 4830 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11200IM_P2.Inputs.A"
 source_instruction = "XIC"
-dest = "Li4800_PE_FE"
+dest = "CT4840_Px_Transfer_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4800_PE_FE"
+comment = "BNI005L input | IO 112 2A | Zone 4840 | XFER UP"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11200IM_P2.Inputs.B"
 source_instruction = "XIC"
-dest = "Li4800_PE_RE"
+dest = "CT4840_Px_Transfer_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4800_PE_RE"
+comment = "BNI005L input | IO 112 2B | Zone 4840 | XFER DOWN"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11200IM_P3.Inputs.A"
 source_instruction = "XIC"
-dest = "ST4810_PE_FE"
+dest = "CT4850_Px_Transfer_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4810_PE_FE"
+comment = "BNI005L input | IO 112 3A | Zone 4850 | XFER UP"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11200IM_P3.Inputs.B"
 source_instruction = "XIC"
-dest = "ST4810_PE_RE"
+dest = "CT4850_Px_Transfer_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4810_PE_RE"
+comment = "BNI005L input | IO 112 3B | Zone 4850 | XFER DOWN"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11200IM_P4.Inputs.A"
 source_instruction = "XIC"
-dest = "ST4820_PE_FE"
+dest = "Li4860_Px_BladeStopUpstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4820_PE_FE"
+comment = "BNI005L input | IO 112 4A | Zone 4860 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11200IM_P4.Inputs.B"
 source_instruction = "XIC"
-dest = "ST4820_PE_RE"
+dest = "Li4860_Px_BladeStopUpstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4820_PE_RE"
+comment = "BNI005L input | IO 112 4B | Zone 4860 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11200IM_P5.Inputs.A"
 source_instruction = "XIC"
-dest = "Li4830_PE_FE"
+dest = "Li4860_Px_BladeStopDownstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4830_PE_FE"
+comment = "BNI005L input | IO 112 5A | Zone 4860 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11200IM_P5.Inputs.B"
 source_instruction = "XIC"
-dest = "Li4830_PE_RE"
+dest = "Li4860_Px_BladeStopDownstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4830_PE_RE"
+comment = "BNI005L input | IO 112 5B | Zone 4860 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11700IM_P0.Inputs.A"
 source_instruction = "XIC"
-dest = "CT4840_FE_Conv"
+dest = "Li4890_Px_BladeStopUpstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for CT4840_FE_Conv"
+comment = "BNI005L input | IO 117 0A | Zone 4890 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11700IM_P0.Inputs.B"
 source_instruction = "XIC"
-dest = "CT4840_RE_Conv"
+dest = "Li4890_Px_BladeStopUpstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for CT4840_RE_Conv"
+comment = "BNI005L input | IO 117 0B | Zone 4890 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11700IM_P1.Inputs.A"
 source_instruction = "XIC"
-dest = "CT4840_FE_Chain"
+dest = "Li4890_Px_BladeStopDownstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for CT4840_FE_Chain"
+comment = "BNI005L input | IO 117 1A | Zone 4890 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11700IM_P1.Inputs.B"
 source_instruction = "XIC"
-dest = "CT4840_RE_Chain"
+dest = "Li4890_Px_BladeStopDownstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for CT4840_RE_Chain"
+comment = "BNI005L input | IO 117 1B | Zone 4890 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11700IM_P2.Inputs.A"
 source_instruction = "XIC"
-dest = "ST4845_PE_FE"
+dest = "Li4910_Px_BladeStopUpstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4845_PE_FE"
+comment = "BNI005L input | IO 117 2A | Zone 4910 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11700IM_P2.Inputs.B"
 source_instruction = "XIC"
-dest = "ST4845_PE_RE"
+dest = "Li4910_Px_BladeStopUpstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4845_PE_RE"
+comment = "BNI005L input | IO 117 2B | Zone 4910 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11700IM_P3.Inputs.A"
 source_instruction = "XIC"
-dest = "CT4850_FE_Conv"
+dest = "Li4910_Px_BladeStopDownstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for CT4850_FE_Conv"
+comment = "BNI005L input | IO 117 3A | Zone 4910 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_11700IM_P3.Inputs.B"
 source_instruction = "XIC"
-dest = "CT4850_RE_Conv"
+dest = "Li4910_Px_BladeStopDownstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for CT4850_RE_Conv"
+comment = "BNI005L input | IO 117 3B | Zone 4910 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_12200IM_P0.Inputs.A"
 source_instruction = "XIC"
-dest = "CT4850_FE_Chain"
+dest = "Li4930_Px_BladeStopUpstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for CT4850_FE_Chain"
+comment = "BNI005L input | IO 122 0A | Zone 4930 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_12200IM_P0.Inputs.B"
 source_instruction = "XIC"
-dest = "CT4850_RE_Chain"
+dest = "Li4930_Px_BladeStopUpstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for CT4850_RE_Chain"
+comment = "BNI005L input | IO 122 0B | Zone 4930 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_12200IM_P1.Inputs.A"
 source_instruction = "XIC"
-dest = "Li4860_PE_FE"
+dest = "Li4930_Px_BladeStopDownstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4860_PE_FE"
+comment = "BNI005L input | IO 122 1A | Zone 4930 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_12200IM_P1.Inputs.B"
 source_instruction = "XIC"
-dest = "Li4860_PE_RE"
+dest = "Li4930_Px_BladeStopDownstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4860_PE_RE"
+comment = "BNI005L input | IO 122 1B | Zone 4930 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_12200IM_P2.Inputs.A"
 source_instruction = "XIC"
-dest = "ST4870_PE_FE"
+dest = "Li4960_Px_BladeStopUpstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4870_PE_FE"
+comment = "BNI005L input | IO 122 2A | Zone 4960 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_12200IM_P2.Inputs.B"
 source_instruction = "XIC"
-dest = "ST4870_PE_RE"
+dest = "Li4960_Px_BladeStopUpstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4870_PE_RE"
+comment = "BNI005L input | IO 122 2B | Zone 4960 | Blade Stop Upstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_12200IM_P3.Inputs.A"
 source_instruction = "XIC"
-dest = "ST4880_PE_FE"
+dest = "Li4960_Px_BladeStopDownstream_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4880_PE_FE"
+comment = "BNI005L input | IO 122 3A | Zone 4960 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_12200IM_P3.Inputs.B"
 source_instruction = "XIC"
-dest = "ST4880_PE_RE"
+dest = "Li4960_Px_BladeStopDownstream_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4880_PE_RE"
+comment = "BNI005L input | IO 122 3B | Zone 4960 | Blade Stop Downstream"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_12200IM_P4.Inputs.A"
 source_instruction = "XIC"
-dest = "Li4890_PE_FE"
+dest = "CT4990_Px_Transfer_Up"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4890_PE_FE"
+comment = "BNI005L input | IO 122 4A | Zone 4990 | XFER UP"
 
 [[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
+enabled = true
+source = "IOL_12200IM_P4.Inputs.B"
 source_instruction = "XIC"
-dest = "Li4890_PE_RE"
+dest = "CT4990_Px_Transfer_Down"
 dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4890_PE_RE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "ST4900_PE_FE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4900_PE_FE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "ST4900_PE_RE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4900_PE_RE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "Li4910_PE_FE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4910_PE_FE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "Li4910_PE_RE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4910_PE_RE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "ST4920_PE_FE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4920_PE_FE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "ST4920_PE_RE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4920_PE_RE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "Li4930_PE_FE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4930_PE_FE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "Li4930_PE_RE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4930_PE_RE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "ST4940_PE_FE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4940_PE_FE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "ST4940_PE_RE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4940_PE_RE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "ST4950_PE_FE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4950_PE_FE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "ST4950_PE_RE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4950_PE_RE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "Li4960_PE_FE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4960_PE_FE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "Li4960_PE_RE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for Li4960_PE_RE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "ST4970_PE_FE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4970_PE_FE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "ST4970_PE_RE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4970_PE_RE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "ST4980_PE_FE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4980_PE_FE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "ST4980_PE_RE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4980_PE_RE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "CT4990_FE_Conv"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for CT4990_FE_Conv"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "CT4990_RE_Conv"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for CT4990_RE_Conv"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "CT4990_FE_Chain"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for CT4990_FE_Chain"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "CT4990_RE_Chain"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for CT4990_RE_Chain"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "ST4995_PE_FE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4995_PE_FE"
-
-[[io_map.rungs]]
-enabled = false
-source = "TODO_SOURCE_TAG"
-source_instruction = "XIC"
-dest = "ST4995_PE_RE"
-dest_instruction = "OTE"
-comment = "Fill from electrical drawing for ST4995_PE_RE"
-
+comment = "BNI005L input | IO 122 4B | Zone 4990 | XFER DOWN"

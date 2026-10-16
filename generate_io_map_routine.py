@@ -10,6 +10,7 @@ It intentionally does NOT generate IO_Simulate, station programs, or module expo
 from __future__ import annotations
 
 import argparse
+import re
 import tomllib
 from dataclasses import dataclass
 from datetime import datetime
@@ -51,6 +52,7 @@ class IoMapConfig:
 	controller_name: str
 	program_name: str
 	routine_name: str
+	template_l5x: Path | None
 
 
 def _read_toml(path: Path) -> dict[str, Any]:
@@ -94,6 +96,8 @@ def _load_config(data: dict[str, Any], source_path: Path) -> IoMapConfig:
 	controller_name = str(io_map_cfg.get("controller_name", CONTROLLER_NAME)).strip() or CONTROLLER_NAME
 	program_name = str(io_map_cfg.get("program_name", PROGRAM_NAME)).strip() or PROGRAM_NAME
 	routine_name = str(io_map_cfg.get("routine_name", DEFAULT_ROUTINE_NAME)).strip() or DEFAULT_ROUTINE_NAME
+	template_l5x_raw = str(io_map_cfg.get("template_l5x", "")).strip()
+	template_l5x = _resolve_path(template_l5x_raw, base_dir=PROJECT_ROOT) if template_l5x_raw else None
 
 	return IoMapConfig(
 		output_dir=output_dir,
@@ -101,6 +105,7 @@ def _load_config(data: dict[str, Any], source_path: Path) -> IoMapConfig:
 		controller_name=controller_name,
 		program_name=program_name,
 		routine_name=routine_name,
+		template_l5x=template_l5x,
 	)
 
 
@@ -140,6 +145,101 @@ def _compose_balluff_comment(block_module: str, output_row: dict[str, Any]) -> s
 	return " | ".join(parts)
 
 
+def _derive_logical_dest_tag(zone: str, function: str) -> str:
+	zone_digits = "".join(ch for ch in zone if ch.isdigit())
+	function_key = function.strip().upper()
+	if not zone_digits:
+		raise RuntimeError(f"Could not derive logical destination tag zone from function '{function}'.")
+
+	if function_key == "XFER_SOL":
+		return f"CT{zone_digits}_Sol_Transfer_Up"
+	if function_key in {"LIFT_UP_SOL", "LIFT_SOL_UP"}:
+		return f"Li{zone_digits}_Lift_Up_Valves"
+	if function_key in {"LIFT_DOWN_SOL", "LIFT_SOL_DOWN_1", "LIFT_SOL_DOWN_2"}:
+		return f"Li{zone_digits}_Lift_Down_Valves"
+	if function_key == "BS1_SOL":
+		return f"Li{zone_digits}_Sol_BladeStopUpstream"
+	if function_key == "BS2_SOL":
+		return f"Li{zone_digits}_Sol_BladeStopDownstream"
+	if function_key == "BS_SOL":
+		return f"Li{zone_digits}_Sol_BladeStop"
+	if function_key in {"OMTEC_STRIPS_SOL", "OMTEC_SOL"}:
+		return f"ST{zone_digits}_OmtecStripSol"
+	if function_key in {"PULLER_SOL", "PULLER"}:
+		return f"ST{zone_digits}_PullerSol"
+
+	return f"ST{zone_digits}_{function_key.title().replace('_', '')}"
+
+
+def _balluff_output_tag(module: str, port: int, channel: str) -> str:
+	module_digits = "".join(ch for ch in module if ch.isdigit())
+	if not module_digits:
+		raise RuntimeError(f"Could not derive IO-Link tag prefix from module '{module}'.")
+	channel_bit = 0 if channel.strip().upper() != "B" else 1
+	return f"_{module_digits}IOL.Outputs.{port * 2 + channel_bit}"
+
+
+def _balluff_input_tag(source: str) -> str | None:
+	match = re.fullmatch(r"IOL_(\d+)IM_P(\d+)\.Inputs(?:\.([AB]))?", source.strip(), flags=re.IGNORECASE)
+	if not match:
+		return None
+	module_digits, port_text, channel = match.groups()
+	port = int(port_text)
+	channel_bit = 0 if (channel or "A").upper() != "B" else 1
+	return f"_{module_digits}IOL.Inputs.{port * 2 + channel_bit}"
+
+
+def _humanize_io_description(tag: str) -> str:
+	match = re.fullmatch(r"([A-Za-z]+)(\d+)_([A-Za-z0-9_]+)", tag.strip())
+	if not match:
+		return tag.strip()
+
+	_, _, body = match.groups()
+	words: list[str] = []
+	for raw_part in body.split("_"):
+		part = raw_part.strip()
+		if not part:
+			continue
+		upper = part.upper()
+		if upper == "BS1":
+			words.extend(["Blade", "Stop", "Upstream"])
+		elif upper == "BS2":
+			words.extend(["Blade", "Stop", "Downstream"])
+		elif upper in {"FE", "RE", "PE", "PX", "XFER", "OMTEC", "PB"}:
+			words.append(upper)
+		else:
+			words.append(part.replace("Stop", "Stop ").title().replace(" ", " "))
+	return " ".join(words)
+
+
+def _derive_balluff_input_comment(source: str, dest: str) -> str:
+	module_match = re.fullmatch(r"IOL_(\d+)IM_P(\d+)\.Inputs(?:\.([AB]))?", source.strip(), flags=re.IGNORECASE)
+	if not module_match:
+		return f"Input mapping | {source} | {dest}"
+
+	module_digits, port_text, channel = module_match.groups()
+	port = int(port_text)
+	channel_letter = (channel or "A").upper()
+	description = _humanize_io_description(dest)
+	zone_match = re.match(r"[A-Za-z]+(\d+)_", dest.strip())
+	zone_text = f"Zone {zone_match.group(1)} | " if zone_match else ""
+	return f"BNI005L input | IO {module_digits[0:3]} {port}{channel_letter} | {zone_text}{description}"
+
+
+def _normalize_balluff_output_comment(comment: str) -> str | None:
+	match = re.fullmatch(
+		r"BNI0091 output \| IO (\d+) ([0-9A-Z]+) \| Zone (\d+) \| (.+)",
+		comment.strip(),
+		flags=re.IGNORECASE,
+	)
+	if not match:
+		return None
+
+	module_digits, point_id, zone, function = match.groups()
+	function_key = "_".join(function.strip().upper().split())
+	return f"{module_digits}00OM {point_id} | Zone {zone} | {function_key}"
+
+
 def _load_io_rows_from_balluff(data: dict[str, Any], source_path: Path) -> list[IoMapRow]:
 	balluff_cfg = data.get("balluff")
 	if not isinstance(balluff_cfg, dict):
@@ -175,14 +275,12 @@ def _load_io_rows_from_balluff(data: dict[str, Any], source_path: Path) -> list[
 				continue
 
 			row_idx += 1
-			source = _require_nonempty_string(
-				output.get("logical_dest_tag"),
-				field_name=f"balluff.blocks[{block_idx}].outputs[{row_idx}].logical_dest_tag",
-			)
-			dest = _require_nonempty_string(
-				output.get("source_tag"),
-				field_name=f"balluff.blocks[{block_idx}].outputs[{row_idx}].source_tag",
-			)
+			zone = str(output.get("zone", "")).strip()
+			function = str(output.get("function", "")).strip()
+			source = str(output.get("logical_dest_tag", "")).strip() or _derive_logical_dest_tag(zone, function)
+			port = int(output.get("port", 0))
+			channel = str(output.get("channel", "")).strip()
+			dest = _balluff_output_tag(module, port, channel)
 			source_instruction = _parse_source_instruction(output.get("source_instruction"), row_idx=row_idx)
 			dest_instruction = _parse_dest_instruction(output.get("dest_instruction"), row_idx=row_idx)
 
@@ -229,13 +327,24 @@ def _load_io_rows_from_rungs(data: dict[str, Any], source_path: Path) -> list[Io
 			continue
 
 		source = _require_nonempty_string(row.get("source"), field_name=f"io_map.rungs[{idx}].source")
-		dest = _require_nonempty_string(row.get("dest"), field_name=f"io_map.rungs[{idx}].dest")
+		dest = _require_nonempty_string(row.get("logical_dest_tag", row.get("dest")), field_name=f"io_map.rungs[{idx}].dest")
+		balluff_comment_source = source
+		balluff_source = _balluff_input_tag(source)
+		if balluff_source is not None:
+			source = balluff_source
 		source_instruction = _parse_source_instruction(row.get("source_instruction"), row_idx=idx)
 		dest_instruction = _parse_dest_instruction(row.get("dest_instruction"), row_idx=idx)
 		comment_raw = row.get("comment")
 		comment = str(comment_raw).strip() if comment_raw is not None else None
-		if comment == "":
+		if comment == "" or (comment is not None and comment.lower().startswith("fill from electrical drawing")):
 			comment = None
+		elif comment is not None:
+			comment = " ".join(comment.split())
+			normalized_comment = _normalize_balluff_output_comment(comment)
+			if normalized_comment is not None:
+				comment = normalized_comment
+		if comment is None and balluff_source is not None:
+			comment = _derive_balluff_input_comment(balluff_comment_source, dest)
 
 		rows.append(
 			IoMapRow(
@@ -253,14 +362,44 @@ def _load_io_rows_from_rungs(data: dict[str, Any], source_path: Path) -> list[Io
 	return rows
 
 
-def _load_io_rows(data: dict[str, Any], source_path: Path) -> list[IoMapRow]:
+def _load_io_rows_from_source(data: dict[str, Any], source_path: Path) -> list[IoMapRow]:
+	rows: list[IoMapRow] = []
+
 	io_map_cfg = data.get("io_map")
 	if isinstance(io_map_cfg, dict) and isinstance(io_map_cfg.get("rungs"), list):
-		return _load_io_rows_from_rungs(data, source_path)
+		rows.extend(_load_io_rows_from_rungs(data, source_path))
 
 	balluff_cfg = data.get("balluff")
 	if isinstance(balluff_cfg, dict) and isinstance(balluff_cfg.get("blocks"), list):
-		return _load_io_rows_from_balluff(data, source_path)
+		rows.extend(_load_io_rows_from_balluff(data, source_path))
+
+	return rows
+
+
+def _candidate_companion_paths(source_path: Path) -> list[Path]:
+	name = source_path.name
+	if name.endswith("_draft.toml"):
+		return [source_path.with_name(name.replace("_draft.toml", "_balluff_master.toml"))]
+	if name.endswith("_balluff_master.toml"):
+		return [source_path.with_name(name.replace("_balluff_master.toml", "_draft.toml"))]
+	return []
+
+
+def _load_io_rows(data: dict[str, Any], source_path: Path) -> list[IoMapRow]:
+	rows = _load_io_rows_from_source(data, source_path)
+	if rows:
+		for companion_path in _candidate_companion_paths(source_path):
+			if not companion_path.exists():
+				continue
+			companion_data = _read_toml(companion_path)
+			companion_rows = _load_io_rows_from_source(companion_data, companion_path)
+			if source_path.name.endswith("_draft.toml"):
+				rows = companion_rows + rows
+			else:
+				rows.extend(companion_rows)
+			break
+		if rows:
+			return rows
 
 	raise RuntimeError(
 		f"No IO map rows found in {source_path}. Provide either [[io_map.rungs]] or [[balluff.blocks.outputs]]."
@@ -270,6 +409,7 @@ def _load_io_rows(data: dict[str, Any], source_path: Path) -> list[IoMapRow]:
 def _make_rung(number: int, text: str, comment: str | None = None) -> etree._Element:
 	rung = etree.Element("Rung", Number=str(number), Type="N")
 	if comment:
+		comment = " ".join(comment.split())
 		comment_el = etree.SubElement(rung, "Comment")
 		comment_el.text = etree.CDATA(comment)
 	text_el = etree.SubElement(rung, "Text")
@@ -374,7 +514,8 @@ def main(io_map_toml: Path, template_l5x: Path | None) -> None:
 	data = _read_toml(io_map_toml)
 	config = _load_config(data, io_map_toml)
 	rows = _load_io_rows(data, io_map_toml)
-	out = write_io_map_l5x(config, rows, template_path=template_l5x)
+	selected_template = config.template_l5x if config.template_l5x is not None else template_l5x
+	out = write_io_map_l5x(config, rows, template_path=selected_template)
 
 	print(f"IO map rows generated: {len(rows)}")
 	print(f"Routine name: {config.routine_name}")

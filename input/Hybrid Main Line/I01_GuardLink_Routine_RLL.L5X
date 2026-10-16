@@ -1,0 +1,498 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--GuardLink-->
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="I01_GuardLink" TargetType="Routine" TargetSubType="RLL" TargetClass="Safety" ContainsContext="true" ExportDate="Wed Sep 30 09:36:05 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<Controller Use="Context" Name="Test">
+<DataTypes Use="Context">
+<DataType Name="UDT_GuardLink_Ch_Unlk_Sfty" Family="NoFamily" Class="User">
+<Description>
+<![CDATA[GuardLink Channel Safety]]>
+</Description>
+<Members>
+<Member Name="Unlock" DataType="AOI_GuardLinkLock" Dimension="0" Radix="NullType" Hidden="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Unlock]]>
+</Description>
+</Member>
+<Member Name="ZZZZZZZZZZUDT_GuardL1" DataType="SINT" Dimension="0" Radix="Decimal" Hidden="true" ExternalAccess="Read/Write"/>
+<Member Name="LkReqNewSfty" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZUDT_GuardL1" BitNumber="0" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Lock Request New
+(Safety Mapped)]]>
+</Description>
+</Member>
+<Member Name="UnlkCmd" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZUDT_GuardL1" BitNumber="1" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Unlock Command]]>
+</Description>
+</Member>
+<Member Name="UnlkReqNewSfty" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZUDT_GuardL1" BitNumber="2" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Unlock Request New
+(Safety Mapped)]]>
+</Description>
+</Member>
+<Member Name="UnlkReqSfty" DataType="BIT" Dimension="0" Radix="Decimal" Hidden="false" Target="ZZZZZZZZZZUDT_GuardL1" BitNumber="3" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Unlock Request
+(Safety Mapped)]]>
+</Description>
+</Member>
+</Members>
+<Dependencies>
+<Dependency Type="AddOnInstructionDefinition" Name="AOI_GuardLinkLock"/>
+</Dependencies>
+</DataType>
+</DataTypes>
+<AddOnInstructionDefinitions Use="Context">
+<AddOnInstructionDefinition Name="AOI_GuardLinkLock" Class="Safety" Revision="1.0" ExecutePrescan="false" ExecutePostscan="false" ExecuteEnableInFalse="true" CreatedDate="2024-10-11T17:40:07.106Z" CreatedBy="AzureWin10\LabUser" EditedDate="2025-12-16T18:41:22.230Z" EditedBy="Win11\labuser" SoftwareRevision="v38.00"
+>
+<RevisionNote>
+<![CDATA[10/11/2024]]>
+</RevisionNote>
+<Parameters>
+<Parameter Name="EnableIn" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Input - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="EnableOut" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="false" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Enable Output - System Defined Parameter]]>
+</Description>
+</Parameter>
+<Parameter Name="Cfg_Channel_DeviceCount" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Configuration
+GuardLink Channel
+Expected Node Count]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Cfg_LockFbkTime" TagType="Base" DataType="DINT" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Configuration Lock Feedback Time (ms)]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inp_ModuleName_I" TagType="Base" DataType="AB:5000_GL3:I:0" Usage="InOut" Required="true" Visible="true" Constant="false"/>
+<Parameter Name="Inp_GL_Ch_I" TagType="Base" DataType="CHANNEL_GL:I:0" Usage="InOut" Required="true" Visible="true" Constant="false">
+<Description>
+<![CDATA[Input
+GuardLink Channel]]>
+</Description>
+</Parameter>
+<Parameter Name="Out_GL_Ch_O" TagType="Base" DataType="CHANNEL_GL:O:0" Usage="InOut" Required="true" Visible="true" Constant="false">
+<Description>
+<![CDATA[Output
+GuardLink Channel]]>
+</Description>
+</Parameter>
+<Parameter Name="Inp_LkReqNew" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="None">
+<Description>
+<![CDATA[Input
+Lock Request New]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inp_UnlkCmd" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Input
+Unlock Command]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Inp_UnlkReqNew" TagType="Base" DataType="BOOL" Usage="Input" Radix="Decimal" Required="true" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Input
+Unlock Request New]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="LockSequence" TagType="Base" DataType="DINT" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="None">
+<Description>
+<![CDATA[0 = Initialize
+100 = Unlocked    
+200 = Lock Cmd   
+300 = Lock Cmd/Opn 
+400 = Closed/Locked
+500 = Unlock Cmd]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="DINT" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Out_Ch_RunRdy" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Output
+Channel Run Ready]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Out_LockUnlockEn_Sts" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read Only">
+<Description>
+<![CDATA[Output
+Lock Unlock Enable
+Status]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Out_LockCmdStd" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Output
+Lock Command
+(Safety to Standard)]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+<Parameter Name="Out_UnLockCmdStd" TagType="Base" DataType="BOOL" Usage="Output" Radix="Decimal" Required="false" Visible="true" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Output
+Unlock Command
+(Safety to Standard)]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</Parameter>
+</Parameters>
+<LocalTags>
+<LocalTag Name="StartupTmr" DataType="TIMER" ExternalAccess="None">
+<Description>
+<![CDATA[Startup Timer]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,500,500]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="500"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="500"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="LockTmr" DataType="TIMER" ExternalAccess="None">
+<Description>
+<![CDATA[Lock Timer
+Hold Signal]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,500,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="500"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="UnlockTmr" DataType="TIMER" ExternalAccess="None">
+<Description>
+<![CDATA[UnLock Timer
+Hold Signal]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,500,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="500"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="LockFbkTmr" DataType="TIMER" ExternalAccess="None">
+<Description>
+<![CDATA[Lock Feedback Timer]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[[0,0,0]]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<Structure DataType="TIMER">
+<DataValueMember Name="PRE" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="ACC" DataType="DINT" Radix="Decimal" Value="0"/>
+<DataValueMember Name="EN" DataType="BOOL" Value="0"/>
+<DataValueMember Name="TT" DataType="BOOL" Value="0"/>
+<DataValueMember Name="DN" DataType="BOOL" Value="0"/>
+</Structure>
+</DefaultData>
+</LocalTag>
+<LocalTag Name="Closed_Lock_State" DataType="BOOL" Radix="Decimal" ExternalAccess="None">
+<Description>
+<![CDATA[Channel
+Closed and Locked State]]>
+</Description>
+<DefaultData Format="L5K">
+<![CDATA[0]]>
+</DefaultData>
+<DefaultData Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</DefaultData>
+</LocalTag>
+</LocalTags>
+<Routines>
+<Routine Name="EnableInFalse" Type="RLL">
+<Description>
+<![CDATA[EnableInFalse]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Text>
+<![CDATA[OTU(Out_GL_Ch_O.LockUnlockEn)OTU(Out_Ch_RunRdy);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+<Routine Name="Logic" Type="RLL">
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Intialize Timers
+LockFbkTmr.Pre setup is configured for system Close/Lock response and may be system size and device locking time dependent.
+]]>
+</Comment>
+<Text>
+<![CDATA[MOVE(500,StartupTmr.PRE)MOVE(500,LockTmr.PRE)MOVE(500,UnlockTmr.PRE)MOVE(Cfg_LockFbkTime,LockFbkTmr.PRE);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[Intialize Sequence on loss of Run Mode OR First Scan
+250ms was tested minimum]]>
+</Comment>
+<Text>
+<![CDATA[[XIO(S:FS) XIC(Inp_ModuleName_I.RunMode) TON(StartupTmr,?,?) ,[XIO(StartupTmr.DN) ,XIO(Inp_ModuleName_I.RunMode) ] MOVE(0,LockSequence) ];]]>
+</Text>
+</Rung>
+<Rung Number="2" Type="N">
+<Comment>
+<![CDATA[Initialize
+Do not send GuardLink Lock/Unlock commands until 500ms into RunMode]]>
+</Comment>
+<Text>
+<![CDATA[EQ(LockSequence,0)XIC(Inp_ModuleName_I.RunMode)XIC(StartupTmr.DN)[XIO(Inp_UnlkCmd) MOVE(200,LockSequence) ,XIC(Inp_UnlkCmd) MOVE(500,LockSequence) ];]]>
+</Text>
+</Rung>
+<Rung Number="3" Type="N">
+<Comment>
+<![CDATA[Unlocked
+Goto Lock Command when loss of Unlock Command or a new Lock Request
+Goto Unlock Command if a new Unlock Request]]>
+</Comment>
+<Text>
+<![CDATA[EQ(LockSequence,100)[[XIO(Inp_UnlkCmd) ,XIC(Inp_LkReqNew) ] MOVE(200,LockSequence) ,XIC(Inp_UnlkCmd) XIC(Inp_UnlkReqNew) MOVE(500,LockSequence) ];]]>
+</Text>
+</Rung>
+<Rung Number="4" Type="N">
+<Comment>
+<![CDATA[Lock Command
+Turn on LockUnlockEn and command the standard task to issue a lock command.
+350ms was tested minimum effective signal]]>
+</Comment>
+<Text>
+<![CDATA[EQ(LockSequence,200)[OTL(Out_GL_Ch_O.LockUnlockEn) OTE(Out_LockCmdStd) TON(LockTmr,?,?) ,XIC(LockTmr.DN) OTU(Out_GL_Ch_O.LockUnlockEn) MOVE(300,LockSequence) ];]]>
+</Text>
+</Rung>
+<Rung Number="5" Type="N">
+<Comment>
+<![CDATA[Lock Command GD Open
+Timers allows time to receive closed/locked feedback, else return to Unlocked
+LockFbkTmr.Pre setup is configured for system Close/Lock response and may be system size and device locking time dependent.
+Goto Closed/Lock on I.Status
+]]>
+</Comment>
+<Text>
+<![CDATA[EQ(LockSequence,300)[TON(LockFbkTmr,?,?) XIC(LockFbkTmr.DN) MOVE(100,LockSequence) ,XIC(Inp_GL_Ch_I.Status) MOVE(400,LockSequence) ];]]>
+</Text>
+</Rung>
+<Rung Number="6" Type="N">
+<Comment>
+<![CDATA[Closed and Locked ]]>
+</Comment>
+<Text>
+<![CDATA[EQ(LockSequence,400)[OTE(Closed_Lock_State) ,XIC(Inp_UnlkCmd) MOVE(500,LockSequence) ];]]>
+</Text>
+</Rung>
+<Rung Number="7" Type="N">
+<Comment>
+<![CDATA[Unlock Command
+350ms was tested minimum]]>
+</Comment>
+<Text>
+<![CDATA[EQ(LockSequence,500)[OTL(Out_GL_Ch_O.LockUnlockEn) OTE(Out_UnLockCmdStd) TON(UnlockTmr,?,?) ,XIC(UnlockTmr.DN) XIO(Inp_GL_Ch_I.Status) OTU(Out_GL_Ch_O.LockUnlockEn) MOVE(100,LockSequence) ];]]>
+</Text>
+</Rung>
+<Rung Number="8" Type="N">
+<Comment>
+<![CDATA[Status for use in Safety Functions
+Verify the detected device count is equal to the expected number.
+Must be in closed and lock state
+]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Inp_GL_Ch_I.Status)EQ(Inp_GL_Ch_I.DeviceCount,Cfg_Channel_DeviceCount)XIC(Closed_Lock_State)OTE(Out_Ch_RunRdy);]]>
+</Text>
+</Rung>
+<Rung Number="9" Type="N">
+<Comment>
+<![CDATA[Status for display on AOI ]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Out_GL_Ch_O.LockUnlockEn)OTE(Out_LockUnlockEn_Sts);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+</Routines>
+<Dependencies>
+<Dependency Type="DataType" Name="CHANNEL_GL:O:0"/>
+</Dependencies>
+</AddOnInstructionDefinition>
+</AddOnInstructionDefinitions>
+<Tags Use="Context">
+<Tag Name="GuardLink01_Ch0" Class="Safety" TagType="Base" DataType="UDT_GuardLink_Ch_Unlk_Sfty" Constant="false" ExternalAccess="Read/Write">
+<Data Format="L5K">
+<![CDATA[[[547,3,1500,400,[-1609328391,500,500],[1194965,500,0],[1062465,500,0],[1195185,1500,0]],0]]]>
+</Data>
+<Data Format="Decorated">
+<Structure DataType="UDT_GuardLink_Ch_Unlk_Sfty">
+<StructureMember Name="Unlock" DataType="AOI_GuardLinkLock">
+<DataValueMember Name="EnableIn" DataType="BOOL" Value="1"/>
+<DataValueMember Name="EnableOut" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Cfg_Channel_DeviceCount" DataType="DINT" Radix="Decimal" Value="3"/>
+<DataValueMember Name="Cfg_LockFbkTime" DataType="DINT" Radix="Decimal" Value="1500"/>
+<DataValueMember Name="Inp_LkReqNew" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inp_UnlkCmd" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Inp_UnlkReqNew" DataType="BOOL" Value="0"/>
+<DataValueMember Name="LockSequence" DataType="DINT" Radix="Decimal" Value="400"/>
+<DataValueMember Name="Out_Ch_RunRdy" DataType="BOOL" Value="1"/>
+<DataValueMember Name="Out_LockUnlockEn_Sts" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Out_LockCmdStd" DataType="BOOL" Value="0"/>
+<DataValueMember Name="Out_UnLockCmdStd" DataType="BOOL" Value="0"/>
+</StructureMember>
+<DataValueMember Name="LkReqNewSfty" DataType="BOOL" Value="0"/>
+<DataValueMember Name="UnlkCmd" DataType="BOOL" Value="0"/>
+<DataValueMember Name="UnlkReqNewSfty" DataType="BOOL" Value="0"/>
+<DataValueMember Name="UnlkReqSfty" DataType="BOOL" Value="0"/>
+</Structure>
+</Data>
+</Tag>
+<Tag Name="Safe_State" Class="Safety" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Zone
+Safe State]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+</Tags>
+<Programs Use="Context">
+<Program Use="Context" Name="SafetyProgram_S" Class="Safety">
+<Tags Use="Context">
+<Tag Name="Reset_GuardDoor_Lk" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[Zone Reset 
+Guard Door Lock]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+</Tags>
+<Routines Use="Context">
+<Routine Use="Target" Name="I01_GuardLink" Type="RLL">
+<Description>
+<![CDATA[GuardLink]]>
+</Description>
+<RLLContent>
+<Rung Number="0" Type="N">
+<Comment>
+<![CDATA[Hazard Safe is the safety bit required for the safety Unlk Command]]>
+</Comment>
+<Text>
+<![CDATA[XIC(Safe_State)XIC(GuardLink01_Ch0.UnlkReqSfty)XIO(Reset_GuardDoor_Lk)OTE(GuardLink01_Ch0.UnlkCmd);]]>
+</Text>
+</Rung>
+<Rung Number="1" Type="N">
+<Comment>
+<![CDATA[Lock Sequence:
+0 = Initialize
+100 = Unlocked    
+200 = Lock Cmd   
+300 = Lock Cmd/Opn 
+400 = Closed/Locked
+500 = Unlock Cmd]]>
+</Comment>
+<Text>
+<![CDATA[AOI_GuardLinkLock(GuardLink01_Ch0.Unlock,3,1500,GuardLink01:I,GuardLink01:I.Ch0,GuardLink01:O.Ch0,GuardLink01_Ch0.LkReqNewSfty,GuardLink01_Ch0.UnlkCmd,GuardLink01_Ch0.UnlkReqNewSfty);]]>
+</Text>
+</Rung>
+</RLLContent>
+</Routine>
+</Routines>
+</Program>
+</Programs>
+</Controller>
+</RSLogix5000Content>

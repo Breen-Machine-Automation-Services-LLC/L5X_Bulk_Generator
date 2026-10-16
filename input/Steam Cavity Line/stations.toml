@@ -5,6 +5,7 @@ template_dir = "input/Templates"
 [templates]
 Lift = "Lift_Standard_Code_Program.L5X"
 Queue = "Staight_Track_Standard_Code_Program.L5X"
+Kickout = "Kickout_Standard_Code_Program.L5X"
 Transfer = "Chain_Transfer_Standard_Code_Program.L5X"
 Tester = "Staight_Track_Standard_Code_Program.L5X"
 Gravity = "Gravity_Standard_Code_Program.L5X"
@@ -12,6 +13,7 @@ Gravity = "Gravity_Standard_Code_Program.L5X"
 [type_prefix]
 Lift = "Li"
 Queue = "ST"
+Kickout = "ST"
 Transfer = "CT"
 Tester = "ST"
 Gravity = "ST"
@@ -28,20 +30,20 @@ data = [
     { number = 340, type = "Transfer", conv_upstream = 0, conv_downstream = 350, chain_upstream = 330, chain_downstream = 0 },
     { number = 350, type = "Lift", prev = 340, next = 360 },
     { number = 360, type = "Transfer", conv_upstream = 350, conv_downstream = 370, chain_upstream = 0, chain_downstream = 361 },
-    { number = 361, type = "Queue", prev = 360, next = 0, isWorkstation = true, isMES = 1234 },
+    { number = 361, type = "Kickout", prev = 360, next = 0, isWorkstation = true, isMES = 1234 },
     { number = 370, type = "Queue", prev = 360, next = 380 },
     { number = 380, type = "Transfer", conv_upstream = 370, conv_downstream = 390, chain_upstream = 0, chain_downstream = 381 },
-    { number = 381, type = "Queue", prev = 380, next = 0, isWorkstation = true, isMES = 1234 },
+    { number = 381, type = "Kickout", prev = 380, next = 0, isWorkstation = true, isMES = 1234 },
     { number = 390, type = "Lift", prev = 380, next = 400 },
     { number = 400, type = "Queue", prev = 390, next = 410 },
     { number = 410, type = "Transfer", conv_upstream = 400, conv_downstream = 420, chain_upstream = 0, chain_downstream = 411 },
-    { number = 411, type = "Queue", prev = 410, next = 0, isWorkstation = true, isMES = 1234 },
+    { number = 411, type = "Lift", prev = 410, next = 0, isWorkstation = true, isMES = 1234 },
     { number = 420, type = "Queue", prev = 410, next = 430 },
-    { number = 430, type = "Transfer", conv_upstream = 420, conv_downstream = 440, chain_upstream = 0, chain_downstream = 0 },
-    { number = 431, type = "Queue", prev = 430, next = 0 },
+    { number = 430, type = "Transfer", conv_upstream = 420, conv_downstream = 440, chain_upstream = 0, chain_downstream = 431 },
+    { number = 431, type = "Lift", prev = 430, next = 0, isWorkstation = true },
     { number = 440, type = "Transfer", conv_upstream = 430, conv_downstream = 0, chain_upstream = 0, chain_downstream = 450 },
     { number = 450, type = "Queue", prev = 440, next = 460 },
-    { number = 459, type = "Queue", prev = 460, next = 0, isWorkstation = true },
+    { number = 459, type = "Queue", prev = 460, next = 0 },
     { number = 460, type = "Transfer", conv_upstream = 459, conv_downstream = 470, chain_upstream = 450, chain_downstream = 0 },
     { number = 470, type = "Lift", prev = 460, next = 480, isWorkstation = true, isMES = 1234 },
     { number = 480, type = "Queue", prev = 470, next = 490 },
@@ -59,22 +61,22 @@ data = [
     { number = 600, type = "Transfer", conv_upstream = 590, conv_downstream = 0, chain_upstream = 0, chain_downstream = 610 },
     { number = 610, type = "Queue", prev = 600, next = 620 },
     { number = 620, type = "Transfer", conv_upstream = 0, conv_downstream = 630, chain_upstream = 610, chain_downstream = 621 },
-    { number = 621, type = "Queue", prev = 620, next = 0, isWorkstation = true, isMES = 1234 },
+    { number = 621, type = "Kickout", prev = 620, next = 0, isWorkstation = true, isMES = 1234 },
     { number = 630, type = "Queue", prev = 620, next = 640 },
     { number = 640, type = "Transfer", conv_upstream = 630, conv_downstream = 650, chain_upstream = 0, chain_downstream = 641 },
-    { number = 641, type = "Queue", prev = 640, next = 0, isWorkstation = true, isMES = 1234 },
+    { number = 641, type = "Kickout", prev = 640, next = 0, isWorkstation = true, isMES = 1234 },
     { number = 650, type = "Queue", prev = 640, next = 660 },
     { number = 660, type = "Transfer", conv_upstream = 650, conv_downstream = 670, chain_upstream = 0, chain_downstream = 661 },
-    { number = 661, type = "Queue", prev = 660, next = 0, isWorkstation = true, isMES = 1234 },
+    { number = 661, type = "Kickout", prev = 660, next = 0, isWorkstation = true, isMES = 1234 },
     { number = 670, type = "Lift", prev = 660, next = 680, isWorkstation = true, isMES = 1234 },
     { number = 680, type = "Queue", prev = 670, next = 690 },
     { number = 690, type = "Queue", prev = 680, next = 700, isWorkstation = true, isMES = 1234 },
     { number = 700, type = "Transfer", conv_upstream = 690, conv_downstream = 701, chain_upstream = 0, chain_downstream = 710 },
     { number = 701, type = "Queue", prev = 700, next = 0, isWorkstation = true },
     { number = 710, type = "Queue", prev = 700, next = 720 },
-    { number = 720, type = "Queue", prev = 710, next = 726 },
-    { number = 726, type = "Queue", prev = 720, next = 730 },
-    { number = 730, type = "Queue", prev = 726, next = 740 },
+    { number = 720, type = "Queue", prev = 710, next = 725 },
+    { number = 725, type = "Queue", prev = 720, next = 730 },
+    { number = 730, type = "Queue", prev = 725, next = 740 },
     { number = 740, type = "Queue", prev = 730, next = 750 },
     { number = 750, type = "Transfer", conv_upstream = 740, conv_downstream = 0, chain_upstream = 0, chain_downstream = 760 },
     { number = 760, type = "Queue", prev = 750, next = 770 },
