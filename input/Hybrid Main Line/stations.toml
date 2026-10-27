@@ -170,9 +170,9 @@ data = [
     { number = 7228, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7227, chain_upstream = 7230, chain_downstream = 0, hasRoute = true},
     { number = 7229, type = "Gravity",    safety = "Safety_Zone10_OK.DN", prev = 7230, next = 0, hasRoute=true },
     { number = 7230, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 0,    conv_downstream = 7229, chain_upstream = 7224, chain_downstream = 7228, hasRoute = true},
-    { number = 7234, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7140, next = 7236, hasRoute = true},
-    { number = 7236, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7234, next = 7238},
-    { number = 7238, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7236, next = 7240},
-    { number = 7240, type = "Tester",      safety = "Safety_Zone10_OK.DN", prev = 7238, next = 7242},
+    { number = 7234, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7140, next = 7236, hasRoute = true},
+    { number = 7236, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7234, next = 7238},
+    { number = 7238, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7236, next = 7240},
+    { number = 7240, type = "Queue",      safety = "Safety_Zone10_OK.DN", prev = 7238, next = 7242},
     { number = 7242, type = "Transfer",   safety = "Safety_Zone10_OK.DN", conv_upstream = 7128, conv_downstream = 7244, chain_upstream = 7240, chain_downstream = 0},
 ]
