@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Kickout_Standard_Code" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Fri Oct 02 19:57:14 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
+<RSLogix5000Content SchemaRevision="1.0" SoftwareRevision="34.03" TargetName="Kickout_Standard_Code" TargetType="Program" TargetClass="Standard" ContainsContext="true" ExportDate="Wed Oct 28 15:58:44 2026" ExportOptions="References NoRawData L5KData DecoratedData Context Dependencies ForceProtectedEncoding AllProjDocTrans">
 <Controller Use="Context" Name="Standard_Code_Library">
 <DataTypes Use="Context">
 <DataType Name="SZG_MachineStats_V0" Family="NoFamily" Class="User">
@@ -123,6 +123,17 @@
 <Tag Name="Outfeed_InPosition_Placeholder" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
 <Description>
 <![CDATA[Use when transfer has more than one axis of movement - ex: downstream lift in position]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="Placeholder" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[delete me]]>
 </Description>
 <Data Format="L5K">
 <![CDATA[0]]>
@@ -1399,6 +1410,28 @@ Stop Photoeye]]>
 <DataValue DataType="DINT" Radix="Decimal" Value="0"/>
 </Data>
 </Tag>
+<Tag Name="STXXXX_Sol_OmtecStrip" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####) Raise Pop-Up Balls]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
+<Tag Name="STXXXX_Sol_Puller" Class="Standard" TagType="Base" DataType="BOOL" Radix="Decimal" Constant="false" ExternalAccess="Read/Write">
+<Description>
+<![CDATA[(####) Activate Puller Cylinder]]>
+</Description>
+<Data Format="L5K">
+<![CDATA[0]]>
+</Data>
+<Data Format="Decorated">
+<DataValue DataType="BOOL" Radix="Decimal" Value="0"/>
+</Data>
+</Tag>
 <Tag Name="STXXXX_State_Desc_HMI" Class="Standard" TagType="Base" DataType="STRING" Constant="false" ExternalAccess="Read/Write">
 <Data Format="L5K">
 <![CDATA[[16,'Waiting For Part$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00$00'
@@ -1638,6 +1671,16 @@ Output Triggers:
 <![CDATA[[EQU(State_WaitingForOperator,STXXXX.State) XIC(Sys_Slow_Blink) ,[EQU(State_WaitingForDownstream,STXXXX.State) ,EQU(State_Outfeeding,STXXXX.State) ] ]OTE(STXXXX_Release_Lt);]]>
 </Text>
 </Rung>
+<Rung Number="4" Type="N">
+<Text>
+<![CDATA[XIC(Placeholder)OTE(STXXXX_Sol_OmtecStrip);]]>
+</Text>
+</Rung>
+<Rung Number="5" Type="N">
+<Text>
+<![CDATA[XIC(Placeholder)OTE(STXXXX_Sol_Puller);]]>
+</Text>
+</Rung>
 </RLLContent>
 </Routine>
 <Routine Name="_XXXX_States" Type="RLL">
@@ -1669,7 +1712,7 @@ Infeeding part from upstream station
 ]]>
 </Comment>
 <Text>
-<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_WaitingForPart,STXXXX.State)EQU(State_WaitingForDownstream,STYYYY.State)EQU(Sys_Outfeed_Chain_Fwd_ID,STYYYY_Outfeed_Dest)XIO(STXXXX_PE_FE)MOV(State_Infeeding,STXXXX.State);]]>
+<![CDATA[EQU(Sys_Mode_CycleStarted,STXXXX.Mode)EQU(State_WaitingForPart,STXXXX.State)XIO(STXXXX_PE_FE)EQU(State_WaitingForDownstream,STYYYY.State)EQU(Sys_Outfeed_Chain_Fwd_ID,STYYYY_Outfeed_Dest)MOV(State_Infeeding,STXXXX.State);]]>
 </Text>
 </Rung>
 <Rung Number="2" Type="N">
