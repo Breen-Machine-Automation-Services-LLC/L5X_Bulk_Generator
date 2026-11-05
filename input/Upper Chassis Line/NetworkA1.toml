@@ -19,16 +19,20 @@ Switch    = "input/Templates/Stratix_Module.L5X"
 DLRTap    = "input/Templates/DLRTap_Module.L5X"
 
 [modules]
+# IP plan: shared subnet 10.200.25.0/24 across all 3 lines (single subnet provided for the project).
+# Upper Chassis Line block: .150-.199. Panel devices .150-.154 (incl. HMI, type="None" so the generator skips it),
+# small gap .155-.159, field BNI006A masters .160-.164, growth reserve .165-.199.
 data = [
-    { name="Switch_MCP",      type="Switch",   ParentModule="Local", Address="10.200.201.10" },
-    { name="SIO_MCP",         type="PIO",      ParentModule="Local", Address="10.200.201.20" },
-    { name="SIO_Master6500",  type="GLMaster", ParentModule="Local", Address="10.200.201.90" },
-    { name="ELR4024",         type="ELR",      ParentModule="Local", Address="10.200.201.21" },
-    { name="_10000IOL", type="BNI006A",  ParentModule="Local", Address="10.200.201.100" },
-    { name="_10500IOL", type="BNI006A",  ParentModule="Local", Address="10.200.201.101" },
-    { name="_11000IOL", type="BNI006A",  ParentModule="Local", Address="10.200.201.102" },
-    { name="_11500IOL", type="BNI006A",  ParentModule="Local", Address="10.200.201.103" },
-    { name="_12000IOL", type="BNI006A",  ParentModule="Local", Address="10.200.201.104" },
+    { name="Switch_MCP",      type="Switch",   ParentModule="Local", Address="10.200.25.150" },
+    { name="SIO_MCP",         type="PIO",      ParentModule="Local", Address="10.200.25.151" },
+    { name="HMI",              type="None",                          Address="10.200.25.152" },
+    { name="ELR4024",         type="ELR",      ParentModule="Local", Address="10.200.25.153" },
+    { name="SIO_Master6500",  type="GLMaster", ParentModule="Local", Address="10.200.25.154" },
+    { name="_10000IOL", type="BNI006A",  ParentModule="Local", Address="10.200.25.160" },
+    { name="_10500IOL", type="BNI006A",  ParentModule="Local", Address="10.200.25.161" },
+    { name="_11000IOL", type="BNI006A",  ParentModule="Local", Address="10.200.25.162" },
+    { name="_11500IOL", type="BNI006A",  ParentModule="Local", Address="10.200.25.163" },
+    { name="_12000IOL", type="BNI006A",  ParentModule="Local", Address="10.200.25.164" },
     { name="SI_4830",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="3",	Address="0" },
 	{ name="SI_4800",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="3",	Address="1" },
 	{ name="SI_4780",	type="GLTap",	ParentModule="SIO_Master6500",	ParentModPortId="3",	Address="2" },

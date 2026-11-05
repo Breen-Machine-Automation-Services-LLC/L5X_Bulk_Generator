@@ -19,12 +19,16 @@ Switch    = "input/Templates/Stratix_Module.L5X"
 DLRTap    = "input/Templates/DLRTap_Module.L5X"
 
 [modules]
+# IP plan: shared subnet 10.200.25.0/24 across all 3 lines (single subnet provided for the project).
+# Steam Cavity Line block: .80-.129. Panel devices .80-.84 (incl. HMI, type="None" so the generator skips it),
+# small gap .85-.89, field BNI006A masters .90-.92, growth reserve .93-.129. Large gap .130-.149 before the next line.
 data = [
-    { name="Switch_MCP",      type="Switch",   ParentModule="Local", Address="10.200.202.10" },
-    { name="SIO_MCP",         type="PIO",      ParentModule="Local", Address="10.200.202.20" },
-    { name="SIO_Master6500",  type="GLMaster", ParentModule="Local", Address="10.200.202.90" },
-    { name="ELR4024",         type="ELR",      ParentModule="Local", Address="10.200.202.21" },
-    { name="_10000IOL", type="BNI006A",  ParentModule="Local", Address="10.200.202.100" },
-    { name="_10500IOL", type="BNI006A",  ParentModule="Local", Address="10.200.202.101" },
-    { name="_11000IOL", type="BNI006A",  ParentModule="Local", Address="10.200.202.102" },    
+    { name="Switch_MCP",      type="Switch",   ParentModule="Local", Address="10.200.25.80" },
+    { name="HMI",              type="None",                          Address="10.200.25.81" },
+    { name="SIO_MCP",         type="PIO",      ParentModule="Local", Address="10.200.25.82" },
+    { name="SIO_Master6500",  type="GLMaster", ParentModule="Local", Address="10.200.25.83" },
+    { name="ELR4024",         type="ELR",      ParentModule="Local", Address="10.200.25.84" },
+    { name="_10000IOL", type="BNI006A",  ParentModule="Local", Address="10.200.25.90" },
+    { name="_10500IOL", type="BNI006A",  ParentModule="Local", Address="10.200.25.91" },
+    { name="_11000IOL", type="BNI006A",  ParentModule="Local", Address="10.200.25.92" },    
 ]

@@ -152,6 +152,8 @@ def main(toml_path: Path) -> None:
     modules_out: list[etree._Element] = []
     for m in modules_cfg:
         module_type = m["type"]
+        if module_type.strip().lower() == "none":
+            continue  # address reservation only (e.g. HMI); not part of the module/IO tree
         module_template = get_template_for_type(module_type)
 
         parent_name = m["ParentModule"]
